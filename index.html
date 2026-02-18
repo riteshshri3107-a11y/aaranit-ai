@@ -11,18 +11,14 @@
 <style>
   :root{--bg:#06080d;--bg2:#0c1018;--card:#10141e;--cyan:#00e5ff;--violet:#8b5cf6;--magenta:#d946ef;--text:#f0f2f8;--text2:#8892a8;--muted:#4a5568;--border:rgba(255,255,255,0.06)}
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;cursor:default}
   ::selection{background:var(--cyan);color:var(--bg)}
   ::-webkit-scrollbar{width:6px}
   ::-webkit-scrollbar-track{background:var(--bg)}
   ::-webkit-scrollbar-thumb{background:var(--violet);border-radius:3px}
 
-  /* ── LOADING SCREEN ── */
-  .loader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s,visibility .4s}
-  .loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-  .loader-ring{width:60px;height:60px;border:3px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite}
-  .loader-text{margin-top:1.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.1em}
+  /* loader removed */
 
   /* ── MOBILE DRAWER ── */
   .mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9998;opacity:0;visibility:hidden;transition:all .3s;backdrop-filter:blur(4px)}
@@ -245,13 +241,14 @@
   .nl-wrap button:hover{transform:scale(1.05)}
 
   /* ── REVEAL ── */
-  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
-  .reveal.visible{opacity:1;transform:translateY(0)}
-  .reveal.visible.delay-1{transition-delay:.1s}
-  .reveal.visible.delay-2{transition-delay:.2s}
-  .reveal.visible.delay-3{transition-delay:.3s}
-  .reveal.visible.delay-4{transition-delay:.4s}
-  .reveal.visible.delay-5{transition-delay:.5s}
+  .reveal{opacity:1;transform:translateY(0);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+  body.ready .reveal{opacity:0;transform:translateY(40px)}
+  body.ready .reveal.visible{opacity:1;transform:translateY(0)}
+  body.ready .reveal.visible.delay-1{transition-delay:.1s}
+  body.ready .reveal.visible.delay-2{transition-delay:.2s}
+  body.ready .reveal.visible.delay-3{transition-delay:.3s}
+  body.ready .reveal.visible.delay-4{transition-delay:.4s}
+  body.ready .reveal.visible.delay-5{transition-delay:.5s}
 
   /* ── RESPONSIVE ── */
   @media(max-width:968px){
@@ -317,7 +314,7 @@
 </head>
 <body>
 
-
+<!-- Clean fast version -->
 
 <!-- SCROLL PROGRESS -->
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -531,9 +528,7 @@
 // PARTICLE SYSTEM
 // ══════════════════════════════════════════
 
-// LOADING SCREEN - fast dismiss
-window.addEventListener('load', () => document.getElementById('loader').classList.add('hidden'));
-setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1500); // failsafe
+// Page ready - enable animations after observer is set up
 
 // MOBILE DRAWER
 const mobileToggle = document.getElementById('mobileToggle');
@@ -631,6 +626,8 @@ const obs = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+// Enable animations only after observers are watching - content stays visible if JS fails
+document.body.classList.add('ready');
 
 // ══════════════════════════════════════════
 // SUPABASE + FORMS
@@ -746,4 +743,4 @@ async function sendMessage() {
 
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('chat-qr') && e.target.textContent === 'Go to contact form') {
-    chatToggle.classList.remove('active'); 
+    chatToggle.classList.remove('active');
