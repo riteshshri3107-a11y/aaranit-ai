@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaranit AI — Intelligence Redefined</title>
+<meta name="description" content="Custom AI development, hands-on tutoring, and industry-recognized certification programs. Aaranit AI — A division of 15439361 Canada Inc.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#06080d;--bg2:#0c1018;--card:#10141e;--cyan:#00e5ff;--violet:#8b5cf6;--magenta:#d946ef;--text:#f0f2f8;--text2:#8892a8;--muted:#4a5568;--border:rgba(255,255,255,0.06)}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;cursor:default}
+  ::selection{background:var(--cyan);color:var(--bg)}
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--violet);border-radius:3px}
+
+  /* ── LOADING SCREEN ── */
+  .loader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s,visibility .4s}
+  .loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+  .loader-ring{width:60px;height:60px;border:3px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite}
+  .loader-text{margin-top:1.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.1em}
+
+  /* ── MOBILE DRAWER ── */
+  .mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9998;opacity:0;visibility:hidden;transition:all .3s;backdrop-filter:blur(4px)}
+  .mobile-overlay.show{opacity:1;visibility:visible}
+  .mobile-drawer{position:fixed;top:0;right:-300px;width:280px;height:100vh;background:rgba(6,8,13,.98);backdrop-filter:blur(30px);padding:5rem 2rem 2rem;z-index:9999;transition:right .4s cubic-bezier(.4,0,.2,1);border-left:1px solid var(--border)}
+  .mobile-drawer.open{right:0}
+  .mobile-drawer a{display:block;color:var(--text2);text-decoration:none;font-size:1.05rem;font-weight:500;padding:.9rem 0;border-bottom:1px solid var(--border);transition:all .3s}
+  .mobile-drawer a:hover{color:var(--cyan);padding-left:.5rem}
+  .hamburger{width:24px;height:18px;position:relative;display:flex;flex-direction:column;justify-content:space-between}
+  .hamburger span{display:block;width:100%;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+  .mobile-toggle.active .hamburger span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
+  .mobile-toggle.active .hamburger span:nth-child(2){opacity:0}
+  .mobile-toggle.active .hamburger span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+  /* ── BACK TO TOP ── */
+  .back-top{position:fixed;bottom:96px;right:24px;width:42px;height:42px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9990;opacity:0;visibility:hidden;transform:translateY(10px);transition:all .3s}
+  .back-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+  .back-top:hover{border-color:var(--cyan);background:rgba(0,229,255,.06);transform:translateY(-3px)}
+
+  /* ── SCROLL PROGRESS BAR ── */
+  .scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));z-index:10001;transition:width .1s;width:0}
+
+  /* cursor glow removed for performance */
+
+  /* particles removed for performance */
+
+  /* ── NOISE OVERLAY ── */
+  body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998}
+
+  .gradient-text{background:linear-gradient(135deg,var(--cyan) 0%,var(--violet) 50%,var(--magenta) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradShift 6s ease infinite}
+  @keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-25px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes orbFloat{0%{transform:translate(0,0) scale(1)}100%{transform:translate(40px,-30px) scale(1.1)}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+  @keyframes breathe{0%,100%{opacity:.08}50%{opacity:.15}}
+  @keyframes borderGlow{0%,100%{border-color:rgba(0,229,255,.15)}50%{border-color:rgba(139,92,246,.25)}}
+  @keyframes breathe{0%,100%{opacity:.08}50%{opacity:.15}}
+  @keyframes slideRight{from{width:0}to{width:100%}}
+
+  /* ── TYPEWRITER CURSOR ── */
+  .typewriter-cursor{display:inline-block;width:3px;height:1em;background:var(--cyan);margin-left:4px;animation:blink 1s infinite}
+  @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+  /* ── NAV ── */
+  nav{position:fixed;top:0;left:0;right:0;z-index:10000;padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(6,8,13,.65);border-bottom:1px solid var(--border);transition:all .4s}
+  nav.scrolled{padding:.7rem 3rem;background:rgba(6,8,13,.95);box-shadow:0 4px 30px rgba(0,0,0,.3)}
+  .logo-wrap{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+  .logo-icon{width:42px;height:42px;transition:transform .3s}
+  .logo-wrap:hover .logo-icon{transform:rotate(10deg) scale(1.05)}
+  .logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem}
+  .nav-links{display:flex;gap:2.5rem;list-style:none}
+  .nav-links a{color:var(--text2);text-decoration:none;font-size:.88rem;font-weight:500;transition:color .3s;position:relative}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--cyan);transition:width .3s;border-radius:2px}
+  .nav-links a:hover{color:var(--text)}
+  .nav-links a:hover::after{width:100%}
+  .btn-glow{padding:.65rem 1.6rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;transition:all .3s;text-decoration:none;position:relative;overflow:hidden}
+  .btn-glow::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s}
+  .btn-glow:hover::before{left:100%}
+  .btn-glow:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,255,.25)}
+  .btn-out{padding:.65rem 1.6rem;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:50px;color:var(--text);font-family:'Syne',sans-serif;font-weight:600;font-size:.82rem;cursor:pointer;transition:all .3s;text-decoration:none}
+  .btn-out:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.05);transform:translateY(-2px)}
+  .mobile-toggle{display:none;background:0 0;border:none;cursor:pointer}
+
+  /* ── HERO ── */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:8rem 3rem 4rem;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;filter:blur(120px);animation:orbFloat 12s ease-in-out infinite alternate}
+  .orb.c{width:600px;height:600px;background:var(--cyan);top:-10%;left:-5%;opacity:.12}
+  .orb.v{width:500px;height:500px;background:var(--violet);bottom:-15%;right:-5%;opacity:.15;animation-delay:-6s}
+  .orb.m{width:300px;height:300px;background:var(--magenta);top:40%;right:20%;opacity:.08;animation-delay:-3s}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 60% 50% at 50% 50%,#000 30%,transparent 80%)}
+
+  /* Floating shapes in hero */
+  .hero-shape{position:absolute;border:1px solid;border-radius:4px;opacity:.1;animation:float 8s ease-in-out infinite}
+  .hero-shape.s1{width:60px;height:60px;border-color:var(--cyan);top:20%;left:8%;transform:rotate(45deg);animation-delay:0s}
+  .hero-shape.s2{width:40px;height:40px;border-color:var(--violet);top:60%;left:15%;border-radius:50%;animation-delay:-2s}
+  .hero-shape.s3{width:80px;height:80px;border-color:var(--magenta);top:30%;right:10%;animation-delay:-4s}
+  .hero-shape.s4{width:30px;height:30px;border-color:var(--cyan);bottom:25%;right:15%;border-radius:50%;animation-delay:-6s}
+  .hero-shape.s5{width:50px;height:50px;border-color:var(--violet);bottom:35%;left:25%;transform:rotate(30deg);animation-delay:-3s}
+
+  .hero-content{text-align:center;max-width:900px;position:relative;z-index:2}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.4rem;border-radius:50px;border:1px solid rgba(0,229,255,.2);background:rgba(0,229,255,.05);color:var(--cyan);font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2rem;animation:fadeDown .8s ease-out,borderGlow 3s ease infinite}
+  .badge .dot{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:pulse 2s infinite}
+  .hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.6rem,6vw,5rem);line-height:1.08;letter-spacing:-.03em;margin-bottom:1.5rem;animation:fadeUp .8s ease-out .15s both}
+  .hero p{font-size:1.15rem;color:var(--text2);max-width:620px;margin:0 auto 2.5rem;line-height:1.7;animation:fadeUp .8s ease-out .3s both}
+  .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s ease-out .45s both}
+
+  /* ANIMATED STATS */
+  .stats-bar{display:flex;justify-content:center;gap:4rem;padding:3rem;margin-top:1rem;animation:fadeUp .8s ease-out .6s both;flex-wrap:wrap}
+  .stat-item{text-align:center;position:relative}
+  .stat-num{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800}
+  .stat-label{font-size:.75rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-top:.3rem}
+  .stat-bar{width:60px;height:3px;margin:8px auto 0;border-radius:3px;background:rgba(255,255,255,.06);overflow:hidden}
+  .stat-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));width:0;transition:width 1.5s ease-out}
+
+  /* ── SECTIONS ── */
+  section{padding:6rem 3rem;position:relative;z-index:2}
+  .sec-label{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:.6rem}
+  .sec-label::before,.sec-label::after{content:'';width:30px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan))}
+  .sec-label::after{background:linear-gradient(90deg,var(--cyan),transparent)}
+  .sec-head{text-align:center;margin-bottom:4rem}
+  .sec-head h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.02em}
+  .sec-head p{color:var(--text2);max-width:560px;margin:1rem auto 0;font-size:1.02rem}
+  .sec-line{width:50px;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));margin:1.5rem auto 0;border-radius:3px}
+  .sec-line{width:60px;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));margin:1.2rem auto 0;border-radius:3px}
+
+  /* ── MARQUEE STRIP ── */
+  .marquee-strip{overflow:hidden;padding:1.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);position:relative;z-index:2}
+  .marquee-inner{display:flex;gap:3rem;animation:marquee 30s linear infinite;white-space:nowrap}
+  .marquee-item{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+  .marquee-item .mi-dot{width:5px;height:5px;border-radius:50%;background:var(--violet)}
+  @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* ── SERVICES ── */
+  #services{background:var(--bg2)}
+  .srv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto}
+  .srv-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.2rem;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;transform-style:preserve-3d}
+  .srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));background-size:200% 200%;animation:gradShift 3s ease infinite;opacity:0;transition:opacity .4s}
+  .srv-card::after{content:none}
+  .srv-card:hover{transform:translateY(-8px) scale(1.01);border-color:rgba(0,229,255,.15);box-shadow:0 25px 60px rgba(0,0,0,.5)}
+  .srv-card:hover::before{opacity:1}
+  .srv-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:1.5rem;position:relative;overflow:hidden}
+  .srv-icon::after{content:'';position:absolute;inset:0;border-radius:14px;background:linear-gradient(135deg,transparent,rgba(255,255,255,.1));opacity:0;transition:opacity .3s}
+  .srv-card:hover .srv-icon::after{opacity:1}
+  .srv-icon.c{background:rgba(0,229,255,.1)}.srv-icon.v{background:rgba(139,92,246,.1)}.srv-icon.m{background:rgba(217,70,239,.1)}
+  .srv-card h3{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:.75rem;transition:color .3s}
+  .srv-card:hover h3{color:var(--cyan)}
+  .srv-card p{color:var(--text2);font-size:.9rem;line-height:1.65}
+  .srv-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
+  .srv-tags span{padding:.25rem .7rem;background:rgba(255,255,255,.04);border-radius:50px;font-size:.7rem;color:var(--muted);letter-spacing:.03em;transition:all .3s}
+  .srv-card:hover .srv-tags span{background:rgba(0,229,255,.06);color:var(--text2)}
+  .srv-arrow{position:absolute;bottom:20px;right:20px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateX(-10px);transition:all .3s}
+  .srv-card:hover .srv-arrow{opacity:1;transform:translateX(0)}
+
+  /* ── CERTIFICATIONS ── */
+  .cert-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .cert-vis{position:relative}
+  .cert-bd{width:100%;max-width:380px;aspect-ratio:1;margin:0 auto;position:relative;display:flex;align-items:center;justify-content:center}
+  .cert-ring{position:absolute;border-radius:50%;border:1px solid}
+  .cert-ring:nth-child(1){width:100%;height:100%;border-color:rgba(0,229,255,.1);animation:spin 20s linear infinite}
+  .cert-ring:nth-child(2){width:75%;height:75%;border-color:rgba(139,92,246,.15);animation:spin 15s linear infinite reverse}
+  .cert-ring:nth-child(3){width:50%;height:50%;border-color:rgba(217,70,239,.12);animation:spin 10s linear infinite}
+  .cert-center{font-size:4rem;position:relative;z-index:2;filter:drop-shadow(0 0 30px rgba(139,92,246,.15));animation:breathe 4s ease infinite}
+  .cert-float{position:absolute;padding:.6rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:.75rem;font-weight:600;animation:float 4s ease-in-out infinite;white-space:nowrap;backdrop-filter:blur(10px)}
+  .cert-float:nth-child(5){top:5%;right:0}.cert-float:nth-child(6){bottom:15%;left:-5%;animation-delay:-1.5s}.cert-float:nth-child(7){bottom:5%;right:5%;animation-delay:-3s}
+  .cert-content h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,3.5vw,2.5rem);font-weight:800;letter-spacing:-.02em;margin-bottom:1.2rem}
+  .cert-content>p{color:var(--text2);font-size:1rem;line-height:1.7;margin-bottom:2rem}
+  .cert-list{display:flex;flex-direction:column;gap:1rem}
+  .cert-item{display:flex;gap:1rem;align-items:flex-start;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .3s;cursor:pointer}
+  .cert-item:hover{border-color:rgba(0,229,255,.2);transform:translateX(6px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+  .cert-item-icon{width:36px;height:36px;border-radius:8px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem}
+  .cert-item h4{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;margin-bottom:.2rem}
+  .cert-item p{font-size:.8rem;color:var(--muted)}
+
+  /* ── APPROACH ── */
+  #approach{background:var(--bg2)}
+  .app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:1100px;margin:0 auto}
+  .app-item{text-align:center;padding:2.5rem 1.5rem;border-radius:16px;border:1px solid var(--border);background:var(--card);transition:all .4s;position:relative;overflow:hidden}
+  .app-item::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .5s}
+  .app-item:hover{transform:translateY(-6px);border-color:rgba(139,92,246,.2);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .app-item:hover::after{width:100%}
+  .app-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(139,92,246,.15));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:1rem;transition:all .3s}
+  .app-item:hover .app-num{background:linear-gradient(135deg,rgba(0,229,255,.4),rgba(139,92,246,.4));-webkit-background-clip:text}
+  .app-item h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.6rem}
+  .app-item p{font-size:.83rem;color:var(--text2);line-height:1.6}
+
+  /* ── TESTIMONIALS ── */
+  .test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+  .test-card{padding:2rem;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .4s;position:relative}
+  .test-card::before{content:'"';position:absolute;top:16px;right:20px;font-size:4rem;font-family:serif;color:var(--violet);opacity:.1;line-height:1}
+  .test-card:hover{border-color:rgba(139,92,246,.15);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .test-stars{color:#fbbf24;font-size:.85rem;margin-bottom:1rem;letter-spacing:2px}
+  .test-card blockquote{font-size:.93rem;color:var(--text2);line-height:1.7;font-style:italic;margin-bottom:1.5rem}
+  .test-author{display:flex;align-items:center;gap:.75rem}
+  .test-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.82rem;color:var(--bg);position:relative}
+  .test-avatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid transparent;background:linear-gradient(135deg,var(--cyan),var(--violet)) border-box;mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);mask-composite:exclude;-webkit-mask-composite:xor;opacity:.5}
+  .test-name{font-weight:600;font-size:.88rem}
+  .test-role{font-size:.75rem;color:var(--muted)}
+
+  /* ── CTA ── */
+  .cta{padding:8rem 3rem;text-align:center;position:relative;overflow:hidden;background:var(--bg2)}
+  .cta-glow{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(150px);opacity:.1;animation:breathe 6s ease infinite}
+  .cta-glow.l{background:var(--cyan);left:10%;top:-30%}.cta-glow.r{background:var(--violet);right:10%;bottom:-30%;animation-delay:-3s}
+  .cta-content{position:relative;z-index:2}
+  .cta h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;margin-bottom:1.2rem}
+  .cta p{color:var(--text2);max-width:520px;margin:0 auto 2rem;font-size:1.05rem}
+
+  /* ── CONTACT FORM ── */
+  .contact-form{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .contact-form input,.contact-form select,.contact-form textarea{width:100%;padding:.85rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:all .3s}
+  .contact-form input::placeholder,.contact-form textarea::placeholder{color:var(--muted)}
+  .contact-form select{color:var(--muted)}
+  .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:rgba(0,229,255,.4);box-shadow:0 0 20px rgba(0,229,255,.05)}
+  .contact-form textarea{resize:none}
+  .form-btn{padding:1rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+  .form-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s}
+  .form-btn:hover::before{left:100%}
+  .form-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,229,255,.2)}
+  .form-msg{text-align:center;font-size:.85rem;color:var(--cyan)}
+
+  /* ── FOOTER ── */
+  footer{padding:4rem 3rem 2rem;background:var(--bg);border-top:1px solid var(--border);position:relative;z-index:2}
+  .ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto}
+  .ft-brand p{color:var(--muted);font-size:.85rem;line-height:1.6;max-width:300px;margin-top:.75rem}
+  .ft-col h4{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.2rem}
+  .ft-col ul{list-style:none}.ft-col li{margin-bottom:.6rem}
+  .ft-col a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:all .3s;display:inline-block}
+  .ft-col a:hover{color:var(--cyan);transform:translateX(4px)}
+  .ft-bottom{max-width:1200px;margin:3rem auto 0;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .ft-bottom p{font-size:.78rem;color:var(--muted)}
+  .nl-wrap{display:flex;gap:.5rem;margin-top:1.2rem;max-width:320px}
+  .nl-wrap input{flex:1;padding:.6rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:50px;color:var(--text);font-size:.82rem;outline:none;transition:border-color .3s}
+  .nl-wrap input::placeholder{color:var(--muted)}
+  .nl-wrap input:focus{border-color:rgba(0,229,255,.3)}
+  .nl-wrap button{padding:.6rem 1.2rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;cursor:pointer;white-space:nowrap;transition:transform .2s}
+  .nl-wrap button:hover{transform:scale(1.05)}
+
+  /* ── REVEAL ── */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal.visible.delay-1{transition-delay:.1s}
+  .reveal.visible.delay-2{transition-delay:.2s}
+  .reveal.visible.delay-3{transition-delay:.3s}
+  .reveal.visible.delay-4{transition-delay:.4s}
+  .reveal.visible.delay-5{transition-delay:.5s}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:968px){
+    .app-grid{grid-template-columns:repeat(2,1fr)}
+    .cert-wrap{grid-template-columns:1fr;text-align:center}
+    .cert-vis{order:-1}
+    .ft-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem}
+    .nav-links{display:none}
+    .mobile-toggle{display:block}
+    .nav-desk-cta{display:none!important}
+    section{padding:4rem 1.5rem}
+    .hero{padding:7rem 1.5rem 3rem}
+    .stats-bar{gap:2rem}
+    .app-grid{grid-template-columns:1fr}
+    .ft-grid{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    .hero-shape{display:none}
+    .chatbot-window{width:calc(100vw - 24px)!important;height:70vh!important;right:12px!important;bottom:80px!important}
+  }
+
+  /* ── CHATBOT (same as before) ── */
+  .chatbot-toggle{position:fixed;bottom:24px;right:24px;z-index:10000;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 30px rgba(0,229,255,.25);transition:all .3s}
+  .chatbot-toggle:hover{transform:scale(1.08);box-shadow:0 8px 40px rgba(0,229,255,.35)}
+  .chatbot-toggle .badge-dot{position:absolute;top:4px;right:4px;width:12px;height:12px;background:#22c55e;border-radius:50%;border:2px solid var(--bg);animation:pulse 2s infinite}
+  .chatbot-toggle svg{width:28px;height:28px}
+  .chatbot-toggle .icon-close{display:none}
+  .chatbot-toggle.active .icon-chat{display:none}
+  .chatbot-toggle.active .icon-close{display:block}
+  .chatbot-toggle.active .badge-dot{display:none}
+  .chatbot-window{position:fixed;bottom:96px;right:24px;z-index:10000;width:380px;height:560px;background:var(--bg);border:1px solid var(--border);border-radius:20px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 25px 80px rgba(0,0,0,.6),0 0 40px rgba(0,229,255,.05);animation:chatSlideUp .3s ease-out}
+  .chatbot-window.open{display:flex}
+  @keyframes chatSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .chatbot-header{padding:16px 20px;background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(139,92,246,.08));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+  .chatbot-header-avatar{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+  .chatbot-header-info h3{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700}
+  .chatbot-header-info p{font-size:.7rem;color:#22c55e;display:flex;align-items:center;gap:4px}
+  .chatbot-header-info p::before{content:'';width:6px;height:6px;background:#22c55e;border-radius:50%;display:inline-block}
+  .chatbot-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+  .chatbot-messages::-webkit-scrollbar{width:4px}
+  .chatbot-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
+  .chat-msg{max-width:85%;padding:12px 16px;border-radius:16px;font-size:.85rem;line-height:1.55;animation:fadeUp .3s ease-out}
+  .chat-msg.bot{background:var(--card);border:1px solid var(--border);color:var(--text);align-self:flex-start;border-top-left-radius:4px}
+  .chat-msg.user{background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--bg);align-self:flex-end;border-top-right-radius:4px;font-weight:500}
+  .chat-msg a{color:var(--cyan);text-decoration:underline}.chat-msg.user a{color:var(--bg)}
+  .chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px;flex-shrink:0}
+  .chat-qr{padding:6px 14px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);border-radius:50px;color:var(--cyan);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+  .chat-qr:hover{background:rgba(0,229,255,.15);transform:translateY(-1px)}
+  .chatbot-input{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;flex-shrink:0;background:var(--bg2)}
+  .chatbot-input input{flex:1;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:50px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .3s}
+  .chatbot-input input::placeholder{color:var(--muted)}
+  .chatbot-input input:focus{border-color:rgba(0,229,255,.3)}
+  .chatbot-input button{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s;flex-shrink:0}
+  .chatbot-input button:hover{transform:scale(1.08)}
+  .typing-indicator{display:flex;gap:4px;padding:12px 16px;align-self:flex-start}
+  .typing-indicator span{width:7px;height:7px;background:var(--text2);border-radius:50%;animation:typingBounce 1.2s infinite}
+  .typing-indicator span:nth-child(2){animation-delay:.2s}
+  .typing-indicator span:nth-child(3){animation-delay:.4s}
+  @keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loader" id="loader"><div class="loader-ring"></div><div class="loader-text gradient-text">AARANIT AI</div></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Lightweight version - no particles or cursor glow for fast loading -->
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="logo-wrap">
+    <svg class="logo-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+        <linearGradient id="lg2" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#d946ef"/></linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="90" fill="none" stroke="url(#lg1)" stroke-width="3" opacity=".25"/>
+      <circle cx="100" cy="100" r="70" fill="none" stroke="url(#lg2)" stroke-width="1.5" opacity=".15"/>
+      <path d="M60 145 L100 45 L140 145" fill="none" stroke="url(#lg1)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="75" y1="110" x2="125" y2="110" stroke="url(#lg1)" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="100" cy="45" r="6" fill="#00e5ff"/><circle cx="60" cy="145" r="6" fill="#8b5cf6"/><circle cx="140" cy="145" r="6" fill="#8b5cf6"/>
+      <circle cx="100" cy="110" r="5" fill="#d946ef"/><circle cx="100" cy="110" r="2.5" fill="#fff" opacity=".9"/>
+    </svg>
+    <span class="logo-text gradient-text">Aaranit AI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+  </ul>
+  <a href="#contact" class="btn-glow nav-desk-cta">Get Started</a>
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><div class="hamburger"><span></span><span></span><span></span></div></button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#services">Services</a>
+  <a href="#certifications">Certifications</a>
+  <a href="#approach">Approach</a>
+  <a href="#testimonials">Testimonials</a>
+  <a href="#contact" class="gradient-text" style="font-weight:700;font-family:Syne,sans-serif">Get Started →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb c"></div><div class="orb v"></div><div class="orb m"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-shape s1"></div><div class="hero-shape s2"></div><div class="hero-shape s3"></div><div class="hero-shape s4"></div><div class="hero-shape s5"></div>
+
+  <div class="hero-content">
+    <div class="badge"><span class="dot"></span>Now Enrolling — AI Certification 2026</div>
+    <h1>Build the Future with<br><span class="gradient-text" id="typewriterTarget"></span><span class="typewriter-cursor"></span></h1>
+    <p>From custom AI development to hands-on tutoring and industry-recognized certification — Aaranit AI empowers teams and individuals to lead the intelligence revolution.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-glow">Explore Services →</a>
+      <a href="#certifications" class="btn-out">View Certifications</a>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num gradient-text" data-target="500" data-suffix="+">0</div><div class="stat-label">Projects Delivered</div><div class="stat-bar"><div class="stat-bar-fill"></div></div></div>
+      <div class="stat-item"><div class="stat-num gradient-text" data-target="2800" data-suffix="+">0</div><div class="stat-label">Certified Graduates</div><div class="stat-bar"><div class="stat-bar-fill"></div></div></div>
+      <div class="stat-item"><div class="stat-num gradient-text" data-target="98" data-suffix="%">0</div><div class="stat-label">Client Satisfaction</div><div class="stat-bar"><div class="stat-bar-fill"></div></div></div>
+      <div class="stat-item"><div class="stat-num gradient-text" data-target="12" data-suffix="+">0</div><div class="stat-label">Countries Served</div><div class="stat-bar"><div class="stat-bar-fill"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span class="marquee-item"><span class="mi-dot"></span>Machine Learning</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Deep Learning</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Natural Language Processing</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Computer Vision</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Generative AI</span>
+    <span class="marquee-item"><span class="mi-dot"></span>LLM Fine-tuning</span>
+    <span class="marquee-item"><span class="mi-dot"></span>RAG Systems</span>
+    <span class="marquee-item"><span class="mi-dot"></span>AI Agents</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Prompt Engineering</span>
+    <span class="marquee-item"><span class="mi-dot"></span>MLOps</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Responsible AI</span>
+    <span class="marquee-item"><span class="mi-dot"></span>AI Strategy</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item"><span class="mi-dot"></span>Machine Learning</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Deep Learning</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Natural Language Processing</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Computer Vision</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Generative AI</span>
+    <span class="marquee-item"><span class="mi-dot"></span>LLM Fine-tuning</span>
+    <span class="marquee-item"><span class="mi-dot"></span>RAG Systems</span>
+    <span class="marquee-item"><span class="mi-dot"></span>AI Agents</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Prompt Engineering</span>
+    <span class="marquee-item"><span class="mi-dot"></span>MLOps</span>
+    <span class="marquee-item"><span class="mi-dot"></span>Responsible AI</span>
+    <span class="marquee-item"><span class="mi-dot"></span>AI Strategy</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="sec-head reveal"><span class="sec-label">What We Do</span><h2>AI Services & Solutions</h2><p>End-to-end AI expertise — from strategy and development to education and deployment.</p><div class="sec-line"></div></div>
+  <div class="srv-grid">
+    <div class="srv-card reveal delay-1"><div class="srv-icon c">🧠</div><h3>Custom AI Development</h3><p>We design and build bespoke AI systems tailored to your business — from intelligent chatbots and recommendation engines to predictive analytics platforms.</p><div class="srv-tags"><span>Machine Learning</span><span>NLP</span><span>Computer Vision</span><span>LLMs</span></div><div class="srv-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    <div class="srv-card reveal delay-2"><div class="srv-icon v">🎓</div><h3>AI Tutoring & Training</h3><p>Personalized 1-on-1 and group training covering everything from AI fundamentals to advanced deep learning. Tailored for developers, leaders, and teams.</p><div class="srv-tags"><span>1-on-1 Sessions</span><span>Cohort Programs</span><span>Corporate Training</span></div><div class="srv-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    <div class="srv-card reveal delay-3"><div class="srv-icon m">🏅</div><h3>AI Certification Programs</h3><p>Industry-recognized certification programs that validate AI competencies. Rigorous curriculum, hands-on projects, and portfolio development included.</p><div class="srv-tags"><span>AI Foundations</span><span>ML Engineer</span><span>AI Architect</span></div><div class="srv-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    <div class="srv-card reveal delay-1"><div class="srv-icon c">⚡</div><h3>AI Strategy Consulting</h3><p>Navigate the AI landscape with confidence. We help organizations identify high-impact AI opportunities, build roadmaps, and establish responsible governance.</p><div class="srv-tags"><span>Roadmapping</span><span>AI Governance</span><span>ROI Analysis</span></div><div class="srv-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    <div class="srv-card reveal delay-2"><div class="srv-icon v">🔗</div><h3>MLOps & Deployment</h3><p>Production-grade ML infrastructure. We architect scalable pipelines, model monitoring, and CI/CD workflows that keep your AI systems reliable.</p><div class="srv-tags"><span>Model Serving</span><span>Monitoring</span><span>CI/CD</span><span>Cloud</span></div><div class="srv-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    <div class="srv-card reveal delay-3"><div class="srv-icon m">🛡️</div><h3>Responsible AI Audits</h3><p>Ensure your AI systems are fair, transparent, and compliant. We conduct bias assessments, explainability reviews, and regulatory alignment checks.</p><div class="srv-tags"><span>Bias Testing</span><span>Explainability</span><span>Compliance</span></div><div class="srv-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="cert-wrap">
+    <div class="cert-vis reveal">
+      <div class="cert-bd">
+        <div class="cert-ring"></div><div class="cert-ring"></div><div class="cert-ring"></div>
+        <div class="cert-center">🎖️</div>
+        <div class="cert-float" style="background:rgba(0,229,255,.08);border-color:rgba(0,229,255,.2)">✦ AI Foundations</div>
+        <div class="cert-float" style="background:rgba(139,92,246,.08);border-color:rgba(139,92,246,.2)">✦ ML Engineer Pro</div>
+        <div class="cert-float" style="background:rgba(217,70,239,.08);border-color:rgba(217,70,239,.2)">✦ AI Architect Elite</div>
+      </div>
+    </div>
+    <div class="cert-content reveal">
+      <span class="sec-label">Certifications</span>
+      <h2>Credentials That Open Doors</h2>
+      <p>Our certification programs are designed with industry partners to ensure every credential carries real-world weight in the AI job market.</p>
+      <div class="cert-list">
+        <div class="cert-item"><div class="cert-item-icon">📘</div><div><h4>AI Foundations Certificate</h4><p>8-week program · $799 CAD · No prerequisites</p></div></div>
+        <div class="cert-item"><div class="cert-item-icon">⚙️</div><div><h4>ML Engineer Professional</h4><p>16-week program · $2,499 CAD · Portfolio capstone</p></div></div>
+        <div class="cert-item"><div class="cert-item-icon">🏛️</div><div><h4>AI Architect Elite</h4><p>24-week advanced · $3,999 CAD · Enterprise AI</p></div></div>
+        <div class="cert-item"><div class="cert-item-icon">🤖</div><div><h4>Generative AI Specialist</h4><p>12-week program · $1,799 CAD · LLMs, RAG, Agents</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="sec-head reveal"><span class="sec-label">Why Aaranit AI</span><h2>Our Approach</h2><p>Four pillars that guide everything we build, teach, and deliver.</p><div class="sec-line"></div></div>
+  <div class="app-grid">
+    <div class="app-item reveal delay-1"><div class="app-num">01</div><h3>Human-Centric AI</h3><p>We build AI that augments human capability — never replaces it. Every solution starts with people.</p></div>
+    <div class="app-item reveal delay-2"><div class="app-num">02</div><h3>Learn by Doing</h3><p>80% hands-on, 20% theory. Real datasets and real problems from day one.</p></div>
+    <div class="app-item reveal delay-3"><div class="app-num">03</div><h3>Industry Aligned</h3><p>Curriculum crafted with hiring managers and tech leaders across North America.</p></div>
+    <div class="app-item reveal delay-4"><div class="app-num">04</div><h3>Responsible First</h3><p>Ethics, fairness, and transparency embedded into every engagement.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="sec-head reveal"><span class="sec-label">Success Stories</span><h2>What People Say</h2><div class="sec-line"></div></div>
+  <div class="test-grid">
+    <div class="test-card reveal delay-1"><div class="test-stars">★★★★★</div><blockquote>"Aaranit's ML Engineer certification completely transformed my career. I went from data analyst to ML engineer within six months of completing the program."</blockquote><div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,#00e5ff,#8b5cf6)">SK</div><div><div class="test-name">Sarah K.</div><div class="test-role">ML Engineer · Shopify</div></div></div></div>
+    <div class="test-card reveal delay-2"><div class="test-stars">★★★★★</div><blockquote>"They built us a predictive maintenance system that reduced equipment downtime by 34%. The ROI was visible within the first quarter."</blockquote><div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,#8b5cf6,#d946ef)">MR</div><div><div class="test-name">Michael R.</div><div class="test-role">VP Engineering · Manufacturing Co.</div></div></div></div>
+    <div class="test-card reveal delay-3"><div class="test-stars">★★★★★</div><blockquote>"The corporate training brought our entire product team up to speed on AI in just three weeks. Practical, relevant, and immediately applicable."</blockquote><div class="test-author"><div class="test-avatar" style="background:linear-gradient(135deg,#d946ef,#00e5ff)">LP</div><div><div class="test-name">Lisa P.</div><div class="test-role">CTO · FinTech Startup</div></div></div></div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta" id="contact">
+  <div class="cta-glow l"></div><div class="cta-glow r"></div>
+  <div class="cta-content reveal">
+    <span class="sec-label">Ready to Begin?</span>
+    <h2>Let's Build <span class="gradient-text">Intelligence Together</span></h2>
+    <p>Whether you need a custom AI solution, want to upskill your team, or are ready to earn your certification — we're here.</p>
+    <form class="contact-form" id="contactForm">
+      <div class="form-row"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Email Address" required></div>
+      <div class="form-row"><input type="text" name="company" placeholder="Company (optional)"><select name="service_interest"><option value="">Service Interest</option><option value="ai-development">AI Development</option><option value="tutoring">AI Tutoring</option><option value="certification">Certification Programs</option><option value="consulting">Strategy Consulting</option><option value="other">Other</option></select></div>
+      <textarea name="message" rows="4" placeholder="Tell us about your project or goals..." required></textarea>
+      <button type="submit" class="form-btn" id="formBtn">Send Message →</button>
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <a href="#" class="logo-wrap">
+        <svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs><circle cx="100" cy="100" r="90" fill="none" stroke="url(#lg3)" stroke-width="3" opacity=".25"/><path d="M60 145 L100 45 L140 145" fill="none" stroke="url(#lg3)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><line x1="75" y1="110" x2="125" y2="110" stroke="url(#lg3)" stroke-width="6" stroke-linecap="round"/><circle cx="100" cy="45" r="6" fill="#00e5ff"/><circle cx="60" cy="145" r="6" fill="#8b5cf6"/><circle cx="140" cy="145" r="6" fill="#8b5cf6"/><circle cx="100" cy="110" r="5" fill="#d946ef"/><circle cx="100" cy="110" r="2.5" fill="#fff" opacity=".9"/></svg>
+        <span class="logo-text gradient-text" style="font-size:1.1rem">Aaranit AI</span>
+      </a>
+      <p>Empowering businesses and individuals to lead in the age of artificial intelligence. A division of 15439361 Canada Inc.</p>
+      <div class="nl-wrap"><input type="email" id="nlEmail" placeholder="Enter your email"><button onclick="handleNewsletter()">Subscribe</button></div>
+      <div class="form-msg" id="nlMsg" style="margin-top:.5rem;font-size:.75rem"></div>
+    </div>
+    <div class="ft-col"><h4>Services</h4><ul><li><a href="#services">AI Development</a></li><li><a href="#services">AI Tutoring</a></li><li><a href="#services">Strategy Consulting</a></li><li><a href="#services">MLOps</a></li></ul></div>
+    <div class="ft-col"><h4>Programs</h4><ul><li><a href="#certifications">AI Foundations</a></li><li><a href="#certifications">ML Engineer Pro</a></li><li><a href="#certifications">AI Architect Elite</a></li><li><a href="#certifications">GenAI Specialist</a></li></ul></div>
+    <div class="ft-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="/cdn-cgi/l/email-protection#09616c6565664968687b6867607d6860276a6664">Contact</a></li></ul></div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2026 Aaranit AI — 15439361 Canada Inc. All rights reserved.</p>
+    <p style="font-style:italic">Ontario, Canada</p>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" aria-label="Back to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg></button>
+
+<!-- CHATBOT -->
+<button class="chatbot-toggle" id="chatToggle" aria-label="Open chat"><span class="badge-dot"></span><svg class="icon-chat" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+<div class="chatbot-window" id="chatWindow">
+  <div class="chatbot-header"><div class="chatbot-header-avatar">🤖</div><div class="chatbot-header-info"><h3>Aaranit AI Assistant</h3><p>Online — typically replies instantly</p></div></div>
+  <div class="chatbot-messages" id="chatMessages"></div>
+  <div class="chat-quick-replies" id="chatQuickReplies"></div>
+  <div class="chatbot-input"><input type="text" id="chatInput" placeholder="Ask me anything..." autocomplete="off"><button onclick="sendMessage()" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// PARTICLE SYSTEM
+// ══════════════════════════════════════════
+
+// LOADING SCREEN - fast dismiss
+window.addEventListener('load', () => document.getElementById('loader').classList.add('hidden'));
+setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1500); // failsafe
+
+// MOBILE DRAWER
+const mobileToggle = document.getElementById('mobileToggle');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const mobileOverlay = document.getElementById('mobileOverlay');
+function closeMobile() { mobileToggle.classList.remove('active'); mobileDrawer.classList.remove('open'); mobileOverlay.classList.remove('show'); }
+mobileToggle.addEventListener('click', () => { mobileToggle.classList.toggle('active'); mobileDrawer.classList.toggle('open'); mobileOverlay.classList.toggle('show'); });
+mobileOverlay.addEventListener('click', closeMobile);
+mobileDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobile));
+
+// BACK TO TOP
+const backTop = document.getElementById('backTop');
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ══════════════════════════════════════════
+// TYPEWRITER EFFECT
+// ══════════════════════════════════════════
+const phrases = ['Intelligent AI Solutions', 'AI-Powered Innovation', 'Certified AI Expertise', 'Smarter Tomorrow, Today'];
+let phraseIdx = 0, charIdx = 0, deleting = false;
+const typeEl = document.getElementById('typewriterTarget');
+
+function typewrite() {
+  const current = phrases[phraseIdx];
+  if (!deleting) {
+    typeEl.textContent = current.substring(0, charIdx + 1);
+    charIdx++;
+    if (charIdx === current.length) { setTimeout(() => { deleting = true; typewrite(); }, 2500); return; }
+    setTimeout(typewrite, 70);
+  } else {
+    typeEl.textContent = current.substring(0, charIdx - 1);
+    charIdx--;
+    if (charIdx === 0) { deleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; setTimeout(typewrite, 500); return; }
+    setTimeout(typewrite, 40);
+  }
+}
+setTimeout(typewrite, 1000);
+
+// ══════════════════════════════════════════
+// ANIMATED COUNTER
+// ══════════════════════════════════════════
+let countersStarted = false;
+function animateCounters() {
+  if (countersStarted) return;
+  countersStarted = true;
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const duration = 2000;
+    const start = performance.now();
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4); // easeOutQuart
+      const current = Math.floor(eased * target);
+      el.textContent = current.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+  document.querySelectorAll('.stat-bar-fill').forEach(el => { el.style.width = '100%'; });
+}
+
+// ══════════════════════════════════════════
+// SCROLL PROGRESS + NAV + REVEAL
+// ══════════════════════════════════════════
+const scrollProg = document.getElementById('scrollProgress');
+const mainNav = document.getElementById('mainNav');
+
+window.addEventListener('scroll', () => {
+  // Scroll progress
+  const winH = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = (window.scrollY / winH) * 100;
+  scrollProg.style.width = pct + '%';
+
+  // Nav
+  if (window.scrollY > 80) mainNav.classList.add('scrolled');
+  else mainNav.classList.remove('scrolled');
+
+  // Back to top
+  if (window.scrollY > 500) backTop.classList.add('visible');
+  else backTop.classList.remove('visible');
+
+  // Trigger counters when stats are visible
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) {
+    const rect = statsBar.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.85) animateCounters();
+  }
+});
+
+// Intersection Observer for reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ══════════════════════════════════════════
+// SUPABASE + FORMS
+// ══════════════════════════════════════════
+const SUPABASE_URL = 'https://ghztxqviaquxhzhsobiz.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdoenR4cXZpYXF1eGh6aHNvYml6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5Mzk3NjksImV4cCI6MjA4NjUxNTc2OX0.qfh7b6TmvUgCabyifp_RTBbufX__yx2W6lGSVzzIpCk';
+
+async function supabaseInsert(table, data) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' },
+    body: JSON.stringify(data)
+  });
+  return res.ok;
+}
+
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('formBtn');
+  const msg = document.getElementById('formMsg');
+  const fd = new FormData(e.target);
+  const data = Object.fromEntries(fd);
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  try {
+    const ok = await supabaseInsert('contact_submissions', data);
+    if (ok) { msg.textContent = '✓ Thank you! We\'ll be in touch within 24 hours.'; msg.style.color = '#00e5ff'; e.target.reset(); }
+    else throw new Error();
+  } catch { msg.textContent = 'Something went wrong. Please try again.'; msg.style.color = '#d946ef'; }
+  btn.textContent = 'Send Message →'; btn.disabled = false;
+  setTimeout(() => msg.textContent = '', 5000);
+});
+
+async function handleNewsletter() {
+  const email = document.getElementById('nlEmail').value;
+  const msg = document.getElementById('nlMsg');
+  if (!email || !email.includes('@')) { msg.textContent = 'Please enter a valid email.'; msg.style.color = '#d946ef'; return; }
+  const ok = await supabaseInsert('newsletter_subscribers', { email });
+  if (ok) { msg.textContent = 'Welcome aboard! 🎉'; msg.style.color = '#00e5ff'; document.getElementById('nlEmail').value = ''; }
+  else { msg.textContent = 'Already subscribed or error.'; msg.style.color = '#8b5cf6'; }
+  setTimeout(() => msg.textContent = '', 5000);
+}
+
+// ══════════════════════════════════════════
+// CHATBOT
+// ══════════════════════════════════════════
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const chatToggle = document.getElementById('chatToggle');
+const chatWindow = document.getElementById('chatWindow');
+const quickReplies = document.getElementById('chatQuickReplies');
+
+chatToggle.addEventListener('click', () => {
+  chatToggle.classList.toggle('active');
+  chatWindow.classList.toggle('open');
+  if (chatWindow.classList.contains('open') && chatMessages.children.length === 0) initChat();
+});
+chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && chatInput.value.trim()) sendMessage(); });
+
+function addMessage(text, type) {
+  const div = document.createElement('div');
+  div.className = `chat-msg ${type}`;
+  div.innerHTML = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping() { const d = document.createElement('div'); d.className = 'typing-indicator'; d.id = 'ti'; d.innerHTML = '<span></span><span></span><span></span>'; chatMessages.appendChild(d); chatMessages.scrollTop = chatMessages.scrollHeight; }
+function hideTyping() { const el = document.getElementById('ti'); if (el) el.remove(); }
+
+function setQuickReplies(replies) {
+  quickReplies.innerHTML = '';
+  replies.forEach(r => { const b = document.createElement('button'); b.className = 'chat-qr'; b.textContent = r; b.onclick = () => { chatInput.value = r; sendMessage(); }; quickReplies.appendChild(b); });
+}
+
+function initChat() {
+  addMessage("Hi there! 👋 I'm the <strong>Aaranit AI Assistant</strong>. I can help you with our AI services, certifications, pricing, and more.", 'bot');
+  setTimeout(() => { addMessage("What would you like to know?", 'bot'); setQuickReplies(['Our Services', 'Certifications & Pricing', 'AI Tutoring', 'Contact Sales']); }, 600);
+}
+
+const knowledge = {
+  services: { keywords: ['services','service','what do you do','offering','offer','solutions','provide'], response: `We offer <strong>6 core AI services</strong>:<br><br>🧠 <strong>Custom AI Development</strong> — Chatbots, ML, NLP, CV<br>🎓 <strong>AI Tutoring & Training</strong> — 1-on-1 & group<br>🏅 <strong>Certification Programs</strong> — Industry credentials<br>⚡ <strong>Strategy Consulting</strong> — Roadmapping & governance<br>🔗 <strong>MLOps & Deployment</strong> — Production pipelines<br>🛡️ <strong>Responsible AI Audits</strong> — Bias & compliance`, quickReplies: ['Certifications', 'AI Development', 'Pricing', 'Contact'] },
+  certifications: { keywords: ['certification','certificate','program','course','credential','learn','enroll'], response: `<strong>4 certification programs</strong>:<br><br>📘 <strong>AI Foundations</strong> — 8 wks · $799 CAD<br>⚙️ <strong>ML Engineer Pro</strong> — 16 wks · $2,499 CAD<br>🏛️ <strong>AI Architect Elite</strong> — 24 wks · $3,999 CAD<br>🤖 <strong>GenAI Specialist</strong> — 12 wks · $1,799 CAD<br><br><strong>Now enrolling April 2026!</strong>`, quickReplies: ['AI Foundations', 'ML Engineer', 'GenAI', 'How to enroll?'] },
+  pricing: { keywords: ['price','pricing','cost','how much','fee','payment','discount'], response: `📘 AI Foundations — <strong>$799 CAD</strong><br>⚙️ ML Engineer Pro — <strong>$2,499 CAD</strong><br>🏛️ AI Architect Elite — <strong>$3,999 CAD</strong><br>🤖 GenAI Specialist — <strong>$1,799 CAD</strong><br><br>Custom AI dev pricing depends on scope. We offer <strong>payment plans & early-bird discounts</strong>!`, quickReplies: ['Contact us', 'Payment plans?', 'Enroll now'] },
+  tutoring: { keywords: ['tutor','tutoring','training','mentor','coaching','1-on-1','corporate training'], response: `Our <strong>AI Training</strong>:<br><br>👤 <strong>1-on-1</strong> — Personal mentorship<br>👥 <strong>Cohort Programs</strong> — Structured tracks<br>🏢 <strong>Corporate</strong> — Team upskilling in 2-4 weeks<br><br>Available <strong>in-person (Ontario)</strong> or <strong>online globally</strong>.`, quickReplies: ['Corporate pricing', 'Book session', 'Programs'] },
+  development: { keywords: ['develop','build','custom','chatbot','model','machine learning','nlp','ai solution'], response: `<strong>Custom AI Development</strong>:<br><br>🤖 Chatbots & assistants<br>📊 Predictive analytics<br>📝 NLP & doc processing<br>👁️ Computer vision<br>🧪 LLM fine-tuning & RAG<br><br><strong>500+ projects</strong> · <strong>98% satisfaction</strong>`, quickReplies: ['Request quote', 'MLOps', 'Contact'] },
+  contact: { keywords: ['contact','email','call','sales','book','schedule','demo','quote'], response: `Reach us at:<br><br>📧 hello@aaranitai.com<br>🌐 aaranit-ai.vercel.app<br>📍 Ontario, Canada<br><br>Or use our <a href="#contact">contact form</a> — we respond within 24 hours!`, quickReplies: ['Go to contact form', 'Services', 'Certifications'] },
+  about: { keywords: ['about','who','company','aaranit','mission'], response: `<strong>Aaranit AI</strong> · 15439361 Canada Inc.<br>Ontario, Canada<br><br>📊 <strong>500+</strong> projects<br>🎓 <strong>2,800+</strong> graduates<br>🌍 <strong>12+</strong> countries<br>⭐ <strong>98%</strong> satisfaction`, quickReplies: ['Services', 'Certifications', 'Contact'] },
+  enroll: { keywords: ['enroll','sign up','register','apply','join','get started'], response: `<strong>How to enroll:</strong><br><br>1️⃣ Choose your program<br>2️⃣ Fill the <a href="#contact">contact form</a><br>3️⃣ We'll reach out in 24 hrs<br>4️⃣ Complete payment & start!<br><br>📅 <strong>Next cohort: April 2026</strong>`, quickReplies: ['Go to contact form', 'Programs', 'Pricing'] },
+  payment: { keywords: ['payment plan','installment','monthly','finance'], response: `<strong>Payment options:</strong><br><br>💳 Full payment — 10% discount<br>📅 2-part — 50/50 split<br>📆 Monthly — over program duration<br><br>Corporate invoicing available too!`, quickReplies: ['Contact us', 'Programs', 'Enroll'] }
+};
+
+function findResponse(input) {
+  const l = input.toLowerCase().trim();
+  if (/^(hi|hello|hey|howdy|good|sup|yo)/.test(l)) return { response: "Hello! 👋 How can I help you today?", quickReplies: ['Services', 'Certifications & Pricing', 'Tutoring', 'Contact'] };
+  if (/^(thanks|thank|thx|cheers)/.test(l)) return { response: "You're welcome! 😊 Anything else?", quickReplies: ['Services', 'Certifications', 'Contact'] };
+  if (/^(bye|goodbye|see you|that's all|no)/.test(l)) return { response: "Thanks for chatting! 🙏 Reach us anytime at <a href='#contact'>contact form</a>.", quickReplies: ['Services', 'Certifications'] };
+  let best = null, score = 0;
+  for (const [k, v] of Object.entries(knowledge)) { let s = 0; for (const kw of v.keywords) { if (l.includes(kw)) s += kw.split(' ').length; } if (s > score) { score = s; best = v; } }
+  if (best) return best;
+  return { response: "I'd love to help! Our team can answer that — use our <a href='#contact'>contact form</a> or email hello@aaranitai.com", quickReplies: ['Services', 'Certifications', 'Pricing', 'Contact'] };
+}
+
+async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  chatInput.value = '';
+  quickReplies.innerHTML = '';
+  addMessage(text, 'user');
+  showTyping();
+  const result = findResponse(text);
+  setTimeout(() => { hideTyping(); addMessage(result.response, 'bot'); if (result.quickReplies) setTimeout(() => setQuickReplies(result.quickReplies), 300); }, 600 + Math.random() * 800);
+  try { await supabaseInsert('contact_submissions', { name: 'Chatbot User', email: 'chatbot@aaranitai.com', service_interest: 'chatbot', message: `[CHAT] ${text}` }); } catch {}
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('chat-qr') && e.target.textContent === 'Go to contact form') {
+    chatToggle.classList.remove('active'); 
