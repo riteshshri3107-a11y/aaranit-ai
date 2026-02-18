@@ -1,0 +1,17 @@
+<svg viewBox="0 0 480 90" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#d946ef"/>
+    </linearGradient>
+  </defs>
+  <!-- AARN -->
+  <text x="10" y="68" font-family="Syne, Arial Black, sans-serif" font-weight="800" font-size="68" fill="url(#g1)" letter-spacing="2">AARN</text>
+  <!-- Inclined I -->
+  <text x="195" y="68" font-family="Syne, Arial Black, sans-serif" font-weight="800" font-size="68" fill="url(#g1)" font-style="italic" transform="skewX(-15)" letter-spacing="2">I</text>
+  <!-- T -->
+  <text x="220" y="68" font-family="Syne, Arial Black, sans-serif" font-weight="800" font-size="68" fill="url(#g1)" letter-spacing="2">T</text>
+  <!-- AI -->
+  <text x="280" y="68" font-family="Syne, Arial Black, sans-serif" font-weight="700" font-size="58" fill="url(#g1)" letter-spacing="4" opacity=".85">AI</text>
+</svg>
