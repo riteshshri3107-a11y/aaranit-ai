@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aaranit AI — Intelligence Redefined</title>
-<meta name="description" content="Custom AI development, hands-on tutoring, and industry-recognized certification programs. Aaranit AI — 15439361 Canada Inc.">
+<title>AARANIT AI — Intelligence Redefined</title>
+<meta name="description" content="Custom AI development, hands-on tutoring, and industry-recognized certification programs. AARANIT AI — 15439361 Canada Inc.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <style>
@@ -32,7 +32,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 nav{position:fixed;top:0;left:0;right:0;z-index:10000;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(6,8,13,.5);border-bottom:1px solid transparent;transition:all .4s}
 nav.scrolled{padding:.65rem 3rem;background:rgba(6,8,13,.92);border-color:var(--border);box-shadow:0 8px 40px rgba(0,0,0,.4)}
 .logo-wrap{display:flex;align-items:center;gap:.7rem;text-decoration:none}
-.logo-icon{width:40px;height:40px;transition:transform .3s}
+.logo-icon{width:160px;height:42px;transition:transform .3s}
 .logo-wrap:hover .logo-icon{transform:rotate(12deg) scale(1.08)}
 .logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem}
 .nav-links{display:flex;gap:2rem;list-style:none}
@@ -41,6 +41,9 @@ nav.scrolled{padding:.65rem 3rem;background:rgba(6,8,13,.92);border-color:var(--
 .nav-links a:hover{color:var(--text)}.nav-links a:hover::after{width:100%}
 .nav-right{display:flex;align-items:center;gap:1rem}
 .cart-btn{position:relative;background:none;border:1px solid var(--border);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;color:var(--text)}
+.curr-sel{background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.75rem;padding:6px 8px;outline:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .3s;-webkit-appearance:none;appearance:none}
+.curr-sel:hover,.curr-sel:focus{border-color:rgba(0,229,255,.3)}
+.curr-sel option{background:var(--bg);color:var(--text)}
 .cart-btn:hover{border-color:var(--cyan);background:rgba(0,229,255,.05)}
 .cart-count{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:var(--magenta);border-radius:50%;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff;display:none}
 .cart-count.show{display:flex}
@@ -179,6 +182,47 @@ section{padding:6rem 3rem;position:relative;z-index:2}
 .tutor-profile .tutor-stats{display:flex;justify-content:center;gap:1.5rem;font-size:.72rem;color:var(--muted)}
 .tutor-profile .tutor-stats strong{color:var(--text);display:block;font-size:.85rem}
 
+/* ── FLEXIBLE LEARNING ── */
+.flex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;max-width:1200px;margin:0 auto}
+.flex-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .35s}
+.flex-card:hover{transform:translateY(-5px);border-color:rgba(0,229,255,.12);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.flex-icon{font-size:2rem;margin-bottom:1rem}
+.flex-card h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.5rem}
+.flex-card>p{color:var(--text2);font-size:.82rem;line-height:1.6;margin-bottom:.8rem}
+.flex-details{display:flex;flex-direction:column;gap:.3rem}
+.flex-details span{font-size:.73rem;color:var(--text2);padding:.2rem 0}
+
+/* ── MESSAGE INBOX ── */
+#inbox{background:var(--bg2)}
+.inbox-wrap{max-width:700px;margin:0 auto}
+.inbox-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.inbox-tabs{display:flex;border-bottom:1px solid var(--border)}
+.inbox-tab{flex:1;padding:.8rem;text-align:center;font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .3s;border-bottom:2px solid transparent}
+.inbox-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);background:rgba(0,229,255,.03)}
+.inbox-tab:hover{color:var(--text)}
+.inbox-list{max-height:400px;overflow-y:auto}
+.inbox-empty{padding:3rem;text-align:center;color:var(--muted);font-size:.85rem}
+.msg-item{padding:1rem 1.5rem;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s;display:flex;gap:1rem;align-items:flex-start}
+.msg-item:hover{background:rgba(0,229,255,.02)}
+.msg-item.unread{border-left:3px solid var(--cyan)}
+.msg-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);flex-shrink:0;margin-top:6px}
+.msg-dot.read{background:var(--muted);opacity:.3}
+.msg-info{flex:1;min-width:0}
+.msg-info h4{font-size:.85rem;font-weight:600;margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg-info p{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg-time{font-size:.65rem;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.msg-detail{padding:1.5rem;display:none}
+.msg-detail.show{display:block}
+.msg-detail-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.msg-detail-header h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700}
+.msg-back{background:none;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.75rem;padding:.4rem .8rem;cursor:pointer;transition:all .2s}
+.msg-back:hover{border-color:var(--cyan);color:var(--cyan)}
+.msg-body{font-size:.85rem;color:var(--text2);line-height:1.7;margin-bottom:1.5rem}
+.msg-reply{display:flex;gap:.5rem}
+.msg-reply input{flex:1;padding:.7rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:50px;color:var(--text);font-size:.82rem;outline:none}
+.msg-reply input:focus{border-color:rgba(0,229,255,.3)}
+.msg-reply button{padding:.7rem 1.5rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;cursor:pointer}
+
 /* ── APPROACH ── */
 #approach{background:var(--bg)}
 .app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.3rem;max-width:1100px;margin:0 auto}
@@ -313,18 +357,26 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- NAV -->
 <nav id="mainNav">
   <a href="#" class="logo-wrap" onclick="scrollTo({top:0,behavior:'smooth'});return false">
-    <svg class="logo-icon" viewBox="0 0 200 200"><defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs><circle cx="100" cy="100" r="90" fill="none" stroke="url(#lg)" stroke-width="3" opacity=".25"/><path d="M60 145 L100 45 L140 145" fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><line x1="75" y1="110" x2="125" y2="110" stroke="url(#lg)" stroke-width="6" stroke-linecap="round"/><circle cx="100" cy="45" r="6" fill="#00e5ff"/><circle cx="60" cy="145" r="6" fill="#8b5cf6"/><circle cx="140" cy="145" r="6" fill="#8b5cf6"/></svg>
-    <span class="logo-text gradient-text">Aaranit AI</span>
+    <svg class="logo-icon" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#d946ef"/></linearGradient></defs><text x="0" y="40" font-family="Syne,sans-serif" font-weight="800" font-size="42" fill="url(#lg)" letter-spacing="-1">AARAN</text><text x="130" y="40" font-family="Syne,sans-serif" font-weight="800" font-size="42" fill="url(#lg)" transform="rotate(-12,142,32)" letter-spacing="-1">I</text><text x="148" y="40" font-family="Syne,sans-serif" font-weight="800" font-size="42" fill="url(#lg)" letter-spacing="-1">T</text><circle cx="142" cy="8" r="4" fill="#00e5ff"><animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite"/></circle></svg>
+    <span class="logo-text gradient-text">AI</span>
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#tutoring">Tutoring</a></li>
+    <li><a href="#flexible">Online Classes</a></li>
     <li><a href="#jobs">AI Jobs</a></li>
-    <li><a href="#tutors">Tutors</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#inbox">Messages</a></li>
   </ul>
   <div class="nav-right">
+    <select class="curr-sel" id="currSel" onchange="changeCurrency(this.value)">
+      <option value="CAD">🇨🇦 CAD</option>
+      <option value="USD">🇺🇸 USD</option>
+      <option value="EUR">🇪🇺 EUR</option>
+      <option value="GBP">🇬🇧 GBP</option>
+      <option value="INR">🇮🇳 INR</option>
+      <option value="AUD">🇦🇺 AUD</option>
+    </select>
     <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
       <span class="cart-count" id="cartCount">0</span>
@@ -337,7 +389,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- MOBILE DRAWER -->
 <div class="mobile-overlay" id="mobOverlay"></div>
 <div class="mobile-drawer" id="mobDrawer">
-  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="#jobs">AI Jobs</a><a href="#tutors">Tutors</a><a href="#testimonials">Reviews</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
+  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="#flexible">Online Classes</a><a href="#jobs">AI Jobs</a><a href="#inbox">Messages</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
 </div>
 
 <!-- CART SIDEBAR -->
@@ -359,7 +411,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div class="hero-content">
     <div class="badge"><span class="dot"></span>Now Enrolling — AI Certification 2026</div>
     <h1>Build the Future with<br><span class="gradient-text typed-text" id="typed"></span><span class="typewriter-cursor"></span></h1>
-    <p>From custom AI development to hands-on tutoring and industry-recognized certification — Aaranit AI empowers teams and individuals to lead the intelligence revolution.</p>
+    <p>From custom AI development to hands-on tutoring and industry-recognized certification — AARANIT AI empowers teams and individuals to lead the intelligence revolution.</p>
     <div class="hero-btns">
       <a href="#certifications" class="btn-glow">View Programs →</a>
       <a href="#services" class="btn-out">Our Services</a>
@@ -394,6 +446,26 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div class="tutor-grid" id="tutorGrid"></div>
 </section>
 
+<!-- FLEXIBLE LEARNING -->
+<section id="flexible" style="background:var(--bg)">
+  <div class="sec-head"><span class="sec-label">Flexible Learning</span><h2>Learn On Your Schedule</h2><p>100% online classes designed to fit around your life — anywhere in the world.</p><div class="sec-line"></div></div>
+  <div class="flex-grid" id="flexGrid">
+    <div class="flex-card"><div class="flex-icon">🌐</div><h3>Live Online Classes</h3><p>Interactive sessions via Zoom with real-time Q&A, screen sharing, and breakout rooms. Recordings available if you miss a session.</p><div class="flex-details"><span>📅 Weekday & Weekend batches</span><span>🕐 Multiple time zones: EST, PST, GMT, IST</span><span>👥 Max 15 students per batch</span><span>🔄 Switch batches anytime</span></div></div>
+    <div class="flex-card"><div class="flex-icon">📹</div><h3>Self-Paced Learning</h3><p>Pre-recorded HD video lectures, interactive notebooks, and auto-graded assignments. Learn at 2x speed or pause anytime.</p><div class="flex-details"><span>📚 200+ hours of content</span><span>🔓 Lifetime access to materials</span><span>📱 Mobile-friendly platform</span><span>💬 Community Discord access</span></div></div>
+    <div class="flex-card"><div class="flex-icon">🎯</div><h3>Hybrid Learning</h3><p>Combine live sessions with self-paced modules. Get the structure of a cohort with the flexibility of on-demand content.</p><div class="flex-details"><span>🤝 Weekly mentor check-ins</span><span>📊 Progress tracking dashboard</span><span>🏆 Capstone project guidance</span><span>📜 Same certification on completion</span></div></div>
+    <div class="flex-card"><div class="flex-icon">🏢</div><h3>Corporate Custom Schedule</h3><p>We design the schedule around your team. Workshops, lunch-and-learns, or intensive bootcamps — whatever fits.</p><div class="flex-details"><span>🗓️ You choose dates & times</span><span>🌍 Multi-timezone coordination</span><span>📋 Custom curriculum</span><span>📈 Team progress reports</span></div></div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem">
+    <div style="display:inline-flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;padding:1.5rem 2rem;background:var(--card);border:1px solid var(--border);border-radius:16px;max-width:800px">
+      <div style="text-align:center"><div style="font-size:1.5rem">🕐</div><div style="font-size:.75rem;font-weight:600;margin-top:.3rem">EST · PST</div><div style="font-size:.65rem;color:var(--muted)">Americas</div></div>
+      <div style="text-align:center"><div style="font-size:1.5rem">🕐</div><div style="font-size:.75rem;font-weight:600;margin-top:.3rem">GMT · CET</div><div style="font-size:.65rem;color:var(--muted)">Europe / Africa</div></div>
+      <div style="text-align:center"><div style="font-size:1.5rem">🕐</div><div style="font-size:.75rem;font-weight:600;margin-top:.3rem">IST</div><div style="font-size:.65rem;color:var(--muted)">India</div></div>
+      <div style="text-align:center"><div style="font-size:1.5rem">🕐</div><div style="font-size:.75rem;font-weight:600;margin-top:.3rem">AEST</div><div style="font-size:.65rem;color:var(--muted)">Australia</div></div>
+      <div style="text-align:center"><div style="font-size:1.5rem">🕐</div><div style="font-size:.75rem;font-weight:600;margin-top:.3rem">SGT · JST</div><div style="font-size:.65rem;color:var(--muted)">Asia Pacific</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- AI JOBS -->
 <section id="jobs">
   <div class="sec-head"><span class="sec-label">Career Paths</span><h2>AI Job Opportunities</h2><p>The most in-demand AI roles in 2026 — and how our programs prepare you for them.</p><div class="sec-line"></div></div>
@@ -406,9 +478,62 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div class="tutors-grid" id="tutorsGrid"></div>
 </section>
 
+<!-- MESSAGES / INBOX -->
+<section id="inbox">
+  <div class="sec-head"><span class="sec-label">Communication</span><h2>Messages & Inquiries</h2><p>Send us a message and get a response — or check status of your inquiry.</p><div class="sec-line"></div></div>
+  <div class="inbox-wrap">
+    <div class="inbox-card">
+      <div class="inbox-tabs">
+        <div class="inbox-tab active" onclick="switchTab('compose')">✉️ Send Message</div>
+        <div class="inbox-tab" onclick="switchTab('sent')">📤 Sent Messages</div>
+        <div class="inbox-tab" onclick="switchTab('responses')">📥 Responses</div>
+      </div>
+      <div id="inboxCompose" class="inbox-panel" style="padding:1.5rem">
+        <form id="inboxForm" style="display:flex;flex-direction:column;gap:.8rem">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+            <input type="text" id="inbName" placeholder="Your Name" required style="padding:.8rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.85rem;outline:none">
+            <input type="email" id="inbEmail" placeholder="Your Email" required style="padding:.8rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.85rem;outline:none">
+          </div>
+          <select id="inbTopic" style="padding:.8rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:.85rem;outline:none">
+            <option value="">Select Topic</option>
+            <option>Certification Inquiry</option>
+            <option>Tutoring Question</option>
+            <option>Custom AI Development</option>
+            <option>Corporate Training</option>
+            <option>Payment / Billing</option>
+            <option>Technical Support</option>
+            <option>Partnership Opportunity</option>
+            <option>Other</option>
+          </select>
+          <textarea id="inbMsg" rows="4" placeholder="Write your message..." required style="padding:.8rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.85rem;outline:none;resize:none"></textarea>
+          <div style="display:flex;gap:.8rem;align-items:center">
+            <button type="submit" style="padding:.8rem 2rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:Syne,sans-serif;font-weight:700;font-size:.82rem;cursor:pointer">Send Message →</button>
+            <span style="font-size:.75rem;color:var(--muted)">Typical response within 24 hours</span>
+          </div>
+          <div id="inbStatus" style="font-size:.82rem;margin-top:.3rem"></div>
+        </form>
+      </div>
+      <div id="inboxSent" class="inbox-panel" style="display:none">
+        <div class="inbox-list" id="sentList"><div class="inbox-empty">No sent messages yet.<br>Send your first message above!</div></div>
+      </div>
+      <div id="inboxResponses" class="inbox-panel" style="display:none">
+        <div class="inbox-list" id="responseList">
+          <div class="msg-item unread" onclick="showMsgDetail(0)"><div class="msg-dot"></div><div class="msg-info"><h4>Welcome to AARANIT AI!</h4><p>Thank you for your interest. Here's how to get started...</p></div><div class="msg-time">Just now</div></div>
+          <div class="msg-item" onclick="showMsgDetail(1)"><div class="msg-dot read"></div><div class="msg-info"><h4>Enrollment Confirmation Process</h4><p>Here are the steps to complete your enrollment...</p></div><div class="msg-time">System</div></div>
+        </div>
+        <div class="msg-detail" id="msgDetail">
+          <div class="msg-detail-header"><h3 id="msgDetailTitle">Message</h3><button class="msg-back" onclick="hideMsgDetail()">← Back</button></div>
+          <div class="msg-body" id="msgDetailBody"></div>
+          <div class="msg-reply"><input type="text" id="replyInput" placeholder="Type your reply..."><button onclick="sendReply()">Reply</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- APPROACH -->
 <section id="approach">
-  <div class="sec-head"><span class="sec-label">Why Aaranit AI</span><h2>Our Approach</h2><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Why AARANIT AI</span><h2>Our Approach</h2><div class="sec-line"></div></div>
   <div class="app-grid">
     <div class="app-item"><div class="app-num gradient-text">01</div><h3>Human-Centric AI</h3><p>We build AI that augments human capability — never replaces it.</p></div>
     <div class="app-item"><div class="app-num gradient-text">02</div><h3>Learn by Doing</h3><p>80% hands-on, 20% theory. Real datasets, real problems.</p></div>
@@ -445,7 +570,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <footer>
   <div class="ft-grid">
     <div class="ft-brand">
-      <a href="#" class="logo-wrap" onclick="scrollTo({top:0,behavior:'smooth'});return false"><svg width="28" height="28" viewBox="0 0 200 200"><defs><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5ff"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs><circle cx="100" cy="100" r="90" fill="none" stroke="url(#lg2)" stroke-width="3" opacity=".25"/><path d="M60 145 L100 45 L140 145" fill="none" stroke="url(#lg2)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><line x1="75" y1="110" x2="125" y2="110" stroke="url(#lg2)" stroke-width="6" stroke-linecap="round"/></svg><span class="logo-text gradient-text" style="font-size:1rem">Aaranit AI</span></a>
+      <a href="#" class="logo-wrap" onclick="scrollTo({top:0,behavior:'smooth'});return false"><svg width="130" height="35" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00e5ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#d946ef"/></linearGradient></defs><text x="0" y="40" font-family="Syne,sans-serif" font-weight="800" font-size="42" fill="url(#lg2)" letter-spacing="-1">AARAN</text><text x="130" y="40" font-family="Syne,sans-serif" font-weight="800" font-size="42" fill="url(#lg2)" transform="rotate(-12,142,32)" letter-spacing="-1">I</text><text x="148" y="40" font-family="Syne,sans-serif" font-weight="800" font-size="42" fill="url(#lg2)" letter-spacing="-1">T</text><circle cx="142" cy="8" r="4" fill="#00e5ff"/></svg><span class="logo-text gradient-text" style="font-size:1rem">AI</span></a>
       <p>Empowering businesses and individuals in the age of AI. A division of 15439361 Canada Inc.</p>
       <div class="nl-wrap"><input type="email" id="nlEmail" placeholder="Your email"><button onclick="handleNL()">Subscribe</button></div>
       <div class="form-msg" id="nlMsg" style="font-size:.7rem;margin-top:.3rem"></div>
@@ -454,7 +579,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <div class="ft-col"><h4>Programs</h4><ul><li><a href="#certifications">Certifications</a></li><li><a href="#tutoring">Tutoring</a></li><li><a href="#jobs">AI Careers</a></li><li><a href="#tutors">Our Tutors</a></li></ul></div>
     <div class="ft-col"><h4>Company</h4><ul><li><a href="#approach">About Us</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:hello@aaranitai.com">Email Us</a></li></ul></div>
   </div>
-  <div class="ft-bottom"><p>© 2026 Aaranit AI — 15439361 Canada Inc. All rights reserved.</p><p>Ontario, Canada · hello@aaranitai.com</p></div>
+  <div class="ft-bottom"><p>© 2026 AARANIT AI — 15439361 Canada Inc. All rights reserved.</p><p>Ontario, Canada · hello@aaranitai.com</p></div>
 </footer>
 
 <!-- BACK TO TOP -->
@@ -463,7 +588,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- CHATBOT -->
 <button class="chat-toggle" id="chatTgl"><span class="chat-dot"></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><svg class="ix" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
 <div class="chat-win" id="chatWin">
-  <div class="chat-hd"><div class="chat-hd-av">🤖</div><div><h3>Aaranit AI Assistant</h3><p>Online</p></div></div>
+  <div class="chat-hd"><div class="chat-hd-av">🤖</div><div><h3>AARANIT AI Assistant</h3><p>Online</p></div></div>
   <div class="chat-msgs" id="chatMsgs"></div>
   <div class="ch-qr" id="chatQR"></div>
   <div class="chat-inp"><input type="text" id="chatInp" placeholder="Ask anything..." autocomplete="off"><button onclick="sendChat()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div>
@@ -523,9 +648,7 @@ const tutors=[
 // ═══════════════ RENDER SECTIONS ═══════════════
 document.getElementById('srvGrid').innerHTML=services.map(s=>`<div class="srv-card"><div class="srv-icon ${s.c}">${s.i}</div><h3>${s.t}</h3><p>${s.p}</p><div class="srv-tags">${s.tags.map(t=>`<span>${t}</span>`).join('')}</div></div>`).join('');
 
-document.getElementById('certGrid').innerHTML=certs.map(c=>`<div class="cert-card"><span class="cert-badge ${c.badge}">${c.bl}</span><h3>${c.t}</h3><p class="cert-meta">${c.meta}</p><p>${c.p}</p><ul>${c.items.map(i=>`<li>${i}</li>`).join('')}</ul><div class="cert-price"><div class="price">$${c.price.toLocaleString()} <small>CAD</small></div><button class="add-cart-btn" onclick="addToCart('${c.id}','${c.t}',${c.price},'Certification',this)">Add to Cart</button></div></div>`).join('');
-
-document.getElementById('tutorGrid').innerHTML=tutoring.map(t=>`<div class="tutor-card"><h3>${t.t}</h3><div class="tutor-type">${t.type}</div><p>${t.p}</p><ul>${t.items.map(i=>`<li>${i}</li>`).join('')}</ul><div class="tutor-price"><div class="price">$${t.price.toLocaleString()} <small>CAD ${t.unit}</small></div><button class="add-cart-btn" onclick="addToCart('${t.id}','${t.t}',${t.price},'Tutoring',this)">Add to Cart</button></div></div>`).join('');
+// Certs and Tutoring rendered by renderCerts() and renderTutoring() with currency support
 
 document.getElementById('jobsGrid').innerHTML=jobs.map(j=>`<div class="job-card"><div class="job-icon">${j.icon}</div><h3>${j.t}</h3><div class="salary">${j.sal}</div><p>${j.p}</p><div class="job-skills">${j.skills.map(s=>`<span>${s}</span>`).join('')}</div></div>`).join('');
 
@@ -587,14 +710,15 @@ function updateCart(){
   const ci=document.getElementById('cartItems'),cc=document.getElementById('cartCount'),ct=document.getElementById('cartTotal');
   cc.textContent=cart.length;cart.length?cc.classList.add('show'):cc.classList.remove('show');
   if(!cart.length){ci.innerHTML='<div class="cart-empty">Your cart is empty.<br>Browse our certifications & tutoring!</div>';ct.textContent='$0 CAD';return}
-  ci.innerHTML=cart.map(c=>`<div class="cart-item"><div class="cart-item-info"><h4>${c.name}</h4><p>${c.type}</p></div><div class="cart-item-right"><span class="cart-item-price">$${c.price.toLocaleString()}</span><button class="cart-remove" onclick="removeFromCart('${c.id}')">✕</button></div></div>`).join('');
-  ct.textContent='$'+cart.reduce((a,c)=>a+c.price,0).toLocaleString()+' CAD';
+  ci.innerHTML=cart.map(c=>`<div class="cart-item"><div class="cart-item-info"><h4>${c.name}</h4><p>${c.type}</p></div><div class="cart-item-right"><span class="cart-item-price">${convertPrice(c.price)}</span><button class="cart-remove" onclick="removeFromCart('${c.id}')">✕</button></div></div>`).join('');
+  const total=cart.reduce((a,c)=>a+c.price,0);
+  ct.textContent=convertPrice(total)+' '+currentCurrency;
 }
 function checkout(){
   if(!cart.length){alert('Your cart is empty!');return}
   const items=cart.map(c=>c.name).join(', ');
   const total=cart.reduce((a,c)=>a+c.price,0);
-  alert(`Order Summary:\n\n${items}\n\nTotal: $${total.toLocaleString()} CAD\n\nThank you! We'll contact you within 24 hours to complete your enrollment and arrange payment.\n\nEmail: hello@aaranitai.com`);
+  alert(`Order Summary:\n\n${items}\n\nTotal: ${convertPrice(total)} ${currentCurrency}\n\nThank you! We'll contact you within 24 hours to complete your enrollment and arrange payment.\n\nEmail: hello@aaranitai.com`);
   sbi('contact_submissions',{name:'Cart Order',email:'cart@aaranitai.com',service_interest:'enrollment',message:`[CART] ${items} — Total: $${total} CAD`});
   cart=[];updateCart();toggleCart();
 }
@@ -615,10 +739,125 @@ function am(t,tp){const d=document.createElement('div');d.className=`ch-msg ${tp
 function showT(){const d=document.createElement('div');d.className='typing-ind';d.id='ti';d.innerHTML='<span></span><span></span><span></span>';chatMsgs.appendChild(d);chatMsgs.scrollTop=chatMsgs.scrollHeight}
 function hideT(){const e=document.getElementById('ti');if(e)e.remove()}
 function sqr(rs){chatQR.innerHTML='';rs.forEach(r=>{const b=document.createElement('button');b.textContent=r;b.onclick=()=>{chatInp.value=r;sendChat()};chatQR.appendChild(b)})}
-function initChat(){am("Hi! 👋 I'm the <strong>Aaranit AI Assistant</strong>. How can I help?",'bot');setTimeout(()=>sqr(['Services','Certifications','Tutoring','Pricing','Contact']),400)}
+function initChat(){am("Hi! 👋 I'm the <strong>AARANIT AI Assistant</strong>. How can I help?",'bot');setTimeout(()=>sqr(['Services','Certifications','Tutoring','Pricing','Contact']),400)}
 const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Certifications','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential'],r:'<strong>8 programs</strong>: AI Foundations ($799), ML Engineer ($2,499), AI Architect ($3,999), GenAI Specialist ($1,799), Computer Vision ($2,199), NLP ($1,899), Business Leaders ($599), RL ($2,299). <a href="#certifications">View all →</a>',q:['Pricing','Enroll','Tutoring']},pricing:{kw:['price','cost','how much','fee','discount'],r:'Programs from <strong>$599 to $3,999 CAD</strong>. 10% discount for full payment. Monthly plans available! <a href="#certifications">See programs →</a>',q:['Certifications','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aaranitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="#jobs">See all careers →</a>',q:['Certifications','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose program → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']}};
 function findResp(inp){const l=inp.toLowerCase();if(/^(hi|hello|hey)/.test(l))return{r:"Hello! 👋 How can I help?",q:['Services','Certifications','Pricing','Contact']};if(/^(thanks|thx)/.test(l))return{r:"You're welcome! 😊",q:['Services','Programs']};if(/^(bye|no)/.test(l))return{r:"Thanks! 🙏 <a href='#contact'>Contact us</a> anytime.",q:[]};let bm=null,bs=0;for(const v of Object.values(kb)){let s=0;for(const w of v.kw)if(l.includes(w))s+=w.split(' ').length;if(s>bs){bs=s;bm=v}}if(bm)return bm;return{r:"I'd love to help! Try our <a href='#contact'>contact form</a> or email hello@aaranitai.com",q:['Services','Programs','Contact']}}
 async function sendChat(){const t=chatInp.value.trim();if(!t)return;chatInp.value='';chatQR.innerHTML='';am(t,'user');showT();const r=findResp(t);setTimeout(()=>{hideT();am(r.r,'bot');if(r.q&&r.q.length)setTimeout(()=>sqr(r.q),200)},500+Math.random()*600);sbi('contact_submissions',{name:'Chat',email:'chat@aaranitai.com',service_interest:'chatbot',message:'[CHAT] '+t}).catch(()=>{})}
+
+// ═══════════════ CURRENCY CONVERSION ═══════════════
+const rates={CAD:1,USD:0.74,EUR:0.68,GBP:0.58,INR:62.5,AUD:1.12};
+const symbols={CAD:'C$',USD:'$',EUR:'€',GBP:'£',INR:'₹',AUD:'A$'};
+let currentCurrency='CAD';
+
+function convertPrice(cadPrice){
+  const converted=Math.round(cadPrice*rates[currentCurrency]);
+  return symbols[currentCurrency]+converted.toLocaleString();
+}
+
+function changeCurrency(c){
+  currentCurrency=c;
+  renderCerts();
+  renderTutoring();
+  updateCart();
+}
+
+function renderCerts(){
+  document.getElementById('certGrid').innerHTML=certs.map(c=>{
+    const flexBadge=`<div style="display:flex;gap:.3rem;margin-top:.5rem;flex-wrap:wrap"><span style="font-size:.6rem;padding:2px 6px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.15);border-radius:50px;color:#22c55e">🌐 Live Online</span><span style="font-size:.6rem;padding:2px 6px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);border-radius:50px;color:#8b5cf6">📹 Self-Paced</span><span style="font-size:.6rem;padding:2px 6px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);border-radius:50px;color:#00e5ff">🔄 Flexible Schedule</span></div>`;
+    return `<div class="cert-card"><span class="cert-badge ${c.badge}">${c.bl}</span><h3>${c.t}</h3><p class="cert-meta">${c.meta}</p><p>${c.p}</p>${flexBadge}<ul>${c.items.map(i=>`<li>${i}</li>`).join('')}</ul><div class="cert-price"><div class="price">${convertPrice(c.price)} <small>${currentCurrency}</small></div><button class="add-cart-btn" onclick="addToCart('${c.id}','${c.t}',${c.price},'Certification',this)">Add to Cart</button></div></div>`;
+  }).join('');
+}
+
+function renderTutoring(){
+  document.getElementById('tutorGrid').innerHTML=tutoring.map(t=>{
+    const flexInfo=`<div style="margin-top:.5rem;font-size:.7rem;color:var(--green)">🌐 Available online · Multiple time zones · Recording included</div>`;
+    return `<div class="tutor-card"><h3>${t.t}</h3><div class="tutor-type">${t.type}</div><p>${t.p}</p><ul>${t.items.map(i=>`<li>${i}</li>`).join('')}</ul>${flexInfo}<div class="tutor-price"><div class="price">${convertPrice(t.price)} <small>${currentCurrency} ${t.unit}</small></div><button class="add-cart-btn" onclick="addToCart('${t.id}','${t.t}',${t.price},'Tutoring',this)">Add to Cart</button></div></div>`;
+  }).join('');
+}
+
+// Re-render with currency
+renderCerts();
+renderTutoring();
+
+// Auto-detect currency by timezone
+try{
+  const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
+  if(tz.includes('America'))document.getElementById('currSel').value='USD';
+  else if(tz.includes('Europe'))document.getElementById('currSel').value='EUR';
+  else if(tz.includes('London'))document.getElementById('currSel').value='GBP';
+  else if(tz.includes('Kolkata')||tz.includes('Asia/Cal'))document.getElementById('currSel').value='INR';
+  else if(tz.includes('Australia'))document.getElementById('currSel').value='AUD';
+  else document.getElementById('currSel').value='CAD';
+  changeCurrency(document.getElementById('currSel').value);
+}catch(e){}
+
+// ═══════════════ INBOX / MESSAGES ═══════════════
+const systemMsgs=[
+  {title:'Welcome to AARANIT AI!',body:'Thank you for visiting AARANIT AI! 🎉<br><br>We\'re excited to help you on your AI journey. Here\'s how to get started:<br><br>1️⃣ <strong>Browse Programs</strong> — Check our certifications and tutoring courses<br>2️⃣ <strong>Add to Cart</strong> — Select the programs that interest you<br>3️⃣ <strong>Contact Us</strong> — Have questions? Send us a message<br>4️⃣ <strong>Enroll</strong> — We\'ll guide you through the enrollment process<br><br>Our team responds to all inquiries within <strong>24 hours</strong>.<br><br>Best regards,<br><strong>AARANIT AI Team</strong><br>hello@aaranitai.com',time:'Just now'},
+  {title:'Enrollment Confirmation Process',body:'Here\'s what happens after you enroll:<br><br>📧 <strong>Step 1:</strong> Confirmation email with course details<br>💳 <strong>Step 2:</strong> Secure payment (full or installment plan)<br>📅 <strong>Step 3:</strong> Choose your class schedule & time zone<br>🔗 <strong>Step 4:</strong> Access to learning platform & Discord<br>📹 <strong>Step 5:</strong> First class or self-paced module available<br><br>Payment options include:<br>• Full payment (10% discount)<br>• 2-part split<br>• Monthly installments<br>• Corporate invoicing<br><br>All classes are 100% online with recordings available.<br><br>— AARANIT AI Enrollment Team',time:'System'}
+];
+let sentMsgs=[];
+
+function switchTab(tab){
+  document.querySelectorAll('.inbox-tab').forEach((t,i)=>{t.classList.remove('active')});
+  document.querySelectorAll('.inbox-panel').forEach(p=>p.style.display='none');
+  if(tab==='compose'){document.querySelectorAll('.inbox-tab')[0].classList.add('active');document.getElementById('inboxCompose').style.display='block'}
+  else if(tab==='sent'){document.querySelectorAll('.inbox-tab')[1].classList.add('active');document.getElementById('inboxSent').style.display='block';renderSent()}
+  else{document.querySelectorAll('.inbox-tab')[2].classList.add('active');document.getElementById('inboxResponses').style.display='block';hideMsgDetail()}
+}
+
+function renderSent(){
+  const sl=document.getElementById('sentList');
+  if(!sentMsgs.length){sl.innerHTML='<div class="inbox-empty">No sent messages yet.<br>Send your first message above!</div>';return}
+  sl.innerHTML=sentMsgs.map((m,i)=>`<div class="msg-item"><div class="msg-dot" style="background:var(--green)"></div><div class="msg-info"><h4>${m.topic||'Message'}</h4><p>${m.msg.substring(0,60)}...</p></div><div class="msg-time">${m.time}</div></div>`).join('');
+}
+
+function showMsgDetail(idx){
+  const m=systemMsgs[idx];
+  document.getElementById('msgDetailTitle').textContent=m.title;
+  document.getElementById('msgDetailBody').innerHTML=m.body;
+  document.getElementById('responseList').style.display='none';
+  document.getElementById('msgDetail').classList.add('show');
+}
+
+function hideMsgDetail(){
+  document.getElementById('msgDetail').classList.remove('show');
+  document.getElementById('responseList').style.display='block';
+}
+
+function sendReply(){
+  const inp=document.getElementById('replyInput');
+  const txt=inp.value.trim();
+  if(!txt)return;
+  sbi('contact_submissions',{name:'Reply',email:'reply@aaranitai.com',service_interest:'inbox-reply',message:'[REPLY] '+txt});
+  inp.value='';
+  alert('Reply sent! We\'ll respond within 24 hours.');
+}
+
+document.getElementById('inboxForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const name=document.getElementById('inbName').value;
+  const email=document.getElementById('inbEmail').value;
+  const topic=document.getElementById('inbTopic').value;
+  const msg=document.getElementById('inbMsg').value;
+  const status=document.getElementById('inbStatus');
+  
+  const ok=await sbi('contact_submissions',{name,email,service_interest:topic||'inbox',message:'[INBOX] '+msg});
+  if(ok){
+    sentMsgs.push({name,email,topic,msg,time:new Date().toLocaleTimeString()});
+    status.textContent='✓ Message sent! We\'ll respond within 24 hours.';
+    status.style.color='var(--cyan)';
+    this.reset();
+    // Add auto-response
+    systemMsgs.push({title:'RE: '+(topic||'Your Inquiry'),body:'Thank you <strong>'+name+'</strong> for reaching out!<br><br>We\'ve received your message about <strong>'+(topic||'your inquiry')+'</strong> and our team is reviewing it.<br><br>You\'ll receive a detailed response at <strong>'+email+'</strong> within 24 hours.<br><br>In the meantime, feel free to:<br>• Browse our <a href="#certifications" style="color:var(--cyan)">certification programs</a><br>• Check our <a href="#tutoring" style="color:var(--cyan)">tutoring options</a><br>• Chat with our <a href="javascript:void(0)" onclick="document.getElementById(\'chatTgl\').click()" style="color:var(--cyan)">AI assistant</a><br><br>Best regards,<br><strong>AARANIT AI Team</strong>',time:'Just now'});
+    // Update responses tab
+    document.getElementById('responseList').innerHTML+=`<div class="msg-item unread" onclick="showMsgDetail(${systemMsgs.length-1})"><div class="msg-dot"></div><div class="msg-info"><h4>RE: ${topic||'Your Inquiry'}</h4><p>Thank you ${name} for reaching out! We've received your message...</p></div><div class="msg-time">Just now</div></div>`;
+  }else{
+    status.textContent='Error sending. Please try again.';
+    status.style.color='var(--magenta)';
+  }
+  setTimeout(()=>status.textContent='',5000);
+});
 </script>
 </body>
 </html>
