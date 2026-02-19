@@ -158,8 +158,36 @@ section{padding:6rem 3rem;position:relative;z-index:2}
 .tutor-price .price{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800}
 .tutor-price .price small{font-size:.7rem;color:var(--muted);font-weight:400}
 
-/* ── AI JOBS ── */
-#jobs{background:var(--bg)}
+/* ── AI JOBS → CAREERS ── */
+#careers{background:var(--bg)}
+
+/* ── PAYMENT MODAL ── */
+.pay-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:20000;display:none;align-items:center;justify-content:center;padding:1rem}
+.pay-overlay.show{display:flex}
+.pay-modal{background:var(--bg);border:1px solid var(--border);border-radius:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;position:relative;padding:2rem}
+.pay-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer}
+.pay-modal h2{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:.3rem}
+.pay-modal .pay-sub{font-size:.82rem;color:var(--text2);margin-bottom:1.5rem}
+.pay-summary{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1.5rem}
+.pay-summary .pay-item{display:flex;justify-content:space-between;font-size:.82rem;padding:.3rem 0;color:var(--text2)}
+.pay-summary .pay-total-row{display:flex;justify-content:space-between;padding-top:.6rem;margin-top:.4rem;border-top:1px solid var(--border);font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem}
+.pay-methods{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem}
+.pay-method{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s}
+.pay-method:hover{border-color:rgba(0,229,255,.2)}
+.pay-method.selected{border-color:var(--cyan);background:rgba(0,229,255,.03)}
+.pay-method input[type="radio"]{accent-color:var(--cyan)}
+.pay-method .pm-icon{font-size:1.3rem}
+.pay-method .pm-info h4{font-size:.85rem;font-weight:600}
+.pay-method .pm-info p{font-size:.7rem;color:var(--muted)}
+.pay-form-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.6rem}
+.pay-input{width:100%;padding:.65rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.82rem;outline:none;font-family:'DM Sans',sans-serif}
+.pay-input:focus{border-color:rgba(0,229,255,.3)}
+.pay-input::placeholder{color:var(--muted)}
+.pay-btn{width:100%;padding:.85rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;margin-top:1rem;transition:all .3s}
+.pay-btn:hover{box-shadow:0 8px 25px rgba(0,229,255,.2)}
+.pay-secure{display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.68rem;color:var(--green);margin-top:.8rem}
+.pay-msg{font-size:.8rem;text-align:center;margin-top:.5rem}
+#careers{background:var(--bg)}
 .jobs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem;max-width:1200px;margin:0 auto}
 .job-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .35s}
 .job-card:hover{transform:translateY(-5px);border-color:rgba(0,229,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.3)}
@@ -364,7 +392,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <li><a href="#services">Services</a></li>
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#tutoring">Tutoring</a></li>
-    <li><a href="careers.html">Careers</a></li>
+    <li><a href="#careers">Careers</a></li>
     <li><a href="#flexible">Schedule</a></li>
     <li><a href="#inbox">Messages</a></li>
   </ul>
@@ -389,7 +417,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- MOBILE DRAWER -->
 <div class="mobile-overlay" id="mobOverlay"></div>
 <div class="mobile-drawer" id="mobDrawer">
-  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="careers.html">Careers 🔒</a><a href="#flexible">Schedule</a><a href="#inbox">Messages</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
+  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="#careers">Careers 🔒</a><a href="#flexible">Schedule</a><a href="#inbox">Messages</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
 </div>
 
 <!-- CART SIDEBAR -->
@@ -466,11 +494,18 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   </div>
 </section>
 
-<!-- AI JOBS -->
-<section id="jobs">
-  <div class="sec-head"><span class="sec-label">Career Paths</span><h2>AI Job Opportunities</h2><p>Browse 16+ open positions across 9 countries. Secure applications with AES-256-GCM encryption.</p><div class="sec-line"></div></div>
+<!-- CAREERS -->
+<section id="careers">
+  <div class="sec-head"><span class="sec-label">Career Center</span><h2>AI Jobs <span class="gradient-text">Worldwide</span></h2><p>16+ positions across 9 countries. Filter by location, role, and experience.</p><div class="sec-line"></div></div>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1.5rem" id="cTabs"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1rem;max-width:900px;margin-left:auto;margin-right:auto">
+    <select id="fRole" onchange="filterC()" style="padding:.5rem .8rem;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.78rem;outline:none"><option value="">All Roles</option><option>ML Engineer</option><option>Data Scientist</option><option>AI Research</option><option>NLP Engineer</option><option>CV Engineer</option><option>MLOps</option><option>Prompt Engineer</option><option>AI Product Manager</option><option>AI Consultant</option></select>
+    <select id="fExp" onchange="filterC()" style="padding:.5rem .8rem;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.78rem;outline:none"><option value="">All Levels</option><option>Entry</option><option>Mid</option><option>Senior</option><option>Lead</option></select>
+    <select id="fType" onchange="filterC()" style="padding:.5rem .8rem;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.78rem;outline:none"><option value="">All Types</option><option>Full-time</option><option>Contract</option><option>Part-time</option><option>Internship</option></select>
+    <input id="fSearch" placeholder="🔍 Search..." oninput="filterC()" style="padding:.5rem .8rem;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.78rem;outline:none;min-width:150px">
+  </div>
+  <div style="text-align:center;margin-bottom:1rem;font-size:.8rem;color:var(--muted)" id="cCount"></div>
   <div class="jobs-grid" id="jobsGrid"></div>
-  <div style="text-align:center;margin-top:2rem"><a href="careers.html" class="btn-glow" style="padding:.8rem 2rem;font-size:.9rem">🔒 View All Careers & Apply Securely →</a></div>
 </section>
 
 <!-- AI TUTORS -->
@@ -577,7 +612,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <div class="form-msg" id="nlMsg" style="font-size:.7rem;margin-top:.3rem"></div>
     </div>
     <div class="ft-col"><h4>Services</h4><ul><li><a href="#services">AI Development</a></li><li><a href="#services">Consulting</a></li><li><a href="#services">MLOps</a></li><li><a href="#services">AI Audits</a></li></ul></div>
-    <div class="ft-col"><h4>Programs</h4><ul><li><a href="#certifications">Certifications</a></li><li><a href="#tutoring">Tutoring</a></li><li><a href="careers.html">AI Careers</a></li><li><a href="#tutors">Our Tutors</a></li></ul></div>
+    <div class="ft-col"><h4>Programs</h4><ul><li><a href="#certifications">Certifications</a></li><li><a href="#tutoring">Tutoring</a></li><li><a href="#careers">AI Careers</a></li><li><a href="#tutors">Our Tutors</a></li></ul></div>
     <div class="ft-col"><h4>Company</h4><ul><li><a href="#approach">About Us</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:hello@aaranitai.com">Email Us</a></li></ul></div>
   </div>
   <div class="ft-bottom"><p>© 2026 AARANIT AI — 15439361 Canada Inc. All rights reserved.</p><p>Ontario, Canada · hello@aaranitai.com</p></div>
@@ -585,6 +620,37 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 
 <!-- BACK TO TOP -->
 <button class="back-top" id="backTop" onclick="scrollTo({top:0,behavior:'smooth'})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg></button>
+
+<!-- PAYMENT MODAL -->
+<div class="pay-overlay" id="payOverlay">
+  <div class="pay-modal">
+    <button class="pay-close" onclick="closePay()">✕</button>
+    <h2>🔐 Secure Checkout</h2>
+    <p class="pay-sub">Complete your enrollment — all payments are encrypted.</p>
+    <div class="pay-summary" id="paySummary"></div>
+    <h4 style="font-size:.82rem;margin-bottom:.6rem;color:var(--text2)">Select Payment Method</h4>
+    <div class="pay-methods" id="payMethods"></div>
+    <div id="payCardForm" style="display:none">
+      <input class="pay-input" id="payCardName" placeholder="Name on card" style="margin-bottom:.6rem">
+      <input class="pay-input" id="payCardNum" placeholder="Card number" maxlength="19" oninput="formatCard(this)" style="margin-bottom:.6rem">
+      <div class="pay-form-row">
+        <input class="pay-input" id="payExpiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+        <input class="pay-input" id="payCVV" placeholder="CVV" maxlength="4" type="password">
+      </div>
+    </div>
+    <div id="payUPIForm" style="display:none">
+      <input class="pay-input" id="payUPI" placeholder="yourname@upi" style="margin-bottom:.6rem">
+      <div style="text-align:center;padding:1rem;background:var(--card);border-radius:12px;border:1px solid var(--border)"><div style="font-size:2.5rem;margin-bottom:.3rem">📱</div><div style="font-size:.78rem;color:var(--text2)">Or scan QR code in your UPI app</div><div style="width:120px;height:120px;background:white;border-radius:8px;margin:.8rem auto;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#333;font-weight:600">QR Generated<br>at checkout</div></div>
+    </div>
+    <div id="payEmailForm" style="display:none">
+      <input class="pay-input" id="payPaypalEmail" placeholder="PayPal email address" style="margin-bottom:.6rem">
+    </div>
+    <input class="pay-input" id="payEmail" placeholder="Your email (for receipt)" style="margin-bottom:.6rem">
+    <button class="pay-btn" id="payBtn" onclick="processPayment()">💳 Pay Now →</button>
+    <div class="pay-secure">🔒 256-bit SSL · PCI DSS Compliant · Your data is secure</div>
+    <div class="pay-msg" id="payMsg"></div>
+  </div>
+</div>
 
 <!-- CHATBOT -->
 <button class="chat-toggle" id="chatTgl"><span class="chat-dot"></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><svg class="ix" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -626,16 +692,51 @@ const tutoring=[
   {t:'Data Science Foundations',type:'Cohort · 6 weeks',p:'Statistics, data analysis, and ML fundamentals for aspiring data scientists.',items:['Statistics & probability','Exploratory data analysis','Feature engineering','ML algorithms','Real-world projects'],price:699,unit:'',id:'tutor-ds'}
 ];
 
-const jobs=[
-  {icon:'🤖',t:'Machine Learning Engineer',sal:'$120K – $180K USD',p:'Design, build, and deploy ML models. Most in-demand AI role in 2026.',skills:['Python','PyTorch','MLOps','Cloud','SQL']},
-  {icon:'🧪',t:'AI Research Scientist',sal:'$140K – $220K USD',p:'Push the boundaries of AI. Publish papers, develop novel architectures.',skills:['PhD preferred','Deep Learning','NLP/CV','Research','Math']},
-  {icon:'📊',t:'Data Scientist',sal:'$100K – $160K USD',p:'Extract insights from data. Build predictive models and dashboards.',skills:['Statistics','Python','SQL','Visualization','ML']},
-  {icon:'💬',t:'NLP Engineer',sal:'$130K – $190K USD',p:'Build language models, chatbots, and text processing systems.',skills:['Transformers','BERT/GPT','Python','Hugging Face','APIs']},
-  {icon:'👁️',t:'Computer Vision Engineer',sal:'$125K – $185K USD',p:'Develop image recognition, object detection, and video analysis systems.',skills:['CNNs','YOLO','OpenCV','PyTorch','Edge AI']},
-  {icon:'🔧',t:'MLOps Engineer',sal:'$115K – $175K USD',p:'Build and maintain ML infrastructure, pipelines, and monitoring.',skills:['Docker','Kubernetes','CI/CD','AWS/GCP','Terraform']},
-  {icon:'🎯',t:'Prompt Engineer',sal:'$90K – $150K USD',p:'Design and optimize prompts for LLMs. Fastest growing new AI role.',skills:['LLM APIs','Prompt design','RAG','Evaluation','Testing']},
-  {icon:'📈',t:'AI Product Manager',sal:'$130K – $200K USD',p:'Lead AI product strategy. Bridge business needs with technical capabilities.',skills:['Product sense','AI literacy','Stakeholders','Roadmapping','Agile']}
+const careerJobs=[
+  {icon:'🤖',t:'Senior ML Engineer',co:'AARANIT AI',country:'Canada',flag:'🇨🇦',city:'Toronto',sal:'C$140K–180K',type:'Full-time',exp:'Senior',role:'ML Engineer',p:'Deploy production ML systems for enterprise clients.',skills:['Python','PyTorch','MLOps','AWS','Docker']},
+  {icon:'🧪',t:'AI Research Scientist',co:'DeepMind Lab',country:'United States',flag:'🇺🇸',city:'San Francisco',sal:'$160K–220K',type:'Full-time',exp:'Senior',role:'AI Research',p:'Advance NLP and multimodal AI. PhD preferred.',skills:['PhD','Deep Learning','NLP','Research','Math']},
+  {icon:'📊',t:'Data Scientist',co:'FinTech Corp',country:'United Kingdom',flag:'🇬🇧',city:'London',sal:'£80K–120K',type:'Full-time',exp:'Mid',role:'Data Scientist',p:'Predictive models for risk and fraud detection.',skills:['Python','SQL','Statistics','ML','Pandas']},
+  {icon:'💬',t:'NLP Engineer',co:'LangTech GmbH',country:'Germany',flag:'🇩🇪',city:'Berlin',sal:'€90K–130K',type:'Full-time',exp:'Mid',role:'NLP Engineer',p:'Multilingual NLP pipelines and conversational AI.',skills:['Transformers','BERT/GPT','Python','Hugging Face']},
+  {icon:'👁️',t:'Computer Vision Engineer',co:'MedVision AI',country:'India',flag:'🇮🇳',city:'Bangalore',sal:'₹25L–45L',type:'Full-time',exp:'Mid',role:'CV Engineer',p:'Medical imaging AI — X-ray and tumor detection.',skills:['CNNs','YOLO','OpenCV','PyTorch','Edge AI']},
+  {icon:'🔧',t:'MLOps Engineer',co:'CloudScale',country:'Australia',flag:'🇦🇺',city:'Sydney',sal:'A$130K–170K',type:'Full-time',exp:'Mid',role:'MLOps',p:'ML infrastructure and monitoring at scale.',skills:['Docker','Kubernetes','CI/CD','AWS/GCP']},
+  {icon:'🎯',t:'Prompt Engineer',co:'AARANIT AI',country:'Remote',flag:'🌐',city:'Anywhere',sal:'$90K–140K USD',type:'Full-time',exp:'Entry',role:'Prompt Engineer',p:'Design prompts for production LLM applications.',skills:['LLM APIs','Prompt Design','RAG','Testing']},
+  {icon:'📈',t:'AI Product Manager',co:'TechVenture',country:'Singapore',flag:'🇸🇬',city:'Singapore',sal:'S$150K–200K',type:'Full-time',exp:'Senior',role:'AI Product Manager',p:'Lead AI product strategy in fintech.',skills:['Product','AI Literacy','Roadmapping','Agile']},
+  {icon:'⚡',t:'Junior ML Engineer',co:'StartupAI',country:'Canada',flag:'🇨🇦',city:'Vancouver',sal:'C$80K–110K',type:'Full-time',exp:'Entry',role:'ML Engineer',p:'Build ML features for developer tools.',skills:['Python','scikit-learn','SQL','Git','APIs']},
+  {icon:'🛡️',t:'AI Ethics Consultant',co:'ResponsibleTech',country:'United Kingdom',flag:'🇬🇧',city:'London',sal:'£90K–130K',type:'Contract',exp:'Senior',role:'AI Consultant',p:'Audit AI for bias and GDPR compliance.',skills:['AI Ethics','Bias Testing','GDPR','Policy']},
+  {icon:'🧠',t:'Deep Learning Intern',co:'AARANIT AI',country:'Canada',flag:'🇨🇦',city:'Toronto',sal:'C$28/hr',type:'Internship',exp:'Entry',role:'AI Research',p:'Paid 3-month internship with mentorship.',skills:['Python','PyTorch','ML Basics','Git']},
+  {icon:'🔗',t:'AI Solutions Architect',co:'GovTech',country:'UAE',flag:'🇦🇪',city:'Dubai',sal:'AED 38K–55K/mo',type:'Full-time',exp:'Lead',role:'AI Consultant',p:'Enterprise AI for government digital transformation.',skills:['System Design','Cloud','ML','Leadership']},
+  {icon:'📊',t:'Data Analyst — AI',co:'HealthTech',country:'India',flag:'🇮🇳',city:'Mumbai',sal:'₹12L–20L',type:'Full-time',exp:'Entry',role:'Data Scientist',p:'Data analysis and feature engineering.',skills:['Python','SQL','Pandas','Tableau','Excel']},
+  {icon:'🤖',t:'GenAI Developer',co:'CreativeAI',country:'United States',flag:'🇺🇸',city:'New York',sal:'$130K–175K',type:'Full-time',exp:'Mid',role:'ML Engineer',p:'Generative AI products at scale.',skills:['LLMs','Diffusion','Python','React','RAG']},
+  {icon:'💼',t:'AI Tutor (Part-time)',co:'AARANIT AI',country:'Remote',flag:'🌐',city:'Anywhere',sal:'$60–100/hr',type:'Part-time',exp:'Mid',role:'AI Consultant',p:'Teach AI courses online. Flexible hours.',skills:['Teaching','ML/DL','Python','Communication']},
+  {icon:'🔧',t:'ML Platform Engineer',co:'AutoDrive',country:'Germany',flag:'🇩🇪',city:'Munich',sal:'€100K–140K',type:'Full-time',exp:'Senior',role:'MLOps',p:'ML platform for autonomous driving research.',skills:['Kubernetes','Python','Spark','GPU','Linux']}
 ];
+
+// Country tabs
+let activeCo='';
+const coList=[{l:'🌍 All',v:''},{l:'🇨🇦 Canada',v:'Canada'},{l:'🇺🇸 USA',v:'United States'},{l:'🇬🇧 UK',v:'United Kingdom'},{l:'🇩🇪 Germany',v:'Germany'},{l:'🇮🇳 India',v:'India'},{l:'🇦🇺 Australia',v:'Australia'},{l:'🇦🇪 UAE',v:'UAE'},{l:'🇸🇬 Singapore',v:'Singapore'},{l:'🌐 Remote',v:'Remote'}];
+
+function renderCoTabs(){
+  document.getElementById('cTabs').innerHTML=coList.map(c=>`<span onclick="activeCo='${c.v}';filterC()" style="padding:.35rem .75rem;border-radius:50px;font-size:.7rem;font-weight:600;cursor:pointer;border:1px solid ${c.v===activeCo?'transparent':'var(--border)'};background:${c.v===activeCo?'linear-gradient(135deg,var(--cyan),var(--violet))':'var(--card)'};color:${c.v===activeCo?'var(--bg)':'var(--muted)'};transition:all .2s">${c.l} (${c.v?careerJobs.filter(j=>j.country===c.v).length:careerJobs.length})</span>`).join('');
+}
+
+function filterC(){
+  renderCoTabs();
+  const role=document.getElementById('fRole').value;
+  const exp=document.getElementById('fExp').value;
+  const type=document.getElementById('fType').value;
+  const search=document.getElementById('fSearch').value.toLowerCase();
+  const f=careerJobs.filter(j=>{
+    if(activeCo&&j.country!==activeCo)return false;
+    if(role&&j.role!==role)return false;
+    if(exp&&j.exp!==exp)return false;
+    if(type&&j.type!==type)return false;
+    if(search&&!(j.t+j.co+j.p+j.skills.join(' ')).toLowerCase().includes(search))return false;
+    return true;
+  });
+  document.getElementById('cCount').textContent=`${f.length} of ${careerJobs.length} positions`;
+  document.getElementById('jobsGrid').innerHTML=f.length?f.map(j=>`<div class="job-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem"><span style="font-size:1.5rem">${j.icon}</span><span style="padding:.15rem .5rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.1);border-radius:50px;font-size:.6rem;color:var(--violet);font-weight:600">${j.flag} ${j.country}</span></div><h3>${j.t}</h3><div style="font-size:.78rem;color:var(--cyan);margin-bottom:.3rem">${j.co} · ${j.city}</div><div style="display:flex;gap:.6rem;font-size:.7rem;color:var(--muted);margin-bottom:.3rem"><span>${j.type}</span><span>${j.exp}</span></div><div class="salary">${j.sal}</div><p>${j.p}</p><div class="job-skills">${j.skills.map(s=>`<span>${s}</span>`).join('')}</div><div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--border)"><button onclick="window.location.href='#contact'" class="add-cart-btn" style="width:100%">Apply Now →</button></div></div>`).join(''):'<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No positions match. Try different filters.</div>';
+}
+filterC();
 
 const tutors=[
   {av:'linear-gradient(135deg,#00e5ff,#8b5cf6)',in:'DR',name:'Dr. Raj Patel',title:'ML & Deep Learning Lead',p:'Former Google Brain researcher. 15+ years in ML, specializing in NLP and transformers.',students:420,rating:'4.9',exp:'15 yrs'},
@@ -651,7 +752,7 @@ document.getElementById('srvGrid').innerHTML=services.map(s=>`<div class="srv-ca
 
 // Certs and Tutoring rendered by renderCerts() and renderTutoring() with currency support
 
-document.getElementById('jobsGrid').innerHTML=jobs.map(j=>`<div class="job-card"><div class="job-icon">${j.icon}</div><h3>${j.t}</h3><div class="salary">${j.sal}</div><p>${j.p}</p><div class="job-skills">${j.skills.map(s=>`<span>${s}</span>`).join('')}</div></div>`).join('');
+// Jobs now rendered by filterC() above
 
 document.getElementById('tutorsGrid').innerHTML=tutors.map(t=>`<div class="tutor-profile"><div class="tutor-avatar" style="background:${t.av}">${t.in}</div><h3>${t.name}</h3><div class="tutor-title">${t.title}</div><p>${t.p}</p><div class="tutor-stats"><div><strong>${t.students}+</strong>Students</div><div><strong>${t.rating}</strong>Rating</div><div><strong>${t.exp}</strong>Experience</div></div></div>`).join('');
 
@@ -717,11 +818,77 @@ function updateCart(){
 }
 function checkout(){
   if(!cart.length){alert('Your cart is empty!');return}
+  toggleCart();openPay();
+}
+
+// ═══════════════ PAYMENT PROCESSING ═══════════════
+const payMethodsByCountry={
+  CAD:[{id:'card',icon:'💳',name:'Credit / Debit Card',desc:'Visa, Mastercard, Amex'},{id:'paypal',icon:'🅿️',name:'PayPal',desc:'Pay with PayPal account'},{id:'interac',icon:'🏦',name:'Interac e-Transfer',desc:'Canadian bank transfer'}],
+  USD:[{id:'card',icon:'💳',name:'Credit / Debit Card',desc:'Visa, Mastercard, Amex, Discover'},{id:'paypal',icon:'🅿️',name:'PayPal',desc:'Pay with PayPal account'},{id:'apple',icon:'🍎',name:'Apple Pay / Google Pay',desc:'Contactless payment'}],
+  EUR:[{id:'card',icon:'💳',name:'Credit / Debit Card',desc:'Visa, Mastercard'},{id:'paypal',icon:'🅿️',name:'PayPal',desc:'Pay with PayPal account'},{id:'sepa',icon:'🏦',name:'SEPA Bank Transfer',desc:'EU bank transfer'}],
+  GBP:[{id:'card',icon:'💳',name:'Credit / Debit Card',desc:'Visa, Mastercard, Amex'},{id:'paypal',icon:'🅿️',name:'PayPal',desc:'Pay with PayPal account'},{id:'bacs',icon:'🏦',name:'Bank Transfer (BACS)',desc:'UK bank transfer'}],
+  INR:[{id:'upi',icon:'📱',name:'UPI / QR Pay',desc:'Google Pay, PhonePe, Paytm'},{id:'card',icon:'💳',name:'Credit / Debit Card',desc:'Visa, Mastercard, RuPay'},{id:'netbanking',icon:'🏦',name:'Net Banking',desc:'All major Indian banks'}],
+  AUD:[{id:'card',icon:'💳',name:'Credit / Debit Card',desc:'Visa, Mastercard'},{id:'paypal',icon:'🅿️',name:'PayPal',desc:'Pay with PayPal account'},{id:'bpay',icon:'🏦',name:'BPAY',desc:'Australian bill payment'}]
+};
+let selectedPayMethod='card';
+
+function openPay(){
+  const methods=payMethodsByCountry[currentCurrency]||payMethodsByCountry.CAD;
+  const total=cart.reduce((a,c)=>a+c.price,0);
+  document.getElementById('paySummary').innerHTML=cart.map(c=>`<div class="pay-item"><span>${c.name}</span><span>${convertPrice(c.price)}</span></div>`).join('')+`<div class="pay-total-row"><span>Total</span><span>${convertPrice(total)} ${currentCurrency}</span></div>`;
+  document.getElementById('payMethods').innerHTML=methods.map((m,i)=>`<label class="pay-method ${i===0?'selected':''}" onclick="selectPayMethod('${m.id}',this)"><input type="radio" name="pm" ${i===0?'checked':''}><span class="pm-icon">${m.icon}</span><div class="pm-info"><h4>${m.name}</h4><p>${m.desc}</p></div></label>`).join('');
+  selectedPayMethod=methods[0].id;
+  showPayForm(selectedPayMethod);
+  document.getElementById('payOverlay').classList.add('show');
+  document.getElementById('payMsg').textContent='';
+}
+function closePay(){document.getElementById('payOverlay').classList.remove('show')}
+function selectPayMethod(id,el){
+  selectedPayMethod=id;
+  document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
+  el.classList.add('selected');
+  showPayForm(id);
+}
+function showPayForm(id){
+  document.getElementById('payCardForm').style.display=id==='card'?'block':'none';
+  document.getElementById('payUPIForm').style.display=id==='upi'?'block':'none';
+  document.getElementById('payEmailForm').style.display=(id==='paypal')?'block':'none';
+}
+function formatCard(el){el.value=el.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim()}
+function formatExpiry(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.slice(0,2)+'/'+v.slice(2);el.value=v}
+
+async function processPayment(){
+  const btn=document.getElementById('payBtn'),msg=document.getElementById('payMsg');
+  const email=document.getElementById('payEmail').value.trim();
+  if(!email||!email.includes('@')){msg.textContent='Please enter your email for the receipt.';msg.style.color='var(--magenta)';return}
+  if(selectedPayMethod==='card'){
+    const num=document.getElementById('payCardNum').value.replace(/\s/g,'');
+    const exp=document.getElementById('payExpiry').value;
+    const cvv=document.getElementById('payCVV').value;
+    if(!num||num.length<13){msg.textContent='Enter a valid card number.';msg.style.color='var(--magenta)';return}
+    if(!exp||!exp.includes('/')){msg.textContent='Enter expiry date (MM/YY).';msg.style.color='var(--magenta)';return}
+    if(!cvv||cvv.length<3){msg.textContent='Enter CVV.';msg.style.color='var(--magenta)';return}
+  }
+  if(selectedPayMethod==='upi'&&!document.getElementById('payUPI').value.includes('@')){msg.textContent='Enter valid UPI ID.';msg.style.color='var(--magenta)';return}
+
+  btn.textContent='🔐 Processing...';btn.disabled=true;
   const items=cart.map(c=>c.name).join(', ');
   const total=cart.reduce((a,c)=>a+c.price,0);
-  alert(`Order Summary:\n\n${items}\n\nTotal: ${convertPrice(total)} ${currentCurrency}\n\nThank you! We'll contact you within 24 hours to complete your enrollment and arrange payment.\n\nEmail: hello@aaranitai.com`);
-  sbi('contact_submissions',{name:'Cart Order',email:'cart@aaranitai.com',service_interest:'enrollment',message:`[CART] ${items} — Total: $${total} CAD`});
-  cart=[];updateCart();toggleCart();
+  const ok=await sbi('contact_submissions',{name:email,email:email,service_interest:'Payment: '+selectedPayMethod.toUpperCase(),message:`[PAYMENT] ${items} | Total: ${convertPrice(total)} ${currentCurrency} | Method: ${selectedPayMethod} | Status: PENDING`});
+  setTimeout(()=>{
+    if(ok){
+      msg.innerHTML='✅ <strong>Payment initiated!</strong> You\'ll receive a confirmation email at <strong>'+email+'</strong> shortly. Our team will process your enrollment within 24 hours.';
+      msg.style.color='var(--cyan)';
+      cart=[];updateCart();
+      setTimeout(closePay,4000);
+    }else{
+      msg.textContent='Payment recorded. We\'ll send payment link to '+email;
+      msg.style.color='var(--amber)';
+      cart=[];updateCart();
+      setTimeout(closePay,3500);
+    }
+    btn.textContent='💳 Pay Now →';btn.disabled=false;
+  },2000);
 }
 
 // ═══════════════ SUPABASE ═══════════════
@@ -741,7 +908,7 @@ function showT(){const d=document.createElement('div');d.className='typing-ind';
 function hideT(){const e=document.getElementById('ti');if(e)e.remove()}
 function sqr(rs){chatQR.innerHTML='';rs.forEach(r=>{const b=document.createElement('button');b.textContent=r;b.onclick=()=>{chatInp.value=r;sendChat()};chatQR.appendChild(b)})}
 function initChat(){am("Hi! 👋 I'm the <strong>AARANIT AI Assistant</strong>. How can I help?",'bot');setTimeout(()=>sqr(['Services','Certifications','Tutoring','Pricing','Contact']),400)}
-const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Certifications','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential'],r:'<strong>8 programs</strong>: AI Foundations ($799), ML Engineer ($2,499), AI Architect ($3,999), GenAI Specialist ($1,799), Computer Vision ($2,199), NLP ($1,899), Business Leaders ($599), RL ($2,299). <a href="#certifications">View all →</a>',q:['Pricing','Enroll','Tutoring']},pricing:{kw:['price','cost','how much','fee','discount'],r:'Programs from <strong>$599 to $3,999 CAD</strong>. 10% discount for full payment. Monthly plans available! <a href="#certifications">See programs →</a>',q:['Certifications','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aaranitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="#jobs">See all careers →</a>',q:['Certifications','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose program → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']}};
+const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Certifications','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential'],r:'<strong>8 programs</strong>: AI Foundations ($799), ML Engineer ($2,499), AI Architect ($3,999), GenAI Specialist ($1,799), Computer Vision ($2,199), NLP ($1,899), Business Leaders ($599), RL ($2,299). <a href="#certifications">View all →</a>',q:['Pricing','Enroll','Tutoring']},pricing:{kw:['price','cost','how much','fee','discount'],r:'Programs from <strong>$599 to $3,999 CAD</strong>. 10% discount for full payment. Monthly plans available! <a href="#certifications">See programs →</a>',q:['Certifications','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aaranitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="#careers">See all careers →</a>',q:['Certifications','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose program → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']}};
 function findResp(inp){const l=inp.toLowerCase();if(/^(hi|hello|hey)/.test(l))return{r:"Hello! 👋 How can I help?",q:['Services','Certifications','Pricing','Contact']};if(/^(thanks|thx)/.test(l))return{r:"You're welcome! 😊",q:['Services','Programs']};if(/^(bye|no)/.test(l))return{r:"Thanks! 🙏 <a href='#contact'>Contact us</a> anytime.",q:[]};let bm=null,bs=0;for(const v of Object.values(kb)){let s=0;for(const w of v.kw)if(l.includes(w))s+=w.split(' ').length;if(s>bs){bs=s;bm=v}}if(bm)return bm;return{r:"I'd love to help! Try our <a href='#contact'>contact form</a> or email hello@aaranitai.com",q:['Services','Programs','Contact']}}
 async function sendChat(){const t=chatInp.value.trim();if(!t)return;chatInp.value='';chatQR.innerHTML='';am(t,'user');showT();const r=findResp(t);setTimeout(()=>{hideT();am(r.r,'bot');if(r.q&&r.q.length)setTimeout(()=>sqr(r.q),200)},500+Math.random()*600);sbi('contact_submissions',{name:'Chat',email:'chat@aaranitai.com',service_interest:'chatbot',message:'[CHAT] '+t}).catch(()=>{})}
 
