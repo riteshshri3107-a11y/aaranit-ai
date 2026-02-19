@@ -1052,9 +1052,30 @@ function showPayForm(id){
   document.getElementById('payCardForm').style.display=id==='card'?'block':'none';
   document.getElementById('payUPIForm').style.display=id==='upi'?'block':'none';
   document.getElementById('payEmailForm').style.display=(id==='paypal')?'block':'none';
+  // For bank transfer methods (interac, sepa, bacs, bpay, netbanking, apple), show a note
+  const bankMethods=['interac','sepa','bacs','bpay','netbanking','apple'];
+  let bankNote=document.getElementById('payBankNote');
+  if(!bankNote){bankNote=document.createElement('div');bankNote.id='payBankNote';bankNote.style.cssText='padding:1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;text-align:center;font-size:.82rem;color:var(--text2);margin-bottom:.6rem';document.getElementById('payEmailForm').insertAdjacentElement('afterend',bankNote)}
+  if(bankMethods.includes(id)){bankNote.style.display='block';bankNote.innerHTML='<div style="font-size:1.5rem;margin-bottom:.3rem">🏦</div>You\'ll receive payment instructions via email after clicking <strong>Pay Now</strong>. Complete the transfer within 48 hours.'}
+  else{bankNote.style.display='none'}
 }
 function formatCard(el){el.value=el.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim()}
 function formatExpiry(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.slice(0,2)+'/'+v.slice(2);el.value=v}
+
+// Enter key support on auth forms
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  const t=e.target;
+  if(!t||t.tagName==='TEXTAREA')return;
+  // Signup form
+  if(t.id==='sName'||t.id==='sEmail'||t.id==='sPass'||t.id==='sPassC'||t.id==='sPhone'){e.preventDefault();doSignup();return}
+  // Login form
+  if(t.id==='lEmail'||t.id==='lPass'){e.preventDefault();doLogin();return}
+  // Forgot password
+  if(t.id==='fEmail'){e.preventDefault();doForgotPw();return}
+  // Payment email
+  if(t.id==='payEmail'||t.id==='payCardNum'||t.id==='payCVV'){e.preventDefault();processPayment();return}
+});
 
 async function processPayment(){
   const btn=document.getElementById('payBtn'),msg=document.getElementById('payMsg');
@@ -1263,6 +1284,17 @@ function readOTP(id){return Array.from(document.getElementById(id).children).map
 function clearOTP(id){Array.from(document.getElementById(id).children).forEach(i=>i.value='')}
 function amsg(id,txt,ok){const e=document.getElementById(id);if(e){e.innerHTML=txt;e.style.color=ok?'var(--cyan)':'var(--magenta)'}}
 
+// OTP paste support — paste full code and it auto-fills all boxes
+document.addEventListener('paste',e=>{
+  const active=document.activeElement;
+  if(!active||!active.parentElement||!active.parentElement.classList.contains('otp-wrap'))return;
+  e.preventDefault();
+  const paste=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
+  const boxes=active.parentElement.children;
+  for(let i=0;i<boxes.length&&i<paste.length;i++)boxes[i].value=paste[i];
+  if(paste.length>=boxes.length)boxes[boxes.length-1].focus();
+});
+
 // Supabase Auth calls
 async function sbAuthCall(endpoint,body){
   try{const r=await fetch(`${SB}/auth/v1/${endpoint}`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK},body:JSON.stringify(body)});return await r.json()}catch(e){return{error:{message:'Network error. Please try again.'}}}
@@ -1384,7 +1416,7 @@ async function doForgotPw(){
   const res=await fetch(`${SB}/auth/v1/recover`,{
     method:'POST',
     headers:{'Content-Type':'application/json',apikey:SK},
-    body:JSON.stringify({email})
+    body:JSON.stringify({email,gotrue_meta_security:{captcha_token:''},redirect_to:'https://aaranit-ai.vercel.app'})
   }).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
   if(res.error){amsg('fMsg',res.error.message,false);return}
   amsg('fMsg','✅ Password reset link sent to <strong>'+email+'</strong>. Check your inbox!',true);
@@ -1453,8 +1485,6 @@ We're thrilled to have you join the AARANIT AI community!
   }
 }
 
-function doSignOut(){currentUser=null;signupCache={};updateAuthUI();closeM('authModal')}
-
 // ═══════════════ AES-256-GCM ENCRYPTION (Web Crypto API) ═══════════════
 async function deriveKey(pass){
   const enc=new TextEncoder();
@@ -1495,9 +1525,11 @@ function openApply(title,company,country){
     document.getElementById('applyGate').style.display='none';
     document.getElementById('applyFormWrap').style.display='block';
     if(currentUser.email)document.getElementById('aEmailF').value=currentUser.email;
-    if(signupCache.name)document.getElementById('aName').value=signupCache.name;
-    if(signupCache.phone)document.getElementById('aPhoneF').value=signupCache.phone;
+    document.getElementById('aName').value=signupCache.name||currentUser.name||'';
+    document.getElementById('aPhoneF').value=signupCache.phone||'';
     if(signupCache.country)document.getElementById('aCountryF').value=signupCache.country;
+    // Reset CV
+    document.getElementById('cvInput').value='';
   }else{
     document.getElementById('applyGate').style.display='block';
     document.getElementById('applyFormWrap').style.display='none';
