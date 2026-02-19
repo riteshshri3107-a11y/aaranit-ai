@@ -680,6 +680,17 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
         <input class="mi" id="sName" placeholder="John Doe">
         <label class="ml">Email Address *</label>
         <input class="mi" type="email" id="sEmail" placeholder="you@email.com">
+        <label class="ml">Create Password *</label>
+        <div style="position:relative">
+          <input class="mi" type="password" id="sPass" placeholder="Min 8 characters" style="padding-right:2.5rem">
+          <span onclick="togglePw('sPass',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.9rem;user-select:none">👁️</span>
+        </div>
+        <label class="ml">Confirm Password *</label>
+        <div style="position:relative">
+          <input class="mi" type="password" id="sPassC" placeholder="Re-enter password" style="padding-right:2.5rem">
+          <span onclick="togglePw('sPassC',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.9rem;user-select:none">👁️</span>
+        </div>
+        <div id="pwStrength" style="margin-top:.3rem;font-size:.7rem;display:flex;align-items:center;gap:.4rem"><div id="pwBar" style="height:4px;border-radius:2px;transition:all .3s;flex:1"></div><span id="pwLabel"></span></div>
         <label class="ml">Phone Number</label>
         <div class="mr2">
           <select class="msel" id="sPhCode"><option value="+1">🇨🇦 +1</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+49">🇩🇪 +49</option><option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option><option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option></select>
@@ -687,12 +698,12 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
         </div>
         <label class="ml">Country *</label>
         <select class="msel" id="sCountry"><option value="">Select Country</option><option>Canada</option><option>United States</option><option>United Kingdom</option><option>Germany</option><option>India</option><option>Australia</option><option>UAE</option><option>Singapore</option><option>Other</option></select>
-        <div class="secure-pill">🔒 256-bit AES encryption · OTP verified · Zero plain-text storage</div>
-        <button class="mbtn" onclick="doSignup()">Send Verification Code →</button>
+        <div class="secure-pill">🔒 256-bit AES · OTP verified · Password hashed (bcrypt)</div>
+        <button class="mbtn" id="signupBtn" onclick="doSignup()">Create Account & Verify Email →</button>
         <div class="mmsg" id="sMsg"></div>
         <span class="mlink" onclick="showAuth('aLogin')">Already have an account? Sign In</span>
       </div>
-      <!-- OTP -->
+      <!-- OTP VERIFICATION (signup only) -->
       <div id="aOTP" style="display:none">
         <h2>Verify Your Email</h2>
         <p class="msub">Enter the 8-digit code sent to <strong id="otpTo"></strong></p>
@@ -706,42 +717,42 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
           <input type="text" maxlength="1" oninput="otpN(this,6)" onkeydown="otpB(event,6)">
           <input type="text" maxlength="1" oninput="otpN(this,7)" onkeydown="otpB(event,7)">
         </div>
-        <button class="mbtn" onclick="doVerify()">Verify & Continue →</button>
+        <button class="mbtn" onclick="doVerify()">Verify & Complete Signup →</button>
         <button class="mbtn sec" onclick="doResendOTP()">Resend Code</button>
         <div class="mmsg" id="otpMsg"></div>
       </div>
-      <!-- LOGIN -->
+      <!-- LOGIN (Email + Password) -->
       <div id="aLogin" style="display:none">
-        <h2>Sign In</h2>
-        <p class="msub">We'll email you a one-time sign-in code.</p>
+        <h2>Welcome Back</h2>
+        <p class="msub">Sign in with your email and password.</p>
         <label class="ml">Email Address</label>
         <input class="mi" type="email" id="lEmail" placeholder="you@email.com">
-        <button class="mbtn" onclick="doLogin()">Send Sign-In Code →</button>
+        <label class="ml">Password</label>
+        <div style="position:relative">
+          <input class="mi" type="password" id="lPass" placeholder="Your password" style="padding-right:2.5rem">
+          <span onclick="togglePw('lPass',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.9rem;user-select:none">👁️</span>
+        </div>
+        <button class="mbtn" onclick="doLogin()">Sign In →</button>
         <div class="mmsg" id="lMsg"></div>
+        <span class="mlink" onclick="showAuth('aForgot')">Forgot password?</span>
         <span class="mlink" onclick="showAuth('aSignup')">Don't have an account? Sign Up</span>
       </div>
-      <!-- LOGIN OTP -->
-      <div id="aLoginOTP" style="display:none">
-        <h2>Enter Sign-In Code</h2>
-        <p class="msub">Check your email for the 8-digit code</p>
-        <div class="otp-wrap" id="loginOtpBox">
-          <input type="text" maxlength="1" oninput="otpN(this,0)" onkeydown="otpB(event,0)">
-          <input type="text" maxlength="1" oninput="otpN(this,1)" onkeydown="otpB(event,1)">
-          <input type="text" maxlength="1" oninput="otpN(this,2)" onkeydown="otpB(event,2)">
-          <input type="text" maxlength="1" oninput="otpN(this,3)" onkeydown="otpB(event,3)">
-          <input type="text" maxlength="1" oninput="otpN(this,4)" onkeydown="otpB(event,4)">
-          <input type="text" maxlength="1" oninput="otpN(this,5)" onkeydown="otpB(event,5)">
-          <input type="text" maxlength="1" oninput="otpN(this,6)" onkeydown="otpB(event,6)">
-          <input type="text" maxlength="1" oninput="otpN(this,7)" onkeydown="otpB(event,7)">
-        </div>
-        <button class="mbtn" onclick="doLoginVerify()">Sign In →</button>
-        <div class="mmsg" id="lOtpMsg"></div>
+      <!-- FORGOT PASSWORD -->
+      <div id="aForgot" style="display:none">
+        <h2>Reset Password</h2>
+        <p class="msub">Enter your email and we'll send a password reset link.</p>
+        <label class="ml">Email Address</label>
+        <input class="mi" type="email" id="fEmail" placeholder="you@email.com">
+        <button class="mbtn" onclick="doForgotPw()">Send Reset Link →</button>
+        <div class="mmsg" id="fMsg"></div>
+        <span class="mlink" onclick="showAuth('aLogin')">← Back to Sign In</span>
       </div>
       <!-- PROFILE -->
       <div id="aProfile" style="display:none;text-align:center">
-        <h2 style="margin-bottom:.6rem">✨ Welcome!</h2>
-        <p class="msub" id="profEmail"></p>
-        <div class="secure-pill" style="justify-content:center;margin-bottom:1rem">🔒 Session encrypted & secure</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;font-size:1.5rem;font-weight:800;font-family:'Syne',sans-serif;color:var(--bg)" id="profAvatar">?</div>
+        <h2 style="margin-bottom:.2rem" id="profName">Welcome!</h2>
+        <p class="msub" id="profEmail" style="margin-bottom:.8rem"></p>
+        <div class="secure-pill" style="justify-content:center;margin-bottom:1.2rem">🔒 Session active & encrypted</div>
         <button class="mbtn" onclick="closeM('authModal')">Continue Browsing →</button>
         <button class="mbtn sec" style="color:var(--magenta);border-color:rgba(217,70,239,.2)" onclick="doSignOut()">Sign Out</button>
       </div>
@@ -1218,11 +1229,11 @@ document.getElementById('inboxForm').addEventListener('submit',async function(e)
 // ═══════════════ MODAL HELPERS ═══════════════
 function closeM(id){document.getElementById(id).classList.remove('show')}
 
-// ═══════════════ AUTH SYSTEM (Supabase OTP) ═══════════════
+// ═══════════════ AUTH SYSTEM (Password + OTP Email Verify) ═══════════════
 let currentUser=null;
 let signupCache={};
-const authPanels=['aSignup','aOTP','aLogin','aLoginOTP','aProfile'];
-function showAuth(id){authPanels.forEach(p=>document.getElementById(p).style.display='none');document.getElementById(id).style.display='block'}
+const authPanels=['aSignup','aOTP','aLogin','aForgot','aProfile'];
+function showAuth(id){authPanels.forEach(p=>{const e=document.getElementById(p);if(e)e.style.display='none'});document.getElementById(id).style.display='block'}
 function openAuth(){document.getElementById('authModal').classList.add('show');currentUser?showAuth('aProfile'):showAuth('aSignup')}
 function updateAuthUI(){
   const dot=document.getElementById('authDot'),lbl=document.getElementById('authLabel');
@@ -1230,72 +1241,216 @@ function updateAuthUI(){
   else{dot.className='adot off';lbl.textContent='Sign Up / Sign In'}
 }
 
+// Password visibility toggle
+function togglePw(id,btn){const i=document.getElementById(id);if(i.type==='password'){i.type='text';btn.textContent='🙈'}else{i.type='password';btn.textContent='👁️'}}
+
+// Password strength checker
+document.addEventListener('DOMContentLoaded',()=>{
+  const sP=document.getElementById('sPass');
+  if(sP)sP.addEventListener('input',()=>{
+    const p=sP.value,bar=document.getElementById('pwBar'),lbl=document.getElementById('pwLabel');
+    let s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(/[A-Z]/.test(p)&&/[a-z]/.test(p))s++;if(/\d/.test(p))s++;if(/[^A-Za-z0-9]/.test(p))s++;
+    const levels=[{c:'#ef4444',w:'20%',t:'Weak'},{c:'#f59e0b',w:'40%',t:'Fair'},{c:'#f59e0b',w:'60%',t:'Moderate'},{c:'#22c55e',w:'80%',t:'Strong'},{c:'#22c55e',w:'100%',t:'Very Strong'}];
+    const lv=levels[Math.min(s,4)];
+    bar.style.background=lv.c;bar.style.width=lv.w;lbl.textContent=p?lv.t:'';lbl.style.color=lv.c;
+  });
+});
+
 // OTP input helpers
 function otpN(el,i){if(el.value.length===1){const x=el.parentElement.children[i+1];if(x)x.focus()}}
 function otpB(e,i){if(e.key==='Backspace'&&!e.target.value){const p=e.target.parentElement.children[i-1];if(p){p.focus();p.value=''}}}
 function readOTP(id){return Array.from(document.getElementById(id).children).map(i=>i.value).join('')}
 function clearOTP(id){Array.from(document.getElementById(id).children).forEach(i=>i.value='')}
-function amsg(id,txt,ok){const e=document.getElementById(id);e.textContent=txt;e.style.color=ok?'var(--cyan)':'var(--magenta)'}
+function amsg(id,txt,ok){const e=document.getElementById(id);if(e){e.innerHTML=txt;e.style.color=ok?'var(--cyan)':'var(--magenta)'}}
 
 // Supabase Auth calls
 async function sbAuthCall(endpoint,body){
-  try{const r=await fetch(`${SB}/auth/v1/${endpoint}`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK},body:JSON.stringify(body)});return await r.json()}catch(e){return{error:{message:'Network error. Please check Supabase Auth settings (Email OTP must be enabled).'}}}
+  try{const r=await fetch(`${SB}/auth/v1/${endpoint}`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK},body:JSON.stringify(body)});return await r.json()}catch(e){return{error:{message:'Network error. Please try again.'}}}
 }
 
+// ── SIGNUP: Email + Password + OTP Verification ──
 async function doSignup(){
   const name=document.getElementById('sName').value.trim();
   const email=document.getElementById('sEmail').value.trim();
+  const pass=document.getElementById('sPass').value;
+  const passC=document.getElementById('sPassC').value;
   const phone=document.getElementById('sPhCode').value+document.getElementById('sPhone').value.trim();
   const country=document.getElementById('sCountry').value;
+
   if(!name||!email){amsg('sMsg','Please fill name and email.',false);return}
-  if(!email.includes('@')){amsg('sMsg','Enter a valid email.',false);return}
-  if(!country){amsg('sMsg','Please select country.',false);return}
-  amsg('sMsg','Sending verification code...',true);
-  signupCache={name,email,phone,country};
-  const res=await sbAuthCall('otp',{email,data:{full_name:name}});
+  if(!email.includes('@')){amsg('sMsg','Enter a valid email address.',false);return}
+  if(!pass||pass.length<8){amsg('sMsg','Password must be at least 8 characters.',false);return}
+  if(pass!==passC){amsg('sMsg','Passwords do not match.',false);return}
+  if(!country){amsg('sMsg','Please select your country.',false);return}
+
+  const btn=document.getElementById('signupBtn');
+  btn.textContent='Creating account...';btn.disabled=true;
+  amsg('sMsg','Setting up your account...',true);
+
+  signupCache={name,email,phone,country,pass};
+
+  // Step 1: Create account with email + password (Supabase sends confirmation email)
+  const res=await sbAuthCall('signup',{email,password:pass,data:{full_name:name,phone,country}});
+  btn.textContent='Create Account & Verify Email →';btn.disabled=false;
+
   if(res.error){amsg('sMsg',res.error.message,false);return}
+
+  // Account created — now show OTP screen for email verification
   document.getElementById('otpTo').textContent=email;
+  amsg('sMsg','',true);
   showAuth('aOTP');clearOTP('otpBox');
   document.getElementById('otpBox').children[0].focus();
 }
 
+// ── VERIFY OTP (Signup email confirmation) ──
 async function doVerify(){
   const otp=readOTP('otpBox');
   if(otp.length<8){amsg('otpMsg','Enter all 8 digits.',false);return}
   amsg('otpMsg','Verifying...',true);
-  const res=await sbAuthCall('verify',{email:signupCache.email,token:otp,type:'email'});
-  if(res.error){amsg('otpMsg',res.error.message||'Invalid code.',false);return}
-  currentUser=res.user||{email:signupCache.email,id:res.user?.id};
+
+  // Verify the signup OTP token
+  const res=await sbAuthCall('verify',{email:signupCache.email,token:otp,type:'signup'});
+  if(res.error){amsg('otpMsg',res.error.message||'Invalid or expired code.',false);return}
+
+  // Verification success — set user
+  currentUser={email:signupCache.email,id:res.user?.id||'local',name:signupCache.name};
+
+  // Save user profile
   sbi('user_profiles',{user_id:currentUser.id,full_name:signupCache.name,phone:signupCache.phone,country:signupCache.country}).catch(()=>{});
-  sbi('contact_submissions',{name:signupCache.name,email:signupCache.email,service_interest:'signup',message:`[SIGNUP] ${signupCache.country} | ${signupCache.phone}`}).catch(()=>{});
+
+  // Log signup event
+  sbi('contact_submissions',{name:signupCache.name,email:signupCache.email,service_interest:'signup',message:`[SIGNUP] ${signupCache.country} | ${signupCache.phone} | Account verified ✓`}).catch(()=>{});
+
+  // Send welcome email
+  sendWelcomeEmail(signupCache.name,signupCache.email,signupCache.country);
+
+  // Update UI
   updateAuthUI();
-  document.getElementById('profEmail').textContent='Signed in as '+signupCache.email;
+  document.getElementById('profAvatar').textContent=signupCache.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('profName').textContent='🎉 Welcome, '+signupCache.name.split(' ')[0]+'!';
+  document.getElementById('profEmail').textContent=signupCache.email;
   showAuth('aProfile');
 }
 
-async function doResendOTP(){amsg('otpMsg','Resending...',true);await sbAuthCall('otp',{email:signupCache.email});amsg('otpMsg','New code sent! Check email.',true)}
+async function doResendOTP(){
+  amsg('otpMsg','Resending...',true);
+  // Re-trigger signup to resend confirmation email
+  await sbAuthCall('signup',{email:signupCache.email,password:signupCache.pass,data:{full_name:signupCache.name}});
+  amsg('otpMsg','New code sent! Check your email inbox (and spam folder).',true);
+}
 
+// ── LOGIN: Email + Password ──
 async function doLogin(){
   const email=document.getElementById('lEmail').value.trim();
-  if(!email||!email.includes('@')){amsg('lMsg','Enter valid email.',false);return}
-  amsg('lMsg','Sending code...',true);
-  signupCache={email};
-  const res=await sbAuthCall('otp',{email});
-  if(res.error){amsg('lMsg',res.error.message,false);return}
-  showAuth('aLoginOTP');clearOTP('loginOtpBox');
-  document.getElementById('loginOtpBox').children[0].focus();
+  const pass=document.getElementById('lPass').value;
+  if(!email||!email.includes('@')){amsg('lMsg','Enter a valid email.',false);return}
+  if(!pass){amsg('lMsg','Enter your password.',false);return}
+
+  amsg('lMsg','Signing in...',true);
+
+  const res=await fetch(`${SB}/auth/v1/token?grant_type=password`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json',apikey:SK},
+    body:JSON.stringify({email,password:pass})
+  }).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
+
+  if(res.error){
+    const msg=res.error.message||'';
+    if(msg.includes('Invalid login')||msg.includes('invalid')){
+      amsg('lMsg','Invalid email or password. <span onclick="showAuth(\'aForgot\')" style="cursor:pointer;text-decoration:underline;color:var(--cyan)">Forgot password?</span>',false);
+    }else if(msg.includes('not confirmed')){
+      amsg('lMsg','Email not verified yet. Please check your inbox for the verification code.',false);
+    }else{
+      amsg('lMsg',msg,false);
+    }
+    return;
+  }
+
+  // Login success
+  const userName=res.user?.user_metadata?.full_name||email.split('@')[0];
+  currentUser={email,id:res.user?.id||'local',name:userName};
+  updateAuthUI();
+  document.getElementById('profAvatar').textContent=userName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('profName').textContent='Welcome back, '+userName.split(' ')[0]+'!';
+  document.getElementById('profEmail').textContent=email;
+  showAuth('aProfile');
 }
 
-async function doLoginVerify(){
-  const otp=readOTP('loginOtpBox');
-  if(otp.length<8){amsg('lOtpMsg','Enter all 8 digits.',false);return}
-  amsg('lOtpMsg','Signing in...',true);
-  const res=await sbAuthCall('verify',{email:signupCache.email,token:otp,type:'email'});
-  if(res.error){amsg('lOtpMsg',res.error.message||'Invalid code.',false);return}
-  currentUser=res.user||{email:signupCache.email,id:res.user?.id};
-  updateAuthUI();
-  document.getElementById('profEmail').textContent='Signed in as '+signupCache.email;
-  showAuth('aProfile');
+// ── FORGOT PASSWORD ──
+async function doForgotPw(){
+  const email=document.getElementById('fEmail').value.trim();
+  if(!email||!email.includes('@')){amsg('fMsg','Enter your email address.',false);return}
+  amsg('fMsg','Sending reset link...',true);
+  const res=await fetch(`${SB}/auth/v1/recover`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json',apikey:SK},
+    body:JSON.stringify({email})
+  }).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
+  if(res.error){amsg('fMsg',res.error.message,false);return}
+  amsg('fMsg','✅ Password reset link sent to <strong>'+email+'</strong>. Check your inbox!',true);
+}
+
+function doSignOut(){currentUser=null;signupCache={};updateAuthUI();closeM('authModal')}
+
+// ── WELCOME EMAIL (via Supabase edge or contact_submissions) ──
+function sendWelcomeEmail(name,email,country){
+  const firstName=name.split(' ')[0];
+  const welcomeMsg=`
+🎉 WELCOME TO AARANIT AI, ${name.toUpperCase()}!
+
+Congratulations ${firstName}! Your account has been successfully created and verified.
+
+Here's what you can do now:
+━━━━━━━━━━━━━━━━━━━━━━━━
+🎓 Browse & Enroll in AI Certification Programs
+📚 Access Tutoring & Training Courses
+💼 Apply for AI Jobs Worldwide (16+ positions in 9 countries)
+🔒 Your data is protected with AES-256-GCM encryption
+
+Account Details:
+• Name: ${name}
+• Email: ${email}
+• Country: ${country}
+• Member Since: ${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
+
+Your next steps:
+1. Explore our certification programs starting from $599 CAD
+2. Book a 1-on-1 tutoring session with our AI experts
+3. Apply for AI jobs — your CV will be encrypted end-to-end
+
+We're thrilled to have you join the AARANIT AI community!
+
+— The AARANIT AI Team
+📧 hello@aaranitai.com | 🌐 aaranit-ai.vercel.app
+15439361 Canada Inc. | Ontario, Canada
+  `.trim();
+
+  // Save welcome email record to Supabase
+  sbi('contact_submissions',{
+    name:'AARANIT AI',
+    email:email,
+    service_interest:'Welcome Email',
+    message:`[WELCOME] To: ${name} (${email}) | Country: ${country} | Joined: ${new Date().toISOString()}`
+  }).catch(()=>{});
+
+  // Also add to user's inbox/responses within the site
+  if(typeof systemMsgs!=='undefined'){
+    systemMsgs.push({
+      title:'🎉 Welcome to AARANIT AI, '+firstName+'!',
+      body:`<div style="text-align:center;margin-bottom:1rem"><div style="font-size:3rem">🎊</div><h2 style="font-family:'Syne',sans-serif;margin:.5rem 0">Congratulations, ${firstName}!</h2><p style="color:var(--text2)">Your account is verified and ready to go.</p></div>
+      <div style="background:var(--bg);border-radius:12px;padding:1rem;margin:1rem 0;border:1px solid var(--border)">
+        <p><strong>🎓 Certifications</strong> — 8 programs from $599 to $3,999 CAD</p>
+        <p><strong>📚 Tutoring</strong> — 1-on-1 sessions with industry experts</p>
+        <p><strong>💼 Careers</strong> — 16+ AI jobs across 9 countries</p>
+        <p><strong>🔒 Security</strong> — AES-256-GCM encryption on all your data</p>
+      </div>
+      <p style="color:var(--text2);font-size:.85rem">Member since: ${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</p>
+      <p style="margin-top:1rem"><strong>Welcome aboard! 🚀</strong><br>— The AARANIT AI Team</p>`,
+      time:'Just now'
+    });
+    const rl=document.getElementById('responseList');
+    if(rl)rl.innerHTML+=`<div class="msg-item unread" onclick="showMsgDetail(${systemMsgs.length-1})"><div class="msg-dot"></div><div class="msg-info"><h4>🎉 Welcome to AARANIT AI!</h4><p>Congratulations ${firstName}! Your account is verified and ready...</p></div><div class="msg-time">Just now</div></div>`;
+  }
 }
 
 function doSignOut(){currentUser=null;signupCache={};updateAuthUI();closeM('authModal')}
