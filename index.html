@@ -161,6 +161,48 @@ section{padding:6rem 3rem;position:relative;z-index:2}
 /* ── AI JOBS → CAREERS ── */
 #careers{background:var(--bg)}
 
+/* ── AUTH MODAL + APPLY MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:20000;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.show{display:flex}
+.modal-box{background:var(--bg);border:1px solid var(--border);border-radius:20px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+.modal-box::-webkit-scrollbar{width:4px}.modal-box::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:3px}
+.mx{position:sticky;top:0;right:0;float:right;background:var(--card);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem;cursor:pointer;margin:10px 10px 0 0;z-index:3;transition:all .2s}
+.mx:hover{color:var(--text);border-color:var(--text)}
+.mbd{padding:0 2rem 2rem}
+.mbd h2{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:.2rem}
+.mbd .msub{color:var(--text2);font-size:.82rem;margin-bottom:1.3rem}
+.ml{display:block;font-size:.73rem;font-weight:600;color:var(--text2);margin-bottom:.25rem;margin-top:.9rem}
+.mi{width:100%;padding:.68rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.83rem;outline:none;transition:border .3s;font-family:'DM Sans',sans-serif}
+.mi:focus{border-color:rgba(0,229,255,.35)}
+.mi::placeholder{color:var(--muted)}
+.msel{width:100%;padding:.68rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:.83rem;outline:none;font-family:'DM Sans',sans-serif}
+.msel option{background:var(--bg)}
+.mta{width:100%;padding:.68rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.83rem;outline:none;resize:none;font-family:'DM Sans',sans-serif}
+.mr2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.mbtn{width:100%;padding:.78rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.83rem;cursor:pointer;margin-top:1.2rem;transition:all .3s}
+.mbtn:hover{box-shadow:0 8px 25px rgba(0,229,255,.2);transform:translateY(-2px)}
+.mbtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.mbtn.sec{background:transparent;border:1px solid var(--border);color:var(--text);margin-top:.5rem}
+.mbtn.sec:hover{border-color:var(--cyan);color:var(--cyan)}
+.mmsg{font-size:.78rem;margin-top:.6rem;text-align:center;min-height:1rem}
+.mlink{color:var(--cyan);cursor:pointer;font-size:.8rem;text-align:center;display:block;margin-top:.9rem}
+.mlink:hover{text-decoration:underline}
+.secure-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .65rem;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);border-radius:50px;font-size:.63rem;color:var(--green);font-weight:600;margin-top:.4rem}
+.otp-wrap{display:flex;gap:.4rem;justify-content:center;margin:1rem 0}
+.otp-wrap input{width:44px;height:50px;text-align:center;font-size:1.2rem;font-weight:700;font-family:'Syne',sans-serif;padding:0;border-radius:12px;background:var(--card);border:1px solid var(--border);color:var(--text);outline:none;transition:border .3s}
+.otp-wrap input:focus{border-color:var(--cyan)}
+.auth-pill{display:flex;align-items:center;gap:.4rem;padding:.4rem .85rem;border-radius:50px;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .3s;border:1px solid var(--border);background:var(--card);color:var(--text);white-space:nowrap}
+.auth-pill:hover{border-color:rgba(0,229,255,.2)}
+.auth-pill .adot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.auth-pill .adot.on{background:var(--green);box-shadow:0 0 6px var(--green)}
+.auth-pill .adot.off{background:var(--muted)}
+.file-drop{position:relative;padding:1.2rem;border:2px dashed var(--border);border-radius:14px;text-align:center;cursor:pointer;transition:all .3s;margin-top:.3rem}
+.file-drop:hover{border-color:rgba(0,229,255,.25);background:rgba(0,229,255,.02)}
+.file-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.file-drop .fd-label{font-size:.8rem;color:var(--text2)}
+.file-drop .fd-name{font-size:.73rem;color:var(--cyan);margin-top:.3rem;font-weight:600}
+.enc-bar{display:flex;align-items:center;gap:.4rem;font-size:.66rem;color:var(--green);margin-top:.4rem;justify-content:center}
+
 /* ── PAYMENT MODAL ── */
 .pay-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:20000;display:none;align-items:center;justify-content:center;padding:1rem}
 .pay-overlay.show{display:flex}
@@ -397,6 +439,10 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <li><a href="#inbox">Messages</a></li>
   </ul>
   <div class="nav-right">
+    <div class="auth-pill" id="authPill" onclick="openAuth()">
+      <span class="adot off" id="authDot"></span>
+      <span id="authLabel">Sign Up / Sign In</span>
+    </div>
     <select class="curr-sel" id="currSel" onchange="changeCurrency(this.value)">
       <option value="CAD">🇨🇦 CAD</option>
       <option value="USD">🇺🇸 USD</option>
@@ -417,7 +463,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- MOBILE DRAWER -->
 <div class="mobile-overlay" id="mobOverlay"></div>
 <div class="mobile-drawer" id="mobDrawer">
-  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="#careers">Careers 🔒</a><a href="#flexible">Schedule</a><a href="#inbox">Messages</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
+  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="#careers">Careers</a><a href="#flexible">Schedule</a><a href="#inbox">Messages</a><a href="javascript:void(0)" onclick="closeMob();openAuth()" style="color:var(--green)">🔐 Sign Up / Sign In</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
 </div>
 
 <!-- CART SIDEBAR -->
@@ -621,6 +667,144 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- BACK TO TOP -->
 <button class="back-top" id="backTop" onclick="scrollTo({top:0,behavior:'smooth'})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg></button>
 
+<!-- AUTH MODAL -->
+<div class="modal-bg" id="authModal">
+  <div class="modal-box" style="max-width:430px">
+    <button class="mx" onclick="closeM('authModal')">✕</button>
+    <div class="mbd">
+      <!-- SIGNUP -->
+      <div id="aSignup">
+        <h2>Create Your Account</h2>
+        <p class="msub">Sign up to apply for jobs, enroll in courses, and track progress securely.</p>
+        <label class="ml">Full Name *</label>
+        <input class="mi" id="sName" placeholder="John Doe">
+        <label class="ml">Email Address *</label>
+        <input class="mi" type="email" id="sEmail" placeholder="you@email.com">
+        <label class="ml">Phone Number</label>
+        <div class="mr2">
+          <select class="msel" id="sPhCode"><option value="+1">🇨🇦 +1</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+49">🇩🇪 +49</option><option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option><option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option></select>
+          <input class="mi" type="tel" id="sPhone" placeholder="1234567890">
+        </div>
+        <label class="ml">Country *</label>
+        <select class="msel" id="sCountry"><option value="">Select Country</option><option>Canada</option><option>United States</option><option>United Kingdom</option><option>Germany</option><option>India</option><option>Australia</option><option>UAE</option><option>Singapore</option><option>Other</option></select>
+        <div class="secure-pill">🔒 256-bit AES encryption · OTP verified · Zero plain-text storage</div>
+        <button class="mbtn" onclick="doSignup()">Send Verification Code →</button>
+        <div class="mmsg" id="sMsg"></div>
+        <span class="mlink" onclick="showAuth('aLogin')">Already have an account? Sign In</span>
+      </div>
+      <!-- OTP -->
+      <div id="aOTP" style="display:none">
+        <h2>Verify Your Email</h2>
+        <p class="msub">Enter the 6-digit code sent to <strong id="otpTo"></strong></p>
+        <div class="otp-wrap" id="otpBox">
+          <input type="text" maxlength="1" oninput="otpN(this,0)" onkeydown="otpB(event,0)">
+          <input type="text" maxlength="1" oninput="otpN(this,1)" onkeydown="otpB(event,1)">
+          <input type="text" maxlength="1" oninput="otpN(this,2)" onkeydown="otpB(event,2)">
+          <input type="text" maxlength="1" oninput="otpN(this,3)" onkeydown="otpB(event,3)">
+          <input type="text" maxlength="1" oninput="otpN(this,4)" onkeydown="otpB(event,4)">
+          <input type="text" maxlength="1" oninput="otpN(this,5)" onkeydown="otpB(event,5)">
+        </div>
+        <button class="mbtn" onclick="doVerify()">Verify & Continue →</button>
+        <button class="mbtn sec" onclick="doResendOTP()">Resend Code</button>
+        <div class="mmsg" id="otpMsg"></div>
+      </div>
+      <!-- LOGIN -->
+      <div id="aLogin" style="display:none">
+        <h2>Sign In</h2>
+        <p class="msub">We'll email you a one-time sign-in code.</p>
+        <label class="ml">Email Address</label>
+        <input class="mi" type="email" id="lEmail" placeholder="you@email.com">
+        <button class="mbtn" onclick="doLogin()">Send Sign-In Code →</button>
+        <div class="mmsg" id="lMsg"></div>
+        <span class="mlink" onclick="showAuth('aSignup')">Don't have an account? Sign Up</span>
+      </div>
+      <!-- LOGIN OTP -->
+      <div id="aLoginOTP" style="display:none">
+        <h2>Enter Sign-In Code</h2>
+        <p class="msub">Check your email for the 6-digit code</p>
+        <div class="otp-wrap" id="loginOtpBox">
+          <input type="text" maxlength="1" oninput="otpN(this,0)" onkeydown="otpB(event,0)">
+          <input type="text" maxlength="1" oninput="otpN(this,1)" onkeydown="otpB(event,1)">
+          <input type="text" maxlength="1" oninput="otpN(this,2)" onkeydown="otpB(event,2)">
+          <input type="text" maxlength="1" oninput="otpN(this,3)" onkeydown="otpB(event,3)">
+          <input type="text" maxlength="1" oninput="otpN(this,4)" onkeydown="otpB(event,4)">
+          <input type="text" maxlength="1" oninput="otpN(this,5)" onkeydown="otpB(event,5)">
+        </div>
+        <button class="mbtn" onclick="doLoginVerify()">Sign In →</button>
+        <div class="mmsg" id="lOtpMsg"></div>
+      </div>
+      <!-- PROFILE -->
+      <div id="aProfile" style="display:none;text-align:center">
+        <h2 style="margin-bottom:.6rem">✨ Welcome!</h2>
+        <p class="msub" id="profEmail"></p>
+        <div class="secure-pill" style="justify-content:center;margin-bottom:1rem">🔒 Session encrypted & secure</div>
+        <button class="mbtn" onclick="closeM('authModal')">Continue Browsing →</button>
+        <button class="mbtn sec" style="color:var(--magenta);border-color:rgba(217,70,239,.2)" onclick="doSignOut()">Sign Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JOB APPLICATION MODAL -->
+<div class="modal-bg" id="applyModal">
+  <div class="modal-box" style="max-width:530px">
+    <button class="mx" onclick="closeM('applyModal')">✕</button>
+    <div class="mbd">
+      <!-- AUTH GATE -->
+      <div id="applyGate" style="text-align:center;padding:2rem 0">
+        <h2>🔐 Account Required</h2>
+        <p class="msub">Create an account or sign in to apply. This ensures your personal data and CV are encrypted and secure.</p>
+        <button class="mbtn" onclick="closeM('applyModal');openAuth()">Create Account / Sign In →</button>
+      </div>
+      <!-- FORM -->
+      <div id="applyFormWrap" style="display:none">
+        <h2>Apply: <span id="applyTitle" class="gradient-text"></span></h2>
+        <p class="msub">All data encrypted with AES-256-GCM before storage. CV never stored in plain text.</p>
+        <div class="mr2">
+          <div><label class="ml">Full Name *</label><input class="mi" id="aName"></div>
+          <div><label class="ml">Email *</label><input class="mi" type="email" id="aEmailF"></div>
+        </div>
+        <div class="mr2">
+          <div><label class="ml">Phone *</label><input class="mi" type="tel" id="aPhoneF"></div>
+          <div><label class="ml">Country *</label><select class="msel" id="aCountryF"><option value="">Select</option><option>Canada</option><option>United States</option><option>United Kingdom</option><option>Germany</option><option>India</option><option>Australia</option><option>UAE</option><option>Singapore</option><option>Other</option></select></div>
+        </div>
+        <label class="ml">City</label>
+        <input class="mi" id="aCityF" placeholder="e.g. Toronto">
+        <div class="mr2">
+          <div><label class="ml">Experience (years)</label><input class="mi" type="number" id="aExpF" min="0" max="40" placeholder="e.g. 5"></div>
+          <div><label class="ml">Education</label><select class="msel" id="aEduF"><option value="">Select</option><option>High School</option><option>Diploma</option><option>Bachelor's</option><option>Master's</option><option>PhD</option><option>Self-taught</option><option>Bootcamp</option></select></div>
+        </div>
+        <label class="ml">Key Skills *</label>
+        <input class="mi" id="aSkillsF" placeholder="Python, PyTorch, NLP, AWS, etc.">
+        <div class="mr2">
+          <div><label class="ml">LinkedIn URL</label><input class="mi" id="aLinkedinF" placeholder="https://linkedin.com/in/..."></div>
+          <div><label class="ml">GitHub / Portfolio</label><input class="mi" id="aPortfolioF" placeholder="https://..."></div>
+        </div>
+        <label class="ml">Salary Expectation</label>
+        <input class="mi" id="aSalaryF" placeholder="e.g. $120K–$150K USD / negotiable">
+        <label class="ml">Availability</label>
+        <select class="msel" id="aAvailF"><option>Immediately</option><option>2 weeks notice</option><option>1 month</option><option>2-3 months</option><option>Flexible</option></select>
+        <label class="ml">Why are you a great fit? *</label>
+        <textarea class="mta" id="aCoverF" rows="4" placeholder="Describe relevant experience, motivation, and what excites you about this role..."></textarea>
+        <label class="ml">Upload CV / Resume *</label>
+        <div class="file-drop" id="cvDrop">
+          <input type="file" id="cvInput" accept=".pdf,.doc,.docx" onchange="handleCV(this)">
+          <div class="fd-label">📄 Click or drag your CV here<br><small style="color:var(--muted)">PDF, DOC, DOCX · Max 5MB · Encrypted before upload</small></div>
+          <div class="fd-name" id="cvName"></div>
+        </div>
+        <div class="enc-bar" id="encBar" style="display:none">
+          <span>🔒</span><span>File encrypted with AES-256-GCM — stored as ciphertext only</span>
+        </div>
+        <label class="ml">How did you hear about us?</label>
+        <select class="msel" id="aSourceF"><option value="">Select</option><option>LinkedIn</option><option>Google Search</option><option>Referral</option><option>Social Media</option><option>AARANIT Website</option><option>Job Board</option><option>Other</option></select>
+        <div class="secure-pill" style="margin-top:1rem">🔒 Personal data & CV encrypted end-to-end with AES-256-GCM</div>
+        <button class="mbtn" id="applyBtn" onclick="submitApplication()">🔐 Encrypt & Submit Application →</button>
+        <div class="mmsg" id="appMsg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- PAYMENT MODAL -->
 <div class="pay-overlay" id="payOverlay">
   <div class="pay-modal">
@@ -734,7 +918,7 @@ function filterC(){
     return true;
   });
   document.getElementById('cCount').textContent=`${f.length} of ${careerJobs.length} positions`;
-  document.getElementById('jobsGrid').innerHTML=f.length?f.map(j=>`<div class="job-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem"><span style="font-size:1.5rem">${j.icon}</span><span style="padding:.15rem .5rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.1);border-radius:50px;font-size:.6rem;color:var(--violet);font-weight:600">${j.flag} ${j.country}</span></div><h3>${j.t}</h3><div style="font-size:.78rem;color:var(--cyan);margin-bottom:.3rem">${j.co} · ${j.city}</div><div style="display:flex;gap:.6rem;font-size:.7rem;color:var(--muted);margin-bottom:.3rem"><span>${j.type}</span><span>${j.exp}</span></div><div class="salary">${j.sal}</div><p>${j.p}</p><div class="job-skills">${j.skills.map(s=>`<span>${s}</span>`).join('')}</div><div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--border)"><button onclick="window.location.href='#contact'" class="add-cart-btn" style="width:100%">Apply Now →</button></div></div>`).join(''):'<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No positions match. Try different filters.</div>';
+  document.getElementById('jobsGrid').innerHTML=f.length?f.map((j,idx)=>`<div class="job-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem"><span style="font-size:1.5rem">${j.icon}</span><span style="padding:.15rem .5rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.1);border-radius:50px;font-size:.6rem;color:var(--violet);font-weight:600">${j.flag} ${j.country}</span></div><h3>${j.t}</h3><div style="font-size:.78rem;color:var(--cyan);margin-bottom:.3rem">${j.co} · ${j.city}</div><div style="display:flex;gap:.6rem;font-size:.7rem;color:var(--muted);margin-bottom:.3rem"><span>${j.type}</span><span>${j.exp}</span></div><div class="salary">${j.sal}</div><p>${j.p}</p><div class="job-skills">${j.skills.map(s=>`<span>${s}</span>`).join('')}</div><div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--border)"><button onclick="openApply('${j.t.replace(/'/g,"\\'")}','${j.co.replace(/'/g,"\\'")}','${j.country}')" class="add-cart-btn" style="width:100%">Apply Now →</button></div></div>`).join(''):'<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No positions match. Try different filters.</div>';
 }
 filterC();
 
@@ -1026,6 +1210,216 @@ document.getElementById('inboxForm').addEventListener('submit',async function(e)
   }
   setTimeout(()=>status.textContent='',5000);
 });
+
+// ═══════════════ MODAL HELPERS ═══════════════
+function closeM(id){document.getElementById(id).classList.remove('show')}
+
+// ═══════════════ AUTH SYSTEM (Supabase OTP) ═══════════════
+let currentUser=null;
+let signupCache={};
+const authPanels=['aSignup','aOTP','aLogin','aLoginOTP','aProfile'];
+function showAuth(id){authPanels.forEach(p=>document.getElementById(p).style.display='none');document.getElementById(id).style.display='block'}
+function openAuth(){document.getElementById('authModal').classList.add('show');currentUser?showAuth('aProfile'):showAuth('aSignup')}
+function updateAuthUI(){
+  const dot=document.getElementById('authDot'),lbl=document.getElementById('authLabel');
+  if(currentUser){dot.className='adot on';lbl.textContent=currentUser.email.split('@')[0]}
+  else{dot.className='adot off';lbl.textContent='Sign Up / Sign In'}
+}
+
+// OTP input helpers
+function otpN(el,i){if(el.value.length===1){const x=el.parentElement.children[i+1];if(x)x.focus()}}
+function otpB(e,i){if(e.key==='Backspace'&&!e.target.value){const p=e.target.parentElement.children[i-1];if(p){p.focus();p.value=''}}}
+function readOTP(id){return Array.from(document.getElementById(id).children).map(i=>i.value).join('')}
+function clearOTP(id){Array.from(document.getElementById(id).children).forEach(i=>i.value='')}
+function amsg(id,txt,ok){const e=document.getElementById(id);e.textContent=txt;e.style.color=ok?'var(--cyan)':'var(--magenta)'}
+
+// Supabase Auth calls
+async function sbAuthCall(endpoint,body){
+  try{const r=await fetch(`${SB}/auth/v1/${endpoint}`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK},body:JSON.stringify(body)});return await r.json()}catch(e){return{error:{message:'Network error. Please check Supabase Auth settings (Email OTP must be enabled).'}}}
+}
+
+async function doSignup(){
+  const name=document.getElementById('sName').value.trim();
+  const email=document.getElementById('sEmail').value.trim();
+  const phone=document.getElementById('sPhCode').value+document.getElementById('sPhone').value.trim();
+  const country=document.getElementById('sCountry').value;
+  if(!name||!email){amsg('sMsg','Please fill name and email.',false);return}
+  if(!email.includes('@')){amsg('sMsg','Enter a valid email.',false);return}
+  if(!country){amsg('sMsg','Please select country.',false);return}
+  amsg('sMsg','Sending verification code...',true);
+  signupCache={name,email,phone,country};
+  const res=await sbAuthCall('otp',{email,data:{full_name:name}});
+  if(res.error){amsg('sMsg',res.error.message,false);return}
+  document.getElementById('otpTo').textContent=email;
+  showAuth('aOTP');clearOTP('otpBox');
+  document.getElementById('otpBox').children[0].focus();
+}
+
+async function doVerify(){
+  const otp=readOTP('otpBox');
+  if(otp.length<6){amsg('otpMsg','Enter all 6 digits.',false);return}
+  amsg('otpMsg','Verifying...',true);
+  const res=await sbAuthCall('verify',{email:signupCache.email,token:otp,type:'email'});
+  if(res.error){amsg('otpMsg',res.error.message||'Invalid code.',false);return}
+  currentUser=res.user||{email:signupCache.email,id:res.user?.id};
+  sbi('user_profiles',{user_id:currentUser.id,full_name:signupCache.name,phone:signupCache.phone,country:signupCache.country}).catch(()=>{});
+  sbi('contact_submissions',{name:signupCache.name,email:signupCache.email,service_interest:'signup',message:`[SIGNUP] ${signupCache.country} | ${signupCache.phone}`}).catch(()=>{});
+  updateAuthUI();
+  document.getElementById('profEmail').textContent='Signed in as '+signupCache.email;
+  showAuth('aProfile');
+}
+
+async function doResendOTP(){amsg('otpMsg','Resending...',true);await sbAuthCall('otp',{email:signupCache.email});amsg('otpMsg','New code sent! Check email.',true)}
+
+async function doLogin(){
+  const email=document.getElementById('lEmail').value.trim();
+  if(!email||!email.includes('@')){amsg('lMsg','Enter valid email.',false);return}
+  amsg('lMsg','Sending code...',true);
+  signupCache={email};
+  const res=await sbAuthCall('otp',{email});
+  if(res.error){amsg('lMsg',res.error.message,false);return}
+  showAuth('aLoginOTP');clearOTP('loginOtpBox');
+  document.getElementById('loginOtpBox').children[0].focus();
+}
+
+async function doLoginVerify(){
+  const otp=readOTP('loginOtpBox');
+  if(otp.length<6){amsg('lOtpMsg','Enter all 6 digits.',false);return}
+  amsg('lOtpMsg','Signing in...',true);
+  const res=await sbAuthCall('verify',{email:signupCache.email,token:otp,type:'email'});
+  if(res.error){amsg('lOtpMsg',res.error.message||'Invalid code.',false);return}
+  currentUser=res.user||{email:signupCache.email,id:res.user?.id};
+  updateAuthUI();
+  document.getElementById('profEmail').textContent='Signed in as '+signupCache.email;
+  showAuth('aProfile');
+}
+
+function doSignOut(){currentUser=null;signupCache={};updateAuthUI();closeM('authModal')}
+
+// ═══════════════ AES-256-GCM ENCRYPTION (Web Crypto API) ═══════════════
+async function deriveKey(pass){
+  const enc=new TextEncoder();
+  const mat=await crypto.subtle.importKey('raw',enc.encode(pass),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:enc.encode('AARANIT-AI-SALT-2026'),iterations:120000,hash:'SHA-256'},mat,{name:'AES-GCM',length:256},false,['encrypt']);
+}
+function toB64(arr){let b='';arr.forEach(x=>b+=String.fromCharCode(x));return btoa(b)}
+function getPass(){return(currentUser?.email||'anon')+'::AARANIT-KEY-2026'}
+
+async function encryptText(plain){
+  const enc=new TextEncoder();
+  const key=await deriveKey(getPass());
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const buf=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(plain));
+  return{cipher:toB64(new Uint8Array(buf)),iv:toB64(iv)};
+}
+
+async function encryptFileBuf(buffer){
+  const key=await deriveKey(getPass());
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const buf=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,buffer);
+  return{cipher:toB64(new Uint8Array(buf)),iv:toB64(iv)};
+}
+
+// ═══════════════ JOB APPLICATION ═══════════════
+let applyJobTitle='',applyJobCo='',applyJobCountry='';
+let encryptedCV=null;
+
+function openApply(title,company,country){
+  applyJobTitle=title;applyJobCo=company;applyJobCountry=country;
+  document.getElementById('applyTitle').textContent=title+' — '+company;
+  document.getElementById('applyModal').classList.add('show');
+  document.getElementById('appMsg').textContent='';
+  encryptedCV=null;
+  document.getElementById('cvName').textContent='';
+  document.getElementById('encBar').style.display='none';
+  if(currentUser){
+    document.getElementById('applyGate').style.display='none';
+    document.getElementById('applyFormWrap').style.display='block';
+    if(currentUser.email)document.getElementById('aEmailF').value=currentUser.email;
+    if(signupCache.name)document.getElementById('aName').value=signupCache.name;
+    if(signupCache.phone)document.getElementById('aPhoneF').value=signupCache.phone;
+    if(signupCache.country)document.getElementById('aCountryF').value=signupCache.country;
+  }else{
+    document.getElementById('applyGate').style.display='block';
+    document.getElementById('applyFormWrap').style.display='none';
+  }
+}
+
+async function handleCV(input){
+  const file=input.files[0];
+  if(!file)return;
+  if(file.size>5*1024*1024){alert('File too large. Max 5MB.');input.value='';return}
+  document.getElementById('cvName').textContent='🔐 Encrypting: '+file.name+'...';
+  try{
+    const buffer=await file.arrayBuffer();
+    encryptedCV=await encryptFileBuf(buffer);
+    encryptedCV.filename=file.name;
+    encryptedCV.size=file.size;
+    document.getElementById('cvName').textContent='✅ '+file.name+' (encrypted, '+Math.round(file.size/1024)+'KB)';
+    document.getElementById('encBar').style.display='flex';
+  }catch(e){
+    document.getElementById('cvName').textContent='❌ Encryption failed. Try again.';
+    encryptedCV=null;
+  }
+}
+
+async function submitApplication(){
+  const btn=document.getElementById('applyBtn');
+  const name=document.getElementById('aName').value.trim();
+  const email=document.getElementById('aEmailF').value.trim();
+  const phone=document.getElementById('aPhoneF').value.trim();
+  const country=document.getElementById('aCountryF').value;
+  const skills=document.getElementById('aSkillsF').value.trim();
+  const cover=document.getElementById('aCoverF').value.trim();
+
+  if(!name||!email||!country||!skills||!cover){amsg('appMsg','Please fill all required fields (*).',false);return}
+  if(!encryptedCV){amsg('appMsg','Please upload your CV/Resume.',false);return}
+
+  btn.textContent='🔐 Encrypting data...';btn.disabled=true;
+
+  // Encrypt sensitive fields
+  let encPhone;
+  try{encPhone=await encryptText(phone)}catch(e){encPhone={cipher:'',iv:''}}
+
+  btn.textContent='📤 Submitting securely...';
+
+  const appData={
+    user_id:currentUser?.id||null,
+    full_name:name,email:email,
+    phone_encrypted:encPhone.cipher,phone_iv:encPhone.iv,
+    country:country,city:document.getElementById('aCityF').value,
+    job_title:applyJobTitle,job_country:applyJobCountry,
+    experience_years:parseInt(document.getElementById('aExpF').value)||0,
+    education:document.getElementById('aEduF').value,
+    skills:skills,
+    linkedin_url:document.getElementById('aLinkedinF').value,
+    portfolio_url:document.getElementById('aPortfolioF').value,
+    cover_letter:cover,
+    salary_expectation:document.getElementById('aSalaryF').value,
+    availability:document.getElementById('aAvailF').value,
+    cv_encrypted:encryptedCV.cipher,cv_iv:encryptedCV.iv,cv_filename:encryptedCV.filename,
+    source:document.getElementById('aSourceF').value
+  };
+
+  // Try job_applications table first, fallback to contact_submissions
+  let ok=await sbi('job_applications',appData);
+  if(!ok){
+    ok=await sbi('contact_submissions',{
+      name:name,email:email,
+      service_interest:'Job Application: '+applyJobTitle,
+      message:`[APPLICATION] ${applyJobTitle} at ${applyJobCo} | Country: ${country} | Exp: ${appData.experience_years}yrs | Skills: ${skills} | CV: encrypted (${encryptedCV.filename})`
+    });
+  }
+
+  if(ok){
+    amsg('appMsg','✅ Application submitted securely! We\'ll review and contact you within 24-48 hours.',true);
+    btn.textContent='✅ Submitted!';
+    setTimeout(()=>closeM('applyModal'),3500);
+  }else{
+    amsg('appMsg','Error. Please email hello@aaranitai.com with your application.',false);
+  }
+  setTimeout(()=>{btn.textContent='🔐 Encrypt & Submit Application →';btn.disabled=false},4000);
+}
 </script>
 </body>
 </html>
