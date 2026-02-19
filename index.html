@@ -189,7 +189,7 @@ section{padding:6rem 3rem;position:relative;z-index:2}
 .mlink:hover{text-decoration:underline}
 .secure-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .65rem;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);border-radius:50px;font-size:.63rem;color:var(--green);font-weight:600;margin-top:.4rem}
 .otp-wrap{display:flex;gap:.4rem;justify-content:center;margin:1rem 0}
-.otp-wrap input{width:44px;height:50px;text-align:center;font-size:1.2rem;font-weight:700;font-family:'Syne',sans-serif;padding:0;border-radius:12px;background:var(--card);border:1px solid var(--border);color:var(--text);outline:none;transition:border .3s}
+.otp-wrap input{width:38px;height:46px;text-align:center;font-size:1.1rem;font-weight:700;font-family:'Syne',sans-serif;padding:0;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);outline:none;transition:border .3s}
 .otp-wrap input:focus{border-color:var(--cyan)}
 .auth-pill{display:flex;align-items:center;gap:.4rem;padding:.4rem .85rem;border-radius:50px;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .3s;border:1px solid var(--border);background:var(--card);color:var(--text);white-space:nowrap}
 .auth-pill:hover{border-color:rgba(0,229,255,.2)}
@@ -695,7 +695,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <!-- OTP -->
       <div id="aOTP" style="display:none">
         <h2>Verify Your Email</h2>
-        <p class="msub">Enter the 6-digit code sent to <strong id="otpTo"></strong></p>
+        <p class="msub">Enter the 8-digit code sent to <strong id="otpTo"></strong></p>
         <div class="otp-wrap" id="otpBox">
           <input type="text" maxlength="1" oninput="otpN(this,0)" onkeydown="otpB(event,0)">
           <input type="text" maxlength="1" oninput="otpN(this,1)" onkeydown="otpB(event,1)">
@@ -703,6 +703,8 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
           <input type="text" maxlength="1" oninput="otpN(this,3)" onkeydown="otpB(event,3)">
           <input type="text" maxlength="1" oninput="otpN(this,4)" onkeydown="otpB(event,4)">
           <input type="text" maxlength="1" oninput="otpN(this,5)" onkeydown="otpB(event,5)">
+          <input type="text" maxlength="1" oninput="otpN(this,6)" onkeydown="otpB(event,6)">
+          <input type="text" maxlength="1" oninput="otpN(this,7)" onkeydown="otpB(event,7)">
         </div>
         <button class="mbtn" onclick="doVerify()">Verify & Continue →</button>
         <button class="mbtn sec" onclick="doResendOTP()">Resend Code</button>
@@ -721,7 +723,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <!-- LOGIN OTP -->
       <div id="aLoginOTP" style="display:none">
         <h2>Enter Sign-In Code</h2>
-        <p class="msub">Check your email for the 6-digit code</p>
+        <p class="msub">Check your email for the 8-digit code</p>
         <div class="otp-wrap" id="loginOtpBox">
           <input type="text" maxlength="1" oninput="otpN(this,0)" onkeydown="otpB(event,0)">
           <input type="text" maxlength="1" oninput="otpN(this,1)" onkeydown="otpB(event,1)">
@@ -729,6 +731,8 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
           <input type="text" maxlength="1" oninput="otpN(this,3)" onkeydown="otpB(event,3)">
           <input type="text" maxlength="1" oninput="otpN(this,4)" onkeydown="otpB(event,4)">
           <input type="text" maxlength="1" oninput="otpN(this,5)" onkeydown="otpB(event,5)">
+          <input type="text" maxlength="1" oninput="otpN(this,6)" onkeydown="otpB(event,6)">
+          <input type="text" maxlength="1" oninput="otpN(this,7)" onkeydown="otpB(event,7)">
         </div>
         <button class="mbtn" onclick="doLoginVerify()">Sign In →</button>
         <div class="mmsg" id="lOtpMsg"></div>
@@ -1257,7 +1261,7 @@ async function doSignup(){
 
 async function doVerify(){
   const otp=readOTP('otpBox');
-  if(otp.length<6){amsg('otpMsg','Enter all 6 digits.',false);return}
+  if(otp.length<8){amsg('otpMsg','Enter all 8 digits.',false);return}
   amsg('otpMsg','Verifying...',true);
   const res=await sbAuthCall('verify',{email:signupCache.email,token:otp,type:'email'});
   if(res.error){amsg('otpMsg',res.error.message||'Invalid code.',false);return}
@@ -1284,7 +1288,7 @@ async function doLogin(){
 
 async function doLoginVerify(){
   const otp=readOTP('loginOtpBox');
-  if(otp.length<6){amsg('lOtpMsg','Enter all 6 digits.',false);return}
+  if(otp.length<8){amsg('lOtpMsg','Enter all 8 digits.',false);return}
   amsg('lOtpMsg','Signing in...',true);
   const res=await sbAuthCall('verify',{email:signupCache.email,token:otp,type:'email'});
   if(res.error){amsg('lOtpMsg',res.error.message||'Invalid code.',false);return}
