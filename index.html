@@ -593,6 +593,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <span class="adot off" id="authDot"></span>
       <span id="authLabel">Sign Up / Sign In</span>
     </div>
+    <span id="navSignOut" onclick="doSignOut()" style="display:none;font-size:.65rem;color:var(--magenta);cursor:pointer;padding:.3rem .6rem;border:1px solid rgba(217,70,239,.2);border-radius:50px;white-space:nowrap;transition:all .2s" onmouseover="this.style.background='rgba(217,70,239,.1)'" onmouseout="this.style.background='transparent'">⏻ Sign Out</span>
     <select class="lang-sel" id="langSel" onchange="changeLang(this.value)" title="Language">
       <option value="en">🌐 EN</option>
       <option value="fr">🇫🇷 FR</option>
@@ -938,9 +939,10 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       </div>
       <!-- PROFILE (Full Tabbed) -->
       <div id="aProfile" style="display:none">
-        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem">
           <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;font-family:'Syne',sans-serif;color:var(--bg);flex-shrink:0" id="profAvatar">?</div>
-          <div><h2 style="font-size:1rem;margin:0" id="profName">Welcome!</h2><p class="msub" id="profEmail" style="margin:0;font-size:.78rem"></p></div>
+          <div style="flex:1"><h2 style="font-size:1rem;margin:0" id="profName">Welcome!</h2><p class="msub" id="profEmail" style="margin:0;font-size:.78rem"></p></div>
+          <button onclick="doSignOut()" style="padding:.4rem .8rem;background:rgba(217,70,239,.08);border:1px solid rgba(217,70,239,.2);border-radius:50px;color:var(--magenta);font-size:.7rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .2s" onmouseover="this.style.background='rgba(217,70,239,.15)'" onmouseout="this.style.background='rgba(217,70,239,.08)'">Sign Out ⏻</button>
         </div>
         <div class="prof-tabs">
           <div class="prof-tab active" onclick="showProfTab('profInfo')">👤 Profile</div>
@@ -1719,11 +1721,20 @@ let currentUser=null;
 let signupCache={};
 const authPanels=['aSignup','aOTP','aLogin','aForgot','aProfile'];
 function showAuth(id){authPanels.forEach(p=>{const e=document.getElementById(p);if(e)e.style.display='none'});document.getElementById(id).style.display='block'}
-function openAuth(){document.getElementById('authModal').classList.add('show');currentUser?showAuth('aProfile'):showAuth('aSignup')}
+function openAuth(){document.getElementById('authModal').classList.add('show');(currentUser&&currentUser.confirmed&&currentUser.id&&currentUser.token)?showAuth('aProfile'):showAuth('aSignup')}
 function updateAuthUI(){
   const dot=document.getElementById('authDot'),lbl=document.getElementById('authLabel');
-  if(currentUser){dot.className='adot on';lbl.textContent=currentUser.firstName||currentUser.email.split('@')[0]}
-  else{dot.className='adot off';lbl.textContent='Sign Up / Sign In'}
+  const navSignOut=document.getElementById('navSignOut');
+  if(currentUser&&currentUser.confirmed&&currentUser.id){
+    dot.className='adot on';
+    lbl.textContent=currentUser.firstName||currentUser.email.split('@')[0];
+    if(navSignOut)navSignOut.style.display='inline';
+  }else{
+    currentUser=null; // Force cleanup of invalid sessions
+    dot.className='adot off';
+    lbl.textContent='Sign Up / Sign In';
+    if(navSignOut)navSignOut.style.display='none';
+  }
 }
 
 // Password visibility toggle
@@ -1833,8 +1844,12 @@ async function doVerify(){
   const res=await sbAuthCall('verify',{email:signupCache.email,token:otp,type:'signup'});
   if(res.error){amsg('otpMsg',res.error.message||'Invalid or expired code.',false);return}
 
-  // Verification success — set user
-  currentUser={email:signupCache.email,id:res.user?.id||'local',name:signupCache.name,firstName:signupCache.firstName,lastName:signupCache.lastName,phone:signupCache.phone,country:signupCache.country,token:res.access_token||null};
+  // Verification success — STRICT: Must have valid user from Supabase
+  if(!res.user||!res.user.id||!res.access_token){
+    amsg('otpMsg','❌ Verification failed. Please try signing up again.',false);
+    return;
+  }
+  currentUser={email:signupCache.email,id:res.user.id,name:signupCache.name,firstName:signupCache.firstName,lastName:signupCache.lastName,phone:signupCache.phone,country:signupCache.country,token:res.access_token,confirmed:true};
 
   // Save user profile
   sbi('user_profiles',{user_id:currentUser.id,full_name:signupCache.name,phone:signupCache.phone,country:signupCache.country}).catch(()=>{});
@@ -1868,28 +1883,62 @@ async function doLogin(){
 
   amsg('lMsg','Signing in...',true);
 
-  const res=await fetch(`${SB}/auth/v1/token?grant_type=password`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json',apikey:SK},
-    body:JSON.stringify({email,password:pass})
-  }).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
+  let res;
+  try{
+    const r=await fetch(`${SB}/auth/v1/token?grant_type=password`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json',apikey:SK},
+      body:JSON.stringify({email,password:pass})
+    });
+    res=await r.json();
+  }catch(e){
+    amsg('lMsg','Network error. Please check your connection and try again.',false);
+    return;
+  }
 
+  // Supabase token endpoint returns {error:"invalid_grant", error_description:"..."} on failure
+  // NOT {error:{message:"..."}} — handle BOTH formats
   if(res.error){
-    const msg=res.error.message||'';
-    if(msg.includes('Invalid login')||msg.includes('invalid')){
-      amsg('lMsg','Invalid email or password. <span onclick="showAuth(\'aForgot\')" style="cursor:pointer;text-decoration:underline;color:var(--cyan)">Forgot password?</span>',false);
-    }else if(msg.includes('not confirmed')){
-      amsg('lMsg','Email not verified yet. Please check your inbox for the verification code.',false);
+    const msg=typeof res.error==='string'?res.error:res.error.message||'';
+    const desc=res.error_description||'';
+    const fullErr=(msg+' '+desc).toLowerCase();
+    
+    if(fullErr.includes('invalid')||fullErr.includes('invalid_grant')||fullErr.includes('credentials')){
+      amsg('lMsg','❌ Account not found or incorrect password. Please check your email and password. <span onclick="showAuth(\'aSignup\')" style="cursor:pointer;text-decoration:underline;color:var(--cyan)">Create an account →</span> | <span onclick="showAuth(\'aForgot\')" style="cursor:pointer;text-decoration:underline;color:var(--cyan)">Forgot password?</span>',false);
+    }else if(fullErr.includes('not confirmed')||fullErr.includes('not verified')){
+      amsg('lMsg','⚠️ Email not verified yet. Please check your inbox for the verification code.',false);
     }else{
-      amsg('lMsg',msg,false);
+      amsg('lMsg','❌ '+(desc||msg||'Login failed. Please try again.'),false);
     }
     return;
   }
 
-  // Login success
-  const userName=res.user?.user_metadata?.full_name||email.split('@')[0];
+  // STRICT VALIDATION: Must have BOTH access_token AND valid user object
+  if(!res.access_token||!res.user||!res.user.id||!res.user.email){
+    amsg('lMsg','❌ Login failed. Account may not exist. <span onclick="showAuth(\'aSignup\')" style="cursor:pointer;text-decoration:underline;color:var(--cyan)">Create an account →</span>',false);
+    return;
+  }
+
+  // Verify email is confirmed
+  if(!res.user.confirmed_at&&!res.user.email_confirmed_at){
+    amsg('lMsg','⚠️ Your email is not verified yet. Please check your inbox for the verification code.',false);
+    return;
+  }
+
+  // Login success — ONLY set currentUser if we have valid Supabase data
+  const userName=res.user.user_metadata?.full_name||email.split('@')[0];
   const parts=userName.split(' ');
-  currentUser={email,id:res.user?.id||'local',name:userName,firstName:parts[0]||'',lastName:parts.slice(1).join(' ')||'',phone:res.user?.user_metadata?.phone||'',country:res.user?.user_metadata?.country||'',token:res.access_token||null};
+  currentUser={
+    email:res.user.email,
+    id:res.user.id,
+    name:userName,
+    firstName:parts[0]||'',
+    lastName:parts.slice(1).join(' ')||'',
+    phone:res.user.user_metadata?.phone||'',
+    country:res.user.user_metadata?.country||'',
+    token:res.access_token,
+    confirmed:true
+  };
   updateAuthUI();
   populateProfile();
   showAuth('aProfile');
@@ -1910,7 +1959,25 @@ async function doForgotPw(){
   amsg('fMsg','✅ Password reset link sent to <strong>'+email+'</strong>. Check your inbox!',true);
 }
 
-function doSignOut(){currentUser=null;signupCache={};updateAuthUI();closeM('authModal')}
+function doSignOut(){
+  // Invalidate Supabase session server-side
+  if(currentUser&&currentUser.token){
+    fetch(`${SB}/auth/v1/logout`,{
+      method:'POST',
+      headers:{apikey:SK,Authorization:'Bearer '+currentUser.token}
+    }).catch(()=>{});
+  }
+  currentUser=null;
+  signupCache={};
+  updateAuthUI();
+  closeM('authModal');
+  // Reset profile fields
+  ['profFirstName','profLastName','profPhone','profCountry','profEmail','profName'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.tagName==='INPUT'?el.value='':el.textContent='';
+  });
+  document.getElementById('profAvatar').textContent='?';
+}
 
 // ── WELCOME EMAIL (via Supabase edge or contact_submissions) ──
 function sendWelcomeEmail(name,email,country){
@@ -2167,8 +2234,11 @@ async function changePassword(){
   if(!rateLimit('changepw',10000)){amsg('secMsg','Please wait before trying again.',false);return}
   amsg('secMsg','Updating password...',true);
   // Verify current password by logging in
-  const verify=await fetch(`${SB}/auth/v1/token?grant_type=password`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK},body:JSON.stringify({email:currentUser.email,password:cur})}).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
-  if(verify.error){amsg('secMsg','Current password is incorrect.',false);return}
+  let verify;
+  try{
+    verify=await fetch(`${SB}/auth/v1/token?grant_type=password`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK},body:JSON.stringify({email:currentUser.email,password:cur})}).then(r=>r.json());
+  }catch(e){amsg('secMsg','Network error. Please try again.',false);return}
+  if(verify.error||!verify.access_token){amsg('secMsg','Current password is incorrect.',false);return}
   // Update password
   const token=verify.access_token;
   const res=await fetch(`${SB}/auth/v1/user`,{method:'PUT',headers:{'Content-Type':'application/json',apikey:SK,Authorization:'Bearer '+token},body:JSON.stringify({password:newP})}).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
@@ -2347,10 +2417,10 @@ async function socialLogin(provider){
     const token=params.get('access_token');
     if(token){
       fetch(`${SB}/auth/v1/user`,{headers:{apikey:SK,Authorization:'Bearer '+token}}).then(r=>r.json()).then(user=>{
-        if(user&&user.email){
+        if(user&&user.id&&user.email&&!user.error){
           const name=user.user_metadata?.full_name||user.email.split('@')[0];
           const parts=name.split(' ');
-          currentUser={email:user.email,id:user.id,name,firstName:parts[0],lastName:parts.slice(1).join(' '),token,country:user.user_metadata?.country||''};
+          currentUser={email:user.email,id:user.id,name,firstName:parts[0],lastName:parts.slice(1).join(' '),token,country:user.user_metadata?.country||'',confirmed:true};
           updateAuthUI();
           window.history.replaceState(null,null,window.location.pathname);
         }
