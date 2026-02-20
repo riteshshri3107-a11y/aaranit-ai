@@ -1285,14 +1285,22 @@ function clearOTP(id){Array.from(document.getElementById(id).children).forEach(i
 function amsg(id,txt,ok){const e=document.getElementById(id);if(e){e.innerHTML=txt;e.style.color=ok?'var(--cyan)':'var(--magenta)'}}
 
 // OTP paste support — paste full code and it auto-fills all boxes
-document.addEventListener('paste',e=>{
-  const active=document.activeElement;
-  if(!active||!active.parentElement||!active.parentElement.classList.contains('otp-wrap'))return;
-  e.preventDefault();
-  const paste=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
-  const boxes=active.parentElement.children;
-  for(let i=0;i<boxes.length&&i<paste.length;i++)boxes[i].value=paste[i];
-  if(paste.length>=boxes.length)boxes[boxes.length-1].focus();
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.otp-wrap input').forEach(inp=>{
+    inp.addEventListener('paste',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const paste=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
+      if(!paste)return;
+      const boxes=inp.parentElement.querySelectorAll('input');
+      for(let i=0;i<boxes.length&&i<paste.length;i++){
+        boxes[i].value=paste[i];
+      }
+      // Focus last filled box
+      const lastIdx=Math.min(paste.length,boxes.length)-1;
+      if(lastIdx>=0)boxes[lastIdx].focus();
+    });
+  });
 });
 
 // Supabase Auth calls
@@ -1326,6 +1334,18 @@ async function doSignup(){
   btn.textContent='Create Account & Verify Email →';btn.disabled=false;
 
   if(res.error){amsg('sMsg',res.error.message,false);return}
+
+  // Detect already-registered email — Supabase returns user with empty identities
+  if(res.user && res.user.identities && res.user.identities.length===0){
+    amsg('sMsg','⚠️ This email is already registered. <span onclick="showAuth(\'aLogin\')" style="cursor:pointer;text-decoration:underline;color:var(--cyan)">Sign in instead →</span>',false);
+    return;
+  }
+
+  // Also detect if user exists but email not yet confirmed (identities exist but confirmed_at is null)
+  if(res.user && res.user.identities && res.user.identities.length>0 && res.user.confirmed_at){
+    amsg('sMsg','⚠️ This email is already verified. <span onclick="showAuth(\'aLogin\')" style="cursor:pointer;text-decoration:underline;color:var(--cyan)">Sign in instead →</span>',false);
+    return;
+  }
 
   // Account created — now show OTP screen for email verification
   document.getElementById('otpTo').textContent=email;
