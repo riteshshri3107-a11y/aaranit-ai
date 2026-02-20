@@ -25,6 +25,50 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
+/* ── COURSE CATALOG ACCORDION ── */
+.cat-filter{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.5rem}
+.cat-filter-btn{padding:.4rem .9rem;border-radius:50px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s}
+.cat-filter-btn.active{background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--bg);border-color:transparent}
+.cat-filter-btn:hover{border-color:var(--cyan);color:var(--text)}
+.accord{max-width:1200px;margin:0 auto}
+.accord-item{margin-bottom:.6rem;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--card);transition:all .3s}
+.accord-item:hover{border-color:rgba(0,229,255,.1)}
+.accord-head{padding:1rem 1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:.8rem;transition:background .2s;user-select:none}
+.accord-head:hover{background:rgba(0,229,255,.02)}
+.accord-head .ah-left{display:flex;align-items:center;gap:.8rem;flex:1;min-width:0}
+.accord-head .ah-icon{font-size:1.4rem;flex-shrink:0}
+.accord-head .ah-info{flex:1;min-width:0}
+.accord-head h3{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin:0}
+.accord-head .ah-meta{font-size:.7rem;color:var(--text2);margin-top:.15rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.accord-head .ah-count{padding:.2rem .6rem;border-radius:50px;font-size:.6rem;font-weight:700;background:rgba(0,229,255,.08);color:var(--cyan);white-space:nowrap}
+.accord-head .ah-arrow{font-size:.8rem;color:var(--muted);transition:transform .3s;flex-shrink:0}
+.accord-item.open .ah-arrow{transform:rotate(180deg)}
+.accord-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.accord-item.open .accord-body{max-height:6000px}
+.accord-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;padding:0 1.2rem 1.2rem}
+.cc-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:all .3s;position:relative}
+.cc-card:hover{border-color:rgba(0,229,255,.15);transform:translateY(-2px)}
+.cc-card .cc-tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.5rem}
+.cc-card .cc-tag{font-size:.55rem;padding:.12rem .4rem;border-radius:50px;font-weight:600}
+.cc-tag.ai{background:rgba(0,229,255,.1);color:var(--cyan)}
+.cc-tag.ml{background:rgba(139,92,246,.1);color:var(--violet)}
+.cc-tag.genai{background:rgba(217,70,239,.1);color:var(--magenta)}
+.cc-tag.agentic{background:rgba(245,158,11,.1);color:var(--amber)}
+.cc-tag.nonai{background:rgba(34,197,94,.1);color:var(--green)}
+.cc-tag.test{background:rgba(59,130,246,.1);color:#3b82f6}
+.cc-card h4{font-family:'Syne',sans-serif;font-size:.85rem;margin-bottom:.2rem}
+.cc-card .cc-meta{font-size:.68rem;color:var(--text2);margin-bottom:.4rem}
+.cc-card p{font-size:.75rem;color:var(--text2);line-height:1.5;margin-bottom:.5rem}
+.cc-card ul{list-style:none;margin-bottom:.6rem}
+.cc-card li{font-size:.7rem;color:var(--text2);padding:.12rem 0;padding-left:1rem;position:relative}
+.cc-card li::before{content:'✓';position:absolute;left:0;color:var(--cyan);font-weight:700;font-size:.65rem}
+.cc-card .cc-price{display:flex;align-items:center;justify-content:space-between;padding-top:.5rem;border-top:1px solid var(--border)}
+.cc-card .cc-price .price{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800}
+.cc-card .cc-price button{padding:.35rem .8rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-size:.68rem;font-weight:700;cursor:pointer;transition:all .2s}
+.cc-card .cc-price button:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(0,229,255,.2)}
+.cc-card .cc-level{position:absolute;top:8px;right:8px;font-size:.55rem;padding:.15rem .45rem;border-radius:50px;font-weight:700;background:rgba(139,92,246,.1);color:var(--violet)}
+@media(max-width:768px){.accord-courses{grid-template-columns:1fr}}
+
 /* ── SCROLL PROGRESS ── */
 .scroll-prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));z-index:100001;width:0}
 
@@ -627,15 +671,16 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div class="srv-grid" id="srvGrid"></div>
 </section>
 
-<!-- CERTIFICATIONS -->
+<!-- COURSE CATALOG -->
 <section id="certifications">
-  <div class="sec-head"><span class="sec-label">Programs</span><h2 data-i18n="certs">AI Certification Programs</h2><p>Industry-recognized credentials that validate your AI expertise.</p><div class="sec-line"></div></div>
-  <div class="cert-grid" id="certGrid"></div>
+  <div class="sec-head"><span class="sec-label">Programs</span><h2 data-i18n="certs">Courses & Certifications</h2><p>From school-level AI literacy to professional certifications — find the right program for you.</p><div class="sec-line"></div></div>
+  <div class="cat-filter" id="catFilter"></div>
+  <div class="accord" id="courseAccord"></div>
 </section>
 
 <!-- TUTORING -->
 <section id="tutoring">
-  <div class="sec-head"><span class="sec-label">Learn AI</span><h2 data-i18n="tutoring">Tutoring & Training Courses</h2><p>Personalized learning paths for every skill level — beginner to expert.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Learn AI</span><h2 data-i18n="tutoring">1-on-1 Tutoring & Bootcamps</h2><p>Personalized learning paths with expert mentors — beginner to expert.</p><div class="sec-line"></div></div>
   <div class="tutor-grid" id="tutorGrid"></div>
 </section>
 
@@ -1106,16 +1151,86 @@ const services=[
   {i:'🛡️',c:'m',t:'Responsible AI Audits',p:'Bias testing, explainability reviews, and regulatory compliance checks.',tags:['Bias Testing','Explainability','Compliance']}
 ];
 
-const certs=[
-  {badge:'pop',bl:'Most Popular',t:'AI Foundations Certificate',meta:'8 weeks · Online · No prerequisites',p:'Perfect starting point for AI. Covers ML basics, Python, data analysis, and neural networks.',items:['Python for AI','ML fundamentals','Data preprocessing','Neural network basics','Capstone project','Certificate of completion'],price:799,id:'cert-foundations'},
-  {badge:'pro',bl:'Professional',t:'ML Engineer Professional',meta:'16 weeks · Online · Portfolio capstone',p:'Comprehensive ML engineering covering model development, deployment, and production systems.',items:['Advanced ML algorithms','Deep learning with PyTorch','MLOps & deployment','Cloud infrastructure','4 portfolio projects','Industry certification'],price:2499,id:'cert-ml-engineer'},
-  {badge:'adv',bl:'Advanced',t:'AI Architect Elite',meta:'24 weeks · Online · Enterprise AI',p:'Master-level program for designing enterprise AI systems and leading AI teams.',items:['System architecture design','Distributed training','AI governance frameworks','Team leadership','Enterprise capstone','Elite certification'],price:3999,id:'cert-architect'},
-  {badge:'new',bl:'New for 2026',t:'Generative AI Specialist',meta:'12 weeks · Online · LLMs, RAG, Agents',p:'Master generative AI — LLMs, prompt engineering, RAG systems, and AI agents.',items:['LLM fine-tuning','Prompt engineering mastery','RAG system design','AI agent development','Production deployment','Specialist badge'],price:1799,id:'cert-genai'},
-  {badge:'new',bl:'New for 2026',t:'Computer Vision Engineer',meta:'14 weeks · Online · CNNs to Diffusion',p:'End-to-end computer vision from classical methods to modern generative models.',items:['Image classification','Object detection (YOLO)','Segmentation networks','GANs & diffusion models','Video analysis','Edge deployment'],price:2199,id:'cert-cv'},
-  {badge:'pop',bl:'Best Value',t:'NLP & Language AI',meta:'12 weeks · Online · Text to Chatbots',p:'Natural language processing from text analysis to building production chatbots.',items:['Text preprocessing','Transformers & BERT','Sentiment analysis','Named entity recognition','Chatbot development','Hugging Face ecosystem'],price:1899,id:'cert-nlp'},
-  {badge:'pro',bl:'Professional',t:'AI for Business Leaders',meta:'6 weeks · Online · Non-technical',p:'Strategic AI literacy for executives and managers — no coding required.',items:['AI landscape overview','Use case identification','ROI frameworks','Vendor evaluation','Risk management','Executive certificate'],price:599,id:'cert-business'},
-  {badge:'adv',bl:'Advanced',t:'Reinforcement Learning',meta:'10 weeks · Online · Advanced',p:'Deep RL from Q-learning to multi-agent systems and real-world applications.',items:['MDP fundamentals','Q-learning & DQN','Policy gradient methods','Multi-agent RL','Robotics simulation','Research project'],price:2299,id:'cert-rl'}
+const certs=[];
+
+// ═══════════════ COMPREHENSIVE COURSE CATALOG ═══════════════
+const courseCatalog=[
+  // ────── 🏫 SCHOOL: PRIMARY (Ages 8-11) ──────
+  {cat:'school-primary',t:'AI Explorer for Kids',meta:'6 weeks · Ages 8-11 · No prerequisites',p:'Fun introduction to AI thinking through games, visual coding, and simple robotics.',items:['What is AI? (interactive)','Scratch-based AI projects','Training a simple model','AI in everyday life','Fun capstone game'],price:199,tags:['ai'],level:'Primary',id:'sch-ai-kids'},
+  {cat:'school-primary',t:'Coding with Robots',meta:'4 weeks · Ages 8-11 · Hands-on',p:'Program simple robots and learn logic, sequencing, and problem-solving.',items:['Block-based coding','Robot navigation','Sensors & decisions','Build a robot maze','Certificate of completion'],price:149,tags:['nonai'],level:'Primary',id:'sch-robots'},
+  {cat:'school-primary',t:'Math & Logic for Future Coders',meta:'5 weeks · Ages 9-11',p:'Build mathematical thinking that powers computer science and AI.',items:['Patterns & sequences','Logic puzzles','Basic algorithms','Intro to data','Fun math challenges'],price:129,tags:['nonai'],level:'Primary',id:'sch-math'},
+
+  // ────── 🏫 SCHOOL: MIDDLE (Ages 12-14) ──────
+  {cat:'school-middle',t:'Python for Young Coders',meta:'8 weeks · Ages 12-14 · Beginner',p:'Learn Python from scratch — the #1 language for AI, web, and data science.',items:['Python basics & syntax','Variables, loops, functions','Simple games & apps','Intro to data analysis','Final project + certificate'],price:299,tags:['nonai'],level:'Middle',id:'sch-python'},
+  {cat:'school-middle',t:'AI & Machine Learning Basics',meta:'8 weeks · Ages 12-14',p:'Understand how AI works — train models, recognize images, and build chatbots.',items:['How machines learn','Image recognition project','Text analysis basics','Build a simple chatbot','AI ethics discussion'],price:349,tags:['ai','ml'],level:'Middle',id:'sch-aiml'},
+  {cat:'school-middle',t:'Web Development Starter',meta:'6 weeks · Ages 12-14',p:'Build your first websites with HTML, CSS, and JavaScript.',items:['HTML structure','CSS styling','JavaScript basics','Build 3 websites','Portfolio project'],price:279,tags:['nonai'],level:'Middle',id:'sch-web'},
+
+  // ────── 🏫 SCHOOL: HIGH SCHOOL (Ages 15-18) ──────
+  {cat:'school-high',t:'AP-Level AI & Data Science',meta:'12 weeks · Ages 15-18 · Advanced',p:'College-prep AI and data science covering statistics, ML, and real projects.',items:['Statistics & probability','Python for data science','ML algorithms','Neural networks intro','Research project'],price:499,tags:['ai','ml'],level:'High School',id:'sch-apai'},
+  {cat:'school-high',t:'Generative AI for Teens',meta:'8 weeks · Ages 15-18',p:'Explore ChatGPT, image generators, and how to build with AI APIs.',items:['How LLMs work','Prompt engineering','AI art & music','Build an AI app','Ethics & responsibility'],price:399,tags:['genai'],level:'High School',id:'sch-genai'},
+  {cat:'school-high',t:'Robotics & IoT Engineering',meta:'10 weeks · Ages 15-18 · Hands-on',p:'Build and program real robots using Arduino, sensors, and Python.',items:['Arduino programming','Sensors & actuators','Robot design','IoT projects','Competition prep'],price:549,tags:['nonai'],level:'High School',id:'sch-robotics'},
+  {cat:'school-high',t:'Full-Stack Web Development',meta:'12 weeks · Ages 16-18',p:'Build professional web apps with React, Node.js, and databases.',items:['React fundamentals','Node.js & Express','Database design','Authentication','Deploy to cloud'],price:599,tags:['nonai'],level:'High School',id:'sch-fullstack'},
+
+  // ────── 🤖 PROFESSIONAL: AI ──────
+  {cat:'pro-ai-beginner',t:'AI Foundations Certificate',meta:'8 weeks · Online · No prerequisites',p:'Perfect starting point for AI. Covers ML basics, Python, data analysis, and neural networks.',items:['Python for AI','ML fundamentals','Data preprocessing','Neural network basics','Capstone project','Certificate'],price:799,tags:['ai'],level:'Beginner',id:'cert-foundations'},
+  {cat:'pro-ai-beginner',t:'AI for Business Leaders',meta:'6 weeks · Online · Non-technical',p:'Strategic AI literacy for executives and managers — no coding required.',items:['AI landscape overview','Use case identification','ROI frameworks','Vendor evaluation','Risk management','Executive certificate'],price:599,tags:['ai'],level:'Beginner',id:'cert-business'},
+  {cat:'pro-ai-inter',t:'ML Engineer Professional',meta:'16 weeks · Online · Portfolio capstone',p:'Comprehensive ML engineering covering model development, deployment, and production systems.',items:['Advanced ML algorithms','Deep learning with PyTorch','MLOps & deployment','Cloud infrastructure','4 portfolio projects','Industry certification'],price:2499,tags:['ai','ml'],level:'Intermediate',id:'cert-ml-engineer'},
+  {cat:'pro-ai-inter',t:'Computer Vision Engineer',meta:'14 weeks · Online · CNNs to Diffusion',p:'End-to-end computer vision from classical methods to modern generative models.',items:['Image classification','Object detection (YOLO)','Segmentation networks','GANs & diffusion models','Video analysis','Edge deployment'],price:2199,tags:['ai','ml'],level:'Intermediate',id:'cert-cv'},
+  {cat:'pro-ai-inter',t:'NLP & Language AI',meta:'12 weeks · Online · Text to Chatbots',p:'Natural language processing from text analysis to building production chatbots.',items:['Text preprocessing','Transformers & BERT','Sentiment analysis','Named entity recognition','Chatbot development','HuggingFace ecosystem'],price:1899,tags:['ai','ml'],level:'Intermediate',id:'cert-nlp'},
+  {cat:'pro-ai-expert',t:'AI Architect Elite',meta:'24 weeks · Online · Enterprise AI',p:'Master-level program for designing enterprise AI systems and leading AI teams.',items:['System architecture design','Distributed training','AI governance frameworks','Team leadership','Enterprise capstone','Elite certification'],price:3999,tags:['ai'],level:'Expert',id:'cert-architect'},
+  {cat:'pro-ai-expert',t:'Reinforcement Learning',meta:'10 weeks · Online · Advanced',p:'Deep RL from Q-learning to multi-agent systems and real-world applications.',items:['MDP fundamentals','Q-learning & DQN','Policy gradient methods','Multi-agent RL','Robotics simulation','Research project'],price:2299,tags:['ai','ml'],level:'Expert',id:'cert-rl'},
+
+  // ────── ✨ GENERATIVE AI ──────
+  {cat:'pro-genai',t:'Generative AI Specialist',meta:'12 weeks · Online · LLMs, RAG, Agents',p:'Master generative AI — LLMs, prompt engineering, RAG systems, and AI agents.',items:['LLM fine-tuning','Prompt engineering mastery','RAG system design','AI agent development','Production deployment','Specialist badge'],price:1799,tags:['genai'],level:'Intermediate',id:'cert-genai'},
+  {cat:'pro-genai',t:'Prompt Engineering Pro',meta:'6 weeks · Online · All levels',p:'Master the art of prompt design for ChatGPT, Claude, Gemini, and enterprise LLMs.',items:['Prompt patterns & frameworks','Chain-of-thought reasoning','System prompts design','Multi-modal prompting','Enterprise use cases','Certification'],price:699,tags:['genai'],level:'Beginner',id:'cert-prompt'},
+  {cat:'pro-genai',t:'AI Image & Video Generation',meta:'8 weeks · Online',p:'Create with Midjourney, DALL-E, Stable Diffusion, and Runway for professional outputs.',items:['Diffusion models theory','Midjourney mastery','Stable Diffusion setup','Video generation (Runway/Sora)','Commercial workflows','Portfolio'],price:999,tags:['genai'],level:'Intermediate',id:'cert-imagegen'},
+
+  // ────── 🔗 AGENTIC AI ──────
+  {cat:'pro-agentic',t:'AI Agents & Autonomous Systems',meta:'10 weeks · Online · Advanced',p:'Build autonomous AI agents using LangChain, CrewAI, AutoGPT, and custom frameworks.',items:['Agent architectures','LangChain & LangGraph','Tool use & function calling','Multi-agent orchestration','Memory & planning','Production deployment'],price:1999,tags:['agentic','genai'],level:'Intermediate',id:'cert-agents'},
+  {cat:'pro-agentic',t:'MCP & AI Tool Integration',meta:'6 weeks · Online',p:'Build Model Context Protocol servers, connect AI to real tools, databases, and APIs.',items:['MCP architecture','Building MCP servers','Tool integration patterns','Claude/GPT tool use','Enterprise connectors','Certification'],price:1299,tags:['agentic'],level:'Intermediate',id:'cert-mcp'},
+  {cat:'pro-agentic',t:'AI Workflow Automation',meta:'8 weeks · Online',p:'Automate business processes with AI agents — from email to data pipelines.',items:['Workflow design patterns','n8n & Make.com + AI','Custom agent pipelines','Error handling','Monitoring & logging','5 real projects'],price:1499,tags:['agentic'],level:'Beginner',id:'cert-automation'},
+
+  // ────── 🧪 QA & TESTING ──────
+  {cat:'pro-testing',t:'Software Testing Professional',meta:'10 weeks · Online · ISTQB-aligned',p:'Complete software testing from manual to automation — prepare for ISTQB certification.',items:['Testing fundamentals','Test case design','Bug reporting & tracking','Agile testing','ISTQB exam prep','Certificate'],price:899,tags:['nonai','test'],level:'Beginner',id:'cert-testing'},
+  {cat:'pro-testing',t:'Automation Testing (Selenium + Cypress)',meta:'12 weeks · Online',p:'Master test automation with Selenium, Cypress, and CI/CD integration.',items:['Selenium WebDriver','Cypress framework','Page Object Model','API testing (Postman)','CI/CD integration','Portfolio projects'],price:1299,tags:['nonai','test'],level:'Intermediate',id:'cert-automation-test'},
+  {cat:'pro-testing',t:'AI-Powered Testing',meta:'8 weeks · Online',p:'Use AI tools to generate tests, detect bugs, and automate QA workflows.',items:['AI test generation','Visual regression (Applitools)','Self-healing locators','AI bug prediction','Performance testing','Certification'],price:1499,tags:['ai','test'],level:'Intermediate',id:'cert-ai-testing'},
+
+  // ────── 📊 BUSINESS ANALYSIS ──────
+  {cat:'pro-ba',t:'Business Analysis Fundamentals',meta:'8 weeks · Online · IIBA-aligned',p:'Learn requirements gathering, process modeling, and stakeholder management.',items:['BA role & frameworks','Requirements elicitation','Use cases & user stories','Process modeling (BPMN)','Stakeholder management','ECBA exam prep'],price:799,tags:['nonai'],level:'Beginner',id:'cert-ba'},
+  {cat:'pro-ba',t:'Data Analytics & Visualization',meta:'10 weeks · Online',p:'Turn data into insights with Excel, SQL, Tableau, and Power BI.',items:['Advanced Excel','SQL for analysts','Tableau dashboards','Power BI reports','Statistical analysis','Portfolio'],price:999,tags:['nonai'],level:'Intermediate',id:'cert-data-analytics'},
+  {cat:'pro-ba',t:'AI-Powered Business Intelligence',meta:'8 weeks · Online',p:'Use AI tools for automated reporting, predictive analytics, and data storytelling.',items:['AI analytics tools','Predictive modeling basics','Natural language querying','Automated dashboards','ChatGPT for analysis','Certification'],price:1199,tags:['ai'],level:'Intermediate',id:'cert-ai-bi'},
+
+  // ────── 📋 PROJECT MANAGEMENT ──────
+  {cat:'pro-pm',t:'Project Management Professional',meta:'10 weeks · Online · PMP-aligned',p:'Master project management methodologies — Agile, Scrum, Waterfall, and hybrid.',items:['PM fundamentals (PMBOK)','Agile & Scrum mastery','Sprint planning & execution','Risk management','Stakeholder communication','PMP exam prep'],price:999,tags:['nonai'],level:'Beginner',id:'cert-pm'},
+  {cat:'pro-pm',t:'Scrum Master Certification Prep',meta:'6 weeks · Online · CSM-aligned',p:'Prepare for Certified Scrum Master with hands-on Agile practice.',items:['Scrum framework deep-dive','Sprint ceremonies','Backlog management','Team facilitation','Impediment removal','CSM mock exams'],price:699,tags:['nonai'],level:'Beginner',id:'cert-scrum'},
+  {cat:'pro-pm',t:'AI Project Management',meta:'8 weeks · Online',p:'Lead AI/ML projects — manage data teams, model lifecycles, and AI product delivery.',items:['AI project lifecycle','Data team management','MLOps coordination','AI risk assessment','Ethical AI governance','Certification'],price:1399,tags:['ai'],level:'Intermediate',id:'cert-ai-pm'}
 ];
+
+// ═══════════════ ACCORDION CATEGORIES ═══════════════
+const accordCats=[
+  {id:'school-primary',icon:'🌱',title:'School — Primary (Ages 8-11)',desc:'Fun AI & coding introduction for young learners'},
+  {id:'school-middle',icon:'📘',title:'School — Middle School (Ages 12-14)',desc:'Build real projects with Python, AI, and web dev'},
+  {id:'school-high',icon:'🎓',title:'School — High School (Ages 15-18)',desc:'College-prep AI, robotics, and full-stack development'},
+  {id:'pro-ai-beginner',icon:'🤖',title:'Professional AI — Beginner',desc:'Start your AI career with foundational programs'},
+  {id:'pro-ai-inter',icon:'⚙️',title:'Professional AI — Intermediate',desc:'ML engineering, computer vision, and NLP'},
+  {id:'pro-ai-expert',icon:'🏆',title:'Professional AI — Expert',desc:'Architect-level AI and reinforcement learning'},
+  {id:'pro-genai',icon:'✨',title:'Generative AI',desc:'LLMs, prompt engineering, and AI image/video generation'},
+  {id:'pro-agentic',icon:'🔗',title:'Agentic AI',desc:'Build autonomous AI agents and workflow automation'},
+  {id:'pro-testing',icon:'🧪',title:'QA & Software Testing',desc:'Manual, automation, and AI-powered testing'},
+  {id:'pro-ba',icon:'📊',title:'Business Analysis & Data',desc:'BA fundamentals, data analytics, and AI-powered BI'},
+  {id:'pro-pm',icon:'📋',title:'Project Management',desc:'PMP, Scrum Master, and AI project leadership'}
+];
+
+const tagFilters=[
+  {id:'all',label:'🌐 All'},
+  {id:'ai',label:'🤖 AI'},
+  {id:'ml',label:'🧠 ML'},
+  {id:'genai',label:'✨ Generative AI'},
+  {id:'agentic',label:'🔗 Agentic AI'},
+  {id:'nonai',label:'💻 Non-AI Tech'},
+  {id:'test',label:'🧪 Testing'}
+];
+let activeTagFilter='all';
 
 const tutoring=[
   {t:'1-on-1 AI Mentorship',type:'Private',p:'Personalized mentorship tailored to your goals — career switch, upskilling, or project guidance.',items:['Customized learning plan','Weekly 1-hour sessions','Code reviews & feedback','Career guidance','Slack support between sessions'],price:199,unit:'/session',id:'tutor-1on1'},
@@ -1363,11 +1478,11 @@ function showT(){const d=document.createElement('div');d.className='typing-ind';
 function hideT(){const e=document.getElementById('ti');if(e)e.remove()}
 function sqr(rs){chatQR.innerHTML='';rs.forEach(r=>{const b=document.createElement('button');b.textContent=r;b.onclick=()=>{chatInp.value=r;sendChat()};chatQR.appendChild(b)})}
 function initChat(){am("Hi! 👋 I'm <strong>Anna</strong>, your AARNAIT AI Assistant. How can I help?",'bot');setTimeout(()=>sqr(['Services','Certifications','Tutoring','Pricing','Contact']),400)}
-const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Certifications','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential'],r:'<strong>8 programs</strong>: AI Foundations ($799), ML Engineer ($2,499), AI Architect ($3,999), GenAI Specialist ($1,799), Computer Vision ($2,199), NLP ($1,899), Business Leaders ($599), RL ($2,299). <a href="#certifications">View all →</a>',q:['Pricing','Enroll','Tutoring']},pricing:{kw:['price','cost','how much','fee','discount'],r:'Programs from <strong>$599 to $3,999 CAD</strong>. 10% discount for full payment. Monthly plans available! <a href="#certifications">See programs →</a>',q:['Certifications','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aarnaitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="#careers">See all careers →</a>',q:['Certifications','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose program → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']}};
+const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Courses','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential','school','primary','middle','high school'],r:'We have <strong>35+ courses</strong> across 11 categories: 🌱 School (Primary, Middle, High), 🤖 Professional AI, ✨ Generative AI, 🔗 Agentic AI, 🧪 QA Testing, 📊 Business Analysis, 📋 Project Management. <a href="#certifications">Browse all →</a>',q:['AI Courses','School Programs','Pricing']},pricing:{kw:['price','cost','how much','fee','discount'],r:'School programs from <strong>$129 CAD</strong>. Professional from <strong>$599 to $3,999 CAD</strong>. 10% off for full payment. Prices auto-convert to 6 currencies! <a href="#certifications">See all →</a>',q:['Courses','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aarnaitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="#careers">See all →</a>',q:['Courses','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose course → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']},testing:{kw:['testing','qa','automation','selenium','cypress','istqb'],r:'🧪 <strong>QA & Testing courses</strong>: Software Testing Pro ($899), Automation Testing ($1,299), AI-Powered Testing ($1,499). <a href="#certifications">See Testing tab →</a>',q:['Courses','Pricing']},ba:{kw:['business analysis','ba','analytics','tableau','power bi','data analyst'],r:'📊 <strong>BA courses</strong>: BA Fundamentals ($799), Data Analytics ($999), AI-Powered BI ($1,199). <a href="#certifications">See BA tab →</a>',q:['Courses','Pricing']},pm:{kw:['project management','pm','scrum','agile','pmp'],r:'📋 <strong>PM courses</strong>: PMP Prep ($999), Scrum Master ($699), AI Project Management ($1,399). <a href="#certifications">See PM tab →</a>',q:['Courses','Pricing']},genai:{kw:['generative','gen ai','chatgpt','llm','prompt','midjourney','dall-e'],r:'✨ <strong>Generative AI</strong>: GenAI Specialist ($1,799), Prompt Engineering ($699), AI Image & Video ($999). <a href="#certifications">See GenAI tab →</a>',q:['Agentic AI','Pricing']},agentic:{kw:['agent','agentic','langchain','mcp','autonomous','automation'],r:'🔗 <strong>Agentic AI</strong>: AI Agents ($1,999), MCP Integration ($1,299), Workflow Automation ($1,499). <a href="#certifications">See Agentic tab →</a>',q:['Generative AI','Pricing']}};
 function findResp(inp){const l=inp.toLowerCase();if(/^(hi|hello|hey)/.test(l))return{r:"Hi there! 👋 I'm Anna. How can I help you today?",q:['Services','Certifications','Pricing','Contact']};if(/^(thanks|thx)/.test(l))return{r:"You're welcome! 😊 — Anna",q:['Services','Programs']};if(/^(bye|no)/.test(l))return{r:"Thanks for chatting! 🙏 — Anna. <a href='#contact'>Contact us</a> anytime.",q:[]};let bm=null,bs=0;for(const v of Object.values(kb)){let s=0;for(const w of v.kw)if(l.includes(w))s+=w.split(' ').length;if(s>bs){bs=s;bm=v}}if(bm)return bm;return{r:"I'd love to help! Try our <a href='#contact'>contact form</a> or email hello@aarnaitai.com",q:['Services','Programs','Contact']}}
 async function sendChat(){const t=chatInp.value.trim();if(!t)return;chatInp.value='';chatQR.innerHTML='';am(t,'user');showT();const r=findResp(t);setTimeout(()=>{hideT();am(r.r,'bot');if(r.q&&r.q.length)setTimeout(()=>sqr(r.q),200)},500+Math.random()*600);sbi('contact_submissions',{name:'Chat',email:'chat@aarnaitai.com',service_interest:'chatbot',message:'[CHAT] '+t}).catch(()=>{})}
 
-// ═══════════════ CURRENCY CONVERSION ═══════════════
+// ═══════════════ CURRENCY CONVERSION (Competitive Country Pricing) ═══════════════
 const rates={CAD:1,USD:0.74,EUR:0.68,GBP:0.58,INR:62.5,AUD:1.12};
 const symbols={CAD:'C$',USD:'$',EUR:'€',GBP:'£',INR:'₹',AUD:'A$'};
 let currentCurrency='CAD';
@@ -1379,17 +1494,61 @@ function convertPrice(cadPrice){
 
 function changeCurrency(c){
   currentCurrency=c;
-  renderCerts();
+  renderCourseCatalog();
   renderTutoring();
   updateCart();
 }
 
-function renderCerts(){
-  document.getElementById('certGrid').innerHTML=certs.map(c=>{
-    const flexBadge=`<div style="display:flex;gap:.3rem;margin-top:.5rem;flex-wrap:wrap"><span style="font-size:.6rem;padding:2px 6px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.15);border-radius:50px;color:#22c55e">🌐 Live Online</span><span style="font-size:.6rem;padding:2px 6px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);border-radius:50px;color:#8b5cf6">📹 Self-Paced</span><span style="font-size:.6rem;padding:2px 6px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);border-radius:50px;color:#00e5ff">🔄 Flexible Schedule</span></div>`;
-    return `<div class="cert-card"><span class="cert-badge ${c.badge}">${c.bl}</span><h3>${c.t}</h3><p class="cert-meta">${c.meta}</p><p>${c.p}</p>${flexBadge}<ul>${c.items.map(i=>`<li>${i}</li>`).join('')}</ul><div class="cert-price"><div class="price">${convertPrice(c.price)} <small>${currentCurrency}</small></div><button class="add-cart-btn" onclick="addToCart('${c.id}','${c.t}',${c.price},'Certification',this)">Add to Cart</button></div></div>`;
+// ═══════════════ TAG FILTER BUTTONS ═══════════════
+function renderTagFilters(){
+  document.getElementById('catFilter').innerHTML=tagFilters.map(f=>`<button class="cat-filter-btn${f.id===activeTagFilter?' active':''}" onclick="activeTagFilter='${f.id}';renderTagFilters();renderCourseCatalog()">${f.label}</button>`).join('');
+}
+renderTagFilters();
+
+// ═══════════════ COURSE ACCORDION RENDERER ═══════════════
+function renderCourseCatalog(){
+  const el=document.getElementById('courseAccord');
+  const filtered=activeTagFilter==='all'?courseCatalog:courseCatalog.filter(c=>c.tags.includes(activeTagFilter));
+  // Only show categories that have courses after filtering
+  const visibleCats=accordCats.filter(cat=>filtered.some(c=>c.cat===cat.id));
+
+  el.innerHTML=visibleCats.map((cat,idx)=>{
+    const courses=filtered.filter(c=>c.cat===cat.id);
+    if(!courses.length)return '';
+    const isOpen=idx===0?'open':'';
+    const tagColors={ai:'ai',ml:'ml',genai:'genai',agentic:'agentic',nonai:'nonai',test:'test'};
+    return `<div class="accord-item ${isOpen}">
+      <div class="accord-head" onclick="this.parentElement.classList.toggle('open')">
+        <div class="ah-left">
+          <span class="ah-icon">${cat.icon}</span>
+          <div class="ah-info">
+            <h3>${cat.title}</h3>
+            <div class="ah-meta"><span>${cat.desc}</span></div>
+          </div>
+        </div>
+        <span class="ah-count">${courses.length} course${courses.length>1?'s':''}</span>
+        <span class="ah-arrow">▼</span>
+      </div>
+      <div class="accord-body">
+        <div class="accord-courses">
+          ${courses.map(c=>`<div class="cc-card">
+            <span class="cc-level">${c.level}</span>
+            <div class="cc-tags">${c.tags.map(t=>`<span class="cc-tag ${tagColors[t]||'ai'}">${{ai:'AI',ml:'ML',genai:'Gen AI',agentic:'Agentic',nonai:'Non-AI',test:'Testing'}[t]||t}</span>`).join('')}</div>
+            <h4>${c.t}</h4>
+            <div class="cc-meta">${c.meta}</div>
+            <p>${c.p}</p>
+            <ul>${c.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+            <div class="cc-price">
+              <div class="price">${convertPrice(c.price)} <small>${currentCurrency}</small></div>
+              <button onclick="addToCart('${c.id}','${c.t.replace(/'/g,"\\'")}',${c.price},'Course',this)">Add to Cart</button>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
   }).join('');
 }
+renderCourseCatalog();
 
 function renderTutoring(){
   document.getElementById('tutorGrid').innerHTML=tutoring.map(t=>{
@@ -1397,9 +1556,6 @@ function renderTutoring(){
     return `<div class="tutor-card"><h3>${t.t}</h3><div class="tutor-type">${t.type}</div><p>${t.p}</p><ul>${t.items.map(i=>`<li>${i}</li>`).join('')}</ul>${flexInfo}<div class="tutor-price"><div class="price">${convertPrice(t.price)} <small>${currentCurrency} ${t.unit}</small></div><button class="add-cart-btn" onclick="addToCart('${t.id}','${t.t}',${t.price},'Tutoring',this)">Add to Cart</button></div></div>`;
   }).join('');
 }
-
-// Re-render with currency
-renderCerts();
 renderTutoring();
 
 // Auto-detect currency by timezone
