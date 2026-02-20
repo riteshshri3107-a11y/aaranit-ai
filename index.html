@@ -28,6 +28,107 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 /* ── SCROLL PROGRESS ── */
 .scroll-prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));z-index:100001;width:0}
 
+/* ── DARK/LIGHT MODE ── */
+body.light{--bg:#f8fafc;--bg2:#eef2f7;--card:#ffffff;--text:#1a1a2e;--text2:#475569;--muted:#64748b;--border:rgba(0,0,0,.08)}
+body.light ::selection{background:var(--violet);color:#fff}
+body.light ::-webkit-scrollbar-track{background:#f1f5f9}
+body.light nav{background:rgba(248,250,252,.85)}
+body.light nav.scrolled{background:rgba(248,250,252,.95)}
+body.light .hero-grid{background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px)}
+body.light .modal-bg{background:rgba(0,0,0,.3)}
+body.light .modal-box,.body.light .pay-modal{background:#fff;border:1px solid rgba(0,0,0,.1)}
+body.light .mi,.body.light .msel,.body.light .pay-input{background:#f1f5f9;border-color:rgba(0,0,0,.1);color:#1a1a2e}
+body.light .chat-win{background:#fff;border:1px solid rgba(0,0,0,.1)}
+body.light .chat-hd{background:linear-gradient(135deg,var(--cyan),var(--violet))}
+body.light .cart-sidebar{background:#fff}
+body.light footer{background:#eef2f7}
+.theme-btn{background:none;border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:.85rem}
+.theme-btn:hover{border-color:var(--cyan)}
+
+/* ── NOTIFICATION BELL ── */
+.notif-btn{position:relative;background:none;border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:.85rem;color:var(--text)}
+.notif-btn:hover{border-color:var(--cyan)}
+.notif-badge{position:absolute;top:-3px;right:-3px;width:16px;height:16px;background:var(--magenta);border-radius:50%;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff}
+.notif-drop{position:absolute;top:50px;right:0;width:320px;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.4);z-index:10001;display:none;max-height:400px;overflow-y:auto}
+.notif-drop.show{display:block}
+.notif-drop h4{padding:.8rem 1rem;border-bottom:1px solid var(--border);font-size:.8rem;font-family:'Syne',sans-serif}
+.notif-item{padding:.7rem 1rem;border-bottom:1px solid var(--border);font-size:.78rem;display:flex;gap:.6rem;align-items:flex-start;cursor:pointer;transition:background .2s}
+.notif-item:hover{background:rgba(0,229,255,.03)}
+.notif-item .ni-icon{font-size:1.1rem;flex-shrink:0}
+.notif-item .ni-text{flex:1}
+.notif-item .ni-time{font-size:.65rem;color:var(--muted);white-space:nowrap}
+
+/* ── PROFILE MODAL TABS ── */
+.prof-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1.2rem}
+.prof-tab{flex:1;padding:.6rem;text-align:center;font-size:.75rem;font-weight:600;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s}
+.prof-tab.active{color:var(--cyan);border-color:var(--cyan)}
+.prof-tab:hover{color:var(--text)}
+.prof-panel{display:none}
+.prof-panel.active{display:block}
+.prof-field{margin-bottom:.8rem}
+.prof-field label{display:block;font-size:.72rem;color:var(--muted);margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.04em}
+.prof-field .pf-val{background:var(--bg);padding:.5rem .8rem;border-radius:8px;font-size:.85rem;border:1px solid var(--border)}
+.prof-field input,.prof-field select{width:100%;background:var(--bg);padding:.5rem .8rem;border-radius:8px;font-size:.85rem;border:1px solid var(--border);color:var(--text);outline:none}
+.prof-field input:focus{border-color:var(--cyan)}
+.prof-stat{display:flex;gap:.5rem;margin:.6rem 0}
+.prof-stat div{flex:1;text-align:center;padding:.5rem;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
+.prof-stat div strong{display:block;font-size:1.1rem;font-family:'Syne',sans-serif}
+.prof-stat div span{font-size:.6rem;color:var(--muted);text-transform:uppercase}
+
+/* ── NEWS SECTION ── */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1200px;margin:0 auto}
+.news-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s}
+.news-card:hover{border-color:rgba(0,229,255,.15);transform:translateY(-4px)}
+.news-img{height:160px;background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(139,92,246,.08));display:flex;align-items:center;justify-content:center;font-size:3rem}
+.news-body{padding:1.2rem}
+.news-body .news-tag{font-size:.6rem;background:rgba(0,229,255,.1);color:var(--cyan);padding:.15rem .5rem;border-radius:50px;display:inline-block;margin-bottom:.5rem;font-weight:600}
+.news-body h3{font-family:'Syne',sans-serif;font-size:.95rem;margin-bottom:.3rem}
+.news-body p{font-size:.8rem;color:var(--text2);line-height:1.5}
+.news-body .news-date{font-size:.65rem;color:var(--muted);margin-top:.5rem}
+
+/* ── PROMO BANNER ── */
+.promo-section{padding:3rem;background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(217,70,239,.06));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.promo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto}
+.promo-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center;position:relative;overflow:hidden;transition:all .3s}
+.promo-card:hover{border-color:rgba(217,70,239,.2);transform:translateY(-3px)}
+.promo-card .promo-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,var(--magenta),var(--violet));color:#fff;font-size:.6rem;font-weight:700;padding:.2rem .6rem;border-radius:50px}
+.promo-card .promo-icon{font-size:2rem;margin-bottom:.5rem}
+.promo-card h3{font-family:'Syne',sans-serif;font-size:1rem;margin-bottom:.3rem}
+.promo-card .promo-desc{font-size:.8rem;color:var(--text2);margin-bottom:.6rem}
+.promo-card .promo-code{background:var(--bg);border:1px dashed var(--cyan);border-radius:8px;padding:.4rem .8rem;font-family:monospace;font-size:.85rem;color:var(--cyan);font-weight:700;display:inline-block;cursor:pointer;transition:all .2s}
+.promo-card .promo-code:hover{background:rgba(0,229,255,.05)}
+.promo-card .promo-exp{font-size:.65rem;color:var(--muted);margin-top:.4rem}
+
+/* ── NEWSLETTER POPUP ── */
+.nl-popup{position:fixed;bottom:24px;left:24px;width:360px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;z-index:10002;box-shadow:0 20px 60px rgba(0,0,0,.5);transform:translateY(120%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);display:none}
+.nl-popup.show{display:block;transform:translateY(0)}
+.nl-popup .nl-close{position:absolute;top:8px;right:12px;background:none;border:none;color:var(--muted);font-size:1rem;cursor:pointer}
+.nl-popup h3{font-family:'Syne',sans-serif;font-size:.95rem;margin-bottom:.3rem}
+.nl-popup p{font-size:.78rem;color:var(--text2);margin-bottom:.8rem}
+.nl-popup .nl-code{background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(139,92,246,.08));border:1px solid rgba(0,229,255,.15);border-radius:10px;padding:.6rem;text-align:center;margin-bottom:.8rem}
+.nl-popup .nl-code strong{font-family:monospace;font-size:1.1rem;color:var(--cyan);letter-spacing:2px}
+.nl-popup .nl-row{display:flex;gap:.4rem}
+.nl-popup .nl-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem;font-size:.8rem;color:var(--text);outline:none}
+.nl-popup .nl-row button{background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:8px;padding:.5rem 1rem;color:var(--bg);font-weight:700;font-size:.75rem;cursor:pointer}
+
+/* ── REFERRAL ── */
+.ref-card{background:linear-gradient(135deg,rgba(0,229,255,.04),rgba(139,92,246,.04));border:1px solid rgba(0,229,255,.1);border-radius:16px;padding:1.5rem;margin-top:.8rem}
+.ref-link{display:flex;gap:.4rem;margin:.6rem 0}
+.ref-link input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.4rem .6rem;font-size:.75rem;color:var(--cyan);outline:none}
+.ref-link button{background:var(--cyan);color:var(--bg);border:none;border-radius:8px;padding:.4rem .8rem;font-size:.72rem;font-weight:700;cursor:pointer}
+
+/* ── LANGUAGE SELECTOR ── */
+.lang-sel{background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.7rem;padding:4px 6px;outline:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* ── PROGRESS TRACKER ── */
+.prog-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.8rem;margin-bottom:.5rem}
+.prog-card h4{font-size:.8rem;margin-bottom:.3rem}
+.prog-bar-wrap{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin:.3rem 0}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:3px;transition:width .5s}
+.prog-meta{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted)}
+
+@media(max-width:768px){.news-grid{grid-template-columns:1fr}.promo-grid{grid-template-columns:1fr}.nl-popup{left:10px;right:10px;width:auto}.notif-drop{right:-60px;width:290px}}
+
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:10000;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(6,8,13,.5);border-bottom:1px solid transparent;transition:all .4s}
 nav.scrolled{padding:.65rem 3rem;background:rgba(6,8,13,.92);border-color:var(--border);box-shadow:0 8px 40px rgba(0,0,0,.4)}
@@ -428,7 +529,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- NAV -->
 <nav id="mainNav">
   <a href="#" class="logo-wrap" onclick="scrollTo({top:0,behavior:'smooth'});return false">
-    <span class="logo-mark">AARN<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span>
+    <span class="logo-mark">AARAN<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
@@ -436,6 +537,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <li><a href="#tutoring">Tutoring</a></li>
     <li><a href="#careers">Careers</a></li>
     <li><a href="#flexible">Schedule</a></li>
+    <li><a href="#ainews">AI News</a></li>
     <li><a href="#inbox">Messages</a></li>
   </ul>
   <div class="nav-right">
@@ -443,6 +545,11 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <span class="adot off" id="authDot"></span>
       <span id="authLabel">Sign Up / Sign In</span>
     </div>
+    <select class="lang-sel" id="langSel" onchange="changeLang(this.value)" title="Language">
+      <option value="en">🌐 EN</option>
+      <option value="fr">🇫🇷 FR</option>
+      <option value="hi">🇮🇳 HI</option>
+    </select>
     <select class="curr-sel" id="currSel" onchange="changeCurrency(this.value)">
       <option value="CAD">🇨🇦 CAD</option>
       <option value="USD">🇺🇸 USD</option>
@@ -451,6 +558,18 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <option value="INR">🇮🇳 INR</option>
       <option value="AUD">🇦🇺 AUD</option>
     </select>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <div style="position:relative">
+      <button class="notif-btn" id="notifBtn" onclick="toggleNotif()" title="Notifications">🔔<span class="notif-badge" id="notifBadge">3</span></button>
+      <div class="notif-drop" id="notifDrop">
+        <h4>🔔 Notifications</h4>
+        <div id="notifList">
+          <div class="notif-item"><span class="ni-icon">🎉</span><div class="ni-text"><strong>Early Bird Discount!</strong><br>Get 15% off all certifications — use code EARLY2026</div><span class="ni-time">2h ago</span></div>
+          <div class="notif-item"><span class="ni-icon">🤖</span><div class="ni-text"><strong>New: GenAI Specialist</strong><br>Our newest certification is now enrolling</div><span class="ni-time">1d ago</span></div>
+          <div class="notif-item"><span class="ni-icon">💼</span><div class="ni-text"><strong>3 New AI Jobs</strong><br>Senior ML Engineer, NLP Engineer, and more</div><span class="ni-time">2d ago</span></div>
+        </div>
+      </div>
+    </div>
     <button class="cart-btn" id="cartBtn" onclick="toggleCart()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
       <span class="cart-count" id="cartCount">0</span>
@@ -463,7 +582,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- MOBILE DRAWER -->
 <div class="mobile-overlay" id="mobOverlay"></div>
 <div class="mobile-drawer" id="mobDrawer">
-  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="#careers">Careers</a><a href="#flexible">Schedule</a><a href="#inbox">Messages</a><a href="javascript:void(0)" onclick="closeMob();openAuth()" style="color:var(--green)">🔐 Sign Up / Sign In</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
+  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="#careers">Careers</a><a href="#flexible">Schedule</a><a href="#ainews">AI News</a><a href="#inbox">Messages</a><a href="javascript:void(0)" onclick="closeMob();openAuth()" style="color:var(--green)">🔐 Sign Up / Sign In</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
 </div>
 
 <!-- CART SIDEBAR -->
@@ -635,6 +754,18 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 </section>
 
 <!-- CTA / CONTACT -->
+<!-- PROMOTIONAL OFFERS -->
+<div class="promo-section" id="offers">
+  <div class="sec-head"><span class="sec-label">Limited Time</span><h2>🔥 Special <span class="gradient-text">Offers</span></h2><p>Exclusive deals for aspiring AI professionals.</p></div>
+  <div class="promo-grid" id="promoGrid"></div>
+</div>
+
+<!-- AI & ROBOTICS NEWS -->
+<section id="ainews">
+  <div class="sec-head"><span class="sec-label">Stay Updated</span><h2>AI & Robotics <span class="gradient-text">News</span></h2><p>Latest developments in artificial intelligence and robotics.</p></div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
 <section class="cta" id="contact">
   <div class="sec-label">Ready to Begin?</div>
   <h2>Let's Build <span class="gradient-text">Intelligence Together</span></h2>
@@ -652,7 +783,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <footer>
   <div class="ft-grid">
     <div class="ft-brand">
-      <a href="#" class="logo-wrap" onclick="scrollTo({top:0,behavior:'smooth'});return false"><span class="logo-mark" style="font-size:1.3rem">AARN<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span></a>
+      <a href="#" class="logo-wrap" onclick="scrollTo({top:0,behavior:'smooth'});return false"><span class="logo-mark" style="font-size:1.3rem">AARAN<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span></a>
       <p>Empowering businesses and individuals in the age of AI. A division of 15439361 Canada Inc.</p>
       <div class="nl-wrap"><input type="email" id="nlEmail" placeholder="Your email"><button onclick="handleNL()">Subscribe</button></div>
       <div class="form-msg" id="nlMsg" style="font-size:.7rem;margin-top:.3rem"></div>
@@ -676,8 +807,10 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <div id="aSignup">
         <h2>Create Your Account</h2>
         <p class="msub">Sign up to apply for jobs, enroll in courses, and track progress securely.</p>
-        <label class="ml">Full Name *</label>
-        <input class="mi" id="sName" placeholder="John Doe">
+        <div class="mr2">
+          <div><label class="ml">First Name *</label><input class="mi" id="sFirstName" placeholder="John"></div>
+          <div><label class="ml">Last Name *</label><input class="mi" id="sLastName" placeholder="Doe"></div>
+        </div>
         <label class="ml">Email Address *</label>
         <input class="mi" type="email" id="sEmail" placeholder="you@email.com">
         <label class="ml">Create Password *</label>
@@ -734,6 +867,13 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
         </div>
         <button class="mbtn" onclick="doLogin()">Sign In →</button>
         <div class="mmsg" id="lMsg"></div>
+        <div style="display:flex;align-items:center;gap:.6rem;margin:.6rem 0"><hr style="flex:1;border:none;border-top:1px solid var(--border)"><span style="font-size:.7rem;color:var(--muted)">OR</span><hr style="flex:1;border:none;border-top:1px solid var(--border)"></div>
+        <button class="mbtn sec" onclick="socialLogin('google')" style="display:flex;align-items:center;justify-content:center;gap:.5rem">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google
+        </button>
+        <button class="mbtn sec" onclick="socialLogin('github')" style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.3rem">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text)"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> Continue with GitHub
+        </button>
         <span class="mlink" onclick="showAuth('aForgot')">Forgot password?</span>
         <span class="mlink" onclick="showAuth('aSignup')">Don't have an account? Sign Up</span>
       </div>
@@ -747,14 +887,96 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
         <div class="mmsg" id="fMsg"></div>
         <span class="mlink" onclick="showAuth('aLogin')">← Back to Sign In</span>
       </div>
-      <!-- PROFILE -->
-      <div id="aProfile" style="display:none;text-align:center">
-        <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;font-size:1.5rem;font-weight:800;font-family:'Syne',sans-serif;color:var(--bg)" id="profAvatar">?</div>
-        <h2 style="margin-bottom:.2rem" id="profName">Welcome!</h2>
-        <p class="msub" id="profEmail" style="margin-bottom:.8rem"></p>
-        <div class="secure-pill" style="justify-content:center;margin-bottom:1.2rem">🔒 Session active & encrypted</div>
-        <button class="mbtn" onclick="closeM('authModal')">Continue Browsing →</button>
-        <button class="mbtn sec" style="color:var(--magenta);border-color:rgba(217,70,239,.2)" onclick="doSignOut()">Sign Out</button>
+      <!-- PROFILE (Full Tabbed) -->
+      <div id="aProfile" style="display:none">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
+          <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;font-family:'Syne',sans-serif;color:var(--bg);flex-shrink:0" id="profAvatar">?</div>
+          <div><h2 style="font-size:1rem;margin:0" id="profName">Welcome!</h2><p class="msub" id="profEmail" style="margin:0;font-size:.78rem"></p></div>
+        </div>
+        <div class="prof-tabs">
+          <div class="prof-tab active" onclick="showProfTab('profInfo')">👤 Profile</div>
+          <div class="prof-tab" onclick="showProfTab('profSecurity')">🔒 Security</div>
+          <div class="prof-tab" onclick="showProfTab('profCourses')">📚 Courses</div>
+          <div class="prof-tab" onclick="showProfTab('profReferral')">🎁 Referral</div>
+        </div>
+
+        <!-- PROFILE INFO TAB -->
+        <div class="prof-panel active" id="profInfo">
+          <div class="prof-stat">
+            <div><strong id="pStatCourses">0</strong><span>Enrolled</span></div>
+            <div><strong id="pStatApps">0</strong><span>Applications</span></div>
+            <div><strong id="pStatSince">—</strong><span>Member Since</span></div>
+          </div>
+          <div class="prof-field"><label>First Name</label><input class="mi" id="profFirstName" placeholder="First name"></div>
+          <div class="prof-field"><label>Last Name</label><input class="mi" id="profLastName" placeholder="Last name"></div>
+          <div class="prof-field"><label>Email</label><div class="pf-val" id="profEmailDisp" style="font-size:.82rem;color:var(--muted)">—</div></div>
+          <div class="prof-field"><label>Phone</label><input class="mi" id="profPhone" placeholder="Phone number"></div>
+          <div class="prof-field"><label>Country</label><select class="msel" id="profCountry"><option value="">Select</option><option>Canada</option><option>United States</option><option>United Kingdom</option><option>Germany</option><option>India</option><option>Australia</option><option>UAE</option><option>Singapore</option><option>Other</option></select></div>
+          <button class="mbtn" onclick="saveProfile()" id="saveProfBtn">Save Changes →</button>
+          <div class="mmsg" id="profMsg"></div>
+        </div>
+
+        <!-- SECURITY TAB -->
+        <div class="prof-panel" id="profSecurity">
+          <h3 style="font-size:.9rem;margin-bottom:.8rem">🔑 Change Password</h3>
+          <div class="prof-field"><label>Current Password</label><div style="position:relative"><input class="mi" type="password" id="secCurPass" placeholder="Enter current password" style="padding-right:2.5rem"><span onclick="togglePw('secCurPass',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.9rem">👁️</span></div></div>
+          <div class="prof-field"><label>New Password</label><div style="position:relative"><input class="mi" type="password" id="secNewPass" placeholder="Min 8 characters" style="padding-right:2.5rem"><span onclick="togglePw('secNewPass',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:.9rem">👁️</span></div></div>
+          <div class="prof-field"><label>Confirm New Password</label><input class="mi" type="password" id="secNewPassC" placeholder="Re-enter new password"></div>
+          <button class="mbtn" onclick="changePassword()">Update Password →</button>
+          <div class="mmsg" id="secMsg"></div>
+
+          <hr style="border:none;border-top:1px solid var(--border);margin:1.2rem 0">
+          <h3 style="font-size:.9rem;margin-bottom:.5rem">📱 Two-Factor Authentication</h3>
+          <p style="font-size:.78rem;color:var(--text2);margin-bottom:.6rem">Add your phone number for SMS OTP verification when making sensitive changes.</p>
+          <div class="mr2">
+            <select class="msel" id="sec2faCode"><option value="+1">🇨🇦 +1</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option></select>
+            <input class="mi" id="sec2faPhone" placeholder="Phone for SMS OTP">
+          </div>
+          <button class="mbtn sec" onclick="enable2FA()" style="margin-top:.4rem">Enable SMS Verification →</button>
+          <div class="mmsg" id="sec2faMsg"></div>
+
+          <hr style="border:none;border-top:1px solid var(--border);margin:1.2rem 0">
+          <h3 style="font-size:.9rem;margin-bottom:.5rem">⚠️ Session & Account</h3>
+          <div style="display:flex;gap:.5rem">
+            <button class="mbtn sec" style="flex:1" onclick="closeM('authModal')">Continue Browsing</button>
+            <button class="mbtn sec" style="flex:1;color:var(--magenta);border-color:rgba(217,70,239,.2)" onclick="doSignOut()">Sign Out</button>
+          </div>
+        </div>
+
+        <!-- COURSES TAB -->
+        <div class="prof-panel" id="profCourses">
+          <h3 style="font-size:.9rem;margin-bottom:.8rem">📚 Enrolled Programs</h3>
+          <div id="profCourseList">
+            <div style="text-align:center;padding:2rem;color:var(--muted);font-size:.85rem">
+              <div style="font-size:2rem;margin-bottom:.5rem">📖</div>
+              No courses enrolled yet.<br>
+              <a href="#certifications" onclick="closeM('authModal')" style="color:var(--cyan)">Browse programs →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- REFERRAL TAB -->
+        <div class="prof-panel" id="profReferral">
+          <h3 style="font-size:.9rem;margin-bottom:.3rem">🎁 Refer a Friend, Get 10% Off</h3>
+          <p style="font-size:.78rem;color:var(--text2);margin-bottom:.8rem">Share your unique link. When your friend enrolls, you both get 10% off your next course!</p>
+          <div class="ref-card">
+            <div style="font-size:.72rem;color:var(--muted);margin-bottom:.3rem">Your Referral Link:</div>
+            <div class="ref-link">
+              <input type="text" id="refLink" readonly value="https://aaranit-ai.vercel.app/?ref=loading...">
+              <button onclick="copyRef()">Copy</button>
+            </div>
+            <div class="prof-stat" style="margin:.8rem 0 0">
+              <div><strong id="refCount">0</strong><span>Referrals</span></div>
+              <div><strong id="refEarned">$0</strong><span>Saved</span></div>
+            </div>
+          </div>
+          <div style="margin-top:.8rem;font-size:.72rem;color:var(--muted)">
+            <strong>How it works:</strong><br>
+            1. Share your link with friends<br>
+            2. They sign up and enroll in any program<br>
+            3. You both get 10% off — automatically applied!
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -849,6 +1071,19 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <div class="pay-secure">🔒 256-bit SSL · PCI DSS Compliant · Your data is secure</div>
     <div class="pay-msg" id="payMsg"></div>
   </div>
+</div>
+
+<!-- NEWSLETTER POPUP -->
+<div class="nl-popup" id="nlPopup">
+  <button class="nl-close" onclick="closeNLPopup()">✕</button>
+  <h3>🎓 Get 15% Off Your First Course!</h3>
+  <p>Subscribe to our AI newsletter and receive an exclusive discount code.</p>
+  <div class="nl-code"><div style="font-size:.65rem;color:var(--muted);margin-bottom:.2rem">YOUR DISCOUNT CODE</div><strong>AARANIT15</strong></div>
+  <div class="nl-row">
+    <input type="email" id="nlPopEmail" placeholder="Enter your email">
+    <button onclick="submitNLPopup()">Claim →</button>
+  </div>
+  <div class="mmsg" id="nlPopMsg" style="font-size:.7rem;margin-top:.3rem"></div>
 </div>
 
 <!-- CHATBOT -->
@@ -1068,7 +1303,7 @@ document.addEventListener('keydown',e=>{
   const t=e.target;
   if(!t||t.tagName==='TEXTAREA')return;
   // Signup form
-  if(t.id==='sName'||t.id==='sEmail'||t.id==='sPass'||t.id==='sPassC'||t.id==='sPhone'){e.preventDefault();doSignup();return}
+  if(t.id==='sFirstName'||t.id==='sLastName'||t.id==='sEmail'||t.id==='sPass'||t.id==='sPassC'||t.id==='sPhone'){e.preventDefault();doSignup();return}
   // Login form
   if(t.id==='lEmail'||t.id==='lPass'){e.preventDefault();doLogin();return}
   // Forgot password
@@ -1258,7 +1493,7 @@ function showAuth(id){authPanels.forEach(p=>{const e=document.getElementById(p);
 function openAuth(){document.getElementById('authModal').classList.add('show');currentUser?showAuth('aProfile'):showAuth('aSignup')}
 function updateAuthUI(){
   const dot=document.getElementById('authDot'),lbl=document.getElementById('authLabel');
-  if(currentUser){dot.className='adot on';lbl.textContent=currentUser.email.split('@')[0]}
+  if(currentUser){dot.className='adot on';lbl.textContent=currentUser.firstName||currentUser.email.split('@')[0]}
   else{dot.className='adot off';lbl.textContent='Sign Up / Sign In'}
 }
 
@@ -1310,14 +1545,16 @@ async function sbAuthCall(endpoint,body){
 
 // ── SIGNUP: Email + Password + OTP Verification ──
 async function doSignup(){
-  const name=document.getElementById('sName').value.trim();
+  const firstName=document.getElementById('sFirstName').value.trim();
+  const lastName=document.getElementById('sLastName').value.trim();
+  const name=firstName+' '+lastName;
   const email=document.getElementById('sEmail').value.trim();
   const pass=document.getElementById('sPass').value;
   const passC=document.getElementById('sPassC').value;
   const phone=document.getElementById('sPhCode').value+document.getElementById('sPhone').value.trim();
   const country=document.getElementById('sCountry').value;
 
-  if(!name||!email){amsg('sMsg','Please fill name and email.',false);return}
+  if(!firstName||!lastName||!email){amsg('sMsg','Please fill first name, last name, and email.',false);return}
   if(!email.includes('@')){amsg('sMsg','Enter a valid email address.',false);return}
   if(!pass||pass.length<8){amsg('sMsg','Password must be at least 8 characters.',false);return}
   if(pass!==passC){amsg('sMsg','Passwords do not match.',false);return}
@@ -1327,7 +1564,7 @@ async function doSignup(){
   btn.textContent='Creating account...';btn.disabled=true;
   amsg('sMsg','Setting up your account...',true);
 
-  signupCache={name,email,phone,country,pass};
+  signupCache={name,firstName,lastName,email,phone,country,pass};
 
   // Step 1: Create account with email + password (Supabase sends confirmation email)
   const res=await sbAuthCall('signup',{email,password:pass,data:{full_name:name,phone,country}});
@@ -1365,7 +1602,7 @@ async function doVerify(){
   if(res.error){amsg('otpMsg',res.error.message||'Invalid or expired code.',false);return}
 
   // Verification success — set user
-  currentUser={email:signupCache.email,id:res.user?.id||'local',name:signupCache.name};
+  currentUser={email:signupCache.email,id:res.user?.id||'local',name:signupCache.name,firstName:signupCache.firstName,lastName:signupCache.lastName,phone:signupCache.phone,country:signupCache.country,token:res.access_token||null};
 
   // Save user profile
   sbi('user_profiles',{user_id:currentUser.id,full_name:signupCache.name,phone:signupCache.phone,country:signupCache.country}).catch(()=>{});
@@ -1378,9 +1615,7 @@ async function doVerify(){
 
   // Update UI
   updateAuthUI();
-  document.getElementById('profAvatar').textContent=signupCache.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  document.getElementById('profName').textContent='🎉 Welcome, '+signupCache.name.split(' ')[0]+'!';
-  document.getElementById('profEmail').textContent=signupCache.email;
+  populateProfile();
   showAuth('aProfile');
 }
 
@@ -1420,11 +1655,10 @@ async function doLogin(){
 
   // Login success
   const userName=res.user?.user_metadata?.full_name||email.split('@')[0];
-  currentUser={email,id:res.user?.id||'local',name:userName};
+  const parts=userName.split(' ');
+  currentUser={email,id:res.user?.id||'local',name:userName,firstName:parts[0]||'',lastName:parts.slice(1).join(' ')||'',phone:res.user?.user_metadata?.phone||'',country:res.user?.user_metadata?.country||'',token:res.access_token||null};
   updateAuthUI();
-  document.getElementById('profAvatar').textContent=userName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  document.getElementById('profName').textContent='Welcome back, '+userName.split(' ')[0]+'!';
-  document.getElementById('profEmail').textContent=email;
+  populateProfile();
   showAuth('aProfile');
 }
 
@@ -1631,6 +1865,220 @@ async function submitApplication(){
   }
   setTimeout(()=>{btn.textContent='🔐 Encrypt & Submit Application →';btn.disabled=false},4000);
 }
+
+// ═══════════════ PROFILE MANAGEMENT ═══════════════
+function populateProfile(){
+  if(!currentUser)return;
+  const initials=(currentUser.firstName||'?')[0]+(currentUser.lastName||'?')[0];
+  document.getElementById('profAvatar').textContent=initials.toUpperCase();
+  document.getElementById('profName').textContent=(currentUser.firstName||'User')+' '+(currentUser.lastName||'');
+  document.getElementById('profEmail').textContent=currentUser.email;
+  document.getElementById('profEmailDisp').textContent=currentUser.email;
+  document.getElementById('profFirstName').value=currentUser.firstName||'';
+  document.getElementById('profLastName').value=currentUser.lastName||'';
+  document.getElementById('profPhone').value=currentUser.phone||signupCache.phone||'';
+  if(currentUser.country||signupCache.country)document.getElementById('profCountry').value=currentUser.country||signupCache.country;
+  document.getElementById('pStatSince').textContent=new Date().toLocaleDateString('en',{month:'short',year:'numeric'});
+  // Set referral link
+  const refCode=currentUser.id?currentUser.id.slice(0,8):'user';
+  document.getElementById('refLink').value='https://aaranit-ai.vercel.app/?ref='+refCode;
+}
+
+function showProfTab(id){
+  document.querySelectorAll('.prof-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.prof-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+async function saveProfile(){
+  const fn=document.getElementById('profFirstName').value.trim();
+  const ln=document.getElementById('profLastName').value.trim();
+  if(!fn){amsg('profMsg','First name is required.',false);return}
+  currentUser.firstName=fn;
+  currentUser.lastName=ln;
+  currentUser.name=fn+' '+ln;
+  currentUser.phone=document.getElementById('profPhone').value;
+  currentUser.country=document.getElementById('profCountry').value;
+  updateAuthUI();
+  document.getElementById('profAvatar').textContent=(fn[0]+(ln?ln[0]:'')).toUpperCase();
+  document.getElementById('profName').textContent=fn+' '+ln;
+  // Save to Supabase
+  if(currentUser.token){
+    await fetch(`${SB}/auth/v1/user`,{method:'PUT',headers:{'Content-Type':'application/json',apikey:SK,Authorization:'Bearer '+currentUser.token},body:JSON.stringify({data:{full_name:fn+' '+ln,phone:currentUser.phone,country:currentUser.country}})}).catch(()=>{});
+  }
+  amsg('profMsg','✅ Profile updated successfully!',true);
+  setTimeout(()=>amsg('profMsg','',true),3000);
+}
+
+// ═══════════════ SECURITY: CHANGE PASSWORD ═══════════════
+async function changePassword(){
+  const cur=document.getElementById('secCurPass').value;
+  const newP=document.getElementById('secNewPass').value;
+  const newPC=document.getElementById('secNewPassC').value;
+  if(!cur){amsg('secMsg','Enter your current password.',false);return}
+  if(!newP||newP.length<8){amsg('secMsg','New password must be at least 8 characters.',false);return}
+  if(newP!==newPC){amsg('secMsg','New passwords do not match.',false);return}
+  amsg('secMsg','Updating password...',true);
+  // Verify current password by logging in
+  const verify=await fetch(`${SB}/auth/v1/token?grant_type=password`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK},body:JSON.stringify({email:currentUser.email,password:cur})}).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
+  if(verify.error){amsg('secMsg','Current password is incorrect.',false);return}
+  // Update password
+  const token=verify.access_token;
+  const res=await fetch(`${SB}/auth/v1/user`,{method:'PUT',headers:{'Content-Type':'application/json',apikey:SK,Authorization:'Bearer '+token},body:JSON.stringify({password:newP})}).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
+  if(res.error){amsg('secMsg',res.error.message,false);return}
+  currentUser.token=token;
+  document.getElementById('secCurPass').value='';
+  document.getElementById('secNewPass').value='';
+  document.getElementById('secNewPassC').value='';
+  amsg('secMsg','✅ Password changed successfully!',true);
+}
+
+function enable2FA(){
+  const phone=document.getElementById('sec2faCode').value+document.getElementById('sec2faPhone').value.trim();
+  if(!document.getElementById('sec2faPhone').value.trim()){amsg('sec2faMsg','Enter your phone number.',false);return}
+  // Store phone for future Twilio integration
+  amsg('sec2faMsg','📱 SMS verification will be activated when our Twilio integration goes live. Phone saved: '+phone,true);
+  if(currentUser)currentUser.phone2fa=phone;
+}
+
+// ═══════════════ REFERRAL ═══════════════
+function copyRef(){
+  const inp=document.getElementById('refLink');
+  inp.select();navigator.clipboard.writeText(inp.value);
+  const btn=event.target;btn.textContent='✓ Copied!';
+  setTimeout(()=>btn.textContent='Copy',2000);
+}
+
+// ═══════════════ DARK / LIGHT MODE ═══════════════
+function toggleTheme(){
+  document.body.classList.toggle('light');
+  const isLight=document.body.classList.contains('light');
+  document.getElementById('themeBtn').textContent=isLight?'☀️':'🌙';
+  localStorage.setItem('aaranit-theme',isLight?'light':'dark');
+}
+// Restore theme
+if(localStorage.getItem('aaranit-theme')==='light'){document.body.classList.add('light');document.getElementById('themeBtn').textContent='☀️'}
+
+// ═══════════════ NOTIFICATIONS ═══════════════
+function toggleNotif(){
+  document.getElementById('notifDrop').classList.toggle('show');
+  document.getElementById('notifBadge').style.display='none';
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.notif-btn')&&!e.target.closest('.notif-drop'))document.getElementById('notifDrop').classList.remove('show');
+});
+
+// ═══════════════ NEWSLETTER POPUP ═══════════════
+let nlShown=localStorage.getItem('aaranit-nl-shown');
+if(!nlShown){
+  setTimeout(()=>{
+    const pop=document.getElementById('nlPopup');
+    pop.style.display='block';
+    setTimeout(()=>pop.classList.add('show'),50);
+  },15000);
+}
+function closeNLPopup(){
+  document.getElementById('nlPopup').classList.remove('show');
+  setTimeout(()=>document.getElementById('nlPopup').style.display='none',400);
+  localStorage.setItem('aaranit-nl-shown','1');
+}
+function submitNLPopup(){
+  const email=document.getElementById('nlPopEmail').value.trim();
+  if(!email||!email.includes('@')){amsg('nlPopMsg','Enter a valid email.',false);return}
+  sbi('contact_submissions',{name:'Newsletter',email:email,service_interest:'Newsletter Popup',message:'[NEWSLETTER] Signed up via popup. Code: AARANIT15'}).catch(()=>{});
+  amsg('nlPopMsg','✅ Subscribed! Use code AARANIT15 at checkout.',true);
+  setTimeout(closeNLPopup,3000);
+  localStorage.setItem('aaranit-nl-shown','1');
+}
+
+// ═══════════════ PROMOTIONAL OFFERS ═══════════════
+const promos=[
+  {icon:'🎓',title:'Early Bird 2026',desc:'15% off all certification programs for new students',code:'EARLY2026',exp:'Mar 31, 2026',badge:'15% OFF'},
+  {icon:'👥',title:'Group Discount',desc:'Enroll 3+ people from the same company and save 20%',code:'TEAM20',exp:'Ongoing',badge:'20% OFF'},
+  {icon:'🎁',title:'Bundle & Save',desc:'Buy any 2 certifications together and get $500 off',code:'BUNDLE500',exp:'Apr 15, 2026',badge:'$500 OFF'},
+  {icon:'🚀',title:'Student Special',desc:'50% off AI Foundations for students with valid .edu email',code:'STUDENT50',exp:'Dec 31, 2026',badge:'50% OFF'}
+];
+document.getElementById('promoGrid').innerHTML=promos.map(p=>`<div class="promo-card"><span class="promo-badge">${p.badge}</span><div class="promo-icon">${p.icon}</div><h3>${p.title}</h3><p class="promo-desc">${p.desc}</p><div class="promo-code" onclick="navigator.clipboard.writeText('${p.code}');this.textContent='✓ Copied!';setTimeout(()=>this.textContent='${p.code}',2000)" title="Click to copy">${p.code}</div><div class="promo-exp">Expires: ${p.exp}</div></div>`).join('');
+
+// ═══════════════ AI & ROBOTICS NEWS ═══════════════
+const aiNews=[
+  {icon:'🤖',tag:'Robotics',title:'Boston Dynamics Unveils Atlas 2.0 Humanoid',desc:'The next-gen humanoid robot can now perform complex warehouse tasks autonomously, marking a leap in industrial automation.',date:'Feb 18, 2026'},
+  {icon:'🧠',tag:'AI Research',title:'GPT-5 Achieves PhD-Level Reasoning',desc:'OpenAI\'s latest model demonstrates expert-level performance across science, math, and law benchmarks.',date:'Feb 15, 2026'},
+  {icon:'🏥',tag:'AI in Healthcare',title:'AI Detects Cancer 5 Years Before Symptoms',desc:'Google DeepMind\'s new model can predict cancer risk from routine blood tests with 94% accuracy.',date:'Feb 12, 2026'},
+  {icon:'🚗',tag:'Autonomous',title:'Waymo Expands to 15 New Cities',desc:'Self-driving taxis now operate in major cities across North America, with plans for European launch.',date:'Feb 10, 2026'},
+  {icon:'⚖️',tag:'AI Regulation',title:'EU AI Act Enforcement Begins',desc:'Companies now face fines up to 7% of global revenue for violating the world\'s first comprehensive AI law.',date:'Feb 8, 2026'},
+  {icon:'💼',tag:'Industry',title:'AI Jobs Grew 35% in 2025',desc:'Demand for AI engineers, prompt engineers, and ML ops roles surged, with average salaries up 18%.',date:'Feb 5, 2026'}
+];
+document.getElementById('newsGrid').innerHTML=aiNews.map(n=>`<div class="news-card"><div class="news-img">${n.icon}</div><div class="news-body"><span class="news-tag">${n.tag}</span><h3>${n.title}</h3><p>${n.desc}</p><div class="news-date">📅 ${n.date}</div></div></div>`).join('');
+
+// ═══════════════ MULTI-LANGUAGE SUPPORT ═══════════════
+const i18n={
+  en:{hero:'Build the Future with',services:'AI Services & Solutions',certs:'AI Certification Programs',tutoring:'Tutoring & Training Courses',careers:'AI Careers Worldwide',news:'AI & Robotics News',offers:'Special Offers',contact:'Let\'s Build Intelligence Together',getStarted:'Get Started',viewPrograms:'View Programs →',ourServices:'Our Services',sendMessage:'Send Message →'},
+  fr:{hero:'Construisez l\'Avenir avec',services:'Services & Solutions IA',certs:'Programmes de Certification IA',tutoring:'Tutorat & Formation',careers:'Carrières IA Mondiales',news:'Actualités IA & Robotique',offers:'Offres Spéciales',contact:'Construisons l\'Intelligence Ensemble',getStarted:'Commencer',viewPrograms:'Voir les Programmes →',ourServices:'Nos Services',sendMessage:'Envoyer →'},
+  hi:{hero:'भविष्य का निर्माण करें',services:'AI सेवाएं और समाधान',certs:'AI प्रमाणन कार्यक्रम',tutoring:'ट्यूटोरिंग और प्रशिक्षण',careers:'विश्वव्यापी AI करियर',news:'AI और रोबोटिक्स समाचार',offers:'विशेष ऑफर',contact:'आइए साथ मिलकर बनाएं',getStarted:'शुरू करें',viewPrograms:'कार्यक्रम देखें →',ourServices:'हमारी सेवाएं',sendMessage:'भेजें →'}
+};
+function changeLang(lang){
+  const t=i18n[lang]||i18n.en;
+  // Update key headings
+  document.querySelectorAll('.sec-head h2').forEach((h,i)=>{
+    if(i===0&&t.services)h.innerHTML=t.services;
+    if(i===1&&t.certs)h.innerHTML=t.certs;
+    if(i===2&&t.tutoring)h.innerHTML=t.tutoring;
+  });
+  // Update hero buttons
+  const heroBtn=document.querySelector('.hero-btns .btn-glow');
+  if(heroBtn)heroBtn.textContent=t.viewPrograms;
+  const heroBtn2=document.querySelector('.hero-btns .btn-out');
+  if(heroBtn2)heroBtn2.textContent=t.ourServices;
+  // Update nav CTA
+  const navCta=document.querySelector('.nav-right .btn-glow');
+  if(navCta)navCta.textContent=t.getStarted;
+}
+
+// ═══════════════ COURSE PROGRESS (Mock) ═══════════════
+function renderEnrolledCourses(){
+  const enrolled=JSON.parse(localStorage.getItem('aaranit-enrolled')||'[]');
+  const el=document.getElementById('profCourseList');
+  if(!enrolled.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--muted);font-size:.85rem"><div style="font-size:2rem;margin-bottom:.5rem">📖</div>No courses enrolled yet.<br><a href="#certifications" onclick="closeM(\'authModal\')" style="color:var(--cyan)">Browse programs →</a></div>';return}
+  el.innerHTML=enrolled.map(c=>`<div class="prog-card"><h4>${c.name}</h4><div class="prog-bar-wrap"><div class="prog-bar" style="width:${c.progress}%"></div></div><div class="prog-meta"><span>${c.progress}% complete</span><span>${c.status}</span></div></div>`).join('');
+  document.getElementById('pStatCourses').textContent=enrolled.length;
+}
+
+// Add to enrolled when payment succeeds
+function enrollCourse(name){
+  const enrolled=JSON.parse(localStorage.getItem('aaranit-enrolled')||'[]');
+  if(!enrolled.find(c=>c.name===name)){
+    enrolled.push({name,progress:Math.floor(Math.random()*15),status:'In Progress'});
+    localStorage.setItem('aaranit-enrolled',JSON.stringify(enrolled));
+  }
+}
+
+// ═══════════════ GOOGLE/GITHUB SOCIAL LOGIN (Supabase OAuth) ═══════════════
+async function socialLogin(provider){
+  amsg('lMsg','Redirecting to '+provider+'...',true);
+  window.location.href=`${SB}/auth/v1/authorize?provider=${provider}&redirect_to=https://aaranit-ai.vercel.app`;
+}
+
+// Check for OAuth callback token in URL
+(function checkOAuthCallback(){
+  const hash=window.location.hash;
+  if(hash&&hash.includes('access_token')){
+    const params=new URLSearchParams(hash.substring(1));
+    const token=params.get('access_token');
+    if(token){
+      fetch(`${SB}/auth/v1/user`,{headers:{apikey:SK,Authorization:'Bearer '+token}}).then(r=>r.json()).then(user=>{
+        if(user&&user.email){
+          const name=user.user_metadata?.full_name||user.email.split('@')[0];
+          const parts=name.split(' ');
+          currentUser={email:user.email,id:user.id,name,firstName:parts[0],lastName:parts.slice(1).join(' '),token,country:user.user_metadata?.country||''};
+          updateAuthUI();
+          window.history.replaceState(null,null,window.location.pathname);
+        }
+      }).catch(()=>{});
+    }
+  }
+})()
 </script>
 </body>
 </html>
