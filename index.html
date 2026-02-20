@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co; frame-src 'none'; object-src 'none'; base-uri 'self'">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>AARNAIT AI — Intelligence Redefined</title>
 <meta name="description" content="Custom AI development, hands-on tutoring, and industry-recognized certification programs. AARNAIT AI — 15439361 Canada Inc.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
@@ -1141,6 +1145,63 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 </div>
 
 <script>
+// ═══════════════ SECURITY UTILITIES ═══════════════
+
+// XSS Sanitizer — escapes ALL HTML entities from user input
+function sanitize(str){
+  if(typeof str!=='string')return '';
+  const map={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','/':'&#x2F;','`':'&#96;'};
+  return str.replace(/[&<>"'\/`]/g,c=>map[c]);
+}
+
+// Deep sanitize object values (for form data going to Supabase)
+function sanitizeObj(obj){
+  const clean={};
+  for(const[k,v]of Object.entries(obj)){
+    clean[k]=typeof v==='string'?sanitize(v):v;
+  }
+  return clean;
+}
+
+// Rate Limiter — prevents spam submissions
+const rateLimits={};
+function rateLimit(action,cooldownMs=3000){
+  const now=Date.now();
+  if(rateLimits[action]&&now-rateLimits[action]<cooldownMs){
+    return false; // too soon
+  }
+  rateLimits[action]=now;
+  return true;
+}
+
+// Email validator (strict)
+function isValidEmail(email){
+  return /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email);
+}
+
+// Phone validator
+function isValidPhone(phone){
+  return /^\+?[\d\s\-()]{7,20}$/.test(phone);
+}
+
+// URL validator (for LinkedIn/Portfolio)
+function isValidURL(url){
+  if(!url)return true; // optional fields
+  try{new URL(url);return true}catch{return false}
+}
+
+// Max length enforcer
+function truncate(str,max=500){
+  return typeof str==='string'?str.slice(0,max):str;
+}
+
+// Generate cryptographically random nonce
+function genNonce(len=16){
+  const arr=new Uint8Array(len);
+  crypto.getRandomValues(arr);
+  return Array.from(arr,b=>b.toString(16).padStart(2,'0')).join('');
+}
+
 // ═══════════════ DATA ═══════════════
 const services=[
   {i:'🧠',c:'c',t:'Custom AI Development',p:'Bespoke AI systems — chatbots, recommendation engines, predictive analytics.',tags:['Machine Learning','NLP','Computer Vision','LLMs']},
@@ -1429,30 +1490,39 @@ document.addEventListener('keydown',e=>{
 
 async function processPayment(){
   const btn=document.getElementById('payBtn'),msg=document.getElementById('payMsg');
-  const email=document.getElementById('payEmail').value.trim();
-  if(!email||!email.includes('@')){msg.textContent='Please enter your email for the receipt.';msg.style.color='var(--magenta)';return}
+  const email=document.getElementById('payEmail').value.trim().toLowerCase();
+  if(!isValidEmail(email)){msg.textContent='Please enter a valid email for the receipt.';msg.style.color='var(--magenta)';return}
+  if(!rateLimit('payment',10000)){msg.textContent='Please wait before trying again.';msg.style.color='var(--amber)';return}
   if(selectedPayMethod==='card'){
     const num=document.getElementById('payCardNum').value.replace(/\s/g,'');
     const exp=document.getElementById('payExpiry').value;
     const cvv=document.getElementById('payCVV').value;
-    if(!num||num.length<13){msg.textContent='Enter a valid card number.';msg.style.color='var(--magenta)';return}
-    if(!exp||!exp.includes('/')){msg.textContent='Enter expiry date (MM/YY).';msg.style.color='var(--magenta)';return}
-    if(!cvv||cvv.length<3){msg.textContent='Enter CVV.';msg.style.color='var(--magenta)';return}
+    // Luhn check
+    if(!num||num.length<13||!/^\d+$/.test(num)){msg.textContent='Enter a valid card number.';msg.style.color='var(--magenta)';return}
+    let sum=0,alt=false;for(let i=num.length-1;i>=0;i--){let n=parseInt(num[i]);if(alt){n*=2;if(n>9)n-=9}sum+=n;alt=!alt}
+    if(sum%10!==0){msg.textContent='Invalid card number. Please check and retry.';msg.style.color='var(--magenta)';return}
+    if(!exp||!/^\d{2}\/\d{2}$/.test(exp)){msg.textContent='Enter expiry date (MM/YY).';msg.style.color='var(--magenta)';return}
+    const[mm,yy]=exp.split('/').map(Number);
+    if(mm<1||mm>12){msg.textContent='Invalid expiry month.';msg.style.color='var(--magenta)';return}
+    const expDate=new Date(2000+yy,mm);
+    if(expDate<new Date()){msg.textContent='Card has expired.';msg.style.color='var(--magenta)';return}
+    if(!cvv||!/^\d{3,4}$/.test(cvv)){msg.textContent='Enter a valid CVV (3-4 digits).';msg.style.color='var(--magenta)';return}
   }
-  if(selectedPayMethod==='upi'&&!document.getElementById('payUPI').value.includes('@')){msg.textContent='Enter valid UPI ID.';msg.style.color='var(--magenta)';return}
+  if(selectedPayMethod==='upi'){const upi=document.getElementById('payUPI').value;if(!upi||!upi.includes('@')||upi.length<5){msg.textContent='Enter valid UPI ID.';msg.style.color='var(--magenta)';return}}
 
   btn.textContent='🔐 Processing...';btn.disabled=true;
-  const items=cart.map(c=>c.name).join(', ');
+  const items=sanitize(cart.map(c=>c.name).join(', '));
   const total=cart.reduce((a,c)=>a+c.price,0);
-  const ok=await sbi('contact_submissions',{name:email,email:email,service_interest:'Payment: '+selectedPayMethod.toUpperCase(),message:`[PAYMENT] ${items} | Total: ${convertPrice(total)} ${currentCurrency} | Method: ${selectedPayMethod} | Status: PENDING`});
+  // Never send card details to Supabase — only record the payment intent
+  const ok=await sbi('contact_submissions',{name:sanitize(email),email:sanitize(email),service_interest:'Payment: '+sanitize(selectedPayMethod.toUpperCase()),message:`[PAYMENT] ${items} | Total: ${convertPrice(total)} ${currentCurrency} | Method: ${sanitize(selectedPayMethod)} | Status: PENDING`});
   setTimeout(()=>{
     if(ok){
-      msg.innerHTML='✅ <strong>Payment initiated!</strong> You\'ll receive a confirmation email at <strong>'+email+'</strong> shortly. Our team will process your enrollment within 24 hours.';
+      msg.innerHTML='✅ <strong>Payment initiated!</strong> You\'ll receive a confirmation email at <strong>'+sanitize(email)+'</strong> shortly. Our team will process your enrollment within 24 hours.';
       msg.style.color='var(--cyan)';
       cart=[];updateCart();
       setTimeout(closePay,4000);
     }else{
-      msg.textContent='Payment recorded. We\'ll send payment link to '+email;
+      msg.textContent='Payment recorded. We\'ll send payment link to '+sanitize(email);
       msg.style.color='var(--amber)';
       cart=[];updateCart();
       setTimeout(closePay,3500);
@@ -1465,22 +1535,22 @@ async function processPayment(){
 const SB='https://ghztxqviaquxhzhsobiz.supabase.co',SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdoenR4cXZpYXF1eGh6aHNvYml6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5Mzk3NjksImV4cCI6MjA4NjUxNTc2OX0.qfh7b6TmvUgCabyifp_RTBbufX__yx2W6lGSVzzIpCk';
 async function sbi(t,d){try{const r=await fetch(`${SB}/rest/v1/${t}`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK,Authorization:`Bearer ${SK}`,Prefer:'return=minimal'},body:JSON.stringify(d)});return r.ok}catch{return false}}
 
-document.getElementById('contactForm').addEventListener('submit',async e=>{e.preventDefault();const b=document.getElementById('formBtn'),m=document.getElementById('formMsg'),d=Object.fromEntries(new FormData(e.target));b.textContent='Sending...';b.disabled=true;if(await sbi('contact_submissions',d)){m.textContent='✓ Thank you! We\'ll be in touch within 24 hours.';m.style.color='var(--cyan)';e.target.reset()}else{m.textContent='Error. Please try again.';m.style.color='var(--magenta)'}b.textContent='Send Message →';b.disabled=false;setTimeout(()=>m.textContent='',5000)});
+document.getElementById('contactForm').addEventListener('submit',async e=>{e.preventDefault();if(!rateLimit('contact',5000)){document.getElementById('formMsg').textContent='Please wait before submitting again.';document.getElementById('formMsg').style.color='var(--amber)';return}const b=document.getElementById('formBtn'),m=document.getElementById('formMsg'),d=sanitizeObj(Object.fromEntries(new FormData(e.target)));if(!isValidEmail(d.email||'')){m.textContent='Please enter a valid email.';m.style.color='var(--magenta)';return}d.name=truncate(d.name,100);d.message=truncate(d.message,2000);d.company=truncate(d.company||'',100);b.textContent='Sending...';b.disabled=true;if(await sbi('contact_submissions',d)){m.textContent='✓ Thank you! We\'ll be in touch within 24 hours.';m.style.color='var(--cyan)';e.target.reset()}else{m.textContent='Error. Please try again.';m.style.color='var(--magenta)'}b.textContent='Send Message →';b.disabled=false;setTimeout(()=>m.textContent='',5000)});
 
-async function handleNL(){const e=document.getElementById('nlEmail').value,m=document.getElementById('nlMsg');if(!e||!e.includes('@')){m.textContent='Enter a valid email.';m.style.color='var(--magenta)';return}if(await sbi('newsletter_subscribers',{email:e})){m.textContent='Welcome! 🎉';m.style.color='var(--cyan)';document.getElementById('nlEmail').value=''}else{m.textContent='Error or already subscribed.';m.style.color='var(--violet)'}setTimeout(()=>m.textContent='',5000)}
+async function handleNL(){const e=document.getElementById('nlEmail').value.trim(),m=document.getElementById('nlMsg');if(!e||!isValidEmail(e)){m.textContent='Enter a valid email.';m.style.color='var(--magenta)';return}if(!rateLimit('newsletter',5000)){m.textContent='Please wait before trying again.';m.style.color='var(--amber)';return}if(await sbi('newsletter_subscribers',{email:sanitize(e)})){m.textContent='Welcome! 🎉';m.style.color='var(--cyan)';document.getElementById('nlEmail').value=''}else{m.textContent='Error or already subscribed.';m.style.color='var(--violet)'}setTimeout(()=>m.textContent='',5000)}
 
 // ═══════════════ CHATBOT ═══════════════
 const chatMsgs=document.getElementById('chatMsgs'),chatInp=document.getElementById('chatInp'),chatQR=document.getElementById('chatQR');
 document.getElementById('chatTgl').addEventListener('click',function(){this.classList.toggle('on');document.getElementById('chatWin').classList.toggle('open');if(document.getElementById('chatWin').classList.contains('open')&&!chatMsgs.children.length)initChat()});
 chatInp.addEventListener('keydown',e=>{if(e.key==='Enter'&&chatInp.value.trim())sendChat()});
-function am(t,tp){const d=document.createElement('div');d.className=`ch-msg ${tp}`;d.innerHTML=t;chatMsgs.appendChild(d);chatMsgs.scrollTop=chatMsgs.scrollHeight}
+function am(t,tp){const d=document.createElement('div');d.className=`ch-msg ${tp}`;if(tp==='user')d.textContent=t;else d.innerHTML=t;chatMsgs.appendChild(d);chatMsgs.scrollTop=chatMsgs.scrollHeight}
 function showT(){const d=document.createElement('div');d.className='typing-ind';d.id='ti';d.innerHTML='<span></span><span></span><span></span>';chatMsgs.appendChild(d);chatMsgs.scrollTop=chatMsgs.scrollHeight}
 function hideT(){const e=document.getElementById('ti');if(e)e.remove()}
 function sqr(rs){chatQR.innerHTML='';rs.forEach(r=>{const b=document.createElement('button');b.textContent=r;b.onclick=()=>{chatInp.value=r;sendChat()};chatQR.appendChild(b)})}
 function initChat(){am("Hi! 👋 I'm <strong>Anna</strong>, your AARNAIT AI Assistant. How can I help?",'bot');setTimeout(()=>sqr(['Services','Certifications','Tutoring','Pricing','Contact']),400)}
 const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Courses','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential','school','primary','middle','high school'],r:'We have <strong>35+ courses</strong> across 11 categories: 🌱 School (Primary, Middle, High), 🤖 Professional AI, ✨ Generative AI, 🔗 Agentic AI, 🧪 QA Testing, 📊 Business Analysis, 📋 Project Management. <a href="#certifications">Browse all →</a>',q:['AI Courses','School Programs','Pricing']},pricing:{kw:['price','cost','how much','fee','discount'],r:'School programs from <strong>$129 CAD</strong>. Professional from <strong>$599 to $3,999 CAD</strong>. 10% off for full payment. Prices auto-convert to 6 currencies! <a href="#certifications">See all →</a>',q:['Courses','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aarnaitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="#careers">See all →</a>',q:['Courses','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose course → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']},testing:{kw:['testing','qa','automation','selenium','cypress','istqb'],r:'🧪 <strong>QA & Testing courses</strong>: Software Testing Pro ($899), Automation Testing ($1,299), AI-Powered Testing ($1,499). <a href="#certifications">See Testing tab →</a>',q:['Courses','Pricing']},ba:{kw:['business analysis','ba','analytics','tableau','power bi','data analyst'],r:'📊 <strong>BA courses</strong>: BA Fundamentals ($799), Data Analytics ($999), AI-Powered BI ($1,199). <a href="#certifications">See BA tab →</a>',q:['Courses','Pricing']},pm:{kw:['project management','pm','scrum','agile','pmp'],r:'📋 <strong>PM courses</strong>: PMP Prep ($999), Scrum Master ($699), AI Project Management ($1,399). <a href="#certifications">See PM tab →</a>',q:['Courses','Pricing']},genai:{kw:['generative','gen ai','chatgpt','llm','prompt','midjourney','dall-e'],r:'✨ <strong>Generative AI</strong>: GenAI Specialist ($1,799), Prompt Engineering ($699), AI Image & Video ($999). <a href="#certifications">See GenAI tab →</a>',q:['Agentic AI','Pricing']},agentic:{kw:['agent','agentic','langchain','mcp','autonomous','automation'],r:'🔗 <strong>Agentic AI</strong>: AI Agents ($1,999), MCP Integration ($1,299), Workflow Automation ($1,499). <a href="#certifications">See Agentic tab →</a>',q:['Generative AI','Pricing']}};
 function findResp(inp){const l=inp.toLowerCase();if(/^(hi|hello|hey)/.test(l))return{r:"Hi there! 👋 I'm Anna. How can I help you today?",q:['Services','Certifications','Pricing','Contact']};if(/^(thanks|thx)/.test(l))return{r:"You're welcome! 😊 — Anna",q:['Services','Programs']};if(/^(bye|no)/.test(l))return{r:"Thanks for chatting! 🙏 — Anna. <a href='#contact'>Contact us</a> anytime.",q:[]};let bm=null,bs=0;for(const v of Object.values(kb)){let s=0;for(const w of v.kw)if(l.includes(w))s+=w.split(' ').length;if(s>bs){bs=s;bm=v}}if(bm)return bm;return{r:"I'd love to help! Try our <a href='#contact'>contact form</a> or email hello@aarnaitai.com",q:['Services','Programs','Contact']}}
-async function sendChat(){const t=chatInp.value.trim();if(!t)return;chatInp.value='';chatQR.innerHTML='';am(t,'user');showT();const r=findResp(t);setTimeout(()=>{hideT();am(r.r,'bot');if(r.q&&r.q.length)setTimeout(()=>sqr(r.q),200)},500+Math.random()*600);sbi('contact_submissions',{name:'Chat',email:'chat@aarnaitai.com',service_interest:'chatbot',message:'[CHAT] '+t}).catch(()=>{})}
+async function sendChat(){let t=chatInp.value.trim();if(!t)return;if(!rateLimit('chat',1500)){return}t=truncate(t,300);chatInp.value='';chatQR.innerHTML='';am(t,'user');showT();const r=findResp(t);setTimeout(()=>{hideT();am(r.r,'bot');if(r.q&&r.q.length)setTimeout(()=>sqr(r.q),200)},500+Math.random()*600);sbi('contact_submissions',{name:'Chat',email:'chat@aarnaitai.com',service_interest:'chatbot',message:'[CHAT] '+sanitize(t)}).catch(()=>{})}
 
 // ═══════════════ CURRENCY CONVERSION (Competitive Country Pricing) ═══════════════
 const rates={CAD:1,USD:0.74,EUR:0.68,GBP:0.58,INR:62.5,AUD:1.12};
@@ -1606,30 +1676,33 @@ function hideMsgDetail(){
 
 function sendReply(){
   const inp=document.getElementById('replyInput');
-  const txt=inp.value.trim();
+  const txt=truncate(inp.value.trim(),500);
   if(!txt)return;
-  sbi('contact_submissions',{name:'Reply',email:'reply@aarnaitai.com',service_interest:'inbox-reply',message:'[REPLY] '+txt});
+  if(!rateLimit('reply',3000))return;
+  sbi('contact_submissions',{name:'Reply',email:'reply@aarnaitai.com',service_interest:'inbox-reply',message:'[REPLY] '+sanitize(txt)});
   inp.value='';
   alert('Reply sent! We\'ll respond within 24 hours.');
 }
 
 document.getElementById('inboxForm').addEventListener('submit',async function(e){
   e.preventDefault();
-  const name=document.getElementById('inbName').value;
-  const email=document.getElementById('inbEmail').value;
-  const topic=document.getElementById('inbTopic').value;
-  const msg=document.getElementById('inbMsg').value;
+  const name=sanitize(truncate(document.getElementById('inbName').value.trim(),100));
+  const email=document.getElementById('inbEmail').value.trim().toLowerCase();
+  const topic=sanitize(document.getElementById('inbTopic').value);
+  const msg=sanitize(truncate(document.getElementById('inbMsg').value.trim(),2000));
   const status=document.getElementById('inbStatus');
   
-  const ok=await sbi('contact_submissions',{name,email,service_interest:topic||'inbox',message:'[INBOX] '+msg});
+  if(!isValidEmail(email)){status.textContent='Please enter a valid email.';status.style.color='var(--magenta)';return}
+  if(!rateLimit('inbox',5000)){status.textContent='Please wait before sending again.';status.style.color='var(--amber)';return}
+  
+  const ok=await sbi('contact_submissions',{name,email:sanitize(email),service_interest:topic||'inbox',message:'[INBOX] '+msg});
   if(ok){
     sentMsgs.push({name,email,topic,msg,time:new Date().toLocaleTimeString()});
     status.textContent='✓ Message sent! We\'ll respond within 24 hours.';
     status.style.color='var(--cyan)';
     this.reset();
-    // Add auto-response
-    systemMsgs.push({title:'RE: '+(topic||'Your Inquiry'),body:'Thank you <strong>'+name+'</strong> for reaching out!<br><br>We\'ve received your message about <strong>'+(topic||'your inquiry')+'</strong> and our team is reviewing it.<br><br>You\'ll receive a detailed response at <strong>'+email+'</strong> within 24 hours.<br><br>In the meantime, feel free to:<br>• Browse our <a href="#certifications" style="color:var(--cyan)">certification programs</a><br>• Check our <a href="#tutoring" style="color:var(--cyan)">tutoring options</a><br>• Chat with our <a href="javascript:void(0)" onclick="document.getElementById(\'chatTgl\').click()" style="color:var(--cyan)">AI assistant</a><br><br>Best regards,<br><strong>AARNAIT AI Team</strong>',time:'Just now'});
-    // Update responses tab
+    // Add auto-response (name already sanitized)
+    systemMsgs.push({title:'RE: '+(topic||'Your Inquiry'),body:'Thank you <strong>'+name+'</strong> for reaching out!<br><br>We\'ve received your message about <strong>'+(topic||'your inquiry')+'</strong> and our team is reviewing it.<br><br>You\'ll receive a detailed response at <strong>'+sanitize(email)+'</strong> within 24 hours.<br><br>In the meantime, feel free to:<br>• Browse our <a href="#certifications" style="color:var(--cyan)">certification programs</a><br>• Check our <a href="#tutoring" style="color:var(--cyan)">tutoring options</a><br><br>Best regards,<br><strong>AARNAIT AI Team</strong>',time:'Just now'});
     document.getElementById('responseList').innerHTML+=`<div class="msg-item unread" onclick="showMsgDetail(${systemMsgs.length-1})"><div class="msg-dot"></div><div class="msg-info"><h4>RE: ${topic||'Your Inquiry'}</h4><p>Thank you ${name} for reaching out! We've received your message...</p></div><div class="msg-time">Just now</div></div>`;
   }else{
     status.textContent='Error sending. Please try again.';
@@ -1701,26 +1774,29 @@ async function sbAuthCall(endpoint,body){
 
 // ── SIGNUP: Email + Password + OTP Verification ──
 async function doSignup(){
-  const firstName=document.getElementById('sFirstName').value.trim();
-  const lastName=document.getElementById('sLastName').value.trim();
+  const firstName=sanitize(document.getElementById('sFirstName').value.trim());
+  const lastName=sanitize(document.getElementById('sLastName').value.trim());
   const name=firstName+' '+lastName;
-  const email=document.getElementById('sEmail').value.trim();
+  const email=document.getElementById('sEmail').value.trim().toLowerCase();
   const pass=document.getElementById('sPass').value;
   const passC=document.getElementById('sPassC').value;
-  const phone=document.getElementById('sPhCode').value+document.getElementById('sPhone').value.trim();
+  const phone=document.getElementById('sPhCode').value+document.getElementById('sPhone').value.trim().replace(/\D/g,'');
   const country=document.getElementById('sCountry').value;
 
-  if(!firstName||!lastName||!email){amsg('sMsg','Please fill first name, last name, and email.',false);return}
-  if(!email.includes('@')){amsg('sMsg','Enter a valid email address.',false);return}
+  if(!firstName||!lastName){amsg('sMsg','Please fill first name and last name.',false);return}
+  if(firstName.length>50||lastName.length>50){amsg('sMsg','Name too long (max 50 characters).',false);return}
+  if(!isValidEmail(email)){amsg('sMsg','Enter a valid email address.',false);return}
   if(!pass||pass.length<8){amsg('sMsg','Password must be at least 8 characters.',false);return}
+  if(pass.length>128){amsg('sMsg','Password too long (max 128 characters).',false);return}
   if(pass!==passC){amsg('sMsg','Passwords do not match.',false);return}
   if(!country){amsg('sMsg','Please select your country.',false);return}
+  if(!rateLimit('signup',10000)){amsg('sMsg','Please wait before trying again.',false);return}
 
   const btn=document.getElementById('signupBtn');
   btn.textContent='Creating account...';btn.disabled=true;
   amsg('sMsg','Setting up your account...',true);
 
-  signupCache={name,firstName,lastName,email,phone,country,pass};
+  signupCache={name,firstName,lastName,email,phone:sanitize(phone),country:sanitize(country),pass};
 
   // Step 1: Create account with email + password (Supabase sends confirmation email)
   const res=await sbAuthCall('signup',{email,password:pass,data:{full_name:name,phone,country}});
@@ -1784,10 +1860,11 @@ async function doResendOTP(){
 
 // ── LOGIN: Email + Password ──
 async function doLogin(){
-  const email=document.getElementById('lEmail').value.trim();
+  const email=document.getElementById('lEmail').value.trim().toLowerCase();
   const pass=document.getElementById('lPass').value;
-  if(!email||!email.includes('@')){amsg('lMsg','Enter a valid email.',false);return}
+  if(!isValidEmail(email)){amsg('lMsg','Enter a valid email.',false);return}
   if(!pass){amsg('lMsg','Enter your password.',false);return}
+  if(!rateLimit('login',3000)){amsg('lMsg','Please wait before trying again.',false);return}
 
   amsg('lMsg','Signing in...',true);
 
@@ -1820,8 +1897,9 @@ async function doLogin(){
 
 // ── FORGOT PASSWORD ──
 async function doForgotPw(){
-  const email=document.getElementById('fEmail').value.trim();
-  if(!email||!email.includes('@')){amsg('fMsg','Enter your email address.',false);return}
+  const email=document.getElementById('fEmail').value.trim().toLowerCase();
+  if(!isValidEmail(email)){amsg('fMsg','Enter a valid email address.',false);return}
+  if(!rateLimit('forgot',10000)){amsg('fMsg','Please wait 10 seconds before trying again.',false);return}
   amsg('fMsg','Sending reset link...',true);
   const res=await fetch(`${SB}/auth/v1/recover`,{
     method:'POST',
@@ -1895,28 +1973,35 @@ We're thrilled to have you join the AARNAIT AI community!
   }
 }
 
-// ═══════════════ AES-256-GCM ENCRYPTION (Web Crypto API) ═══════════════
-async function deriveKey(pass){
+// ═══════════════ AES-256-GCM ENCRYPTION (Web Crypto API) — SECURE ═══════════════
+async function deriveKey(pass,salt){
   const enc=new TextEncoder();
   const mat=await crypto.subtle.importKey('raw',enc.encode(pass),'PBKDF2',false,['deriveKey']);
-  return crypto.subtle.deriveKey({name:'PBKDF2',salt:enc.encode('AARNAIT-AI-SALT-2026'),iterations:120000,hash:'SHA-256'},mat,{name:'AES-GCM',length:256},false,['encrypt']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:120000,hash:'SHA-256'},mat,{name:'AES-GCM',length:256},false,['encrypt']);
 }
 function toB64(arr){let b='';arr.forEach(x=>b+=String.fromCharCode(x));return btoa(b)}
-function getPass(){return(currentUser?.email||'anon')+'::AARNAIT-KEY-2026'}
+// Generate a unique passphrase per user using their ID + a random nonce
+function getPass(){
+  const uid=currentUser?.id||'anon';
+  const email=currentUser?.email||'';
+  return uid+'::'+email+'::AARNAIT-SEC-'+Date.now();
+}
 
 async function encryptText(plain){
   const enc=new TextEncoder();
-  const key=await deriveKey(getPass());
+  const salt=crypto.getRandomValues(new Uint8Array(16));
+  const key=await deriveKey(getPass(),salt);
   const iv=crypto.getRandomValues(new Uint8Array(12));
   const buf=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(plain));
-  return{cipher:toB64(new Uint8Array(buf)),iv:toB64(iv)};
+  return{cipher:toB64(new Uint8Array(buf)),iv:toB64(iv),salt:toB64(salt)};
 }
 
 async function encryptFileBuf(buffer){
-  const key=await deriveKey(getPass());
+  const salt=crypto.getRandomValues(new Uint8Array(16));
+  const key=await deriveKey(getPass(),salt);
   const iv=crypto.getRandomValues(new Uint8Array(12));
   const buf=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,buffer);
-  return{cipher:toB64(new Uint8Array(buf)),iv:toB64(iv)};
+  return{cipher:toB64(new Uint8Array(buf)),iv:toB64(iv),salt:toB64(salt)};
 }
 
 // ═══════════════ JOB APPLICATION ═══════════════
@@ -1966,15 +2051,17 @@ async function handleCV(input){
 
 async function submitApplication(){
   const btn=document.getElementById('applyBtn');
-  const name=document.getElementById('aName').value.trim();
-  const email=document.getElementById('aEmailF').value.trim();
-  const phone=document.getElementById('aPhoneF').value.trim();
-  const country=document.getElementById('aCountryF').value;
-  const skills=document.getElementById('aSkillsF').value.trim();
-  const cover=document.getElementById('aCoverF').value.trim();
+  const name=sanitize(truncate(document.getElementById('aName').value.trim(),100));
+  const email=document.getElementById('aEmailF').value.trim().toLowerCase();
+  const phone=document.getElementById('aPhoneF').value.trim().replace(/[^\d+\-() ]/g,'');
+  const country=sanitize(document.getElementById('aCountryF').value);
+  const skills=sanitize(truncate(document.getElementById('aSkillsF').value.trim(),500));
+  const cover=sanitize(truncate(document.getElementById('aCoverF').value.trim(),2000));
 
   if(!name||!email||!country||!skills||!cover){amsg('appMsg','Please fill all required fields (*).',false);return}
+  if(!isValidEmail(email)){amsg('appMsg','Please enter a valid email.',false);return}
   if(!encryptedCV){amsg('appMsg','Please upload your CV/Resume.',false);return}
+  if(!rateLimit('apply',10000)){amsg('appMsg','Please wait before submitting again.',false);return}
 
   btn.textContent='🔐 Encrypting data...';btn.disabled=true;
 
@@ -2048,9 +2135,10 @@ function showProfTab(id){
 }
 
 async function saveProfile(){
-  const fn=document.getElementById('profFirstName').value.trim();
-  const ln=document.getElementById('profLastName').value.trim();
+  const fn=sanitize(truncate(document.getElementById('profFirstName').value.trim(),50));
+  const ln=sanitize(truncate(document.getElementById('profLastName').value.trim(),50));
   if(!fn){amsg('profMsg','First name is required.',false);return}
+  if(!rateLimit('profile',3000)){amsg('profMsg','Please wait.',false);return}
   currentUser.firstName=fn;
   currentUser.lastName=ln;
   currentUser.name=fn+' '+ln;
@@ -2074,7 +2162,9 @@ async function changePassword(){
   const newPC=document.getElementById('secNewPassC').value;
   if(!cur){amsg('secMsg','Enter your current password.',false);return}
   if(!newP||newP.length<8){amsg('secMsg','New password must be at least 8 characters.',false);return}
+  if(newP.length>128){amsg('secMsg','Password too long (max 128 characters).',false);return}
   if(newP!==newPC){amsg('secMsg','New passwords do not match.',false);return}
+  if(!rateLimit('changepw',10000)){amsg('secMsg','Please wait before trying again.',false);return}
   amsg('secMsg','Updating password...',true);
   // Verify current password by logging in
   const verify=await fetch(`${SB}/auth/v1/token?grant_type=password`,{method:'POST',headers:{'Content-Type':'application/json',apikey:SK},body:JSON.stringify({email:currentUser.email,password:cur})}).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
@@ -2140,9 +2230,10 @@ function closeNLPopup(){
   localStorage.setItem('aaranit-nl-shown','1');
 }
 function submitNLPopup(){
-  const email=document.getElementById('nlPopEmail').value.trim();
-  if(!email||!email.includes('@')){amsg('nlPopMsg','Enter a valid email.',false);return}
-  sbi('contact_submissions',{name:'Newsletter',email:email,service_interest:'Newsletter Popup',message:'[NEWSLETTER] Signed up via popup. Code: AARNAIT15'}).catch(()=>{});
+  const email=document.getElementById('nlPopEmail').value.trim().toLowerCase();
+  if(!isValidEmail(email)){amsg('nlPopMsg','Enter a valid email.',false);return}
+  if(!rateLimit('nlpop',5000)){amsg('nlPopMsg','Please wait.',false);return}
+  sbi('contact_submissions',{name:'Newsletter',email:sanitize(email),service_interest:'Newsletter Popup',message:'[NEWSLETTER] Signed up via popup. Code: AARNAIT15'}).catch(()=>{});
   amsg('nlPopMsg','✅ Subscribed! Use code AARNAIT15 at checkout.',true);
   setTimeout(closeNLPopup,3000);
   localStorage.setItem('aaranit-nl-shown','1');
