@@ -532,11 +532,11 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <span class="logo-mark">AARNA<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span>
   </a>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#tutoring">Tutoring</a></li>
-    <li><a href="#careers">Careers</a></li>
-    <li><a href="#flexible">Schedule</a></li>
+    <li><a href="#services" data-i18n="navServices">Services</a></li>
+    <li><a href="#certifications" data-i18n="navCerts">Certifications</a></li>
+    <li><a href="#tutoring" data-i18n="navTutoring">Tutoring</a></li>
+    <li><a href="#careers" data-i18n="navCareers">Careers</a></li>
+    <li><a href="#flexible" data-i18n="navSchedule">Schedule</a></li>
     <li><a href="#ainews" style="white-space:nowrap">AI News</a></li>
     <li><a href="#inbox">Messages</a></li>
   </ul>
@@ -604,7 +604,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div class="hero-content">
     <div class="badge"><span class="dot"></span>Now Enrolling — AI Certification 2026</div>
     <h1>Build the Future with<br><span class="gradient-text typed-text" id="typed"></span><span class="typewriter-cursor"></span></h1>
-    <p>From custom AI development to hands-on tutoring and industry-recognized certification — AARNAIT AI empowers teams and individuals to lead the intelligence revolution.</p>
+    <p data-i18n="heroPara">From custom AI development to hands-on tutoring and industry-recognized certification — AARNAIT AI empowers teams and individuals to lead the intelligence revolution.</p>
     <div class="hero-btns">
       <a href="#certifications" class="btn-glow">View Programs →</a>
       <a href="#services" class="btn-out">Our Services</a>
@@ -623,25 +623,25 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 
 <!-- SERVICES -->
 <section id="services">
-  <div class="sec-head"><span class="sec-label">What We Do</span><h2>AI Services & Solutions</h2><p>End-to-end AI expertise — strategy, development, education, and deployment.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">What We Do</span><h2 data-i18n="services">AI Services &amp; Solutions</h2><p>End-to-end AI expertise — strategy, development, education, and deployment.</p><div class="sec-line"></div></div>
   <div class="srv-grid" id="srvGrid"></div>
 </section>
 
 <!-- CERTIFICATIONS -->
 <section id="certifications">
-  <div class="sec-head"><span class="sec-label">Programs</span><h2>AI Certification Programs</h2><p>Industry-recognized credentials that validate your AI expertise.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Programs</span><h2 data-i18n="certs">AI Certification Programs</h2><p>Industry-recognized credentials that validate your AI expertise.</p><div class="sec-line"></div></div>
   <div class="cert-grid" id="certGrid"></div>
 </section>
 
 <!-- TUTORING -->
 <section id="tutoring">
-  <div class="sec-head"><span class="sec-label">Learn AI</span><h2>Tutoring & Training Courses</h2><p>Personalized learning paths for every skill level — beginner to expert.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Learn AI</span><h2 data-i18n="tutoring">Tutoring & Training Courses</h2><p>Personalized learning paths for every skill level — beginner to expert.</p><div class="sec-line"></div></div>
   <div class="tutor-grid" id="tutorGrid"></div>
 </section>
 
 <!-- FLEXIBLE LEARNING -->
 <section id="flexible" style="background:var(--bg)">
-  <div class="sec-head"><span class="sec-label">Flexible Learning</span><h2>Learn On Your Schedule</h2><p>100% online classes designed to fit around your life — anywhere in the world.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Flexible Learning</span><h2 data-i18n="schedule">Learn On Your Schedule</h2><p>100% online classes designed to fit around your life — anywhere in the world.</p><div class="sec-line"></div></div>
   <div class="flex-grid" id="flexGrid">
     <div class="flex-card"><div class="flex-icon">🌐</div><h3>Live Online Classes</h3><p>Interactive sessions via Zoom with real-time Q&A, screen sharing, and breakout rooms. Recordings available if you miss a session.</p><div class="flex-details"><span>📅 Weekday & Weekend batches</span><span>🕐 Multiple time zones: EST, PST, GMT, IST</span><span>👥 Max 15 students per batch</span><span>🔄 Switch batches anytime</span></div></div>
     <div class="flex-card"><div class="flex-icon">📹</div><h3>Self-Paced Learning</h3><p>Pre-recorded HD video lectures, interactive notebooks, and auto-graded assignments. Learn at 2x speed or pause anytime.</p><div class="flex-details"><span>📚 200+ hours of content</span><span>🔓 Lifetime access to materials</span><span>📱 Mobile-friendly platform</span><span>💬 Community Discord access</span></div></div>
@@ -661,7 +661,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 
 <!-- CAREERS -->
 <section id="careers">
-  <div class="sec-head"><span class="sec-label">Career Center</span><h2>AI Jobs <span class="gradient-text">Worldwide</span></h2><p>16+ positions across 9 countries. Filter by location, role, and experience.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Career Center</span><h2 data-i18n="careers">AI Jobs <span class="gradient-text">Worldwide</span></h2><p>16+ positions across 9 countries. Filter by location, role, and experience.</p><div class="sec-line"></div></div>
   <div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1.5rem" id="cTabs"></div>
   <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1rem;max-width:900px;margin-left:auto;margin-right:auto">
     <select id="fRole" onchange="filterC()" style="padding:.5rem .8rem;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.78rem;outline:none"><option value="">All Roles</option><option>ML Engineer</option><option>Data Scientist</option><option>AI Research</option><option>NLP Engineer</option><option>CV Engineer</option><option>MLOps</option><option>Prompt Engineer</option><option>AI Product Manager</option><option>AI Consultant</option></select>
@@ -675,13 +675,13 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 
 <!-- AI TUTORS -->
 <section id="tutors">
-  <div class="sec-head"><span class="sec-label">Our Team</span><h2>Meet Our AI Tutors</h2><p>Learn from industry practitioners with real-world AI experience.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Our Team</span><h2 data-i18n="tutors">Meet Our AI Tutors</h2><p>Learn from industry practitioners with real-world AI experience.</p><div class="sec-line"></div></div>
   <div class="tutors-grid" id="tutorsGrid"></div>
 </section>
 
 <!-- MESSAGES / INBOX -->
 <section id="inbox">
-  <div class="sec-head"><span class="sec-label">Communication</span><h2>Messages & Inquiries</h2><p>Send us a message and get a response — or check status of your inquiry.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Communication</span><h2 data-i18n="messages">Messages & Inquiries</h2><p>Send us a message and get a response — or check status of your inquiry.</p><div class="sec-line"></div></div>
   <div class="inbox-wrap">
     <div class="inbox-card">
       <div class="inbox-tabs">
@@ -734,7 +734,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 
 <!-- APPROACH -->
 <section id="approach">
-  <div class="sec-head"><span class="sec-label">Why AARNAIT AI</span><h2>Our Approach</h2><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Why AARNAIT AI</span><h2 data-i18n="approach">Our Approach</h2><div class="sec-line"></div></div>
   <div class="app-grid">
     <div class="app-item"><div class="app-num gradient-text">01</div><h3>Human-Centric AI</h3><p>We build AI that augments human capability — never replaces it.</p></div>
     <div class="app-item"><div class="app-num gradient-text">02</div><h3>Learn by Doing</h3><p>80% hands-on, 20% theory. Real datasets, real problems.</p></div>
@@ -745,7 +745,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 
 <!-- TESTIMONIALS -->
 <section id="testimonials">
-  <div class="sec-head"><span class="sec-label">Success Stories</span><h2>What People Say</h2><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Success Stories</span><h2 data-i18n="testimonials">What People Say</h2><div class="sec-line"></div></div>
   <div class="test-grid">
     <div class="test-card"><div class="test-stars">★★★★★</div><blockquote>"Aaranit's ML Engineer certification completely transformed my career. Data analyst to ML engineer in six months."</blockquote><div class="test-author"><div class="test-av" style="background:linear-gradient(135deg,#00e5ff,#8b5cf6)">SK</div><div><div class="test-name">Sarah K.</div><div class="test-role">ML Engineer · Shopify</div></div></div></div>
     <div class="test-card"><div class="test-stars">★★★★★</div><blockquote>"Predictive maintenance system reduced equipment downtime by 34%. ROI visible in the first quarter."</blockquote><div class="test-author"><div class="test-av" style="background:linear-gradient(135deg,#8b5cf6,#d946ef)">MR</div><div><div class="test-name">Michael R.</div><div class="test-role">VP Engineering · Manufacturing Co.</div></div></div></div>
@@ -768,7 +768,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 
 <section class="cta" id="contact">
   <div class="sec-label">Ready to Begin?</div>
-  <h2>Let's Build <span class="gradient-text">Intelligence Together</span></h2>
+  <h2 data-i18n="contact">Let's Build <span class="gradient-text">Intelligence Together</span></h2>
   <p>Get in touch — we respond within 24 hours.</p>
   <form class="contact-form" id="contactForm">
     <div class="form-row"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Email Address" required></div>
@@ -789,7 +789,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <div class="form-msg" id="nlMsg" style="font-size:.7rem;margin-top:.3rem"></div>
     </div>
     <div class="ft-col"><h4>Services</h4><ul><li><a href="#services">AI Development</a></li><li><a href="#services">Consulting</a></li><li><a href="#services">MLOps</a></li><li><a href="#services">AI Audits</a></li></ul></div>
-    <div class="ft-col"><h4>Programs</h4><ul><li><a href="#certifications">Certifications</a></li><li><a href="#tutoring">Tutoring</a></li><li><a href="#careers">AI Careers</a></li><li><a href="#tutors">Our Tutors</a></li></ul></div>
+    <div class="ft-col"><h4>Programs</h4><ul><li><a href="#certifications" data-i18n="navCerts">Certifications</a></li><li><a href="#tutoring" data-i18n="navTutoring">Tutoring</a></li><li><a href="#careers">AI Careers</a></li><li><a href="#tutors">Our Tutors</a></li></ul></div>
     <div class="ft-col"><h4>Company</h4><ul><li><a href="#approach">About Us</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:hello@aarnaitai.com">Email Us</a></li></ul></div>
   </div>
   <div class="ft-bottom"><p>© 2026 AARNAIT AI — 15439361 Canada Inc. All rights reserved.</p><p>Ontario, Canada · hello@aarnaitai.com</p></div>
@@ -1089,7 +1089,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- CHATBOT -->
 <button class="chat-toggle" id="chatTgl"><span class="chat-dot"></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><svg class="ix" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
 <div class="chat-win" id="chatWin">
-  <div class="chat-hd"><div class="chat-hd-av">🤖</div><div><h3>AARNAIT AI Assistant</h3><p>Online</p></div></div>
+  <div class="chat-hd"><div class="chat-hd-av">👩‍💻</div><div><h3>Anna</h3><p style="font-size:.6rem;color:var(--green)">AARNAIT AI Assistant · Online</p></div></div>
   <div class="chat-msgs" id="chatMsgs"></div>
   <div class="ch-qr" id="chatQR"></div>
   <div class="chat-inp"><input type="text" id="chatInp" placeholder="Ask anything..." autocomplete="off"><button onclick="sendChat()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div>
@@ -1362,9 +1362,9 @@ function am(t,tp){const d=document.createElement('div');d.className=`ch-msg ${tp
 function showT(){const d=document.createElement('div');d.className='typing-ind';d.id='ti';d.innerHTML='<span></span><span></span><span></span>';chatMsgs.appendChild(d);chatMsgs.scrollTop=chatMsgs.scrollHeight}
 function hideT(){const e=document.getElementById('ti');if(e)e.remove()}
 function sqr(rs){chatQR.innerHTML='';rs.forEach(r=>{const b=document.createElement('button');b.textContent=r;b.onclick=()=>{chatInp.value=r;sendChat()};chatQR.appendChild(b)})}
-function initChat(){am("Hi! 👋 I'm the <strong>AARNAIT AI Assistant</strong>. How can I help?",'bot');setTimeout(()=>sqr(['Services','Certifications','Tutoring','Pricing','Contact']),400)}
+function initChat(){am("Hi! 👋 I'm <strong>Anna</strong>, your AARNAIT AI Assistant. How can I help?",'bot');setTimeout(()=>sqr(['Services','Certifications','Tutoring','Pricing','Contact']),400)}
 const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Certifications','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential'],r:'<strong>8 programs</strong>: AI Foundations ($799), ML Engineer ($2,499), AI Architect ($3,999), GenAI Specialist ($1,799), Computer Vision ($2,199), NLP ($1,899), Business Leaders ($599), RL ($2,299). <a href="#certifications">View all →</a>',q:['Pricing','Enroll','Tutoring']},pricing:{kw:['price','cost','how much','fee','discount'],r:'Programs from <strong>$599 to $3,999 CAD</strong>. 10% discount for full payment. Monthly plans available! <a href="#certifications">See programs →</a>',q:['Certifications','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aarnaitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="#careers">See all careers →</a>',q:['Certifications','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose program → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']}};
-function findResp(inp){const l=inp.toLowerCase();if(/^(hi|hello|hey)/.test(l))return{r:"Hello! 👋 How can I help?",q:['Services','Certifications','Pricing','Contact']};if(/^(thanks|thx)/.test(l))return{r:"You're welcome! 😊",q:['Services','Programs']};if(/^(bye|no)/.test(l))return{r:"Thanks! 🙏 <a href='#contact'>Contact us</a> anytime.",q:[]};let bm=null,bs=0;for(const v of Object.values(kb)){let s=0;for(const w of v.kw)if(l.includes(w))s+=w.split(' ').length;if(s>bs){bs=s;bm=v}}if(bm)return bm;return{r:"I'd love to help! Try our <a href='#contact'>contact form</a> or email hello@aarnaitai.com",q:['Services','Programs','Contact']}}
+function findResp(inp){const l=inp.toLowerCase();if(/^(hi|hello|hey)/.test(l))return{r:"Hi there! 👋 I'm Anna. How can I help you today?",q:['Services','Certifications','Pricing','Contact']};if(/^(thanks|thx)/.test(l))return{r:"You're welcome! 😊 — Anna",q:['Services','Programs']};if(/^(bye|no)/.test(l))return{r:"Thanks for chatting! 🙏 — Anna. <a href='#contact'>Contact us</a> anytime.",q:[]};let bm=null,bs=0;for(const v of Object.values(kb)){let s=0;for(const w of v.kw)if(l.includes(w))s+=w.split(' ').length;if(s>bs){bs=s;bm=v}}if(bm)return bm;return{r:"I'd love to help! Try our <a href='#contact'>contact form</a> or email hello@aarnaitai.com",q:['Services','Programs','Contact']}}
 async function sendChat(){const t=chatInp.value.trim();if(!t)return;chatInp.value='';chatQR.innerHTML='';am(t,'user');showT();const r=findResp(t);setTimeout(()=>{hideT();am(r.r,'bot');if(r.q&&r.q.length)setTimeout(()=>sqr(r.q),200)},500+Math.random()*600);sbi('contact_submissions',{name:'Chat',email:'chat@aarnaitai.com',service_interest:'chatbot',message:'[CHAT] '+t}).catch(()=>{})}
 
 // ═══════════════ CURRENCY CONVERSION ═══════════════
@@ -2014,17 +2014,42 @@ document.getElementById('newsGrid').innerHTML=aiNews.map(n=>`<div class="news-ca
 
 // ═══════════════ MULTI-LANGUAGE SUPPORT ═══════════════
 const i18n={
-  en:{hero:'Build the Future with',services:'AI Services & Solutions',certs:'AI Certification Programs',tutoring:'Tutoring & Training Courses',careers:'AI Careers Worldwide',news:'AI & Robotics News',offers:'Special Offers',contact:'Let\'s Build Intelligence Together',getStarted:'Get Started',viewPrograms:'View Programs →',ourServices:'Our Services',sendMessage:'Send Message →'},
-  fr:{hero:'Construisez l\'Avenir avec',services:'Services & Solutions IA',certs:'Programmes de Certification IA',tutoring:'Tutorat & Formation',careers:'Carrières IA Mondiales',news:'Actualités IA & Robotique',offers:'Offres Spéciales',contact:'Construisons l\'Intelligence Ensemble',getStarted:'Commencer',viewPrograms:'Voir les Programmes →',ourServices:'Nos Services',sendMessage:'Envoyer →'},
-  hi:{hero:'भविष्य का निर्माण करें',services:'AI सेवाएं और समाधान',certs:'AI प्रमाणन कार्यक्रम',tutoring:'ट्यूटोरिंग और प्रशिक्षण',careers:'विश्वव्यापी AI करियर',news:'AI और रोबोटिक्स समाचार',offers:'विशेष ऑफर',contact:'आइए साथ मिलकर बनाएं',getStarted:'शुरू करें',viewPrograms:'कार्यक्रम देखें →',ourServices:'हमारी सेवाएं',sendMessage:'भेजें →'}
+  en:{
+    navServices:'Services',navCerts:'Certifications',navTutoring:'Tutoring',navCareers:'Careers',navSchedule:'Schedule',
+    services:'AI Services & Solutions',certs:'AI Certification Programs',tutoring:'Tutoring & Training Courses',
+    schedule:'Learn On Your Schedule',careers:'AI Jobs <span class="gradient-text">Worldwide</span>',
+    tutors:'Meet Our AI Tutors',messages:'Messages & Inquiries',approach:'Our Approach',testimonials:'What People Say',
+    contact:'Let\'s Build <span class="gradient-text">Intelligence Together</span>',
+    heroPara:'From custom AI development to hands-on tutoring and industry-recognized certification — AARNAIT AI empowers teams and individuals to lead the intelligence revolution.',
+    getStarted:'Get Started',viewPrograms:'View Programs →',ourServices:'Our Services',sendMessage:'Send Message →'
+  },
+  fr:{
+    navServices:'Services',navCerts:'Certifications',navTutoring:'Tutorat',navCareers:'Carrières',navSchedule:'Horaire',
+    services:'Services & Solutions IA',certs:'Programmes de Certification IA',tutoring:'Tutorat & Formation',
+    schedule:'Apprenez à Votre Rythme',careers:'Emplois IA <span class="gradient-text">Mondiaux</span>',
+    tutors:'Nos Tuteurs IA',messages:'Messages & Demandes',approach:'Notre Approche',testimonials:'Témoignages',
+    contact:'Construisons l\'<span class="gradient-text">Intelligence Ensemble</span>',
+    heroPara:'Du développement IA sur mesure au tutorat pratique et à la certification reconnue — AARNAIT AI permet aux équipes et aux individus de mener la révolution de l\'intelligence.',
+    getStarted:'Commencer',viewPrograms:'Voir les Programmes →',ourServices:'Nos Services',sendMessage:'Envoyer →'
+  },
+  hi:{
+    navServices:'सेवाएं',navCerts:'प्रमाणन',navTutoring:'ट्यूटरिंग',navCareers:'करियर',navSchedule:'अनुसूची',
+    services:'AI सेवाएं और समाधान',certs:'AI प्रमाणन कार्यक्रम',tutoring:'ट्यूटोरिंग और प्रशिक्षण पाठ्यक्रम',
+    schedule:'अपनी अनुसूची पर सीखें',careers:'AI नौकरियां <span class="gradient-text">विश्वव्यापी</span>',
+    tutors:'हमारे AI ट्यूटर से मिलें',messages:'संदेश और पूछताछ',approach:'हमारा दृष्टिकोण',testimonials:'लोग क्या कहते हैं',
+    contact:'आइए <span class="gradient-text">साथ मिलकर बनाएं</span>',
+    heroPara:'कस्टम AI विकास से लेकर व्यावहारिक ट्यूटोरिंग और उद्योग-मान्यता प्राप्त प्रमाणन तक — AARNAIT AI टीमों और व्यक्तियों को इंटेलिजेंस क्रांति का नेतृत्व करने में सक्षम बनाता है।',
+    getStarted:'शुरू करें',viewPrograms:'कार्यक्रम देखें →',ourServices:'हमारी सेवाएं',sendMessage:'संदेश भेजें →'
+  }
 };
+let currentLang='en';
 function changeLang(lang){
+  currentLang=lang;
   const t=i18n[lang]||i18n.en;
-  // Update key headings
-  document.querySelectorAll('.sec-head h2').forEach((h,i)=>{
-    if(i===0&&t.services)h.innerHTML=t.services;
-    if(i===1&&t.certs)h.innerHTML=t.certs;
-    if(i===2&&t.tutoring)h.innerHTML=t.tutoring;
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(t[key])el.innerHTML=t[key];
   });
   // Update hero buttons
   const heroBtn=document.querySelector('.hero-btns .btn-glow');
@@ -2034,6 +2059,13 @@ function changeLang(lang){
   // Update nav CTA
   const navCta=document.querySelector('.nav-right .btn-glow');
   if(navCta)navCta.textContent=t.getStarted;
+  // Update form submit button
+  const formBtn=document.getElementById('formBtn');
+  if(formBtn)formBtn.textContent=t.sendMessage;
+  // Update sec-labels
+  const labels={en:['What We Do','Programs','Learn AI','Flexible Learning','Career Center','Our Team','Communication','Why AARNAIT AI','Success Stories','Limited Time','Stay Updated','Ready to Begin?'],fr:['Ce Que Nous Faisons','Programmes','Apprendre l\'IA','Apprentissage Flexible','Centre Carrières','Notre Équipe','Communication','Pourquoi AARNAIT AI','Témoignages','Durée Limitée','Restez Informé','Prêt à Commencer?'],hi:['हम क्या करते हैं','कार्यक्रम','AI सीखें','लचीला शिक्षण','करियर केंद्र','हमारी टीम','संचार','AARNAIT AI क्यों','सफलता की कहानियां','सीमित समय','अपडेट रहें','शुरू करने के लिए तैयार?']};
+  const lbls=labels[lang]||labels.en;
+  document.querySelectorAll('.sec-label').forEach((el,i)=>{if(lbls[i])el.textContent=lbls[i]});
 }
 
 // ═══════════════ COURSE PROGRESS (Mock) ═══════════════
