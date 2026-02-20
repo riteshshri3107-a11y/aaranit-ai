@@ -962,7 +962,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
           <div class="ref-card">
             <div style="font-size:.72rem;color:var(--muted);margin-bottom:.3rem">Your Referral Link:</div>
             <div class="ref-link">
-              <input type="text" id="refLink" readonly value="https://aaranit-ai.vercel.app/?ref=loading...">
+              <input type="text" id="refLink" readonly value="https://aarnait-ai.vercel.app/?ref=loading...">
               <button onclick="copyRef()">Copy</button>
             </div>
             <div class="prof-stat" style="margin:.8rem 0 0">
@@ -1670,7 +1670,7 @@ async function doForgotPw(){
   const res=await fetch(`${SB}/auth/v1/recover`,{
     method:'POST',
     headers:{'Content-Type':'application/json',apikey:SK},
-    body:JSON.stringify({email,gotrue_meta_security:{captcha_token:''},redirect_to:'https://aaranit-ai.vercel.app'})
+    body:JSON.stringify({email,gotrue_meta_security:{captcha_token:''},redirect_to:'https://aarnait-ai.vercel.app'})
   }).then(r=>r.json()).catch(()=>({error:{message:'Network error.'}}));
   if(res.error){amsg('fMsg',res.error.message,false);return}
   amsg('fMsg','✅ Password reset link sent to <strong>'+email+'</strong>. Check your inbox!',true);
@@ -1707,7 +1707,7 @@ Your next steps:
 We're thrilled to have you join the AARNAIT AI community!
 
 — The AARNAIT AI Team
-📧 hello@aarnaitai.com | 🌐 aaranit-ai.vercel.app
+📧 hello@aarnaitai.com | 🌐 aarnait-ai.vercel.app
 15439361 Canada Inc. | Ontario, Canada
   `.trim();
 
@@ -1881,7 +1881,7 @@ function populateProfile(){
   document.getElementById('pStatSince').textContent=new Date().toLocaleDateString('en',{month:'short',year:'numeric'});
   // Set referral link
   const refCode=currentUser.id?currentUser.id.slice(0,8):'user';
-  document.getElementById('refLink').value='https://aaranit-ai.vercel.app/?ref='+refCode;
+  document.getElementById('refLink').value='https://aarnait-ai.vercel.app/?ref='+refCode;
 }
 
 function showProfTab(id){
@@ -2057,7 +2057,7 @@ function enrollCourse(name){
 // ═══════════════ GOOGLE/GITHUB SOCIAL LOGIN (Supabase OAuth) ═══════════════
 async function socialLogin(provider){
   amsg('lMsg','Redirecting to '+provider+'...',true);
-  window.location.href=`${SB}/auth/v1/authorize?provider=${provider}&redirect_to=https://aaranit-ai.vercel.app`;
+  window.location.href=`${SB}/auth/v1/authorize?provider=${provider}&redirect_to=https://aarnait-ai.vercel.app`;
 }
 
 // Check for OAuth callback token in URL
