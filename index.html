@@ -130,18 +130,18 @@ body.light footer{background:#eef2f7}
 @media(max-width:768px){.news-grid{grid-template-columns:1fr}.promo-grid{grid-template-columns:1fr}.nl-popup{left:10px;right:10px;width:auto}.notif-drop{right:-60px;width:290px}}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:10000;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(6,8,13,.5);border-bottom:1px solid transparent;transition:all .4s}
-nav.scrolled{padding:.65rem 3rem;background:rgba(6,8,13,.92);border-color:var(--border);box-shadow:0 8px 40px rgba(0,0,0,.4)}
-.logo-wrap{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:10000;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(6,8,13,.5);border-bottom:1px solid transparent;transition:all .4s}
+nav.scrolled{padding:.65rem 2rem;background:rgba(6,8,13,.92);border-color:var(--border);box-shadow:0 8px 40px rgba(0,0,0,.4)}
+.logo-wrap{display:flex;align-items:center;gap:.7rem;text-decoration:none;margin-right:1rem}
 .logo-mark{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:.02em;background:linear-gradient(135deg,var(--cyan),var(--violet),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-flex;align-items:baseline}
 .tilt-i{display:inline-block;transform:rotate(-14deg);-webkit-text-fill-color:var(--cyan);margin:0 -1px;position:relative;top:-1px}
-.logo-ai{font-size:.75em;opacity:1;margin-left:.3em;letter-spacing:.08em;-webkit-text-fill-color:var(--violet)}
+.logo-ai{font-size:.75em;opacity:1;margin-left:.5em;letter-spacing:.08em;-webkit-text-fill-color:var(--violet)}
 .logo-wrap:hover .logo-mark{filter:brightness(1.15)}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .3s;position:relative}
+.nav-links{display:flex;gap:1.4rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.8rem;font-weight:500;transition:color .3s;position:relative;white-space:nowrap}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:50%;width:0;height:2px;background:var(--cyan);transition:all .3s;transform:translateX(-50%)}
 .nav-links a:hover{color:var(--text)}.nav-links a:hover::after{width:100%}
-.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-right{display:flex;align-items:center;gap:.6rem}
 .cart-btn{position:relative;background:none;border:1px solid var(--border);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;color:var(--text)}
 .curr-sel{background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.75rem;padding:6px 8px;outline:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .3s;-webkit-appearance:none;appearance:none}
 .curr-sel:hover,.curr-sel:focus{border-color:rgba(0,229,255,.3)}
@@ -537,7 +537,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <li><a href="#tutoring">Tutoring</a></li>
     <li><a href="#careers">Careers</a></li>
     <li><a href="#flexible">Schedule</a></li>
-    <li><a href="#ainews">AI News</a></li>
+    <li><a href="#ainews" style="white-space:nowrap">AI News</a></li>
     <li><a href="#inbox">Messages</a></li>
   </ul>
   <div class="nav-right">
