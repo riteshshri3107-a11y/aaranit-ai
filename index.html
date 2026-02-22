@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co; frame-src https://www.youtube.com https://youtube.com; object-src 'none'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co; frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -16,6 +16,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 ::selection{background:var(--cyan);color:var(--bg)}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:linear-gradient(var(--cyan),var(--violet));border-radius:10px}
 
@@ -29,6 +30,68 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 /* ── PREMIUM OVERHAUL: Skild.ai + Singularity inspired ── */
+
+/* ── FLOATING ORBS SYSTEM (physics-based ambient particles) ── */
+.orb-field{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(1px);opacity:0;animation:orbLife linear infinite}
+.orb.cyan{background:radial-gradient(circle,rgba(0,229,255,.12) 0%,rgba(0,229,255,.02) 60%,transparent 100%)}
+.orb.violet{background:radial-gradient(circle,rgba(139,92,246,.1) 0%,rgba(139,92,246,.02) 60%,transparent 100%)}
+.orb.magenta{background:radial-gradient(circle,rgba(217,70,239,.08) 0%,rgba(217,70,239,.01) 60%,transparent 100%)}
+.orb.glow{box-shadow:0 0 40px rgba(0,229,255,.04)}
+@keyframes orbLife{
+  0%{opacity:0;transform:translate(0,0) scale(.6)}
+  8%{opacity:1}
+  50%{opacity:.7;transform:translate(var(--dx),var(--dy)) scale(1)}
+  92%{opacity:1}
+  100%{opacity:0;transform:translate(var(--dx2),var(--dy2)) scale(.6)}
+}
+@keyframes orbFloat1{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-30px) rotate(1deg)}66%{transform:translateY(15px) rotate(-1deg)}}
+@keyframes orbFloat2{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(20px) rotate(-0.5deg)}75%{transform:translateY(-25px) rotate(0.5deg)}}
+
+/* Orbs fade when user scrolls deep (not distracting) */
+.orb-field.dimmed{opacity:.3;transition:opacity 1.5s ease}
+
+/* ── FLOATING ACTION BUBBLES (bottom-right) ── */
+.fab-container{position:fixed;bottom:28px;right:28px;z-index:9998;display:flex;flex-direction:column-reverse;align-items:flex-end;gap:0}
+.fab-main{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(0,229,255,.25),0 0 0 0 rgba(0,229,255,.2);transition:all .35s cubic-bezier(.4,0,.2,1);position:relative;z-index:2}
+.fab-main:hover{transform:scale(1.08);box-shadow:0 12px 40px rgba(0,229,255,.35),0 0 0 8px rgba(0,229,255,.06)}
+.fab-main svg{transition:transform .35s}
+.fab-main.open svg{transform:rotate(45deg)}
+.fab-pulse{position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(0,229,255,.15);animation:fabPulse 2.5s ease-out infinite;pointer-events:none}
+@keyframes fabPulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.2);opacity:0}}
+
+.fab-menu{display:flex;flex-direction:column-reverse;gap:10px;margin-bottom:14px;opacity:0;pointer-events:none;transform:translateY(20px);transition:all .35s cubic-bezier(.4,0,.2,1)}
+.fab-menu.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+
+.fab-item{display:flex;align-items:center;gap:10px;flex-direction:row-reverse}
+.fab-item-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:all .25s;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.fab-item-btn:hover{background:rgba(0,229,255,.06);border-color:var(--cyan);transform:scale(1.1)}
+.fab-label{padding:.35rem .7rem;border-radius:8px;background:var(--card);border:1px solid var(--border);font-size:.68rem;font-weight:600;font-family:'Syne',sans-serif;color:var(--text);white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;transform:translateX(10px);transition:all .25s}
+.fab-item:hover .fab-label{opacity:1;transform:translateX(0)}
+
+/* ── OFFICE/LOCATION SECTION ── */
+.offices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.office-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .4s cubic-bezier(.25,.46,.45,.94)}
+.office-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(0,0,0,.35);border-color:rgba(0,229,255,.1)}
+.office-map{width:100%;height:200px;border:none;filter:grayscale(.7) contrast(1.1) brightness(.8);transition:filter .4s}
+.office-card:hover .office-map{filter:grayscale(.3) contrast(1) brightness(.9)}
+.office-body{padding:1.5rem}
+.office-badge{display:inline-block;padding:.2rem .6rem;border-radius:50px;font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
+.office-badge.hq{background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);color:var(--cyan)}
+.office-badge.branch{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);color:var(--violet)}
+.office-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.6rem}
+.office-detail{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.5rem;font-size:.78rem;color:var(--text2);line-height:1.55}
+.office-detail svg{flex-shrink:0;margin-top:2px}
+.office-detail a{color:var(--cyan);text-decoration:none;transition:color .2s}
+.office-detail a:hover{color:var(--violet)}
+
+@media(max-width:700px){
+  .offices-grid{grid-template-columns:1fr}
+  .fab-container{bottom:18px;right:18px}
+  .fab-main{width:52px;height:52px}
+  .fab-label{display:none}
+}
+
 body{letter-spacing:.01em}
 section{padding:5rem 2rem}
 .sec-head{margin-bottom:3rem}
@@ -733,6 +796,10 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   </div>
 </div>
 
+
+<!-- FLOATING ORBS (ambient background particles) -->
+<div class="orb-field" id="orbField" aria-hidden="true"></div>
+
 <!-- HERO -->
 <section class="hero" style="min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative">
   <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(0,229,255,.04) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(139,92,246,.03) 0%,transparent 50%);pointer-events:none"></div>
@@ -929,6 +996,95 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 </section>
 
 <!-- IT DEVELOPMENT & CONSULTING -->
+
+<!-- OFFICE LOCATIONS -->
+<section id="offices" style="background:var(--bg2)">
+  <div class="sec-head">
+    <span class="sec-label">Where We Are</span>
+    <h2>Our <span class="gradient-text">Global Offices</span></h2>
+    <p>Headquartered in Ontario, Canada — with presence across North America. Visit us, or reach out anytime.</p>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="offices-grid">
+
+    <!-- HQ: Ontario, Canada -->
+    <div class="office-card">
+      <iframe class="office-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184551.80977621918!2d-79.54286157498454!3d43.71837095832567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON%2C%20Canada!5e0!3m2!1sen!2s!4v1708000000000" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="AARNAIT AI Toronto Office"></iframe>
+      <div class="office-body">
+        <span class="office-badge hq">🏢 Headquarters</span>
+        <div class="office-title">AARNAIT AI — Toronto, Canada</div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>15439361 Canada Inc.<br>Toronto, Ontario, Canada M5V 3A8</span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span><a href="tel:+16478001234">+1 (647) 800-1234</a></span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span><a href="mailto:hello@aarnaitai.com">hello@aarnaitai.com</a></span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Mon – Fri: 9:00 AM – 6:00 PM EST<br>Sat: 10:00 AM – 2:00 PM EST</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Branch: Brampton, Ontario -->
+    <div class="office-card">
+      <iframe class="office-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92197.11858593858!2d-79.83093887499999!3d43.68508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b15eaa5d05abf%3A0x352d31667cc38677!2sBrampton%2C%20ON%2C%20Canada!5e0!3m2!1sen!2s!4v1708000000001" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="AARNAIT AI Brampton Office"></iframe>
+      <div class="office-body">
+        <span class="office-badge branch">🌐 Innovation Hub</span>
+        <div class="office-title">AARNAIT AI — Brampton, Ontario</div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Brampton, Ontario, Canada L6Y 4R2</span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span><a href="tel:+19058001234">+1 (905) 800-1234</a></span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span><a href="mailto:brampton@aarnaitai.com">brampton@aarnaitai.com</a></span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Mon – Fri: 9:00 AM – 6:00 PM EST</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Contact Card -->
+    <div class="office-card" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="office-body" style="text-align:center;padding:2.5rem 1.5rem">
+        <div style="font-size:2.5rem;margin-bottom:1rem">🌍</div>
+        <div class="office-title" style="font-size:1.2rem">Work With Us From<br><span class="gradient-text">Anywhere</span></div>
+        <p style="font-size:.8rem;color:var(--text2);margin:1rem 0 1.5rem;line-height:1.7">Remote-first culture. Our team and learners span 9 countries. All programs available online.</p>
+        <div style="display:flex;flex-direction:column;gap:.6rem;align-items:center">
+          <a href="mailto:hello@aarnaitai.com" style="display:flex;align-items:center;gap:.5rem;color:var(--cyan);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            hello@aarnaitai.com
+          </a>
+          <a href="mailto:careers@aarnaitai.com" style="display:flex;align-items:center;gap:.5rem;color:var(--violet);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+            careers@aarnaitai.com
+          </a>
+          <a href="mailto:support@aarnaitai.com" style="display:flex;align-items:center;gap:.5rem;color:var(--magenta);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            support@aarnaitai.com
+          </a>
+        </div>
+        <a href="#contact" class="btn-glow" style="margin-top:1.5rem;display:inline-block;padding:.6rem 1.5rem;font-size:.78rem">Send a Message →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section class="cta" id="contact">
   <div class="sec-label">Start Building</div>
   <h2 data-i18n="contact">Let's Build Something <span class="gradient-text">Extraordinary</span></h2>
@@ -953,9 +1109,18 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     </div>
     <div class="ft-col"><h4>Services</h4><ul><li><a href="#services">AI Development</a></li><li><a href="#services">Consulting</a></li><li><a href="#services">MLOps</a></li><li><a href="#services">AI Audits</a></li></ul></div>
     <div class="ft-col"><h4>Programs</h4><ul><li><a href="#certifications" data-i18n="navCerts">Certifications</a></li><li><a href="#tutoring" data-i18n="navTutoring">Tutoring</a></li><li><a href="careers.html">AI Careers</a></li><li><a href="#tutors">Our Tutors</a></li></ul></div>
-    <div class="ft-col"><h4>Company</h4><ul><li><a href="#approach">About Us</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:hello@aarnaitai.com">Email Us</a></li></ul></div>
+    <div class="ft-col"><h4>Company</h4><ul><li><a href="#approach">About Us</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#offices">Our Offices</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:hello@aarnaitai.com">Email Us</a></li></ul></div>
   </div>
-  <div class="ft-bottom"><p>© 2026 AARNAIT AI — 15439361 Canada Inc. All rights reserved.</p><p>Ontario, Canada · <a href="mailto:hello@aarnaitai.com" style="color:var(--cyan);text-decoration:none">hello@aarnaitai.com</a></p></div>
+  <div class="ft-bottom" style="flex-direction:column;gap:.4rem">
+    <p>© 2026 AARNAIT AI — 15439361 Canada Inc. All rights reserved.</p>
+    <p style="font-size:.7rem;color:var(--muted)">Toronto, Ontario, Canada · <a href="tel:+16478001234" style="color:var(--text2);text-decoration:none">+1 (647) 800-1234</a> · <a href="mailto:hello@aarnaitai.com" style="color:var(--cyan);text-decoration:none">hello@aarnaitai.com</a></p>
+    <p style="font-size:.62rem;color:var(--muted);margin-top:.3rem">
+      <a href="#offices" style="color:var(--muted);text-decoration:none">Toronto HQ</a> · 
+      <a href="#offices" style="color:var(--muted);text-decoration:none">Brampton Hub</a> · 
+      <a href="mailto:careers@aarnaitai.com" style="color:var(--muted);text-decoration:none">Careers</a> · 
+      <a href="mailto:support@aarnaitai.com" style="color:var(--muted);text-decoration:none">Support</a>
+    </p>
+  </div>
 </footer>
 
 <!-- BACK TO TOP -->
@@ -2689,6 +2854,99 @@ renderTutoring();
   el.innerHTML=vids.map(v=>'<div class="vid-card" style="position:relative"><iframe src="https://www.youtube.com/embed/'+v.yt+'" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><div style="position:absolute;top:8px;left:8px;padding:.2rem .6rem;background:rgba(6,8,13,.85);backdrop-filter:blur(8px);border-radius:6px;font-size:.52rem;font-weight:700;font-family:Syne,sans-serif;letter-spacing:.06em;color:var(--cyan);border:1px solid rgba(0,229,255,.15)">AARNAIT AI</div><div class="vid-info"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem"><h4>'+v.title+'</h4></div><span style="display:inline-block;padding:.12rem .5rem;background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.08);border-radius:50px;font-size:.55rem;color:var(--cyan);margin-bottom:.3rem">'+v.tag+'</span><p>'+v.desc+'</p><p style="font-size:.6rem;color:var(--muted);margin-top:.4rem">Curated by AARNAIT AI · Empowering the next generation</p></div></div>').join('');
 })();
 
+// ═══════════════ FLOATING ORBS SYSTEM ═══════════════
+(function initOrbs(){
+  const field=document.getElementById('orbField');
+  if(!field)return;
+  const colors=['cyan','violet','magenta'];
+  const COUNT=window.innerWidth<768?8:14;
+  function spawnOrb(){
+    const orb=document.createElement('div');
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    const size=Math.random()*120+40;
+    const dur=Math.random()*25+20;
+    const startX=Math.random()*100;
+    const startY=Math.random()*100;
+    const dx=(Math.random()-.5)*200;
+    const dy=(Math.random()-.5)*150;
+    const dx2=(Math.random()-.5)*300;
+    const dy2=(Math.random()-.5)*200;
+    orb.className='orb '+color+(Math.random()>.7?' glow':'');
+    orb.style.cssText='width:'+size+'px;height:'+size+'px;left:'+startX+'%;top:'+startY+'%;--dx:'+dx+'px;--dy:'+dy+'px;--dx2:'+dx2+'px;--dy2:'+dy2+'px;animation-duration:'+dur+'s;animation-delay:'+Math.random()*5+'s;';
+    field.appendChild(orb);
+    setTimeout(function(){orb.remove();spawnOrb()},(dur+5)*1000);
+  }
+  for(var i=0;i<COUNT;i++){setTimeout(spawnOrb,i*800)}
+  window.addEventListener('scroll',function(){
+    var pct=window.scrollY/(document.body.scrollHeight-innerHeight);
+    if(pct>.7)field.classList.add('dimmed');
+    else if(pct<.6)field.classList.remove('dimmed');
+  },{passive:true});
+})();
+
+// ═══════════════ FLOATING ACTION BUBBLE (FAB) ═══════════════
+var fabOpen=false;
+function toggleFAB(){
+  fabOpen=!fabOpen;
+  var btn=document.getElementById('fabMain');
+  var menu=document.getElementById('fabMenu');
+  if(fabOpen){btn.classList.add('open');menu.classList.add('show')}
+  else{btn.classList.remove('open');menu.classList.remove('show')}
+}
+document.addEventListener('click',function(e){
+  if(fabOpen&&!e.target.closest('.fab-container')){
+    fabOpen=false;
+    document.getElementById('fabMain').classList.remove('open');
+    document.getElementById('fabMenu').classList.remove('show');
+  }
+});
+window.addEventListener('scroll',function(){
+  var fab=document.getElementById('fabContainer');
+  if(!fab)return;
+  if(window.scrollY<300){fab.style.opacity='0';fab.style.pointerEvents='none'}
+  else{fab.style.opacity='1';fab.style.pointerEvents='auto'}
+  if(fabOpen){
+    fabOpen=false;
+    document.getElementById('fabMain').classList.remove('open');
+    document.getElementById('fabMenu').classList.remove('show');
+  }
+},{passive:true});
+(function(){
+  var fab=document.getElementById('fabContainer');
+  if(fab){fab.style.opacity='0';fab.style.pointerEvents='none';fab.style.transition='opacity .4s ease'}
+})();
+
 </script>
+
+<!-- FLOATING ACTION BUBBLE (KAAV-inspired, original design) -->
+<div class="fab-container" id="fabContainer">
+  <button class="fab-main" id="fabMain" onclick="toggleFAB()" aria-label="Quick actions">
+    <div class="fab-pulse"></div>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <div class="fab-menu" id="fabMenu">
+    <div class="fab-item">
+      <button class="fab-item-btn" onclick="location.href='#contact'" title="Contact Us">📧</button>
+      <span class="fab-label">Contact Us</span>
+    </div>
+    <div class="fab-item">
+      <button class="fab-item-btn" onclick="location.href='#offices'" title="Our Offices">📍</button>
+      <span class="fab-label">Our Offices</span>
+    </div>
+    <div class="fab-item">
+      <button class="fab-item-btn" onclick="location.href='tel:+16478001234'" title="Call Us">📞</button>
+      <span class="fab-label">+1 (647) 800-1234</span>
+    </div>
+    <div class="fab-item">
+      <button class="fab-item-btn" onclick="location.href='#courses'" title="Programs">🎓</button>
+      <span class="fab-label">View Programs</span>
+    </div>
+    <div class="fab-item">
+      <button class="fab-item-btn" onclick="document.getElementById('chatWidget').classList.toggle('open')" title="AI Chat">🤖</button>
+      <span class="fab-label">AI Assistant</span>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
