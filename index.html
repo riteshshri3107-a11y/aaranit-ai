@@ -40,8 +40,8 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 .hero-robot-img{transition:opacity .5s}
 .hero-robot-img img{transition:filter .5s,opacity .5s}
 @keyframes heroRobotFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.01)}}
-@media(max-width:1200px){.hero-robot-img{width:480px!important;opacity:.8!important}}
-@media(max-width:900px){.hero-robot-img{width:380px!important;opacity:.55!important}}
+@media(max-width:1200px){.hero-robot-img{width:50%!important;opacity:.8!important}}
+@media(max-width:900px){.hero-robot-img{width:45%!important;opacity:.55!important}}
 @media(max-width:600px){.hero-robot-img{display:none!important}}
 .ai-floats{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
 .ai-float{position:absolute;opacity:0;animation:aiDrift linear infinite}
@@ -881,10 +881,10 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden">
 
     <!-- ═══ RIGHT: PHOTOREALISTIC ROBOT IMAGE ═══ -->
-    <div class="hero-robot-img" style="position:absolute;right:-1%;top:0;width:580px;height:95%;pointer-events:none;overflow:hidden;z-index:0">
+    <div class="hero-robot-img" style="position:absolute;right:0;top:0;width:55%;max-width:700px;height:100%;pointer-events:none;overflow:hidden;z-index:0">
       <!-- Cyan glow behind robot -->
-      <div style="position:absolute;top:10%;left:15%;width:70%;height:60%;background:radial-gradient(ellipse,rgba(0,229,255,.08) 0%,rgba(0,229,255,.02) 40%,transparent 70%);pointer-events:none;z-index:0"></div>
-      <!-- Robot image -->
+      <div style="position:absolute;top:8%;left:25%;width:60%;height:55%;background:radial-gradient(ellipse,rgba(0,229,255,.07) 0%,transparent 65%);pointer-events:none;z-index:0"></div>
+      <!-- Robot image — fully visible on right, fades to transparent towards center -->
       <img 
         src="robot-hero.png" 
         alt="Futuristic AI Robot — AARNAIT AI" 
@@ -893,13 +893,13 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
           position:relative;z-index:1;
           width:100%;
           height:100%;
-          object-fit:contain;
-          object-position:center 10%;
+          object-fit:cover;
+          object-position:center 15%;
           mix-blend-mode:lighten;
-          opacity:.92;
-          filter:brightness(0.95) contrast(1.1) drop-shadow(0 0 80px rgba(0,229,255,.12));
-          mask-image:linear-gradient(to bottom, transparent 0%, black 3%, black 85%, transparent 100%),linear-gradient(to right, transparent 0%, black 8%, black 100%);
-          -webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 3%, black 85%, transparent 100%);
+          opacity:.95;
+          filter:brightness(0.92) contrast(1.12) saturate(.85) drop-shadow(0 0 60px rgba(0,229,255,.1));
+          -webkit-mask-image:linear-gradient(to left, black 0%, black 25%, rgba(0,0,0,.6) 45%, rgba(0,0,0,.2) 65%, transparent 85%);
+          mask-image:linear-gradient(to left, black 0%, black 25%, rgba(0,0,0,.6) 45%, rgba(0,0,0,.2) 65%, transparent 85%);
           animation:heroRobotFloat 8s ease-in-out infinite;
         "
       >
