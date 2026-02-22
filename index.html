@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co; frame-src 'none'; object-src 'none'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co; frame-src https://www.youtube.com https://youtube.com; object-src 'none'; base-uri 'self'">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -29,22 +29,53 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 /* ── AD SIDEBARS ── */
-.ad-sidebar{position:fixed;top:50%;transform:translateY(-50%);width:140px;z-index:50;display:flex;flex-direction:column;gap:.8rem}
-.ad-sidebar.left{left:6px}.ad-sidebar.right{right:6px}
-.ad-slot{background:var(--card);border:1px dashed var(--muted);border-radius:10px;padding:1rem .5rem;text-align:center;font-size:.55rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;line-height:1.4;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;transition:border-color .3s}
-.ad-slot:hover{border-color:var(--cyan)}
-.ad-slot svg{opacity:.2}
+.ad-sidebar{position:fixed;top:50%;transform:translateY(-50%);width:148px;z-index:50;display:flex;flex-direction:column;gap:.6rem}
+.ad-left{left:8px}.ad-right{right:8px}
+.ad-slot{background:var(--card);border:1.5px dashed rgba(255,255,255,.08);border-radius:12px;padding:1.2rem .6rem;text-align:center;color:var(--muted);line-height:1.5;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;transition:border-color .4s}
+.ad-slot:hover{border-color:rgba(0,229,255,.2)}
+.ad-slot svg{opacity:.15}.ad-slot span{font-size:.58rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.ad-slot small{font-size:.5rem;opacity:.4}
+@media(max-width:1500px){.ad-sidebar{display:none}}
+/* ── ROBOTICS TIERS ── */
+.robo-tier{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2rem;position:relative;overflow:hidden;transition:all .4s}
+.robo-tier::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;transition:transform .4s;transform:scaleX(0);transform-origin:left}
+.robo-tier:hover{transform:translateY(-6px);border-color:rgba(0,229,255,.12);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.robo-tier:hover::before{transform:scaleX(1)}
+.robo-tier.t1::before{background:linear-gradient(90deg,#22c55e,#00e5ff)}
+.robo-tier.t2::before{background:linear-gradient(90deg,#00e5ff,#8b5cf6)}
+.robo-tier.t3::before{background:linear-gradient(90deg,#8b5cf6,#d946ef)}
+.robo-tier.t4::before{background:linear-gradient(90deg,#d946ef,#f59e0b)}
+.robo-tier.t5::before{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.robo-badge{display:inline-block;padding:.2rem .7rem;border-radius:50px;font-size:.58rem;font-weight:700;letter-spacing:.04em;margin-bottom:.7rem}
+.robo-badge.b{background:rgba(34,197,94,.08);color:#22c55e;border:1px solid rgba(34,197,94,.15)}
+.robo-badge.i{background:rgba(0,229,255,.08);color:#00e5ff;border:1px solid rgba(0,229,255,.15)}
+.robo-badge.a{background:rgba(139,92,246,.08);color:#8b5cf6;border:1px solid rgba(139,92,246,.15)}
+.robo-badge.e{background:rgba(217,70,239,.08);color:#d946ef;border:1px solid rgba(217,70,239,.15)}
+.robo-badge.m{background:rgba(245,158,11,.08);color:#f59e0b;border:1px solid rgba(245,158,11,.15)}
+.robo-tier h3{font-family:'Syne',sans-serif;font-size:.98rem;font-weight:700;margin-bottom:.25rem}
+.robo-tier .robo-sub{font-size:.7rem;color:var(--muted);margin-bottom:.6rem}
+.robo-tier p{color:var(--text2);font-size:.82rem;line-height:1.65;margin-bottom:.8rem}
+.robo-mod{display:flex;flex-direction:column;gap:.28rem;margin-bottom:1rem}
+.robo-mod span{display:flex;align-items:flex-start;gap:.4rem;font-size:.75rem;color:var(--text2);line-height:1.5}
+.robo-mod span::before{content:'▸';color:var(--cyan);flex-shrink:0;font-weight:700}
 /* ── FAQ ── */
 .faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .3s}
 .faq-item.faq-open{border-color:rgba(0,229,255,.15)}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:.9rem;transition:color .3s;gap:1rem}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:.88rem;transition:color .3s;gap:1rem}
 .faq-q:hover{color:var(--cyan)}
-.faq-icon{width:24px;height:24px;border-radius:50%;background:rgba(0,229,255,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:.8rem;color:var(--cyan)}
+.faq-icon{width:26px;height:26px;border-radius:50%;background:rgba(0,229,255,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-size:.8rem;color:var(--cyan)}
 .faq-item.faq-open .faq-icon{transform:rotate(45deg);background:rgba(0,229,255,.12)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .3s;padding:0 1.4rem}
 .faq-item.faq-open .faq-a{max-height:300px;padding:0 1.4rem 1.2rem}
 .faq-a p{font-size:.84rem;color:var(--text2);line-height:1.7}
-@media(max-width:1400px){.ad-sidebar{display:none}}
+/* ── VIDEO CARDS ── */
+.vid-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .4s}
+.vid-card:hover{transform:translateY(-5px);border-color:rgba(0,229,255,.12);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.vid-card iframe{width:100%;aspect-ratio:16/9;border:none;display:block}
+.vid-info{padding:1rem 1.2rem}
+.vid-info h4{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:.25rem}
+.vid-info p{font-size:.74rem;color:var(--text2);line-height:1.5}
+
 
 /* ── COURSE CATALOG ACCORDION ── */
 .cat-filter{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.5rem}
@@ -592,8 +623,8 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <div class="scroll-prog" id="scrollProg"></div>
 
 <!-- AD SIDEBARS -->
-<div class="ad-sidebar left"><div class="ad-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Digital Ad<br>Space Available<br><span style="font-size:.48rem;opacity:.5">160×600</span></div></div>
-<div class="ad-sidebar right"><div class="ad-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Digital Ad<br>Space Available<br><span style="font-size:.48rem;opacity:.5">160×600</span></div></div>
+<div class="ad-sidebar ad-left"><div class="ad-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg><span>Digital Ad<br>Space Available</span><small>160×600</small></div></div>
+<div class="ad-sidebar ad-right"><div class="ad-slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg><span>Digital Ad<br>Space Available</span><small>160×600</small></div></div>
 
 <!-- NAV -->
 <nav id="mainNav">
@@ -604,6 +635,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <li><a href="#services" data-i18n="navServices">Services</a></li>
     <li><a href="#courses">Courses</a></li>
     <li><a href="#certifications" data-i18n="navCerts">Certifications</a></li>
+    <li><a href="#robotics">Robotics</a></li>
     <li><a href="#tutoring" data-i18n="navTutoring">Tutoring</a></li>
     <li><a href="careers.html" data-i18n="navCareers">Careers</a></li>
     <li><a href="#faq">FAQ</a></li>
@@ -653,7 +685,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- MOBILE DRAWER -->
 <div class="mobile-overlay" id="mobOverlay"></div>
 <div class="mobile-drawer" id="mobDrawer">
-  <a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#tutoring">Tutoring</a><a href="careers.html">Careers</a><a href="#flexible">Schedule</a><a href="#ainews">AI News</a><a href="#inbox">Messages</a><a href="javascript:void(0)" onclick="closeMob();openAuth()" style="color:var(--green)">🔐 Sign Up / Sign In</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
+  <a href="#services">Services</a><a href="#courses">Courses</a><a href="#certifications">Certifications</a><a href="#robotics">Robotics</a><a href="#tutoring">Tutoring</a><a href="careers.html">Careers</a><a href="#ainews">AI News</a><a href="#inbox">Messages</a><a href="javascript:void(0)" onclick="closeMob();openAuth()" style="color:var(--green)">🔐 Sign Up / Sign In</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
 </div>
 
 <!-- CART SIDEBAR -->
@@ -698,23 +730,29 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div class="srv-grid" id="srvGrid"></div>
 </section>
 
-<!-- COURSES -->
+<!-- COURSES (All training programs) -->
 <section id="courses">
-  <div class="sec-head"><span class="sec-label">Learn</span><h2 data-i18n="courses">Courses & Training Programs</h2><p>Structured learning paths from school-level AI literacy to advanced professional training.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Learn</span><h2 data-i18n="courses">Courses & Training Programs</h2><p>Structured learning paths from school-level AI literacy to advanced professional skills — 35+ programs across 11 categories.</p><div class="sec-line"></div></div>
   <div class="cat-filter" id="catFilter"></div>
   <div class="accord" id="courseAccord"></div>
 </section>
 
-<!-- CERTIFICATIONS -->
+<!-- CERTIFICATIONS (Industry credentials) -->
 <section id="certifications" style="background:var(--bg2)">
-  <div class="sec-head"><span class="sec-label">Get Certified</span><h2 data-i18n="certs">Industry-Recognized Certifications</h2><p>Validate your expertise with credentials designed alongside hiring managers and tech leaders.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">Get Certified</span><h2 data-i18n="certs">Industry-Recognized Certifications</h2><p>Validate your expertise with credentials designed alongside hiring managers — from AI Foundations to Architect Elite.</p><div class="sec-line"></div></div>
   <div id="certCards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.2rem;max-width:1200px;margin:0 auto;padding:0 1rem"></div>
 </section>
 
-<!-- TUTORING -->
+<!-- ROBOTICS & AUTOMATION (5-tier progressive curriculum) -->
+<section id="robotics">
+  <div class="sec-head"><span class="sec-label">Next-Gen Skills</span><h2>Robotics & <span class="gradient-text">Intelligent Automation</span></h2><p>A progressive 5-tier curriculum — from visual coding for kids to autonomous systems architecture for engineers.</p><div class="sec-line"></div></div>
+  <div id="roboTiers" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;max-width:1400px;margin:0 auto;padding:0 1rem"></div>
+</section>
+
+<!-- TUTORING (split by category) -->
 <section id="tutoring">
-  <div class="sec-head"><span class="sec-label">Personalized Learning</span><h2 data-i18n="tutoring">1-on-1 Tutoring & Bootcamps</h2><p>Intensive, hands-on training tailored to your goals. Choose your focus area below.</p><div class="sec-line"></div></div>
-  <div id="tutorCatTabs" style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.5rem;max-width:1200px;margin-left:auto;margin-right:auto;padding:0 1rem"></div>
+  <div class="sec-head"><span class="sec-label">Personalized Learning</span><h2 data-i18n="tutoring">1-on-1 Tutoring & Bootcamps</h2><p>Expert-led, intensive training tailored to your goals. Filter by your focus area below.</p><div class="sec-line"></div></div>
+  <div id="tutorCatTabs" style="display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.5rem;padding:0 1rem"></div>
   <div class="tutor-grid" id="tutorGrid"></div>
 </section>
 
@@ -736,17 +774,6 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       <div style="text-align:center"><div style="font-size:1.5rem">🕐</div><div style="font-size:.75rem;font-weight:600;margin-top:.3rem">SGT · JST</div><div style="font-size:.65rem;color:var(--muted)">Asia Pacific</div></div>
     </div>
   </div>
-</section>
-
-<!-- CAREERS (Full portal at careers.html) -->
-<section id="careers" style="text-align:center;padding:4rem 2rem;background:var(--bg2)">
-  <div class="sec-head"><span class="sec-label">Career Center</span><h2 data-i18n="careers">AI Jobs <span class="gradient-text">Worldwide</span></h2><p>16+ positions across 9 countries — ML Engineer, Data Scientist, Prompt Engineer, and more.</p><div class="sec-line"></div></div>
-  <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.8rem;text-align:center"><div class="gradient-text" style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800">16+</div><div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Open Roles</div></div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.8rem;text-align:center"><div class="gradient-text" style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800">9</div><div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Countries</div></div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.8rem;text-align:center"><div class="gradient-text" style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800">🌐</div><div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Remote Options</div></div>
-  </div>
-  <a href="careers.html" class="btn-glow" style="font-size:.85rem;padding:.75rem 2.5rem">Explore All AI Jobs →</a>
 </section>
 
 <!-- AI TUTORS -->
@@ -843,29 +870,36 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 </section>
 
 <!-- TECHNOLOGY ECOSYSTEM -->
-<div id="techEco" style="overflow:hidden;padding:1.8rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2)">
-  <div style="text-align:center;margin-bottom:.8rem"><p style="font-family:Syne,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Technology Ecosystem & Tools We Work With</p></div>
-  <div id="partnerMarquee" style="display:flex;gap:3.5rem;animation:marquee 45s linear infinite;white-space:nowrap;align-items:center"></div>
+<div id="techEco" style="overflow:hidden;padding:2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2)">
+  <p style="text-align:center;font-family:Syne,sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem">Technology Ecosystem & Platforms We Work With</p>
+  <div id="partnerMarquee" style="display:flex;gap:3.5rem;animation:marquee 50s linear infinite;white-space:nowrap;align-items:center"></div>
 </div>
 
-<!-- FAQ -->
+<!-- FAQ SECTION -->
 <section id="faq">
-  <div class="sec-head"><span class="sec-label">Common Questions</span><h2>Frequently Asked Questions</h2><div class="sec-line"></div></div>
-  <div id="faqList" style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem"></div>
+  <div class="sec-head"><span class="sec-label">Common Questions</span><h2>Frequently Asked <span class="gradient-text">Questions</span></h2><div class="sec-line"></div></div>
+  <div id="faqList" style="max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem;padding:0 1rem"></div>
 </section>
 
+<!-- INSPIRATION VIDEOS -->
+<section id="inspiration" style="background:var(--bg2)">
+  <div class="sec-head"><span class="sec-label">Get Inspired</span><h2>The Future of <span class="gradient-text">AI & Robotics</span></h2><p>Watch how artificial intelligence and robotics are shaping the next generation of innovation.</p><div class="sec-line"></div></div>
+  <div id="vidGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem;max-width:1200px;margin:0 auto;padding:0 1rem"></div>
+</section>
+
+<!-- IT DEVELOPMENT & CONSULTING -->
 <section class="cta" id="contact">
-  <div class="sec-label">IT Development & Consulting</div>
+  <div class="sec-label">Custom IT Development & AI Consulting</div>
   <h2 data-i18n="contact">Let's Build <span class="gradient-text">Intelligence Together</span></h2>
-  <p>Custom AI solutions, software development, strategy consulting — get in touch for a free consultation.</p>
+  <p>End-to-end AI solutions — chatbots, predictive analytics, ML pipelines, API integration, and more. Get a free consultation.</p>
   <form class="contact-form" id="contactForm">
     <div class="form-row"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Email Address" required></div>
-    <div class="form-row"><input type="text" name="company" placeholder="Company (optional)"><select name="service_interest"><option value="">I'm interested in...</option><option>Custom AI / ML Development</option><option>Chatbot & Virtual Assistant</option><option>Predictive Analytics & BI</option><option>API & System Integration</option><option>MLOps & Cloud Infrastructure</option><option>AI Strategy Consulting</option><option>Responsible AI Audit</option><option>Certification Program</option><option>Tutoring / Bootcamp</option><option>Advertising on AARNAIT</option><option>Other</option></select></div>
-    <textarea name="message" rows="4" placeholder="Tell us about your project, goals, or requirements..." required></textarea>
-    <button type="submit" class="form-btn" id="formBtn">Request Consultation →</button>
+    <div class="form-row"><input type="text" name="company" placeholder="Company (optional)"><select name="service_interest"><option value="">I'm interested in...</option><option>Custom AI / ML Development</option><option>Chatbot & Virtual Assistant</option><option>Predictive Analytics & BI</option><option>API & System Integration</option><option>MLOps & Cloud Infrastructure</option><option>AI Strategy Consulting</option><option>Responsible AI Audit</option><option>Robotics Solutions</option><option>Certification Program</option><option>Tutoring / Bootcamp</option><option>Advertise on AARNAIT AI</option><option>Other</option></select></div>
+    <textarea name="message" rows="4" placeholder="Tell us about your project, requirements, or questions..." required></textarea>
+    <button type="submit" class="form-btn" id="formBtn">Request Free Consultation →</button>
     <div class="form-msg" id="formMsg"></div>
   </form>
-  <div id="techLogos" style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;opacity:.35;margin-top:2rem"></div>
+  <div id="techLogos" style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;opacity:.3;margin-top:2rem"></div>
 </section>
 
 <!-- FOOTER -->
@@ -1592,7 +1626,7 @@ function showT(){const d=document.createElement('div');d.className='typing-ind';
 function hideT(){const e=document.getElementById('ti');if(e)e.remove()}
 function sqr(rs){chatQR.innerHTML='';rs.forEach(r=>{const b=document.createElement('button');b.textContent=r;b.onclick=()=>{chatInp.value=r;sendChat()};chatQR.appendChild(b)})}
 function initChat(){am("Hi! 👋 I'm <strong>Anna</strong>, your AARNAIT AI Assistant. How can I help?",'bot');setTimeout(()=>sqr(['Services','Certifications','Tutoring','Pricing','Contact']),400)}
-const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Courses','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential','school','primary','middle','high school'],r:'We have <strong>35+ courses</strong> across 11 categories: 🌱 School (Primary, Middle, High), 🤖 Professional AI, ✨ Generative AI, 🔗 Agentic AI, 🧪 QA Testing, 📊 Business Analysis, 📋 Project Management. <a href="#certifications">Browse all →</a>',q:['AI Courses','School Programs','Pricing']},pricing:{kw:['price','cost','how much','fee','discount'],r:'School programs from <strong>$129 CAD</strong>. Professional from <strong>$599 to $3,999 CAD</strong>. 10% off for full payment. Prices auto-convert to 6 currencies! <a href="#certifications">See all →</a>',q:['Courses','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aarnaitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="careers.html">See all jobs →</a>',q:['Courses','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose course → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']},testing:{kw:['testing','qa','automation','selenium','cypress','istqb'],r:'🧪 <strong>QA & Testing courses</strong>: Software Testing Pro ($899), Automation Testing ($1,299), AI-Powered Testing ($1,499). <a href="#certifications">See Testing tab →</a>',q:['Courses','Pricing']},ba:{kw:['business analysis','ba','analytics','tableau','power bi','data analyst'],r:'📊 <strong>BA courses</strong>: BA Fundamentals ($799), Data Analytics ($999), AI-Powered BI ($1,199). <a href="#certifications">See BA tab →</a>',q:['Courses','Pricing']},pm:{kw:['project management','pm','scrum','agile','pmp'],r:'📋 <strong>PM courses</strong>: PMP Prep ($999), Scrum Master ($699), AI Project Management ($1,399). <a href="#certifications">See PM tab →</a>',q:['Courses','Pricing']},genai:{kw:['generative','gen ai','chatgpt','llm','prompt','midjourney','dall-e'],r:'✨ <strong>Generative AI</strong>: GenAI Specialist ($1,799), Prompt Engineering ($699), AI Image & Video ($999). <a href="#certifications">See GenAI tab →</a>',q:['Agentic AI','Pricing']},agentic:{kw:['agent','agentic','langchain','mcp','autonomous','automation'],r:'🔗 <strong>Agentic AI</strong>: AI Agents ($1,999), MCP Integration ($1,299), Workflow Automation ($1,499). <a href="#certifications">See Agentic tab →</a>',q:['Generative AI','Pricing']}};
+const kb={services:{kw:['services','service','what do you do','offering'],r:'We offer: 🧠 AI Development, 🎓 Tutoring, 🏅 Certifications, ⚡ Consulting, 🔗 MLOps, 🛡️ AI Audits',q:['Courses','Pricing','Contact']},certifications:{kw:['certification','certificate','program','course','credential','school','primary','middle','high school'],r:'We have <strong>35+ courses</strong> across 11 categories: 🌱 School (Primary, Middle, High), 🤖 Professional AI, ✨ Generative AI, 🔗 Agentic AI, 🧪 QA Testing, 📊 Business Analysis, 📋 Project Management. <a href="#certifications">Browse all →</a>',q:['AI Courses','School Programs','Pricing']},pricing:{kw:['price','cost','how much','fee','discount'],r:'School programs from <strong>$129 CAD</strong>. Professional from <strong>$599 to $3,999 CAD</strong>. 10% off for full payment. Prices auto-convert to 6 currencies! <a href="#certifications">See all →</a>',q:['Courses','Contact','Payment plans']},tutoring:{kw:['tutor','tutoring','training','1-on-1','mentor','corporate'],r:'1-on-1 ($199/session), Python Bootcamp ($499), Deep Learning ($1,299), Corporate ($4,999/team), LLM ($899), Data Science ($699). <a href="#tutoring">View all →</a>',q:['Book session','Corporate','Programs']},contact:{kw:['contact','email','call','book'],r:'📧 hello@aarnaitai.com · 📍 Ontario, Canada · Or use our <a href="#contact">contact form</a>!',q:['Services','Programs']},jobs:{kw:['job','career','salary','hire','work'],r:'Top AI roles: ML Engineer ($120-180K), AI Scientist ($140-220K), NLP Engineer ($130-190K). <a href="careers.html">View all positions →</a>',q:['Courses','Tutoring']},enroll:{kw:['enroll','sign up','register','join','start'],r:'1️⃣ Choose course → 2️⃣ Add to cart → 3️⃣ Checkout → 4️⃣ We contact you in 24hrs! <a href="#certifications">Browse programs →</a>',q:['Programs','Pricing']},payment:{kw:['payment','installment','monthly'],r:'💳 Full pay (10% off) · 📅 2-part split · 📆 Monthly plan. Corporate invoicing available!',q:['Enroll','Contact']},testing:{kw:['testing','qa','automation','selenium','cypress','istqb'],r:'🧪 <strong>QA & Testing courses</strong>: Software Testing Pro ($899), Automation Testing ($1,299), AI-Powered Testing ($1,499). <a href="#certifications">See Testing tab →</a>',q:['Courses','Pricing']},ba:{kw:['business analysis','ba','analytics','tableau','power bi','data analyst'],r:'📊 <strong>BA courses</strong>: BA Fundamentals ($799), Data Analytics ($999), AI-Powered BI ($1,199). <a href="#certifications">See BA tab →</a>',q:['Courses','Pricing']},pm:{kw:['project management','pm','scrum','agile','pmp'],r:'📋 <strong>PM courses</strong>: PMP Prep ($999), Scrum Master ($699), AI Project Management ($1,399). <a href="#certifications">See PM tab →</a>',q:['Courses','Pricing']},genai:{kw:['generative','gen ai','chatgpt','llm','prompt','midjourney','dall-e'],r:'✨ <strong>Generative AI</strong>: GenAI Specialist ($1,799), Prompt Engineering ($699), AI Image & Video ($999). <a href="#certifications">See GenAI tab →</a>',q:['Agentic AI','Pricing']},agentic:{kw:['agent','agentic','langchain','mcp','autonomous','automation'],r:'🔗 <strong>Agentic AI</strong>: AI Agents ($1,999), MCP Integration ($1,299), Workflow Automation ($1,499). <a href="#certifications">See Agentic tab →</a>',q:['Generative AI','Pricing']}};
 function findResp(inp){const l=inp.toLowerCase();if(/^(hi|hello|hey)/.test(l))return{r:"Hi there! 👋 I'm Anna. How can I help you today?",q:['Services','Certifications','Pricing','Contact']};if(/^(thanks|thx)/.test(l))return{r:"You're welcome! 😊 — Anna",q:['Services','Programs']};if(/^(bye|no)/.test(l))return{r:"Thanks for chatting! 🙏 — Anna. <a href='#contact'>Contact us</a> anytime.",q:[]};let bm=null,bs=0;for(const v of Object.values(kb)){let s=0;for(const w of v.kw)if(l.includes(w))s+=w.split(' ').length;if(s>bs){bs=s;bm=v}}if(bm)return bm;return{r:"I'd love to help! Try our <a href='#contact'>contact form</a> or email hello@aarnaitai.com",q:['Services','Programs','Contact']}}
 async function sendChat(){let t=chatInp.value.trim();if(!t)return;if(!rateLimit('chat',1500)){return}t=truncate(t,300);chatInp.value='';chatQR.innerHTML='';am(t,'user');showT();const r=findResp(t);setTimeout(()=>{hideT();am(r.r,'bot');if(r.q&&r.q.length)setTimeout(()=>sqr(r.q),200)},500+Math.random()*600);sbi('contact_submissions',{name:'Chat',email:'chat@aarnaitai.com',service_interest:'chatbot',message:'[CHAT] '+sanitize(t)}).catch(()=>{})}
 
@@ -2471,80 +2505,145 @@ async function socialLogin(provider){
   }
 })()
 
-
-// ═══════════════ CERTIFICATION CARDS (separate section) ═══════════════
+// ═══════════════ CERTIFICATION CARDS ═══════════════
 function renderCertCards(){
-  const certItems=courseCatalog.filter(c=>c.id&&(c.id.includes('cert-foundations')||c.id.includes('cert-ml-engineer')||c.id.includes('cert-architect')||c.id.includes('cert-genai')||c.id.includes('cert-agents')||c.id.includes('cert-prompt')||c.id.includes('cert-cv')||c.id.includes('cert-nlp')));
+  const certs=courseCatalog.filter(c=>c.id&&(c.id.includes('cert-foundations')||c.id.includes('cert-ml-engineer')||c.id.includes('cert-architect')||c.id.includes('cert-genai')||c.id.includes('cert-agents')||c.id.includes('cert-prompt')||c.id.includes('cert-cv')||c.id.includes('cert-nlp')));
   const el=document.getElementById('certCards');if(!el)return;
-  el.innerHTML=certItems.map(c=>`<div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.8rem;text-align:center;transition:all .4s;position:relative;overflow:hidden" onmouseenter="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(0,229,255,.15)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.3)'" onmouseleave="this.style.transform='';this.style.borderColor='var(--border)';this.style.boxShadow=''">
-    <div style="width:52px;height:52px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:linear-gradient(135deg,rgba(0,229,255,.1),rgba(139,92,246,.1));border:1px solid rgba(0,229,255,.1)">🎖️</div>
+  el.innerHTML=certs.map(c=>`<div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.8rem;text-align:center;transition:all .4s;position:relative;overflow:hidden" onmouseenter="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(0,229,255,.15)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.3)'" onmouseleave="this.style.transform='';this.style.borderColor='var(--border)';this.style.boxShadow=''">
+    <div style="width:52px;height:52px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:linear-gradient(135deg,rgba(0,229,255,.1),rgba(139,92,246,.1));border:1px solid rgba(0,229,255,.08)">🎖️</div>
     <h3 style="font-family:Syne,sans-serif;font-size:.9rem;font-weight:700;margin-bottom:.3rem">${c.t}</h3>
-    <div class="gradient-text" style="font-family:Syne,sans-serif;font-size:1.2rem;font-weight:800;margin:.5rem 0 .3rem">${convertPrice(c.price)} ${currentCurrency}</div>
-    <div style="font-size:.7rem;color:var(--muted)">${c.meta}</div>
-    <ul style="list-style:none;text-align:left;margin-top:1rem;font-size:.76rem;color:var(--text2)">${c.items.slice(0,4).map(i=>'<li style="padding:.3rem 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:.4rem"><span style="color:var(--cyan);font-weight:700;flex-shrink:0">✓</span>'+i+'</li>').join('')}</ul>
-    <button class="add-cart-btn" onclick="addToCart('${c.id}','${c.t}',${c.price},'Certification',this)" style="margin-top:1rem;width:100%">Enroll Now</button>
+    <div class="gradient-text" style="font-family:Syne,sans-serif;font-size:1.15rem;font-weight:800;margin:.5rem 0 .2rem">${convertPrice(c.price)} ${currentCurrency}</div>
+    <div style="font-size:.68rem;color:var(--muted)">${c.meta}</div>
+    <ul style="list-style:none;text-align:left;margin-top:1rem;font-size:.75rem;color:var(--text2)">${c.items.slice(0,4).map(i=>'<li style="padding:.28rem 0;border-bottom:1px solid var(--border);display:flex;gap:.4rem"><span style="color:var(--cyan);font-weight:700;flex-shrink:0">✓</span>'+i+'</li>').join('')}</ul>
+    <button class="add-cart-btn" onclick="addToCart('${c.id}','${c.t}',${c.price},'Certification',this)" style="margin-top:1rem;width:100%">Get Certified →</button>
   </div>`).join('');
 }
 renderCertCards();
 
+// ═══════════════ ROBOTICS 5-TIER CURRICULUM ═══════════════
+(function(){
+  const tiers=[
+    {cls:'t1',badge:'b',level:'TIER 1 · Explorer',sub:'Ages 7–10 · No Prerequisites · Kit Shipped',
+     title:'Robotics Explorer',
+     desc:'Ignite curiosity through visual coding and hands-on robot building. Kids learn logic, sequencing, and creative problem-solving through playful projects.',
+     mods:['Visual block coding (Scratch & Blockly)','Motor control, LEDs & buzzer circuits','Sensor basics — light, touch, ultrasonic','Build 3 working robots from included kit','AI thinking: pattern recognition games','Show & Tell: present your creation'],
+     price:299,dur:'8 weeks · Online + Kit'},
+    {cls:'t2',badge:'i',level:'TIER 2 · Builder',sub:'Ages 11–14 · Basic Coding Helpful',
+     title:'Robotics Builder',
+     desc:'Bridge from blocks to real code. Build autonomous robots that sense their environment, make decisions, and communicate with the cloud using Arduino and Python.',
+     mods:['Python fundamentals for hardware','Arduino microcontroller programming','IR, gyro & ultrasonic sensor fusion','Line-following & obstacle-avoidance bots','IoT basics: connect robots to cloud dashboards','Capstone: design a smart home prototype'],
+     price:549,dur:'10 weeks · Online + Kit'},
+    {cls:'t3',badge:'a',level:'TIER 3 · Engineer',sub:'Ages 14–18 · Python Required',
+     title:'Robotics Engineer',
+     desc:'Design production-grade robots with computer vision, robotic arms, and autonomous navigation using ROS 2 and industry-standard engineering workflows.',
+     mods:['Robot Operating System (ROS 2) fundamentals','Computer vision with OpenCV & depth cameras','Robotic arm kinematics, inverse-K & control','SLAM — simultaneous mapping & autonomous nav','3D design for custom robot parts (Fusion 360)','Competition-ready autonomous robot build'],
+     price:999,dur:'14 weeks · Online + Sim Lab'},
+    {cls:'t4',badge:'e',level:'TIER 4 · Specialist',sub:'18+ · Engineering / CS Background',
+     title:'AI Robotics Specialist',
+     desc:'Fuse deep learning with physical systems — train perception networks, master reinforcement learning for control, and deploy on NVIDIA Jetson edge hardware.',
+     mods:['Deep learning for robot perception (YOLO, SAM)','Reinforcement learning in simulation (Isaac Gym)','Autonomous navigation with LiDAR & point clouds','Cobot programming (collaborative robotics)','Edge AI deployment on NVIDIA Jetson / Orin','Industry capstone: real-world automation pipeline'],
+     price:2199,dur:'16 weeks · Online + Hardware Lab'},
+    {cls:'t5',badge:'m',level:'TIER 5 · Architect',sub:'Professionals · Senior Engineers',
+     title:'Autonomous Systems Architect',
+     desc:'Design end-to-end autonomous systems — from multi-sensor fusion to fleet orchestration. For engineers leading the next generation of intelligent machines and factories.',
+     mods:['Multi-sensor fusion architecture design','Agentic AI for robot decision-making loops','Digital twin simulation (NVIDIA Isaac Sim)','Fleet orchestration & swarm intelligence','Safety standards compliance (ISO 10218/15066)','Enterprise deployment, MLOps & CI/CD for robotics'],
+     price:3999,dur:'20 weeks · Online + Enterprise Lab'}
+  ];
+  const el=document.getElementById('roboTiers');if(!el)return;
+  el.innerHTML=tiers.map(t=>`<div class="robo-tier ${t.cls}">
+    <span class="robo-badge ${t.badge}">${t.level}</span>
+    <h3>${t.title}</h3>
+    <div class="robo-sub">${t.sub}</div>
+    <p>${t.desc}</p>
+    <div class="robo-mod">${t.mods.map(m=>'<span>'+m+'</span>').join('')}</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-top:.8rem;border-top:1px solid var(--border)">
+      <div><span class="gradient-text" style="font-family:Syne,sans-serif;font-size:1.1rem;font-weight:800">${convertPrice(t.price)} ${currentCurrency}</span><div style="font-size:.62rem;color:var(--muted)">${t.dur}</div></div>
+      <button class="add-cart-btn" onclick="addToCart('robo-${t.cls}','${t.title}',${t.price},'Robotics',this)">Enroll →</button>
+    </div>
+  </div>`).join('');
+})();
+
 // ═══════════════ TUTORING CATEGORY TABS ═══════════════
-const tutorCats=[{id:'all',label:'🌐 All'},{id:'ai',label:'🤖 AI Fundamentals'},{id:'ml',label:'🧠 Machine Learning'},{id:'genai',label:'✨ Generative AI'},{id:'agentic',label:'🔗 Agentic AI'},{id:'corp',label:'🏢 Corporate'}];
+const tutorCats=[
+  {id:'all',label:'🌐 All Programs'},
+  {id:'ai',label:'🤖 AI Fundamentals'},
+  {id:'ml',label:'🧠 Machine Learning & Deep Learning'},
+  {id:'genai',label:'✨ Generative AI & LLMs'},
+  {id:'agentic',label:'🔗 Agentic AI'},
+  {id:'corp',label:'🏢 Corporate Training'},
+  {id:'data',label:'📊 Data Science'}
+];
 let activeTutorCat='all';
 function renderTutorCatTabs(){
   const el=document.getElementById('tutorCatTabs');if(!el)return;
-  el.innerHTML=tutorCats.map(c=>`<button onclick="activeTutorCat='${c.id}';renderTutorCatTabs();renderTutoring()" style="padding:.4rem 1rem;border-radius:50px;border:1px solid ${c.id===activeTutorCat?'var(--cyan)':'var(--border)'};background:${c.id===activeTutorCat?'rgba(0,229,255,.08)':'transparent'};color:${c.id===activeTutorCat?'var(--cyan)':'var(--text2)'};font-family:Syne,sans-serif;font-weight:600;font-size:.7rem;cursor:pointer;transition:all .3s;letter-spacing:.02em">${c.label}</button>`).join('');
+  el.innerHTML=tutorCats.map(c=>`<button onclick="activeTutorCat='${c.id}';renderTutorCatTabs();renderTutoring()" style="padding:.4rem 1rem;border-radius:50px;border:1px solid ${c.id===activeTutorCat?'var(--cyan)':'var(--border)'};background:${c.id===activeTutorCat?'rgba(0,229,255,.08)':'transparent'};color:${c.id===activeTutorCat?'var(--cyan)':'var(--text2)'};font-family:Syne,sans-serif;font-weight:600;font-size:.68rem;cursor:pointer;transition:all .3s;letter-spacing:.02em">${c.label}</button>`).join('');
 }
 renderTutorCatTabs();
 
-// Override renderTutoring to support tabs
-const _origRenderTutoring=renderTutoring;
+// Override renderTutoring to support category filtering
+const _baseRenderTutoring=renderTutoring;
 renderTutoring=function(){
-  const filtered=activeTutorCat==='all'?tutoring:tutoring.filter(t=>{
-    if(activeTutorCat==='ai')return t.id==='tutor-1on1'||t.id==='tutor-ds';
-    if(activeTutorCat==='ml')return t.id==='tutor-dl'||t.id==='tutor-ds'||t.id==='tutor-python';
-    if(activeTutorCat==='genai')return t.id==='tutor-llm';
-    if(activeTutorCat==='agentic')return t.id==='tutor-llm'||t.id==='tutor-1on1';
-    if(activeTutorCat==='corp')return t.id==='tutor-corp';
+  const filt=activeTutorCat;
+  const filtered=filt==='all'?tutoring:tutoring.filter(t=>{
+    if(filt==='ai')return t.id==='tutor-1on1';
+    if(filt==='ml')return t.id==='tutor-dl'||t.id==='tutor-python';
+    if(filt==='genai')return t.id==='tutor-llm';
+    if(filt==='agentic')return t.id==='tutor-llm'||t.id==='tutor-1on1';
+    if(filt==='corp')return t.id==='tutor-corp';
+    if(filt==='data')return t.id==='tutor-ds'||t.id==='tutor-python';
     return true;
   });
   document.getElementById('tutorGrid').innerHTML=filtered.map(t=>{
     const flexInfo='<div style="margin-top:.5rem;font-size:.7rem;color:var(--green)">🌐 Available online · Multiple time zones · Recording included</div>';
     return '<div class="tutor-card"><h3>'+t.t+'</h3><div class="tutor-type">'+t.type+'</div><p>'+t.p+'</p><ul>'+t.items.map(i=>'<li>'+i+'</li>').join('')+'</ul>'+flexInfo+'<div class="tutor-price"><div class="price">'+convertPrice(t.price)+' <small>'+currentCurrency+' '+t.unit+'</small></div><button class="add-cart-btn" onclick="addToCart(\''+t.id+'\',\''+t.t+'\','+t.price+',\'Tutoring\',this)">Add to Cart</button></div></div>';
-  }).join('');
+  }).join('')||(filt!=='all'?'<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted)">Showing all programs for this category. <a href="javascript:void(0)" onclick="activeTutorCat=\'all\';renderTutorCatTabs();renderTutoring()" style="color:var(--cyan)">View all →</a></div>':'');
 };
 renderTutoring();
 
 // ═══════════════ PARTNER MARQUEE ═══════════════
 (function(){
-  const p=['Python','TensorFlow','PyTorch','AWS','Google Cloud','Microsoft Azure','Hugging Face','LangChain','Docker','Kubernetes','OpenAI API','Anthropic API','NVIDIA','PostgreSQL','React','Node.js','Scikit-learn','Pandas'];
+  const partners=['Python','TensorFlow','PyTorch','AWS','Google Cloud','Microsoft Azure','Hugging Face','LangChain','Docker','Kubernetes','OpenAI API','Anthropic Claude','NVIDIA','PostgreSQL','React','Node.js','Scikit-learn','Pandas','MongoDB','Redis'];
   const el=document.getElementById('partnerMarquee');if(!el)return;
-  const h=p.map(x=>'<span style="font-family:Syne,sans-serif;font-weight:700;font-size:.78rem;color:var(--muted);flex-shrink:0;opacity:.45;letter-spacing:.02em">◆ '+x+'</span>').join('');
+  const h=partners.map(p=>'<span style="font-family:Syne,sans-serif;font-weight:700;font-size:.75rem;color:var(--muted);flex-shrink:0;opacity:.4;letter-spacing:.02em">◆ '+p+'</span>').join('');
   el.innerHTML=h+h;
 })();
 
-// ═══════════════ TECH LOGOS ═══════════════
+// ═══════════════ TECH LOGOS (contact section) ═══════════════
 (function(){
-  const l=['Python','TensorFlow','PyTorch','AWS','Azure','GCP','Docker','React','Node.js'];
+  const logos=['Python','TensorFlow','PyTorch','AWS','Azure','GCP','Docker','React','Node.js','NVIDIA'];
   const el=document.getElementById('techLogos');if(!el)return;
-  el.innerHTML=l.map(x=>'<span style="font-family:Syne,sans-serif;font-weight:700;font-size:.75rem;color:var(--text2);letter-spacing:.03em">'+x+'</span>').join('');
+  el.innerHTML=logos.map(l=>'<span style="font-family:Syne,sans-serif;font-weight:700;font-size:.72rem;color:var(--text2);letter-spacing:.03em">'+l+'</span>').join('');
 })();
 
 // ═══════════════ FAQ ═══════════════
 (function(){
   const faqs=[
-    {q:'Do I need coding experience to start?',a:'Not for our AI Foundations or school-level courses. We start from zero. Professional ML and advanced programs require Python basics.'},
-    {q:'Are certifications recognized by employers?',a:'Yes. Our curriculum is designed with input from hiring managers at major tech companies. Graduates report significantly improved job prospects and salary increases.'},
-    {q:'Can I pay in installments?',a:'Absolutely. We offer 2-part and monthly payment plans for all programs. Corporate invoicing is also available. All payments are securely processed via Stripe (PCI-DSS compliant).'},
-    {q:"What's the difference between courses and certifications?",a:'Courses focus on learning specific skills with flexible timelines. Certifications include rigorous assessment, a capstone project, and an industry-recognized credential upon completion.'},
-    {q:'Do you offer corporate training?',a:'Yes — customized team training from 2 to 12 weeks. We tailor content to your industry, tech stack, and business objectives. Contact us for a proposal.'},
-    {q:'How does 1-on-1 tutoring work?',a:"You're matched with an expert mentor in your chosen area. Sessions are weekly, 60-90 minutes, with homework and project guidance between sessions. Fully remote via video call."},
-    {q:'What payment methods do you accept?',a:'We accept all major credit cards, debit cards, and bank transfers via Stripe (PCI-DSS compliant, 256-bit SSL). UPI and local methods available for India via Razorpay.'},
-    {q:'Can you build a custom AI solution for my business?',a:'Yes. We handle everything from initial strategy to production deployment — chatbots, predictive analytics, ML pipelines, API integration, and more. Start with a free consultation.'},
-    {q:'Is my data safe and encrypted?',a:'Yes. All personal data and uploaded files are encrypted with AES-256-GCM. Passwords are hashed with bcrypt via Supabase. All connections use HTTPS.'},
-    {q:'Do you offer refunds?',a:"We offer a 7-day money-back guarantee for all programs. After the first week, partial refunds are available on a case-by-case basis."}
+    {q:'Do I need coding experience to start?',a:'Not at all for our AI Foundations, school-level, or Robotics Explorer programs — we start from zero. Professional ML and advanced robotics tiers require Python basics, which we also teach.'},
+    {q:'Are certifications recognized by employers?',a:'Yes. Our curriculum is designed with input from hiring managers at leading tech companies. Graduates consistently report improved job prospects and measurable salary increases within 6 months.'},
+    {q:'Can I pay in installments?',a:'Absolutely. We offer 2-part and monthly payment plans for all programs. Corporate invoicing is available for team enrollments. All transactions are processed securely through Stripe (PCI-DSS Level 1 compliant).'},
+    {q:"What's the difference between Courses and Certifications?",a:'Courses focus on skill-building with flexible timelines. Certifications include rigorous assessments, a capstone project, and an industry-recognized credential upon completion — designed to be portfolio-ready.'},
+    {q:'How does the 5-tier Robotics program work?',a:'Each tier builds on the previous one. Tier 1 (Explorer) uses visual coding for kids ages 7-10. By Tier 5 (Architect), professionals design autonomous fleets with sensor fusion and digital twins. Hardware kits are shipped for Tiers 1-2; simulation labs for Tiers 3-5.'},
+    {q:'Do you offer corporate training?',a:'Yes — fully customized team training from 2 to 12 weeks. We tailor content to your industry, tech stack, and business KPIs. Includes needs assessment, custom curriculum, progress tracking, and post-training support.'},
+    {q:'How does 1-on-1 tutoring work?',a:"You're matched with an expert mentor in your chosen area. Sessions are weekly, 60-90 minutes via video call, with homework, code reviews, and project guidance between sessions. Recordings included."},
+    {q:'What payment methods do you accept?',a:'All major credit/debit cards via Stripe (256-bit SSL, PCI-DSS Level 1). UPI and local methods via Razorpay for India. Bank transfers and corporate invoicing for enterprise clients.'},
+    {q:'Can you build a custom AI solution for my business?',a:'Yes. We handle end-to-end delivery — strategy consulting, ML model development, chatbots, predictive analytics, API integration, cloud deployment, and ongoing support. Start with a free consultation.'},
+    {q:'Is my data safe?',a:'All personal data is encrypted with AES-256-GCM. Passwords are hashed via Supabase (bcrypt). CV uploads use client-side encryption before transmission. All connections use HTTPS/TLS 1.3.'},
+    {q:'Do you offer refunds?',a:"Yes — a 7-day money-back guarantee for all programs. After the first week, partial refunds are evaluated case-by-case. We want you to feel confident in your investment."},
+    {q:'Can I advertise on your website?',a:'Yes! We offer digital advertising placements (sidebar and in-content). Contact us through the form above with "Advertise on AARNAIT AI" selected, and our team will share media kit details.'}
   ];
   const el=document.getElementById('faqList');if(!el)return;
   el.innerHTML=faqs.map(f=>'<div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle(\'faq-open\')"><span>'+f.q+'</span><span class="faq-icon">+</span></div><div class="faq-a"><p>'+f.a+'</p></div></div>').join('');
+})();
+
+// ═══════════════ INSPIRATION VIDEOS ═══════════════
+(function(){
+  const vids=[
+    {yt:'fn3KWM1kuAw',title:'Atlas: The Next Generation of Humanoid Robots',desc:'Boston Dynamics showcases the all-electric Atlas performing real-world warehouse and factory tasks with unprecedented agility.'},
+    {yt:'Sq1QZB5baNw',title:'How AI Is Transforming Every Industry',desc:'From healthcare diagnostics to autonomous vehicles — a comprehensive look at AI reshaping how the world works.'},
+    {yt:'jSxVFgXvSCo',title:'The Rise of AI Agents & Autonomous Systems',desc:'How agentic AI is creating systems that can reason, plan, and execute complex multi-step tasks without human supervision.'}
+  ];
+  const el=document.getElementById('vidGrid');if(!el)return;
+  el.innerHTML=vids.map(v=>'<div class="vid-card"><iframe src="https://www.youtube.com/embed/'+v.yt+'" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><div class="vid-info"><h4>'+v.title+'</h4><p>'+v.desc+'</p></div></div>').join('');
 })();
 
 </script>
