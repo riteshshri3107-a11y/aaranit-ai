@@ -343,6 +343,23 @@ nav.scrolled{padding:.65rem 2rem;background:rgba(6,8,13,.92);border-color:var(--
 .nav-links a{color:var(--text2);text-decoration:none;font-size:.8rem;font-weight:500;transition:color .3s;position:relative;white-space:nowrap}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:50%;width:0;height:2px;background:var(--cyan);transition:all .3s;transform:translateX(-50%)}
 .nav-links a:hover{color:var(--text)}.nav-links a:hover::after{width:100%}
+
+/* ── NAV DROPDOWNS ── */
+.nav-drop{position:relative}
+.nav-drop>a{display:flex;align-items:center;gap:4px}
+.nav-drop>a .dd-arrow{display:inline-block;font-size:.5rem;transition:transform .25s;opacity:.5}
+.nav-drop:hover>a .dd-arrow{transform:rotate(180deg);opacity:.8}
+.nav-drop:hover>a{color:var(--text)}
+.nav-drop .dd-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(6px);min-width:220px;background:rgba(10,14,22,.97);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:.5rem 0;opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.4,0,.2,1);z-index:100;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.nav-drop:hover .dd-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-drop .dd-menu::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-bottom-color:rgba(255,255,255,.06)}
+.dd-menu a{display:flex;align-items:center;gap:.6rem;padding:.55rem 1.1rem;font-size:.76rem;color:var(--text2);transition:all .2s;border-radius:0}
+.dd-menu a::after{display:none!important}
+.dd-menu a:hover{color:var(--text);background:rgba(0,229,255,.04);padding-left:1.3rem}
+.dd-menu a .dd-icon{font-size:.9rem;width:22px;text-align:center;flex-shrink:0}
+.dd-menu a .dd-desc{font-size:.6rem;color:var(--muted);margin-top:1px}
+.dd-sep{height:1px;background:rgba(255,255,255,.04);margin:.3rem .8rem}
+.dd-head{padding:.4rem 1.1rem .2rem;font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:'Syne',sans-serif}
 .nav-right{display:flex;align-items:center;gap:.6rem}
 .cart-btn{position:relative;background:none;border:1px solid var(--border);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;color:var(--text)}
 .curr-sel{background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.75rem;padding:6px 8px;outline:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color .3s;-webkit-appearance:none;appearance:none}
@@ -735,13 +752,52 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     <span class="logo-mark">AARNA<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span>
   </a>
   <ul class="nav-links">
-    <li><a href="#services" data-i18n="navServices">Services</a></li>
-    <li><a href="#courses">Courses</a></li>
-    <li><a href="#certifications" data-i18n="navCerts">Certifications</a></li>
-    <li><a href="#robotics">Robotics</a></li>
-    <li><a href="#tutoring" data-i18n="navTutoring">Tutoring</a></li>
+    <!-- SERVICES dropdown -->
+    <li class="nav-drop">
+      <a href="#services">Services <span class="dd-arrow">▼</span></a>
+      <div class="dd-menu">
+        <div class="dd-head">What We Build</div>
+        <a href="#services"><span class="dd-icon">🤖</span><div><div>AI Development</div><div class="dd-desc">Custom ML models & AI systems</div></div></a>
+        <a href="#services"><span class="dd-icon">💡</span><div><div>AI Strategy & Consulting</div><div class="dd-desc">Roadmap, audits & implementation</div></div></a>
+        <a href="#services"><span class="dd-icon">⚙️</span><div><div>MLOps & Deployment</div><div class="dd-desc">Production pipelines & infrastructure</div></div></a>
+        <a href="#robotics"><span class="dd-icon">🦾</span><div><div>Robotics Solutions</div><div class="dd-desc">From prototyping to autonomous systems</div></div></a>
+        <div class="dd-sep"></div>
+        <a href="#contact"><span class="dd-icon">📞</span><div><div>Free Consultation</div><div class="dd-desc">Speak to our team — 24hr response</div></div></a>
+      </div>
+    </li>
+
+    <!-- PROGRAMS dropdown -->
+    <li class="nav-drop">
+      <a href="#courses">Programs <span class="dd-arrow">▼</span></a>
+      <div class="dd-menu">
+        <div class="dd-head">Learning Paths</div>
+        <a href="#courses"><span class="dd-icon">📚</span><div><div>All Courses</div><div class="dd-desc">35+ programs across 11 categories</div></div></a>
+        <a href="#certifications"><span class="dd-icon">🏆</span><div><div>Certifications</div><div class="dd-desc">Industry-recognized AI credentials</div></div></a>
+        <a href="#robotics"><span class="dd-icon">🤖</span><div><div>Robotics Academy</div><div class="dd-desc">5-tier curriculum for all ages</div></div></a>
+        <a href="#tutoring"><span class="dd-icon">👨‍🏫</span><div><div>1-on-1 Tutoring</div><div class="dd-desc">Expert mentors & bootcamps</div></div></a>
+        <div class="dd-sep"></div>
+        <a href="#tutors"><span class="dd-icon">⭐</span><div><div>Meet Our Tutors</div><div class="dd-desc">Senior practitioners & researchers</div></div></a>
+      </div>
+    </li>
+
+    <!-- CAREERS (standalone) -->
     <li><a href="careers.html" data-i18n="navCareers">Careers</a></li>
-    <li><a href="#faq">FAQ</a></li>
+
+    <!-- COMPANY dropdown -->
+    <li class="nav-drop">
+      <a href="#approach">Company <span class="dd-arrow">▼</span></a>
+      <div class="dd-menu">
+        <div class="dd-head">About AARNAIT AI</div>
+        <a href="#approach"><span class="dd-icon">🎯</span><div><div>Our Philosophy</div><div class="dd-desc">Why leaders choose AARNAIT</div></div></a>
+        <a href="#testimonials"><span class="dd-icon">💬</span><div><div>Success Stories</div><div class="dd-desc">Real impact from real learners</div></div></a>
+        <a href="#offices"><span class="dd-icon">📍</span><div><div>Our Offices</div><div class="dd-desc">Toronto HQ & Brampton Hub</div></div></a>
+        <a href="#faq"><span class="dd-icon">❓</span><div><div>FAQ</div><div class="dd-desc">Payments, certificates & more</div></div></a>
+        <div class="dd-sep"></div>
+        <a href="#contact"><span class="dd-icon">✉️</span><div><div>Contact Us</div><div class="dd-desc">hello@aarnaitai.com</div></div></a>
+      </div>
+    </li>
+
+    <!-- AI NEWS (standalone) -->
     <li><a href="#ainews" style="white-space:nowrap">AI News</a></li>
   </ul>
   <div class="nav-right">
@@ -787,7 +843,15 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- MOBILE DRAWER -->
 <div class="mobile-overlay" id="mobOverlay"></div>
 <div class="mobile-drawer" id="mobDrawer">
-  <a href="#services">Services</a><a href="#courses">Courses</a><a href="#certifications">Certifications</a><a href="#robotics">Robotics</a><a href="#tutoring">Tutoring</a><a href="careers.html">Careers</a><a href="#ainews">AI News</a><a href="#inbox">Messages</a><a href="javascript:void(0)" onclick="closeMob();openAuth()" style="color:var(--green)">🔐 Sign Up / Sign In</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
+  <div style="padding:.5rem 0 .3rem;font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:Syne,sans-serif">Services</div>
+  <a href="#services" onclick="closeMob()">AI Development</a><a href="#services" onclick="closeMob()">Consulting & Strategy</a><a href="#robotics" onclick="closeMob()">Robotics Solutions</a>
+  <div style="padding:.5rem 0 .3rem;font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:Syne,sans-serif;border-top:1px solid var(--border);margin-top:.3rem">Programs</div>
+  <a href="#courses" onclick="closeMob()">All Courses</a><a href="#certifications" onclick="closeMob()">Certifications</a><a href="#robotics" onclick="closeMob()">Robotics Academy</a><a href="#tutoring" onclick="closeMob()">1-on-1 Tutoring</a><a href="#tutors" onclick="closeMob()">Our Tutors</a>
+  <div style="padding:.5rem 0 .3rem;font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:Syne,sans-serif;border-top:1px solid var(--border);margin-top:.3rem">Company</div>
+  <a href="#approach" onclick="closeMob()">Our Philosophy</a><a href="#testimonials" onclick="closeMob()">Success Stories</a><a href="#offices" onclick="closeMob()">Offices</a><a href="#faq" onclick="closeMob()">FAQ</a><a href="#contact" onclick="closeMob()">Contact</a>
+  <div style="border-top:1px solid var(--border);margin-top:.3rem;padding-top:.3rem"></div>
+  <a href="careers.html" onclick="closeMob()">Careers</a><a href="#ainews" onclick="closeMob()">AI News</a>
+  <a href="javascript:void(0)" onclick="closeMob();openAuth()" style="color:var(--green)">🔐 Sign Up / Sign In</a><a href="#contact" class="gradient-text" style="font-weight:700">Get Started →</a>
 </div>
 
 <!-- CART SIDEBAR -->
