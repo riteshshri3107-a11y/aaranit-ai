@@ -36,6 +36,14 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 #constellationCanvas.dimmed{opacity:.25}
 
 /* ── FLOATING AI/ROBOT DECORATIONS ── */
+/* ── HERO ROBOT + HANDS ILLUSTRATIONS ── */
+.hero-robot{animation:heroRobotFloat 8s ease-in-out infinite}
+.hero-hands{animation:heroHandsFloat 6s ease-in-out infinite}
+@keyframes heroRobotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes heroHandsFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(.5deg)}}
+@media(max-width:1200px){.hero-robot{width:280px;right:-3%!important;opacity:.3!important}.hero-hands{width:240px;opacity:.4!important}}
+@media(max-width:900px){.hero-robot{width:200px;opacity:.2!important}.hero-hands{width:180px;opacity:.3!important}}
+@media(max-width:600px){.hero-robot{display:none!important}.hero-hands{display:none!important}}
 .ai-floats{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
 .ai-float{position:absolute;opacity:0;animation:aiDrift linear infinite}
 .ai-float svg{filter:drop-shadow(0 0 8px rgba(0,229,255,.15))}
@@ -817,32 +825,210 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <section class="hero" style="min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative">
   <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(0,229,255,.04) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(139,92,246,.03) 0%,transparent 50%);pointer-events:none"></div>
   <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden">
-    <!-- Circuit traces (left side) -->
-    <svg style="position:absolute;left:2%;top:20%;opacity:.04" width="120" height="200" viewBox="0 0 120 200" fill="none" stroke="var(--cyan)" stroke-width="1">
-      <path d="M60 0v40l30 30v30l-30 30v40"/>
-      <circle cx="60" cy="40" r="4" fill="var(--cyan)" opacity=".4"/>
-      <circle cx="90" cy="70" r="3" fill="var(--cyan)" opacity=".3"/>
-      <circle cx="90" cy="100" r="3" fill="var(--cyan)" opacity=".3"/>
-      <circle cx="60" cy="130" r="4" fill="var(--cyan)" opacity=".4"/>
-      <path d="M60 70h-40v60h40"/>
-      <circle cx="20" cy="70" r="3" fill="var(--violet)" opacity=".3"/>
-      <circle cx="20" cy="130" r="3" fill="var(--violet)" opacity=".3"/>
+
+    <!-- ═══ LEFT: HUMAN HAND REACHING TO ROBOT HAND (Creation of Adam style) ═══ -->
+    <svg class="hero-hands" style="position:absolute;left:-2%;bottom:8%;opacity:.55;filter:drop-shadow(0 0 20px rgba(0,229,255,.15))" width="320" height="280" viewBox="0 0 320 280" fill="none">
+      <!-- Human arm + hand (left side, warm skin tone) -->
+      <g class="human-hand">
+        <!-- Forearm -->
+        <path d="M10 200 Q30 185 60 175 L100 165 Q110 160 115 155" stroke="rgba(210,170,140,.6)" stroke-width="2.5" fill="none"/>
+        <path d="M10 215 Q30 200 60 190 L100 180 Q110 175 120 170" stroke="rgba(210,170,140,.4)" stroke-width="2" fill="none"/>
+        <!-- Palm -->
+        <path d="M115 155 Q125 148 140 145 Q155 143 165 148 Q170 155 168 165 L160 172 Q150 178 140 175 L120 170" fill="rgba(210,170,140,.12)" stroke="rgba(210,170,140,.5)" stroke-width="1.5"/>
+        <!-- Fingers reaching out -->
+        <path d="M165 148 Q178 138 188 132 Q192 130 194 133 Q190 140 180 150 L168 158" fill="rgba(210,170,140,.1)" stroke="rgba(210,170,140,.5)" stroke-width="1.3"/>
+        <path d="M163 143 Q175 128 186 120 Q190 118 192 121 Q187 130 176 142 L165 150" fill="rgba(210,170,140,.08)" stroke="rgba(210,170,140,.45)" stroke-width="1.2"/>
+        <path d="M158 140 Q168 124 178 116 Q182 114 184 117 Q180 126 170 138 L160 146" fill="rgba(210,170,140,.06)" stroke="rgba(210,170,140,.4)" stroke-width="1.1"/>
+        <!-- Index finger (most extended, pointing) -->
+        <path d="M168 148 Q185 136 200 128 Q208 124 212 126 Q210 132 198 142 L182 155" fill="rgba(210,170,140,.12)" stroke="rgba(210,170,140,.55)" stroke-width="1.5"/>
+        <!-- Fingertip glow -->
+        <circle cx="210" cy="127" r="3" fill="rgba(210,170,140,.3)">
+          <animate attributeName="r" values="3;5;3" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".3;.6;.3" dur="3s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+
+      <!-- Robot arm + hand (right side, metallic cyan) -->
+      <g class="robot-hand">
+        <!-- Forearm (mechanical) -->
+        <path d="M310 210 Q290 195 265 182 L235 172 Q225 167 220 162" stroke="rgba(0,229,255,.5)" stroke-width="2.5" fill="none"/>
+        <path d="M310 222 Q290 208 265 196 L235 186 Q225 181 220 176" stroke="rgba(0,229,255,.3)" stroke-width="2" fill="none"/>
+        <!-- Mechanical joint lines -->
+        <line x1="260" y1="182" x2="260" y2="196" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+        <line x1="245" y1="177" x2="245" y2="191" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+        <circle cx="260" cy="189" r="2.5" fill="rgba(0,229,255,.15)" stroke="rgba(0,229,255,.3)" stroke-width=".8"/>
+        <circle cx="245" cy="184" r="2" fill="rgba(0,229,255,.12)" stroke="rgba(0,229,255,.25)" stroke-width=".8"/>
+        <!-- Palm (angular, robotic) -->
+        <path d="M220 162 Q212 154 200 150 Q188 147 180 150 Q175 156 176 164 L182 170 Q190 175 200 173 L218 170" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.45)" stroke-width="1.5"/>
+        <!-- Circuit lines on palm -->
+        <line x1="195" y1="153" x2="195" y2="167" stroke="rgba(0,229,255,.15)" stroke-width=".5"/>
+        <line x1="188" y1="156" x2="205" y2="156" stroke="rgba(0,229,255,.15)" stroke-width=".5"/>
+        <!-- Fingers -->
+        <path d="M180 150 Q168 140 158 134 Q154 132 152 135 Q156 142 166 152 L178 160" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.4)" stroke-width="1.3"/>
+        <path d="M183 146 Q172 132 162 124 Q158 122 156 125 Q160 134 170 145 L180 153" fill="rgba(0,229,255,.05)" stroke="rgba(0,229,255,.35)" stroke-width="1.2"/>
+        <path d="M187 143 Q178 128 168 120 Q164 118 162 121 Q165 130 175 142 L185 150" fill="rgba(0,229,255,.04)" stroke="rgba(0,229,255,.3)" stroke-width="1.1"/>
+        <!-- Index finger (most extended) -->
+        <path d="M177 150 Q162 138 148 130 Q140 126 137 128 Q140 134 152 144 L168 157" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.5)" stroke-width="1.5"/>
+        <!-- Fingertip glow (robot) -->
+        <circle cx="138" cy="128" r="3" fill="rgba(0,229,255,.35)">
+          <animate attributeName="r" values="3;6;3" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".35;.7;.35" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Joint dots on fingers -->
+        <circle cx="158" cy="134" r="1.5" fill="rgba(0,229,255,.3)"/>
+        <circle cx="162" cy="124" r="1.5" fill="rgba(0,229,255,.25)"/>
+        <circle cx="148" cy="130" r="1.5" fill="rgba(0,229,255,.3)"/>
+      </g>
+
+      <!-- ENERGY SPARK between fingertips -->
+      <g class="spark">
+        <line x1="210" y1="127" x2="138" y2="128" stroke="url(#sparkGrad)" stroke-width="1" opacity=".4">
+          <animate attributeName="opacity" values=".1;.6;.1" dur="2.5s" repeatCount="indefinite"/>
+        </line>
+        <!-- Spark particles -->
+        <circle cx="174" cy="127" r="2" fill="rgba(139,92,246,.5)">
+          <animate attributeName="r" values="1;4;1" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".2;.8;.2" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="165" cy="128" r="1.5" fill="rgba(0,229,255,.4)">
+          <animate attributeName="r" values="1.5;3;1.5" dur="1.8s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="183" cy="127" r="1" fill="rgba(217,70,239,.4)">
+          <animate attributeName="r" values="1;2.5;1" dur="2.2s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+      <defs>
+        <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(210,170,140,.6)"/>
+          <stop offset="50%" stop-color="rgba(139,92,246,.8)"/>
+          <stop offset="100%" stop-color="rgba(0,229,255,.6)"/>
+        </linearGradient>
+      </defs>
     </svg>
-    <!-- Neural network (right side) -->
-    <svg style="position:absolute;right:3%;top:30%;opacity:.035" width="140" height="180" viewBox="0 0 140 180" fill="none" stroke="var(--violet)" stroke-width=".8">
-      <circle cx="20" cy="30" r="6" stroke-width="1.2"/><circle cx="20" cy="90" r="6" stroke-width="1.2"/><circle cx="20" cy="150" r="6" stroke-width="1.2"/>
-      <circle cx="70" cy="50" r="8" stroke-width="1.2" stroke="var(--cyan)"/><circle cx="70" cy="130" r="8" stroke-width="1.2" stroke="var(--cyan)"/>
-      <circle cx="120" cy="90" r="10" stroke-width="1.5" stroke="var(--magenta)"/>
-      <line x1="26" y1="30" x2="62" y2="50" opacity=".5"/><line x1="26" y1="30" x2="62" y2="130" opacity=".3"/>
-      <line x1="26" y1="90" x2="62" y2="50" opacity=".4"/><line x1="26" y1="90" x2="62" y2="130" opacity=".4"/>
-      <line x1="26" y1="150" x2="62" y2="130" opacity=".5"/><line x1="26" y1="150" x2="62" y2="50" opacity=".3"/>
-      <line x1="78" y1="50" x2="110" y2="90" opacity=".5" stroke="var(--cyan)"/>
-      <line x1="78" y1="130" x2="110" y2="90" opacity=".5" stroke="var(--cyan)"/>
-    </svg>
-    <!-- Robot head silhouette (top center, very subtle) -->
-    <svg style="position:absolute;left:50%;top:5%;transform:translateX(-50%);opacity:.02" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width=".8">
-      <rect x="3" y="8" width="18" height="13" rx="3"/><circle cx="8.5" cy="14" r="2"/><circle cx="15.5" cy="14" r="2"/><path d="M9 18h6"/><line x1="12" y1="2" x2="12" y2="8"/><circle cx="12" cy="2" r="1.5"/>
-      <line x1="1" y1="14" x2="3" y2="14"/><line x1="21" y1="14" x2="23" y2="14"/>
+
+    <!-- ═══ RIGHT: FULL HUMANOID ROBOT FIGURE ═══ -->
+    <svg class="hero-robot" style="position:absolute;right:-1%;top:8%;opacity:.45;filter:drop-shadow(0 0 30px rgba(0,229,255,.12))" width="380" height="520" viewBox="0 0 380 520" fill="none">
+      <!-- Antenna -->
+      <line x1="190" y1="10" x2="190" y2="55" stroke="rgba(0,229,255,.4)" stroke-width="1.5"/>
+      <circle cx="190" cy="8" r="5" fill="rgba(0,229,255,.15)" stroke="rgba(0,229,255,.5)" stroke-width="1">
+        <animate attributeName="fill" values="rgba(0,229,255,.15);rgba(0,229,255,.4);rgba(0,229,255,.15)" dur="3s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Head -->
+      <rect x="148" y="55" width="84" height="70" rx="18" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.35)" stroke-width="1.8"/>
+      <!-- Visor / Face plate -->
+      <rect x="158" y="68" width="64" height="30" rx="8" fill="rgba(0,229,255,.04)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+      <!-- Eyes (glowing) -->
+      <circle cx="175" cy="83" r="6" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.5)" stroke-width="1.2">
+        <animate attributeName="fill" values="rgba(0,229,255,.08);rgba(0,229,255,.25);rgba(0,229,255,.08)" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="175" cy="83" r="2.5" fill="rgba(0,229,255,.5)"/>
+      <circle cx="205" cy="83" r="6" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.5)" stroke-width="1.2">
+        <animate attributeName="fill" values="rgba(0,229,255,.08);rgba(0,229,255,.25);rgba(0,229,255,.08)" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="205" cy="83" r="2.5" fill="rgba(0,229,255,.5)"/>
+      <!-- Mouth (LED strip) -->
+      <rect x="172" y="103" width="36" height="3" rx="1.5" fill="rgba(0,229,255,.2)">
+        <animate attributeName="width" values="36;28;36" dur="5s" repeatCount="indefinite"/>
+      </rect>
+      <!-- Ear sensors -->
+      <rect x="138" y="75" width="10" height="20" rx="5" fill="rgba(139,92,246,.05)" stroke="rgba(139,92,246,.25)" stroke-width="1"/>
+      <rect x="232" y="75" width="10" height="20" rx="5" fill="rgba(139,92,246,.05)" stroke="rgba(139,92,246,.25)" stroke-width="1"/>
+
+      <!-- Neck -->
+      <rect x="178" y="125" width="24" height="18" rx="4" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+      <line x1="183" y1="130" x2="183" y2="138" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
+      <line x1="190" y1="130" x2="190" y2="138" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
+      <line x1="197" y1="130" x2="197" y2="138" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
+
+      <!-- Torso (chest plate) -->
+      <path d="M138 143 Q140 138 155 135 L225 135 Q240 138 242 143 L248 220 Q245 235 230 240 L150 240 Q135 235 132 220 Z" fill="rgba(0,229,255,.025)" stroke="rgba(0,229,255,.3)" stroke-width="1.5"/>
+      <!-- Chest arc reactor / core -->
+      <circle cx="190" cy="180" r="20" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.25)" stroke-width="1.2"/>
+      <circle cx="190" cy="180" r="12" fill="rgba(0,229,255,.05)" stroke="rgba(0,229,255,.35)" stroke-width="1">
+        <animate attributeName="r" values="12;14;12" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="190" cy="180" r="5" fill="rgba(0,229,255,.3)">
+        <animate attributeName="fill" values="rgba(0,229,255,.3);rgba(0,229,255,.6);rgba(0,229,255,.3)" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Chest panel lines -->
+      <line x1="155" y1="155" x2="225" y2="155" stroke="rgba(0,229,255,.1)" stroke-width=".5"/>
+      <line x1="150" y1="205" x2="230" y2="205" stroke="rgba(0,229,255,.1)" stroke-width=".5"/>
+      <line x1="160" y1="155" x2="160" y2="205" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
+      <line x1="220" y1="155" x2="220" y2="205" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
+      <!-- AARNAIT text on chest -->
+      <text x="190" y="225" text-anchor="middle" font-family="Syne,sans-serif" font-size="7" font-weight="700" fill="rgba(0,229,255,.2)" letter-spacing="2">AARNAIT</text>
+
+      <!-- Left Shoulder -->
+      <circle cx="130" cy="145" r="14" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.25)" stroke-width="1.2"/>
+      <circle cx="130" cy="145" r="4" fill="rgba(139,92,246,.12)"/>
+      <!-- Left Upper Arm -->
+      <rect x="120" y="159" width="20" height="55" rx="8" fill="rgba(139,92,246,.02)" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+      <!-- Left Elbow -->
+      <circle cx="130" cy="222" r="8" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+      <!-- Left Forearm -->
+      <rect x="122" y="230" width="16" height="50" rx="6" fill="rgba(139,92,246,.02)" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
+      <!-- Left Hand -->
+      <path d="M120 280 Q118 290 122 298 Q128 306 138 304 Q142 298 140 288 L138 280" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.22)" stroke-width="1"/>
+      <!-- Left fingers -->
+      <line x1="124" y1="298" x2="120" y2="312" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
+      <line x1="128" y1="300" x2="126" y2="316" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+      <line x1="133" y1="302" x2="133" y2="318" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+      <line x1="137" y1="300" x2="139" y2="314" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
+
+      <!-- Right Shoulder -->
+      <circle cx="250" cy="145" r="14" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.25)" stroke-width="1.2"/>
+      <circle cx="250" cy="145" r="4" fill="rgba(139,92,246,.12)"/>
+      <!-- Right Upper Arm (slightly raised, friendly) -->
+      <rect x="240" y="159" width="20" height="50" rx="8" transform="rotate(10,250,159)" fill="rgba(139,92,246,.02)" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+      <!-- Right Elbow -->
+      <circle cx="258" cy="215" r="8" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+      <!-- Right Forearm (angled outward) -->
+      <rect x="252" y="223" width="16" height="48" rx="6" transform="rotate(15,260,223)" fill="rgba(139,92,246,.02)" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
+      <!-- Right Hand (waving) -->
+      <path d="M272 272 Q278 280 282 290 Q280 298 272 300 Q264 296 262 286 L264 276" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.22)" stroke-width="1">
+        <animateTransform attributeName="transform" type="rotate" values="-3,272,272;3,272,272;-3,272,272" dur="4s" repeatCount="indefinite"/>
+      </path>
+      <!-- Right fingers (spread, waving) -->
+      <line x1="278" y1="290" x2="286" y2="302" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+      <line x1="280" y1="294" x2="290" y2="304" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
+      <line x1="276" y1="296" x2="282" y2="310" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+
+      <!-- Hip / Waist -->
+      <path d="M155 240 Q165 248 190 250 Q215 248 225 240 L222 268 Q210 275 190 276 Q170 275 158 268 Z" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+      <!-- Waist joint detail -->
+      <ellipse cx="190" cy="258" rx="25" ry="4" fill="none" stroke="rgba(0,229,255,.12)" stroke-width=".8"/>
+
+      <!-- Left Leg -->
+      <rect x="158" y="276" width="24" height="70" rx="10" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+      <!-- Left Knee -->
+      <circle cx="170" cy="352" r="8" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
+      <!-- Left Shin -->
+      <rect x="160" y="360" width="20" height="65" rx="8" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
+      <!-- Left Foot -->
+      <path d="M156 425 Q158 435 165 440 L185 440 Q190 435 188 425" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.22)" stroke-width="1"/>
+
+      <!-- Right Leg -->
+      <rect x="198" y="276" width="24" height="70" rx="10" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+      <!-- Right Knee -->
+      <circle cx="210" cy="352" r="8" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
+      <!-- Right Shin -->
+      <rect x="200" y="360" width="20" height="65" rx="8" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
+      <!-- Right Foot -->
+      <path d="M196 425 Q198 435 205 440 L225 440 Q230 435 228 425" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.22)" stroke-width="1"/>
+
+      <!-- Ground glow -->
+      <ellipse cx="190" cy="445" rx="60" ry="6" fill="rgba(0,229,255,.04)">
+        <animate attributeName="rx" values="60;70;60" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".6;1;.6" dur="4s" repeatCount="indefinite"/>
+      </ellipse>
+
+      <!-- Floating data particles around robot -->
+      <circle cx="115" cy="170" r="2" fill="rgba(0,229,255,.25)"><animate attributeName="cy" values="170;160;170" dur="5s" repeatCount="indefinite"/></circle>
+      <circle cx="268" cy="188" r="1.5" fill="rgba(139,92,246,.3)"><animate attributeName="cy" values="188;178;188" dur="4s" repeatCount="indefinite"/></circle>
+      <circle cx="145" cy="260" r="1.5" fill="rgba(0,229,255,.2)"><animate attributeName="cy" values="260;252;260" dur="6s" repeatCount="indefinite"/></circle>
+      <circle cx="240" cy="300" r="2" fill="rgba(139,92,246,.2)"><animate attributeName="cy" values="300;290;300" dur="5.5s" repeatCount="indefinite"/></circle>
+      <circle cx="160" cy="400" r="1" fill="rgba(0,229,255,.15)"><animate attributeName="cy" values="400;393;400" dur="4.5s" repeatCount="indefinite"/></circle>
     </svg>
   </div>
   <div style="max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1">
