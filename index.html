@@ -41,8 +41,8 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 .hero-hands{animation:heroHandsFloat 6s ease-in-out infinite}
 @keyframes heroRobotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
 @keyframes heroHandsFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(.5deg)}}
-@media(max-width:1200px){.hero-robot{width:280px;right:-3%!important;opacity:.3!important}.hero-hands{width:240px;opacity:.4!important}}
-@media(max-width:900px){.hero-robot{width:200px;opacity:.2!important}.hero-hands{width:180px;opacity:.3!important}}
+@media(max-width:1200px){.hero-robot{width:380px;right:-5%!important;opacity:.4!important}.hero-hands{width:260px;opacity:.4!important}}
+@media(max-width:900px){.hero-robot{width:280px;opacity:.25!important}.hero-hands{width:200px;opacity:.3!important}}
 @media(max-width:600px){.hero-robot{display:none!important}.hero-hands{display:none!important}}
 .ai-floats{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
 .ai-float{position:absolute;opacity:0;animation:aiDrift linear infinite}
@@ -906,129 +906,250 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
       </defs>
     </svg>
 
-    <!-- ═══ RIGHT: FULL HUMANOID ROBOT FIGURE ═══ -->
-    <svg class="hero-robot" style="position:absolute;right:-1%;top:8%;opacity:.45;filter:drop-shadow(0 0 30px rgba(0,229,255,.12))" width="380" height="520" viewBox="0 0 380 520" fill="none">
-      <!-- Antenna -->
-      <line x1="190" y1="10" x2="190" y2="55" stroke="rgba(0,229,255,.4)" stroke-width="1.5"/>
-      <circle cx="190" cy="8" r="5" fill="rgba(0,229,255,.15)" stroke="rgba(0,229,255,.5)" stroke-width="1">
-        <animate attributeName="fill" values="rgba(0,229,255,.15);rgba(0,229,255,.4);rgba(0,229,255,.15)" dur="3s" repeatCount="indefinite"/>
-      </circle>
+    <!-- ═══ RIGHT: CINEMATIC ROBOT + HOLOGRAPHIC GLOBE ═══ -->
+    <svg class="hero-robot" style="position:absolute;right:-2%;top:3%;opacity:.65;filter:drop-shadow(0 0 40px rgba(0,229,255,.08))" width="480" height="580" viewBox="0 0 480 580" fill="none">
+      <defs>
+        <!-- Metallic gradient (body) -->
+        <linearGradient id="metalBody" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="rgba(40,50,80,.7)"/>
+          <stop offset="30%" stop-color="rgba(60,75,110,.5)"/>
+          <stop offset="60%" stop-color="rgba(35,45,70,.6)"/>
+          <stop offset="100%" stop-color="rgba(20,28,50,.7)"/>
+        </linearGradient>
+        <!-- Metallic highlight -->
+        <linearGradient id="metalHi" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(140,160,200,.3)"/>
+          <stop offset="100%" stop-color="rgba(40,50,80,.1)"/>
+        </linearGradient>
+        <!-- Cyan energy -->
+        <radialGradient id="cyanGlow" cx=".5" cy=".5" r=".5">
+          <stop offset="0%" stop-color="rgba(0,229,255,.6)"/>
+          <stop offset="50%" stop-color="rgba(0,229,255,.15)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <!-- Globe gradient -->
+        <radialGradient id="globeGrad" cx=".4" cy=".35" r=".65">
+          <stop offset="0%" stop-color="rgba(0,229,255,.1)"/>
+          <stop offset="60%" stop-color="rgba(0,100,180,.06)"/>
+          <stop offset="100%" stop-color="rgba(0,50,100,.02)"/>
+        </radialGradient>
+        <!-- Energy beam -->
+        <linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(0,229,255,.5)"/>
+          <stop offset="50%" stop-color="rgba(139,92,246,.3)"/>
+          <stop offset="100%" stop-color="rgba(0,229,255,.1)"/>
+        </linearGradient>
+        <!-- Glow filter -->
+        <filter id="glow1"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glow2"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glow3"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
 
-      <!-- Head -->
-      <rect x="148" y="55" width="84" height="70" rx="18" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.35)" stroke-width="1.8"/>
-      <!-- Visor / Face plate -->
-      <rect x="158" y="68" width="64" height="30" rx="8" fill="rgba(0,229,255,.04)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
-      <!-- Eyes (glowing) -->
-      <circle cx="175" cy="83" r="6" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.5)" stroke-width="1.2">
-        <animate attributeName="fill" values="rgba(0,229,255,.08);rgba(0,229,255,.25);rgba(0,229,255,.08)" dur="4s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="175" cy="83" r="2.5" fill="rgba(0,229,255,.5)"/>
-      <circle cx="205" cy="83" r="6" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.5)" stroke-width="1.2">
-        <animate attributeName="fill" values="rgba(0,229,255,.08);rgba(0,229,255,.25);rgba(0,229,255,.08)" dur="4s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="205" cy="83" r="2.5" fill="rgba(0,229,255,.5)"/>
-      <!-- Mouth (LED strip) -->
-      <rect x="172" y="103" width="36" height="3" rx="1.5" fill="rgba(0,229,255,.2)">
-        <animate attributeName="width" values="36;28;36" dur="5s" repeatCount="indefinite"/>
-      </rect>
-      <!-- Ear sensors -->
-      <rect x="138" y="75" width="10" height="20" rx="5" fill="rgba(139,92,246,.05)" stroke="rgba(139,92,246,.25)" stroke-width="1"/>
-      <rect x="232" y="75" width="10" height="20" rx="5" fill="rgba(139,92,246,.05)" stroke="rgba(139,92,246,.25)" stroke-width="1"/>
+      <!-- ════════════ HOLOGRAPHIC GLOBE (left portion) ════════════ -->
+      <g transform="translate(45,120)">
+        <!-- Outer ring / portal -->
+        <circle cx="120" cy="120" r="115" fill="none" stroke="rgba(0,229,255,.08)" stroke-width="2">
+          <animateTransform attributeName="transform" type="rotate" values="0 120 120;360 120 120" dur="60s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="120" cy="120" r="105" fill="none" stroke="rgba(0,229,255,.04)" stroke-width="8"/>
+        <!-- Tick marks on outer ring -->
+        <g opacity=".15" stroke="rgba(0,229,255,1)" stroke-width="1">
+          <line x1="120" y1="2" x2="120" y2="12"/><line x1="120" y1="228" x2="120" y2="238"/>
+          <line x1="2" y1="120" x2="12" y2="120"/><line x1="228" y1="120" x2="238" y2="120"/>
+          <line x1="36" y1="36" x2="43" y2="43"/><line x1="197" y1="36" x2="204" y2="43"/>
+          <line x1="36" y1="204" x2="43" y2="197"/><line x1="197" y1="204" x2="204" y2="197"/>
+        </g>
 
-      <!-- Neck -->
-      <rect x="178" y="125" width="24" height="18" rx="4" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
-      <line x1="183" y1="130" x2="183" y2="138" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
-      <line x1="190" y1="130" x2="190" y2="138" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
-      <line x1="197" y1="130" x2="197" y2="138" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
+        <!-- Globe sphere -->
+        <circle cx="120" cy="120" r="88" fill="url(#globeGrad)" stroke="rgba(0,229,255,.15)" stroke-width="1"/>
 
-      <!-- Torso (chest plate) -->
-      <path d="M138 143 Q140 138 155 135 L225 135 Q240 138 242 143 L248 220 Q245 235 230 240 L150 240 Q135 235 132 220 Z" fill="rgba(0,229,255,.025)" stroke="rgba(0,229,255,.3)" stroke-width="1.5"/>
-      <!-- Chest arc reactor / core -->
-      <circle cx="190" cy="180" r="20" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.25)" stroke-width="1.2"/>
-      <circle cx="190" cy="180" r="12" fill="rgba(0,229,255,.05)" stroke="rgba(0,229,255,.35)" stroke-width="1">
-        <animate attributeName="r" values="12;14;12" dur="3s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="190" cy="180" r="5" fill="rgba(0,229,255,.3)">
-        <animate attributeName="fill" values="rgba(0,229,255,.3);rgba(0,229,255,.6);rgba(0,229,255,.3)" dur="2s" repeatCount="indefinite"/>
-      </circle>
-      <!-- Chest panel lines -->
-      <line x1="155" y1="155" x2="225" y2="155" stroke="rgba(0,229,255,.1)" stroke-width=".5"/>
-      <line x1="150" y1="205" x2="230" y2="205" stroke="rgba(0,229,255,.1)" stroke-width=".5"/>
-      <line x1="160" y1="155" x2="160" y2="205" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
-      <line x1="220" y1="155" x2="220" y2="205" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
-      <!-- AARNAIT text on chest -->
-      <text x="190" y="225" text-anchor="middle" font-family="Syne,sans-serif" font-size="7" font-weight="700" fill="rgba(0,229,255,.2)" letter-spacing="2">AARNAIT</text>
+        <!-- Latitude lines -->
+        <ellipse cx="120" cy="120" rx="88" ry="22" fill="none" stroke="rgba(0,229,255,.08)" stroke-width=".6"/>
+        <ellipse cx="120" cy="120" rx="88" ry="44" fill="none" stroke="rgba(0,229,255,.07)" stroke-width=".6"/>
+        <ellipse cx="120" cy="120" rx="88" ry="66" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".6"/>
+        <!-- Longitude lines -->
+        <ellipse cx="120" cy="120" rx="22" ry="88" fill="none" stroke="rgba(0,229,255,.08)" stroke-width=".6"/>
+        <ellipse cx="120" cy="120" rx="44" ry="88" fill="none" stroke="rgba(0,229,255,.07)" stroke-width=".6"/>
+        <ellipse cx="120" cy="120" rx="66" ry="88" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".6"/>
 
-      <!-- Left Shoulder -->
-      <circle cx="130" cy="145" r="14" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.25)" stroke-width="1.2"/>
-      <circle cx="130" cy="145" r="4" fill="rgba(139,92,246,.12)"/>
-      <!-- Left Upper Arm -->
-      <rect x="120" y="159" width="20" height="55" rx="8" fill="rgba(139,92,246,.02)" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
-      <!-- Left Elbow -->
-      <circle cx="130" cy="222" r="8" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
-      <!-- Left Forearm -->
-      <rect x="122" y="230" width="16" height="50" rx="6" fill="rgba(139,92,246,.02)" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
-      <!-- Left Hand -->
-      <path d="M120 280 Q118 290 122 298 Q128 306 138 304 Q142 298 140 288 L138 280" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.22)" stroke-width="1"/>
-      <!-- Left fingers -->
-      <line x1="124" y1="298" x2="120" y2="312" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
-      <line x1="128" y1="300" x2="126" y2="316" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
-      <line x1="133" y1="302" x2="133" y2="318" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
-      <line x1="137" y1="300" x2="139" y2="314" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
+        <!-- Simplified continent outlines (stylized, not copied) -->
+        <!-- North America shape -->
+        <path d="M65 65 Q72 58 82 55 Q95 52 105 58 Q108 65 102 72 Q95 80 88 82 Q80 78 72 75 Q65 72 65 65Z" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.2)" stroke-width=".8">
+          <animate attributeName="fill" values="rgba(0,229,255,.08);rgba(0,229,255,.15);rgba(0,229,255,.08)" dur="6s" repeatCount="indefinite"/>
+        </path>
+        <!-- South America -->
+        <path d="M92 100 Q98 95 102 98 Q106 108 104 120 Q100 132 95 138 Q90 135 88 125 Q86 112 90 105Z" fill="rgba(0,229,255,.07)" stroke="rgba(0,229,255,.18)" stroke-width=".8"/>
+        <!-- Europe/Africa -->
+        <path d="M128 62 Q135 58 140 62 Q142 68 138 75 Q134 78 130 76 Q126 72 128 66Z" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.2)" stroke-width=".8"/>
+        <path d="M130 85 Q136 82 140 88 Q142 100 138 115 Q132 128 128 130 Q125 122 126 110 Q128 95 130 88Z" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.16)" stroke-width=".8"/>
+        <!-- Asia -->
+        <path d="M148 55 Q158 50 170 54 Q178 60 180 70 Q176 80 168 85 Q160 82 155 75 Q150 68 148 60Z" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.2)" stroke-width=".8">
+          <animate attributeName="fill" values="rgba(0,229,255,.08);rgba(0,229,255,.14);rgba(0,229,255,.08)" dur="7s" repeatCount="indefinite"/>
+        </path>
+        <!-- Australia -->
+        <path d="M168 130 Q176 126 182 130 Q184 136 180 142 Q174 144 168 140 Q166 135 168 130Z" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.16)" stroke-width=".8"/>
 
-      <!-- Right Shoulder -->
-      <circle cx="250" cy="145" r="14" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.25)" stroke-width="1.2"/>
-      <circle cx="250" cy="145" r="4" fill="rgba(139,92,246,.12)"/>
-      <!-- Right Upper Arm (slightly raised, friendly) -->
-      <rect x="240" y="159" width="20" height="50" rx="8" transform="rotate(10,250,159)" fill="rgba(139,92,246,.02)" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
-      <!-- Right Elbow -->
-      <circle cx="258" cy="215" r="8" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
-      <!-- Right Forearm (angled outward) -->
-      <rect x="252" y="223" width="16" height="48" rx="6" transform="rotate(15,260,223)" fill="rgba(139,92,246,.02)" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
-      <!-- Right Hand (waving) -->
-      <path d="M272 272 Q278 280 282 290 Q280 298 272 300 Q264 296 262 286 L264 276" fill="rgba(139,92,246,.03)" stroke="rgba(139,92,246,.22)" stroke-width="1">
-        <animateTransform attributeName="transform" type="rotate" values="-3,272,272;3,272,272;-3,272,272" dur="4s" repeatCount="indefinite"/>
-      </path>
-      <!-- Right fingers (spread, waving) -->
-      <line x1="278" y1="290" x2="286" y2="302" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
-      <line x1="280" y1="294" x2="290" y2="304" stroke="rgba(139,92,246,.18)" stroke-width="1"/>
-      <line x1="276" y1="296" x2="282" y2="310" stroke="rgba(139,92,246,.2)" stroke-width="1"/>
+        <!-- Network nodes on globe (glowing dots on major cities) -->
+        <circle cx="82" cy="66" r="2.5" fill="rgba(0,229,255,.5)" filter="url(#glow3)"><animate attributeName="r" values="2.5;4;2.5" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="95" cy="72" r="2" fill="rgba(0,229,255,.4)" filter="url(#glow3)"><animate attributeName="r" values="2;3.5;2" dur="4s" repeatCount="indefinite"/></circle>
+        <circle cx="136" cy="68" r="2" fill="rgba(0,229,255,.45)" filter="url(#glow3)"><animate attributeName="r" values="2;3;2" dur="3.5s" repeatCount="indefinite"/></circle>
+        <circle cx="165" cy="62" r="2.5" fill="rgba(0,229,255,.5)" filter="url(#glow3)"><animate attributeName="r" values="2.5;4;2.5" dur="4.5s" repeatCount="indefinite"/></circle>
+        <circle cx="175" cy="135" r="2" fill="rgba(0,229,255,.35)" filter="url(#glow3)"/>
+        <circle cx="98" cy="108" r="1.5" fill="rgba(0,229,255,.35)"/>
+        <circle cx="135" cy="100" r="2" fill="rgba(139,92,246,.4)" filter="url(#glow3)"><animate attributeName="r" values="2;3.5;2" dur="5s" repeatCount="indefinite"/></circle>
+        <circle cx="155" cy="78" r="1.5" fill="rgba(139,92,246,.35)"/>
 
-      <!-- Hip / Waist -->
-      <path d="M155 240 Q165 248 190 250 Q215 248 225 240 L222 268 Q210 275 190 276 Q170 275 158 268 Z" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
-      <!-- Waist joint detail -->
-      <ellipse cx="190" cy="258" rx="25" ry="4" fill="none" stroke="rgba(0,229,255,.12)" stroke-width=".8"/>
+        <!-- Network connection lines between nodes -->
+        <line x1="82" y1="66" x2="95" y2="72" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
+        <line x1="95" y1="72" x2="136" y2="68" stroke="rgba(0,229,255,.1)" stroke-width=".5"/>
+        <line x1="136" y1="68" x2="165" y2="62" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
+        <line x1="136" y1="68" x2="135" y2="100" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
+        <line x1="135" y1="100" x2="98" y2="108" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
+        <line x1="165" y1="62" x2="175" y2="135" stroke="rgba(0,229,255,.06)" stroke-width=".4"/>
+        <line x1="82" y1="66" x2="98" y2="108" stroke="rgba(0,229,255,.06)" stroke-width=".4"/>
+        <line x1="155" y1="78" x2="135" y2="100" stroke="rgba(139,92,246,.1)" stroke-width=".4"/>
 
-      <!-- Left Leg -->
-      <rect x="158" y="276" width="24" height="70" rx="10" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
-      <!-- Left Knee -->
-      <circle cx="170" cy="352" r="8" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
-      <!-- Left Shin -->
-      <rect x="160" y="360" width="20" height="65" rx="8" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
-      <!-- Left Foot -->
-      <path d="M156 425 Q158 435 165 440 L185 440 Q190 435 188 425" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.22)" stroke-width="1"/>
+        <!-- Rotating orbit ring -->
+        <ellipse cx="120" cy="120" rx="95" ry="30" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".8" transform="rotate(-20 120 120)">
+          <animateTransform attributeName="transform" type="rotate" values="-20 120 120;340 120 120" dur="40s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- Orbiting data point -->
+        <circle cx="215" cy="120" r="3" fill="rgba(0,229,255,.6)" filter="url(#glow3)">
+          <animateMotion dur="40s" repeatCount="indefinite" path="M95,0 A95,30 -20 1,1 -95,0 A95,30 -20 1,1 95,0" />
+        </circle>
 
-      <!-- Right Leg -->
-      <rect x="198" y="276" width="24" height="70" rx="10" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
-      <!-- Right Knee -->
-      <circle cx="210" cy="352" r="8" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
-      <!-- Right Shin -->
-      <rect x="200" y="360" width="20" height="65" rx="8" fill="rgba(0,229,255,.02)" stroke="rgba(0,229,255,.18)" stroke-width="1"/>
-      <!-- Right Foot -->
-      <path d="M196 425 Q198 435 205 440 L225 440 Q230 435 228 425" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.22)" stroke-width="1"/>
+        <!-- Center glow (core of globe) -->
+        <circle cx="120" cy="120" r="30" fill="url(#cyanGlow)" opacity=".4">
+          <animate attributeName="r" values="25;35;25" dur="5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".3;.5;.3" dur="5s" repeatCount="indefinite"/>
+        </circle>
+      </g>
 
-      <!-- Ground glow -->
-      <ellipse cx="190" cy="445" rx="60" ry="6" fill="rgba(0,229,255,.04)">
-        <animate attributeName="rx" values="60;70;60" dur="4s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values=".6;1;.6" dur="4s" repeatCount="indefinite"/>
-      </ellipse>
+      <!-- ════════════ ROBOT (right side, side profile facing globe) ════════════ -->
+      <g transform="translate(240,40)">
 
-      <!-- Floating data particles around robot -->
-      <circle cx="115" cy="170" r="2" fill="rgba(0,229,255,.25)"><animate attributeName="cy" values="170;160;170" dur="5s" repeatCount="indefinite"/></circle>
-      <circle cx="268" cy="188" r="1.5" fill="rgba(139,92,246,.3)"><animate attributeName="cy" values="188;178;188" dur="4s" repeatCount="indefinite"/></circle>
-      <circle cx="145" cy="260" r="1.5" fill="rgba(0,229,255,.2)"><animate attributeName="cy" values="260;252;260" dur="6s" repeatCount="indefinite"/></circle>
-      <circle cx="240" cy="300" r="2" fill="rgba(139,92,246,.2)"><animate attributeName="cy" values="300;290;300" dur="5.5s" repeatCount="indefinite"/></circle>
-      <circle cx="160" cy="400" r="1" fill="rgba(0,229,255,.15)"><animate attributeName="cy" values="400;393;400" dur="4.5s" repeatCount="indefinite"/></circle>
+        <!-- === HEAD (side profile, detailed mechanical) === -->
+        <!-- Skull back -->
+        <path d="M130 80 Q155 40 170 50 Q190 60 195 90 Q198 115 190 130 Q180 145 165 148 L140 148 Q125 140 120 125 Q118 105 125 88Z" fill="url(#metalBody)" stroke="rgba(120,140,180,.3)" stroke-width="1.2"/>
+        <!-- Skull highlight -->
+        <path d="M135 82 Q152 50 168 55 Q178 62 182 80 Q180 70 165 60 Q150 55 138 72Z" fill="url(#metalHi)" opacity=".6"/>
+        <!-- Face plate -->
+        <path d="M120 100 Q115 105 112 115 Q110 130 115 142 L140 148 Q130 145 125 135 Q120 120 122 108Z" fill="rgba(50,60,90,.5)" stroke="rgba(100,120,160,.25)" stroke-width=".8"/>
+        <!-- Jaw -->
+        <path d="M115 142 Q118 152 128 158 L155 160 Q162 155 165 148 L140 148Z" fill="url(#metalBody)" stroke="rgba(120,140,180,.2)" stroke-width=".8"/>
+        <!-- Jaw line detail -->
+        <line x1="120" y1="148" x2="155" y2="150" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
+
+        <!-- Eye (glowing, side view) -->
+        <ellipse cx="125" cy="108" rx="10" ry="7" fill="rgba(0,10,30,.6)" stroke="rgba(0,229,255,.4)" stroke-width="1"/>
+        <ellipse cx="124" cy="108" rx="5" ry="4.5" fill="rgba(0,229,255,.15)" filter="url(#glow1)">
+          <animate attributeName="fill" values="rgba(0,229,255,.15);rgba(0,229,255,.5);rgba(0,229,255,.15)" dur="4s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="123" cy="108" rx="2.5" ry="2" fill="rgba(0,229,255,.7)"/>
+        <!-- Eye beam (subtle) -->
+        <line x1="115" y1="108" x2="85" y2="115" stroke="rgba(0,229,255,.04)" stroke-width="8"/>
+
+        <!-- Ear / sensor panel -->
+        <rect x="185" y="92" width="12" height="25" rx="3" fill="rgba(50,60,90,.4)" stroke="rgba(100,120,160,.2)" stroke-width=".8"/>
+        <circle cx="191" cy="100" r="2" fill="rgba(139,92,246,.3)"><animate attributeName="fill" values="rgba(139,92,246,.3);rgba(139,92,246,.6);rgba(139,92,246,.3)" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="191" cy="108" r="1.5" fill="rgba(0,229,255,.2)"/>
+
+        <!-- Head seam lines (mechanical detail) -->
+        <path d="M150 45 Q160 42 168 50" fill="none" stroke="rgba(120,140,180,.12)" stroke-width=".5"/>
+        <path d="M130 85 Q135 80 145 78" fill="none" stroke="rgba(120,140,180,.1)" stroke-width=".5"/>
+
+        <!-- === NECK (exposed mechanical) === -->
+        <rect x="142" y="158" width="30" height="28" rx="4" fill="url(#metalBody)" stroke="rgba(100,120,160,.2)" stroke-width=".8"/>
+        <!-- Neck vertebrae -->
+        <line x1="148" y1="163" x2="168" y2="163" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
+        <line x1="148" y1="170" x2="168" y2="170" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
+        <line x1="148" y1="177" x2="168" y2="177" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
+        <!-- Cable on side -->
+        <path d="M140 162 Q135 170 138 180" fill="none" stroke="rgba(100,120,160,.15)" stroke-width="1.5"/>
+
+        <!-- === SHOULDER === -->
+        <ellipse cx="148" cy="195" rx="28" ry="14" fill="url(#metalBody)" stroke="rgba(120,140,180,.25)" stroke-width="1"/>
+        <ellipse cx="148" cy="195" rx="10" ry="6" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
+
+        <!-- === UPPER ARM === -->
+        <path d="M125 200 Q120 210 118 230 Q116 260 120 275" fill="none" stroke="rgba(120,140,180,.25)" stroke-width="12" stroke-linecap="round"/>
+        <path d="M125 200 Q120 210 118 230 Q116 260 120 275" fill="none" stroke="url(#metalBody)" stroke-width="10" stroke-linecap="round"/>
+        <!-- Arm panel line -->
+        <path d="M120 215 Q118 235 119 255" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
+
+        <!-- === ELBOW JOINT === -->
+        <circle cx="120" cy="278" r="10" fill="url(#metalBody)" stroke="rgba(120,140,180,.2)" stroke-width="1"/>
+        <circle cx="120" cy="278" r="4" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.15)" stroke-width=".5"/>
+
+        <!-- === FOREARM (reaching toward globe) === -->
+        <path d="M120 288 Q110 310 95 330 Q80 348 60 360" fill="none" stroke="rgba(120,140,180,.25)" stroke-width="10" stroke-linecap="round"/>
+        <path d="M120 288 Q110 310 95 330 Q80 348 60 360" fill="none" stroke="url(#metalBody)" stroke-width="8" stroke-linecap="round"/>
+        <!-- Forearm panel details -->
+        <path d="M112 305 Q100 325 88 340" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
+
+        <!-- === HAND (reaching toward globe, fingers extended) === -->
+        <!-- Palm -->
+        <path d="M60 360 Q52 365 45 368 Q38 368 35 362 Q38 355 48 352 L58 356Z" fill="url(#metalBody)" stroke="rgba(120,140,180,.25)" stroke-width=".8"/>
+        <!-- Index finger (extended toward globe) -->
+        <path d="M35 362 Q22 358 10 352 Q5 350 4 354 Q8 360 20 365 L34 366" fill="rgba(45,55,85,.5)" stroke="rgba(120,140,180,.2)" stroke-width=".8"/>
+        <!-- Middle finger -->
+        <path d="M36 358 Q24 350 14 344 Q10 343 9 347 Q14 354 26 360 L36 362" fill="rgba(40,50,80,.4)" stroke="rgba(120,140,180,.18)" stroke-width=".7"/>
+        <!-- Ring finger -->
+        <path d="M38 355 Q28 346 20 340 Q16 340 16 344 Q22 350 32 358" fill="rgba(40,50,80,.35)" stroke="rgba(120,140,180,.15)" stroke-width=".6"/>
+        <!-- Fingertip glow -->
+        <circle cx="5" cy="353" r="4" fill="rgba(0,229,255,.25)" filter="url(#glow1)">
+          <animate attributeName="r" values="4;8;4" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".5;1;.5" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Finger joint dots -->
+        <circle cx="22" cy="356" r="1.5" fill="rgba(0,229,255,.2)"/>
+        <circle cx="14" cy="345" r="1.2" fill="rgba(0,229,255,.15)"/>
+
+        <!-- === TORSO (partial, visible from side) === -->
+        <path d="M138 205 Q150 208 165 215 Q178 228 180 250 Q178 280 170 300 Q160 320 150 330 L145 330 Q148 310 152 285 Q152 250 145 225 Q140 215 135 210Z" fill="url(#metalBody)" stroke="rgba(120,140,180,.2)" stroke-width="1"/>
+        <!-- Chest core (visible from side) -->
+        <circle cx="160" cy="240" r="12" fill="rgba(0,229,255,.04)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
+        <circle cx="160" cy="240" r="6" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.3)" stroke-width=".8">
+          <animate attributeName="r" values="6;8;6" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="160" cy="240" r="2.5" fill="rgba(0,229,255,.4)">
+          <animate attributeName="fill" values="rgba(0,229,255,.4);rgba(0,229,255,.7);rgba(0,229,255,.4)" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Torso panel lines -->
+        <line x1="148" y1="220" x2="170" y2="225" stroke="rgba(0,229,255,.05)" stroke-width=".4"/>
+        <line x1="148" y1="260" x2="172" y2="258" stroke="rgba(0,229,255,.05)" stroke-width=".4"/>
+
+        <!-- === SPINE (visible from back) === -->
+        <path d="M170 165 Q175 200 178 250 Q175 300 170 330" fill="none" stroke="rgba(100,120,160,.12)" stroke-width="2"/>
+        <circle cx="174" cy="200" r="2" fill="rgba(0,229,255,.1)"/>
+        <circle cx="176" cy="230" r="2" fill="rgba(0,229,255,.08)"/>
+        <circle cx="176" cy="260" r="2" fill="rgba(0,229,255,.1)"/>
+        <circle cx="175" cy="290" r="2" fill="rgba(0,229,255,.08)"/>
+
+      </g>
+
+      <!-- ════════════ ENERGY BEAM (robot hand → globe) ════════════ -->
+      <g>
+        <!-- Main beam -->
+        <line x1="248" y1="398" x2="165" y2="260" stroke="url(#beamGrad)" stroke-width="2" opacity=".3">
+          <animate attributeName="opacity" values=".15;.4;.15" dur="3s" repeatCount="indefinite"/>
+        </line>
+        <!-- Scattered energy particles along beam path -->
+        <circle cx="230" cy="370" r="2" fill="rgba(0,229,255,.4)"><animate attributeName="r" values="1;3;1" dur="2s" repeatCount="indefinite"/></circle>
+        <circle cx="210" cy="340" r="1.5" fill="rgba(139,92,246,.35)"><animate attributeName="r" values="1;2.5;1" dur="2.5s" repeatCount="indefinite"/></circle>
+        <circle cx="195" cy="315" r="2" fill="rgba(0,229,255,.3)"><animate attributeName="r" values="1.5;3;1.5" dur="1.8s" repeatCount="indefinite"/></circle>
+        <circle cx="180" cy="288" r="1.5" fill="rgba(139,92,246,.3)"><animate attributeName="r" values="1;2;1" dur="2.2s" repeatCount="indefinite"/></circle>
+      </g>
+
+      <!-- ════════════ AMBIENT PARTICLES ════════════ -->
+      <circle cx="80" cy="80" r="1.5" fill="rgba(0,229,255,.2)"><animate attributeName="cy" values="80;70;80" dur="6s" repeatCount="indefinite"/></circle>
+      <circle cx="350" cy="150" r="1" fill="rgba(139,92,246,.25)"><animate attributeName="cy" values="150;140;150" dur="5s" repeatCount="indefinite"/></circle>
+      <circle cx="420" cy="300" r="1.5" fill="rgba(0,229,255,.15)"><animate attributeName="cy" values="300;290;300" dur="7s" repeatCount="indefinite"/></circle>
+      <circle cx="60" cy="400" r="1" fill="rgba(139,92,246,.2)"><animate attributeName="cy" values="400;392;400" dur="4.5s" repeatCount="indefinite"/></circle>
+      <circle cx="300" cy="480" r="1.5" fill="rgba(0,229,255,.15)"><animate attributeName="cy" values="480;472;480" dur="5.5s" repeatCount="indefinite"/></circle>
+
+      <!-- AARNAIT branding on robot torso (subtle) -->
+      <text x="400" y="285" font-family="Syne,sans-serif" font-size="6" font-weight="700" fill="rgba(0,229,255,.12)" letter-spacing="1.5" transform="rotate(5,400,285)">AARNAIT AI</text>
     </svg>
   </div>
   <div style="max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1">
