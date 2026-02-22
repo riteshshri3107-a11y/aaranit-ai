@@ -40,8 +40,8 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 .hero-robot-img{transition:opacity .5s}
 .hero-robot-img img{transition:filter .5s,opacity .5s}
 @keyframes heroRobotFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.01)}}
-@media(max-width:1200px){.hero-robot-img{width:50%!important;opacity:.8!important}}
-@media(max-width:900px){.hero-robot-img{width:45%!important;opacity:.55!important}}
+@media(max-width:1200px){.hero-robot-img{width:55%!important;opacity:.8!important}}
+@media(max-width:900px){.hero-robot-img{width:50%!important;opacity:.5!important}.hero-content>div{max-width:100%!important;text-align:center!important}.hero-content h1,.hero-content p{text-align:center!important}.hero-content>div>div:last-child{justify-content:center!important}.hero-content>div>div:nth-last-child(2){justify-content:center!important}}
 @media(max-width:600px){.hero-robot-img{display:none!important}}
 .ai-floats{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
 .ai-float{position:absolute;opacity:0;animation:aiDrift linear infinite}
@@ -876,48 +876,45 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <!-- STATIC AI GLYPHS (subtle background icons) -->
 
 <!-- HERO -->
-<section class="hero" style="min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative">
+<section class="hero" style="min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden">
   <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(0,229,255,.04) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(139,92,246,.03) 0%,transparent 50%);pointer-events:none"></div>
-  <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden">
-
-    <!-- ═══ RIGHT: PHOTOREALISTIC ROBOT IMAGE ═══ -->
-    <div class="hero-robot-img" style="position:absolute;right:0;top:0;width:55%;max-width:700px;height:100%;pointer-events:none;overflow:hidden;z-index:0">
-      <!-- Cyan glow behind robot -->
-      <div style="position:absolute;top:8%;left:25%;width:60%;height:55%;background:radial-gradient(ellipse,rgba(0,229,255,.07) 0%,transparent 65%);pointer-events:none;z-index:0"></div>
-      <!-- Robot image — fully visible on right, fades to transparent towards center -->
-      <img 
-        src="robot-hero.png" 
-        alt="Futuristic AI Robot — AARNAIT AI" 
-        loading="eager"
-        style="
-          position:relative;z-index:1;
-          width:100%;
-          height:100%;
-          object-fit:cover;
-          object-position:center 15%;
-          mix-blend-mode:lighten;
-          opacity:.95;
-          filter:brightness(0.92) contrast(1.12) saturate(.85) drop-shadow(0 0 60px rgba(0,229,255,.1));
-          -webkit-mask-image:linear-gradient(to left, black 0%, black 25%, rgba(0,0,0,.6) 45%, rgba(0,0,0,.2) 65%, transparent 85%);
-          mask-image:linear-gradient(to left, black 0%, black 25%, rgba(0,0,0,.6) 45%, rgba(0,0,0,.2) 65%, transparent 85%);
-          animation:heroRobotFloat 8s ease-in-out infinite;
-        "
-      >
-    </div>
+  <!-- ═══ ROBOT IMAGE — sits behind everything, right half, fades left ═══ -->
+  <div class="hero-robot-img" style="position:absolute;right:0;top:0;width:60%;height:100%;pointer-events:none;z-index:0;overflow:hidden">
+    <img 
+      src="robot-hero.png" 
+      alt="Futuristic AI Robot — AARNAIT AI" 
+      loading="eager"
+      style="
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        object-position:center center;
+        mix-blend-mode:lighten;
+        opacity:.9;
+        filter:brightness(0.88) contrast(1.15) saturate(.8);
+        -webkit-mask-image:linear-gradient(to left, black 0%, black 20%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.15) 70%, transparent 90%),linear-gradient(to top, transparent 0%, black 8%, black 90%, transparent 100%);
+        -webkit-mask-composite:source-in;
+        mask-image:linear-gradient(to left, black 0%, black 20%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.15) 70%, transparent 90%),linear-gradient(to top, transparent 0%, black 8%, black 90%, transparent 100%);
+        mask-composite:intersect;
+      "
+    >
   </div>
-  <div style="max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1">
-    <div style="display:inline-block;padding:.3rem 1rem;border-radius:50px;font-size:.58rem;font-weight:700;font-family:Syne,sans-serif;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(0,229,255,.12);color:var(--cyan);margin-bottom:2rem;background:rgba(0,229,255,.03)">Building Intelligence for the Real World</div>
-    <h1 style="font-family:Syne,sans-serif;font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem;letter-spacing:-.02em"><span class="gradient-text">AI & Robotics Education</span><br>for Every Generation</h1>
-    <p style="font-size:clamp(.9rem,1.5vw,1.15rem);color:var(--text2);max-width:650px;margin:0 auto 2.5rem;line-height:1.7">From school-level foundations to autonomous systems architecture — we train individuals, teams, and enterprises to build, deploy, and lead with AI.</p>
-    <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem">
-      <a href="#courses" class="btn-glow" style="padding:.75rem 2rem;font-size:.85rem">Explore Programs →</a>
-      <a href="#services" class="btn-out" style="padding:.75rem 2rem;font-size:.85rem">Our Services</a>
-    </div>
-    <div style="display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;opacity:.5">
-      <div style="text-align:center"><div style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)">35+</div><div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Programs</div></div>
-      <div style="text-align:center"><div style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)">5</div><div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Robotics Tiers</div></div>
-      <div style="text-align:center"><div style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)">9</div><div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Countries Hiring</div></div>
-      <div style="text-align:center"><div style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)">24hr</div><div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Response Time</div></div>
+  <!-- ═══ HERO CONTENT — left-aligned ═══ -->
+  <div class="hero-content" style="max-width:1200px;width:100%;margin:0 auto;padding:0 2rem;position:relative;z-index:2">
+    <div style="max-width:560px">
+      <div style="display:inline-block;padding:.3rem 1rem;border-radius:50px;font-size:.58rem;font-weight:700;font-family:Syne,sans-serif;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(0,229,255,.12);color:var(--cyan);margin-bottom:2rem;background:rgba(0,229,255,.03)">Building Intelligence for the Real World</div>
+      <h1 style="font-family:Syne,sans-serif;font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem;letter-spacing:-.02em;text-align:left"><span class="gradient-text">AI & Robotics Education</span><br>for Every Generation</h1>
+      <p style="font-size:clamp(.9rem,1.5vw,1.15rem);color:var(--text2);max-width:500px;margin:0 0 2.5rem;line-height:1.7;text-align:left">From school-level foundations to autonomous systems architecture — we train individuals, teams, and enterprises to build, deploy, and lead with AI.</p>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:3rem">
+        <a href="#courses" class="btn-glow" style="padding:.75rem 2rem;font-size:.85rem">Explore Programs →</a>
+        <a href="#services" class="btn-out" style="padding:.75rem 2rem;font-size:.85rem">Our Services</a>
+      </div>
+      <div style="display:flex;gap:2.5rem;flex-wrap:wrap;opacity:.5">
+        <div><div style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)">35+</div><div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Programs</div></div>
+        <div><div style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)">5</div><div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Robotics Tiers</div></div>
+        <div><div style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)">9</div><div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Countries Hiring</div></div>
+        <div><div style="font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)">24hr</div><div style="font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase">Response Time</div></div>
+      </div>
     </div>
   </div>
 </section>
