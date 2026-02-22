@@ -40,8 +40,8 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 .hero-robot-img{transition:opacity .5s}
 .hero-robot-img img{transition:filter .5s,opacity .5s}
 @keyframes heroRobotFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.01)}}
-@media(max-width:1200px){.hero-robot-img{width:460px!important;opacity:.75!important}}
-@media(max-width:900px){.hero-robot-img{width:360px!important;opacity:.5!important}}
+@media(max-width:1200px){.hero-robot-img{width:480px!important;opacity:.8!important}}
+@media(max-width:900px){.hero-robot-img{width:380px!important;opacity:.55!important}}
 @media(max-width:600px){.hero-robot-img{display:none!important}}
 .ai-floats{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
 .ai-float{position:absolute;opacity:0;animation:aiDrift linear infinite}
@@ -880,14 +880,12 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden">
 
     <!-- ═══ RIGHT: PHOTOREALISTIC ROBOT IMAGE ═══ -->
-    <div class="hero-robot-img" style="position:absolute;right:-1%;top:2%;width:550px;height:90%;pointer-events:none;overflow:hidden;z-index:0">
-      <!-- Sci-fi cyan glow behind robot -->
-      <div style="position:absolute;top:15%;left:20%;width:60%;height:50%;background:radial-gradient(ellipse,rgba(0,229,255,.1) 0%,rgba(0,229,255,.03) 40%,transparent 70%);pointer-events:none;z-index:0;animation:heroRobotFloat 10s ease-in-out infinite"></div>
-      <!-- Violet ambient rim -->
-      <div style="position:absolute;top:5%;right:5%;width:50%;height:60%;background:radial-gradient(ellipse at 80% 30%,rgba(139,92,246,.06) 0%,transparent 60%);pointer-events:none;z-index:0"></div>
-      <!-- Real stock image — dark-toned robot bust -->
+    <div class="hero-robot-img" style="position:absolute;right:-1%;top:0;width:580px;height:95%;pointer-events:none;overflow:hidden;z-index:0">
+      <!-- Cyan glow behind robot -->
+      <div style="position:absolute;top:10%;left:15%;width:70%;height:60%;background:radial-gradient(ellipse,rgba(0,229,255,.08) 0%,rgba(0,229,255,.02) 40%,transparent 70%);pointer-events:none;z-index:0"></div>
+      <!-- Robot image -->
       <img 
-        src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=85&auto=format&fit=crop" 
+        src="robot-hero.png" 
         alt="Futuristic AI Robot — AARNAIT AI" 
         loading="eager"
         style="
@@ -895,18 +893,15 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
           width:100%;
           height:100%;
           object-fit:contain;
-          object-position:center 15%;
+          object-position:center 10%;
           mix-blend-mode:lighten;
-          opacity:.88;
-          filter:brightness(0.9) contrast(1.15) saturate(0.7) drop-shadow(0 0 60px rgba(0,229,255,.15));
-          mask-image:linear-gradient(to bottom, transparent 0%, black 5%, black 80%, transparent 100%);
-          -webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 5%, black 80%, transparent 100%);
+          opacity:.92;
+          filter:brightness(0.95) contrast(1.1) drop-shadow(0 0 80px rgba(0,229,255,.12));
+          mask-image:linear-gradient(to bottom, transparent 0%, black 3%, black 85%, transparent 100%),linear-gradient(to right, transparent 0%, black 8%, black 100%);
+          -webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 3%, black 85%, transparent 100%);
           animation:heroRobotFloat 8s ease-in-out infinite;
         "
-        onerror="this.src='https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800&q=85&auto=format&fit=crop';this.onerror=null;"
       >
-      <!-- Holographic scan line overlay -->
-      <div style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,229,255,.01) 3px,rgba(0,229,255,.01) 4px);mix-blend-mode:screen"></div>
     </div>
   </div>
   <div style="max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1">
