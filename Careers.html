@@ -3,796 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Careers — AARANIT AI</title>
-<meta name="description" content="AI job opportunities worldwide. Apply securely with encrypted data protection. AARANIT AI Careers.">
+<title>AI Careers Worldwide — AARNAIT AI</title>
+<meta name="description" content="Browse 16+ AI job openings across 9 countries. ML Engineer, Data Scientist, Prompt Engineer, and more.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#06080d;--bg2:#0a0e16;--card:#0f1320;--cyan:#00e5ff;--violet:#8b5cf6;--magenta:#d946ef;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--text:#f0f2f8;--text2:#8892a8;--muted:#4a5568;--border:rgba(255,255,255,.06)}
+:root{--bg:#06080d;--bg2:#0a0e16;--card:#0f1320;--cyan:#00e5ff;--violet:#8b5cf6;--magenta:#d946ef;--green:#22c55e;--text:#f0f2f8;--text2:#8892a8;--muted:#4a5568;--border:rgba(255,255,255,.06)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:80px}
+html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
 ::selection{background:var(--cyan);color:var(--bg)}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:linear-gradient(var(--cyan),var(--violet));border-radius:10px}
 .gradient-text{background:linear-gradient(135deg,var(--cyan),var(--violet) 50%,var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:10000;padding:.8rem 3rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(6,8,13,.85);border-bottom:1px solid var(--border)}
-.logo-wrap{display:flex;align-items:center;gap:.5rem;text-decoration:none}
-.logo-mark{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;background:linear-gradient(135deg,var(--cyan),var(--violet),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-flex;align-items:baseline}
-.tilt-i{display:inline-block;transform:rotate(-14deg);-webkit-text-fill-color:var(--cyan);margin:0 -1px;position:relative;top:-1px}
-.logo-ai{font-size:.72em;opacity:.7;margin-left:.2em;letter-spacing:.06em}
-.nav-right{display:flex;align-items:center;gap:1rem}
-.nav-link{color:var(--text2);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .3s}
-.nav-link:hover{color:var(--text)}
-.auth-pill{display:flex;align-items:center;gap:.45rem;padding:.45rem 1rem;border-radius:50px;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .3s;border:1px solid var(--border);background:var(--card)}
-.auth-pill:hover{border-color:rgba(0,229,255,.2)}
-.auth-pill .dot{width:7px;height:7px;border-radius:50%}
-.auth-pill .dot.on{background:var(--green);box-shadow:0 0 6px var(--green)}
-.auth-pill .dot.off{background:var(--muted)}
-.btn-glow{padding:.5rem 1.3rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;text-decoration:none;transition:all .3s}
-.btn-glow:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,229,255,.2)}
-
-/* ── HERO ── */
-.hero{padding:8rem 3rem 3rem;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(0,229,255,.06) 0%,transparent 60%);pointer-events:none}
-.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.8rem}
-.hero p{color:var(--text2);max-width:560px;margin:0 auto 1.5rem;font-size:.95rem}
-.hero-stats{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-top:1.5rem}
-.hero-stat{text-align:center;padding:.8rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.hero-stat strong{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;display:block}
-.hero-stat span{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-
-/* ── SECURITY BANNER ── */
-.sec-banner{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;padding:1rem 2rem;background:rgba(34,197,94,.03);border-top:1px solid rgba(34,197,94,.08);border-bottom:1px solid rgba(34,197,94,.08)}
-.sec-badge{display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--green);font-weight:600}
-
-/* ── FILTERS ── */
-.filters-wrap{padding:1.5rem 3rem;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:54px;z-index:9999;backdrop-filter:blur(20px)}
-.filters{display:flex;flex-wrap:wrap;gap:.5rem;max-width:1200px;margin:0 auto;align-items:center}
-.filters select,.filters input{padding:.55rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.8rem;outline:none;font-family:'DM Sans',sans-serif;min-width:140px;transition:border .3s}
+nav{padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(6,8,13,.95);backdrop-filter:blur(18px);position:sticky;top:0;z-index:1000}
+.logo-wrap{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text)}
+.logo-mark{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:.05em}
+.tilt-i{display:inline-block;transform:rotate(12deg);color:var(--cyan)}
+.logo-ai{font-size:.75em;margin-left:.5em;letter-spacing:.08em;color:var(--violet)}
+.btn-glow{padding:.55rem 1.4rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:Syne,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;text-decoration:none;letter-spacing:.03em;transition:all .3s;display:inline-block}
+.btn-glow:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,229,255,.25)}
+.btn-out{padding:.55rem 1.4rem;background:transparent;border:1px solid var(--border);border-radius:50px;color:var(--text);font-family:Syne,sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;text-decoration:none;transition:all .3s}
+.btn-out:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero{padding:4rem 2rem 2rem;text-align:center}
+.hero h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:.6rem}
+.hero p{color:var(--text2);max-width:600px;margin:0 auto;font-size:.95rem}
+.filters{max-width:1200px;margin:2rem auto;padding:0 1rem;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+.co-tabs{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1rem;max-width:1200px;margin-left:auto;margin-right:auto;padding:0 1rem}
+.co-tab{padding:.35rem .75rem;border-radius:50px;font-size:.7rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all .2s}
+.co-tab.active{background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--bg);border-color:transparent}
+.co-tab:hover{border-color:var(--cyan)}
+.filters select,.filters input{padding:.5rem .8rem;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.78rem;outline:none;transition:border-color .3s}
 .filters select:focus,.filters input:focus{border-color:rgba(0,229,255,.3)}
-.filters select{color:var(--muted)}
-.filters input::placeholder{color:var(--muted)}
-.filter-search{flex:1;min-width:180px}
-.filter-reset{background:none;border:1px solid var(--border);border-radius:10px;padding:.55rem .9rem;color:var(--muted);font-size:.78rem;cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif}
-.filter-reset:hover{border-color:var(--magenta);color:var(--magenta)}
-.result-bar{max-width:1200px;margin:1.2rem auto .5rem;padding:0 3rem;display:flex;justify-content:space-between;align-items:center}
-.result-count{font-size:.82rem;color:var(--muted)}
-.result-count strong{color:var(--text)}
-
-/* ── COUNTRY TABS ── */
-.country-tabs{display:flex;flex-wrap:wrap;gap:.4rem;max-width:1200px;margin:1.5rem auto;padding:0 3rem}
-.country-tab{padding:.4rem .9rem;border-radius:50px;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .3s;border:1px solid var(--border);background:var(--card);color:var(--muted)}
-.country-tab:hover{border-color:rgba(0,229,255,.15);color:var(--text)}
-.country-tab.active{background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--bg);border-color:transparent}
-
-/* ── JOB CARDS ── */
-.jobs-section{padding:0 3rem 4rem;max-width:1200px;margin:0 auto}
-.jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.2rem}
-.job-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.6rem;transition:all .35s;display:flex;flex-direction:column;animation:fadeUp .5s ease both}
-.job-card:hover{transform:translateY(-5px);border-color:rgba(0,229,255,.12);box-shadow:0 20px 50px rgba(0,0,0,.35)}
-.jc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem}
-.jc-icon{font-size:1.6rem}
-.jc-badges{display:flex;gap:.3rem;flex-wrap:wrap}
-.jc-badge{padding:.15rem .5rem;border-radius:50px;font-size:.6rem;font-weight:600}
-.jc-badge.country{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.1);color:var(--violet)}
-.jc-badge.type{background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.1);color:var(--cyan)}
-.jc-badge.remote{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.1);color:var(--green)}
-.job-card h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.15rem}
-.jc-company{font-size:.78rem;color:var(--cyan);margin-bottom:.35rem}
-.jc-meta{display:flex;flex-wrap:wrap;gap:.8rem;font-size:.72rem;color:var(--muted);margin-bottom:.4rem}
-.jc-sal{color:var(--green);font-weight:700;font-size:.88rem;margin-bottom:.4rem}
-.job-card>p{font-size:.8rem;color:var(--text2);line-height:1.55;flex:1}
-.jc-skills{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.7rem}
-.jc-skills span{padding:.15rem .5rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:50px;font-size:.6rem;color:var(--text2)}
-.jc-actions{display:flex;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
-.apply-btn{flex:1;padding:.6rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;cursor:pointer;transition:all .3s}
-.apply-btn:hover{box-shadow:0 6px 20px rgba(0,229,255,.2);transform:translateY(-1px)}
-.save-btn{padding:.6rem .9rem;background:none;border:1px solid var(--border);border-radius:50px;font-size:.78rem;cursor:pointer;color:var(--text);transition:all .3s}
-.save-btn:hover{border-color:var(--magenta);color:var(--magenta)}
-.save-btn.saved{border-color:var(--magenta);color:var(--magenta)}
-.no-results{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--muted);font-size:.9rem}
-
-/* ── MODAL ── */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);z-index:20000;display:none;align-items:center;justify-content:center;padding:1rem}
-.modal-bg.show{display:flex}
-.modal{background:var(--bg);border:1px solid var(--border);border-radius:20px;width:100%;max-height:92vh;overflow-y:auto;position:relative}
-.modal::-webkit-scrollbar{width:4px}.modal::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:3px}
-.modal-x{position:sticky;top:0;right:0;float:right;background:var(--card);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem;cursor:pointer;margin:12px 12px 0 0;z-index:3;transition:all .2s}
-.modal-x:hover{color:var(--text);border-color:var(--text)}
-.modal-inner{padding:0 2rem 2.5rem}
-.modal-inner h2{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;margin-bottom:.3rem}
-.modal-inner .sub{color:var(--text2);font-size:.82rem;margin-bottom:1.5rem}
-.m-label{display:block;font-size:.75rem;font-weight:600;color:var(--text2);margin-bottom:.25rem;margin-top:1rem}
-.m-input,.m-select,.m-textarea{width:100%;padding:.7rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.84rem;outline:none;transition:border .3s;font-family:'DM Sans',sans-serif}
-.m-input:focus,.m-select:focus,.m-textarea:focus{border-color:rgba(0,229,255,.35)}
-.m-input::placeholder,.m-textarea::placeholder{color:var(--muted)}
-.m-select{color:var(--muted)}.m-select option{background:var(--bg)}
-.m-textarea{resize:none}
-.m-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-.m-btn{width:100%;padding:.8rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.84rem;cursor:pointer;margin-top:1.4rem;transition:all .3s}
-.m-btn:hover{box-shadow:0 8px 25px rgba(0,229,255,.2);transform:translateY(-2px)}
-.m-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-.m-btn.sec{background:transparent;border:1px solid var(--border);color:var(--text);margin-top:.5rem}
-.m-btn.sec:hover{border-color:var(--cyan);color:var(--cyan)}
-.m-btn.danger{background:transparent;border:1px solid rgba(239,68,68,.2);color:var(--red);margin-top:.5rem}
-.m-msg{font-size:.8rem;margin-top:.6rem;text-align:center;min-height:1.2rem}
-.m-link{color:var(--cyan);cursor:pointer;font-size:.82rem;text-align:center;display:block;margin-top:1rem}
-.m-link:hover{text-decoration:underline}
-.secure-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .7rem;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.1);border-radius:50px;font-size:.65rem;color:var(--green);font-weight:600;margin-top:.4rem}
-
-/* OTP */
-.otp-wrap{display:flex;gap:.45rem;justify-content:center;margin:1.2rem 0}
-.otp-wrap input{width:46px;height:52px;text-align:center;font-size:1.3rem;font-weight:700;font-family:'Syne',sans-serif;padding:0;border-radius:12px;background:var(--card);border:1px solid var(--border);color:var(--text);outline:none;transition:border .3s}
-.otp-wrap input:focus{border-color:var(--cyan)}
-
-/* FILE UPLOAD */
-.file-drop{position:relative;padding:1.2rem;border:2px dashed var(--border);border-radius:14px;text-align:center;cursor:pointer;transition:all .3s}
-.file-drop:hover{border-color:rgba(0,229,255,.25);background:rgba(0,229,255,.02)}
-.file-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
-.file-drop .fd-text{font-size:.82rem;color:var(--text2)}
-.file-drop .fd-name{font-size:.75rem;color:var(--cyan);margin-top:.3rem;font-weight:600}
-.encrypt-bar{display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:var(--green);margin-top:.4rem;justify-content:center}
-
-/* ── FOOTER ── */
-footer{padding:2rem 3rem;background:var(--bg2);border-top:1px solid var(--border);text-align:center}
-footer p{font-size:.72rem;color:var(--muted)}
+.count{text-align:center;margin:1rem 0;font-size:.8rem;color:var(--muted)}
+.jobs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem;max-width:1200px;margin:0 auto 4rem;padding:0 1rem}
+.job-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .35s}
+.job-card:hover{transform:translateY(-5px);border-color:rgba(0,229,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.job-card h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
+.job-card .salary{font-size:.82rem;color:var(--green);font-weight:600;margin-bottom:.6rem}
+.job-card p{color:var(--text2);font-size:.82rem;line-height:1.6}
+.job-card .job-skills{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.8rem}
+.job-card .job-skills span{padding:.2rem .6rem;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.1);border-radius:50px;font-size:.65rem;color:var(--cyan)}
+.apply-btn{width:100%;margin-top:.8rem;padding:.6rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:Syne,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;transition:all .3s}
+.apply-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,229,255,.2)}
+footer{padding:2rem;text-align:center;border-top:1px solid var(--border);font-size:.75rem;color:var(--muted)}
 footer a{color:var(--cyan);text-decoration:none}
-
-@media(max-width:768px){
-  nav{padding:.7rem 1.2rem}
-  .hero{padding:6rem 1.2rem 2rem}
-  .filters-wrap{padding:1rem 1.2rem}
-  .filters{gap:.4rem}.filters select,.filters input{min-width:120px;font-size:.75rem}
-  .country-tabs{padding:0 1.2rem}
-  .jobs-section{padding:0 1.2rem 3rem}
-  .jobs-grid{grid-template-columns:1fr}
-  .modal{max-width:95vw}
-  .modal-inner{padding:0 1.2rem 2rem}
-  .m-row{grid-template-columns:1fr}
-  .result-bar{padding:0 1.2rem}
-}
+@media(max-width:768px){nav{padding:.8rem 1rem}.hero{padding:2.5rem 1rem 1.5rem}.hero h1{font-size:1.8rem}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="index.html" class="logo-wrap"><span class="logo-mark">AARN<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span></a>
-  <div class="nav-right">
-    <a href="index.html" class="nav-link">← Home</a>
-    <a href="index.html#certifications" class="nav-link">Certifications</a>
-    <a href="index.html#tutoring" class="nav-link">Tutoring</a>
-    <div class="auth-pill" id="authPill" onclick="openAuth()">
-      <span class="dot off" id="authDot"></span>
-      <span id="authLabel">Sign In</span>
-    </div>
-  </div>
+  <a href="index.html" class="logo-wrap"><span class="logo-mark">AARNA<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span></a>
+  <div style="display:flex;gap:.6rem;align-items:center"><a href="index.html" class="btn-out">← Back to Home</a><a href="index.html#contact" class="btn-glow">Contact Us</a></div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>AI Careers <span class="gradient-text">Worldwide</span></h1>
-  <p>Find your next AI role across 9 countries. Apply securely — your data is encrypted end-to-end with AES-256-GCM.</p>
-  <div class="hero-stats">
-    <div class="hero-stat"><strong class="gradient-text" id="statJobs">0</strong><span>Open Positions</span></div>
-    <div class="hero-stat"><strong class="gradient-text">9</strong><span>Countries</span></div>
-    <div class="hero-stat"><strong class="gradient-text">100%</strong><span>Encrypted</span></div>
-    <div class="hero-stat"><strong class="gradient-text">24hr</strong><span>Response</span></div>
-  </div>
-</section>
-
-<!-- SECURITY BANNER -->
-<div class="sec-banner">
-  <span class="sec-badge">🔒 AES-256-GCM Encryption</span>
-  <span class="sec-badge">🛡️ Row-Level Security</span>
-  <span class="sec-badge">✉️ OTP Verification</span>
-  <span class="sec-badge">🗄️ Zero Plain-Text Storage</span>
+<div class="hero">
+  <h1>AI Jobs <span class="gradient-text">Worldwide</span></h1>
+  <p>Browse open positions across 9 countries. ML Engineers, Data Scientists, Prompt Engineers, and more — find your next AI career.</p>
 </div>
 
-<!-- COUNTRY TABS -->
-<div class="country-tabs" id="countryTabs"></div>
-
-<!-- FILTERS -->
-<div class="filters-wrap">
-  <div class="filters">
-    <select id="fRole" onchange="renderJobs()">
-      <option value="">All Roles</option>
-      <option>ML Engineer</option><option>Data Scientist</option><option>AI Research</option>
-      <option>NLP Engineer</option><option>CV Engineer</option><option>MLOps</option>
-      <option>Prompt Engineer</option><option>AI Product Manager</option><option>AI Consultant</option>
-    </select>
-    <select id="fExp" onchange="renderJobs()">
-      <option value="">All Experience</option>
-      <option>Entry (0-2 yrs)</option><option>Mid (3-5 yrs)</option>
-      <option>Senior (6-10 yrs)</option><option>Lead (10+ yrs)</option>
-    </select>
-    <select id="fType" onchange="renderJobs()">
-      <option value="">All Types</option>
-      <option>Full-time</option><option>Contract</option><option>Part-time</option><option>Internship</option>
-    </select>
-    <input class="m-input filter-search" id="fSearch" placeholder="🔍 Search title, skills, company..." oninput="renderJobs()">
-    <button class="filter-reset" onclick="resetFilters()">✕ Reset</button>
-  </div>
+<div class="co-tabs" id="cTabs"></div>
+<div class="filters">
+  <select id="fRole" onchange="filterC()"><option value="">All Roles</option><option>ML Engineer</option><option>Data Scientist</option><option>AI Research</option><option>NLP Engineer</option><option>CV Engineer</option><option>MLOps</option><option>Prompt Engineer</option><option>AI Product Manager</option><option>AI Consultant</option></select>
+  <select id="fExp" onchange="filterC()"><option value="">All Levels</option><option>Entry</option><option>Mid</option><option>Senior</option><option>Lead</option></select>
+  <select id="fType" onchange="filterC()"><option value="">All Types</option><option>Full-time</option><option>Contract</option><option>Part-time</option><option>Internship</option></select>
+  <input id="fSearch" placeholder="🔍 Search jobs..." oninput="filterC()" style="min-width:180px">
 </div>
+<div class="count" id="cCount"></div>
+<div class="jobs-grid" id="jobsGrid"></div>
 
-<!-- RESULTS -->
-<div class="result-bar"><span class="result-count" id="resultCount"></span></div>
-
-<!-- JOBS -->
-<section class="jobs-section"><div class="jobs-grid" id="jobsGrid"></div></section>
-
-<!-- ═══════════ AUTH MODAL ═══════════ -->
-<div class="modal-bg" id="authModal">
-  <div class="modal" style="max-width:440px">
-    <button class="modal-x" onclick="closeModal('authModal')">✕</button>
-    <div class="modal-inner">
-
-      <!-- SIGNUP -->
-      <div id="authSignup">
-        <h2>Create Account</h2>
-        <p class="sub">Required before applying. Your data is encrypted &amp; secure.</p>
-        <label class="m-label">Full Name *</label>
-        <input class="m-input" id="sName" placeholder="John Doe">
-        <label class="m-label">Email Address *</label>
-        <input class="m-input" type="email" id="sEmail" placeholder="you@email.com">
-        <label class="m-label">Phone Number</label>
-        <div class="m-row">
-          <select class="m-select" id="sPhoneCode">
-            <option value="+1">🇨🇦 +1</option><option value="+1">🇺🇸 +1</option>
-            <option value="+44">🇬🇧 +44</option><option value="+49">🇩🇪 +49</option>
-            <option value="+91">🇮🇳 +91</option><option value="+61">🇦🇺 +61</option>
-            <option value="+971">🇦🇪 +971</option><option value="+65">🇸🇬 +65</option>
-          </select>
-          <input class="m-input" type="tel" id="sPhone" placeholder="1234567890">
-        </div>
-        <label class="m-label">Country *</label>
-        <select class="m-select" id="sCountry">
-          <option value="">Select Country</option>
-          <option>Canada</option><option>United States</option><option>United Kingdom</option>
-          <option>Germany</option><option>India</option><option>Australia</option>
-          <option>UAE</option><option>Singapore</option><option>Other</option>
-        </select>
-        <div class="secure-pill">🔒 256-bit AES · OTP verified · Zero plain-text</div>
-        <button class="m-btn" onclick="doSignup()">Send Verification Code →</button>
-        <div class="m-msg" id="sMsg"></div>
-        <span class="m-link" onclick="showPanel('authLogin')">Already have an account? Sign In</span>
-      </div>
-
-      <!-- OTP VERIFY -->
-      <div id="authOTP" style="display:none">
-        <h2>Verify Email</h2>
-        <p class="sub">Enter the 6-digit code sent to <strong id="otpTarget"></strong></p>
-        <div class="otp-wrap" id="otpBox">
-          <input type="text" maxlength="1" oninput="otpNav(this,0)" onkeydown="otpDel(event,0)">
-          <input type="text" maxlength="1" oninput="otpNav(this,1)" onkeydown="otpDel(event,1)">
-          <input type="text" maxlength="1" oninput="otpNav(this,2)" onkeydown="otpDel(event,2)">
-          <input type="text" maxlength="1" oninput="otpNav(this,3)" onkeydown="otpDel(event,3)">
-          <input type="text" maxlength="1" oninput="otpNav(this,4)" onkeydown="otpDel(event,4)">
-          <input type="text" maxlength="1" oninput="otpNav(this,5)" onkeydown="otpDel(event,5)">
-        </div>
-        <button class="m-btn" onclick="doVerify()">Verify & Continue →</button>
-        <button class="m-btn sec" onclick="doResend()">Resend Code</button>
-        <div class="m-msg" id="otpMsg"></div>
-      </div>
-
-      <!-- LOGIN -->
-      <div id="authLogin" style="display:none">
-        <h2>Sign In</h2>
-        <p class="sub">We'll email you a one-time sign-in code.</p>
-        <label class="m-label">Email Address</label>
-        <input class="m-input" type="email" id="lEmail" placeholder="you@email.com">
-        <button class="m-btn" onclick="doLogin()">Send Sign-In Code →</button>
-        <div class="m-msg" id="lMsg"></div>
-        <span class="m-link" onclick="showPanel('authSignup')">Don't have an account? Sign Up</span>
-      </div>
-
-      <!-- LOGIN OTP -->
-      <div id="authLoginOTP" style="display:none">
-        <h2>Enter Code</h2>
-        <p class="sub">Check email for your sign-in code</p>
-        <div class="otp-wrap" id="loginOtpBox">
-          <input type="text" maxlength="1" oninput="otpNav(this,0)" onkeydown="otpDel(event,0)">
-          <input type="text" maxlength="1" oninput="otpNav(this,1)" onkeydown="otpDel(event,1)">
-          <input type="text" maxlength="1" oninput="otpNav(this,2)" onkeydown="otpDel(event,2)">
-          <input type="text" maxlength="1" oninput="otpNav(this,3)" onkeydown="otpDel(event,3)">
-          <input type="text" maxlength="1" oninput="otpNav(this,4)" onkeydown="otpDel(event,4)">
-          <input type="text" maxlength="1" oninput="otpNav(this,5)" onkeydown="otpDel(event,5)">
-        </div>
-        <button class="m-btn" onclick="doLoginVerify()">Sign In →</button>
-        <div class="m-msg" id="lOtpMsg"></div>
-      </div>
-
-      <!-- PROFILE -->
-      <div id="authProfile" style="display:none;text-align:center">
-        <h2 style="margin-bottom:.8rem">✨ You're Signed In</h2>
-        <p class="sub" id="profileEmail"></p>
-        <div class="secure-pill" style="justify-content:center;margin-bottom:1rem">🔒 Session encrypted & secure</div>
-        <button class="m-btn" onclick="closeModal('authModal')">Continue →</button>
-        <button class="m-btn danger" onclick="doSignOut()">Sign Out</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════ APPLY MODAL ═══════════ -->
-<div class="modal-bg" id="applyModal">
-  <div class="modal" style="max-width:540px">
-    <button class="modal-x" onclick="closeModal('applyModal')">✕</button>
-    <div class="modal-inner">
-
-      <!-- AUTH GATE -->
-      <div id="applyGate" style="text-align:center;padding:2rem 0">
-        <h2>🔐 Account Required</h2>
-        <p class="sub">Create an account or sign in to apply. This protects your personal data with encryption and OTP verification.</p>
-        <button class="m-btn" onclick="closeModal('applyModal');openAuth()">Create Account / Sign In →</button>
-      </div>
-
-      <!-- APPLICATION FORM -->
-      <div id="applyForm" style="display:none">
-        <h2>Apply: <span id="applyTitle"></span></h2>
-        <p class="sub">All fields are encrypted with AES-256-GCM before storage. Your CV is never stored in plain text.</p>
-
-        <div class="m-row">
-          <div><label class="m-label">Full Name *</label><input class="m-input" id="aName" required></div>
-          <div><label class="m-label">Email *</label><input class="m-input" type="email" id="aEmail" required></div>
-        </div>
-        <div class="m-row">
-          <div><label class="m-label">Phone *</label><input class="m-input" type="tel" id="aPhone"></div>
-          <div><label class="m-label">Country *</label>
-            <select class="m-select" id="aCountry"><option value="">Select</option><option>Canada</option><option>United States</option><option>United Kingdom</option><option>Germany</option><option>India</option><option>Australia</option><option>UAE</option><option>Singapore</option><option>Other</option></select>
-          </div>
-        </div>
-        <label class="m-label">City</label>
-        <input class="m-input" id="aCity" placeholder="e.g. Toronto">
-        <div class="m-row">
-          <div><label class="m-label">Years of Experience</label><input class="m-input" type="number" id="aExp" min="0" max="40" placeholder="e.g. 5"></div>
-          <div><label class="m-label">Highest Education</label>
-            <select class="m-select" id="aEdu"><option value="">Select</option><option>High School</option><option>Diploma</option><option>Bachelor's</option><option>Master's</option><option>PhD</option><option>Self-taught</option><option>Bootcamp Graduate</option></select>
-          </div>
-        </div>
-        <label class="m-label">Key Skills *</label>
-        <input class="m-input" id="aSkills" placeholder="Python, PyTorch, NLP, AWS...">
-        <div class="m-row">
-          <div><label class="m-label">LinkedIn</label><input class="m-input" id="aLinkedin" placeholder="https://linkedin.com/in/..."></div>
-          <div><label class="m-label">GitHub / Portfolio</label><input class="m-input" id="aPortfolio" placeholder="https://..."></div>
-        </div>
-        <label class="m-label">Salary Expectation</label>
-        <input class="m-input" id="aSalary" placeholder="e.g. $120K-$150K USD / negotiable">
-        <label class="m-label">Availability</label>
-        <select class="m-select" id="aAvail"><option>Immediately</option><option>2 weeks notice</option><option>1 month</option><option>2-3 months</option><option>Flexible</option></select>
-        <label class="m-label">Why are you a great fit? *</label>
-        <textarea class="m-textarea" id="aCover" rows="4" placeholder="Tell us about your relevant experience, motivation, and what excites you about this role..."></textarea>
-        <label class="m-label">Upload CV / Resume *</label>
-        <div class="file-drop" id="cvDrop">
-          <input type="file" id="cvInput" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
-          <div class="fd-text">📄 Click or drop your CV here<br><small style="color:var(--muted)">PDF, DOC, DOCX · Max 5MB · Encrypted before upload</small></div>
-          <div class="fd-name" id="cvName"></div>
-        </div>
-        <div class="encrypt-bar" id="encBar" style="display:none">
-          <span>🔒</span><span>File encrypted with AES-256-GCM · Stored as ciphertext only</span>
-        </div>
-        <label class="m-label" style="margin-top:1rem">How did you hear about us?</label>
-        <select class="m-select" id="aSource"><option value="">Select</option><option>LinkedIn</option><option>Google Search</option><option>Referral</option><option>Social Media</option><option>AARANIT Website</option><option>Job Board</option><option>Other</option></select>
-
-        <div class="secure-pill" style="margin-top:1.2rem">🔒 Your personal data & CV are AES-256-GCM encrypted before transmission</div>
-        <button class="m-btn" id="submitBtn" onclick="submitApp()">🔐 Encrypt & Submit Application →</button>
-        <div class="m-msg" id="appMsg"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 <a href="index.html">AARANIT AI</a> — 15439361 Canada Inc. · Ontario, Canada · <a href="mailto:hello@aaranitai.com">hello@aaranitai.com</a></p>
-  <p style="margin-top:.3rem;font-size:.65rem">All personal data is encrypted with AES-256-GCM. CVs are never stored in plain text. OTP verification required.</p>
-</footer>
+<footer>© 2026 AARNAIT AI — 15439361 Canada Inc. · <a href="index.html">Home</a> · <a href="index.html#contact">Contact</a> · <a href="mailto:hello@aarnaitai.com">hello@aarnaitai.com</a></footer>
 
 <script>
-// ═══════════════════════════════════════
-// SUPABASE
-// ═══════════════════════════════════════
-const SB_URL='https://ghztxqviaquxhzhsobiz.supabase.co';
-const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdoenR4cXZpYXF1eGh6aHNvYml6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5Mzk3NjksImV4cCI6MjA4NjUxNTc2OX0.qfh7b6TmvUgCabyifp_RTBbufX__yx2W6lGSVzzIpCk';
-
-async function sbPost(table,data){
-  try{
-    const r=await fetch(`${SB_URL}/rest/v1/${table}`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'return=minimal'},
-      body:JSON.stringify(data)
-    });
-    return r.ok;
-  }catch{return false}
-}
-
-async function sbAuth(endpoint,body){
-  try{
-    const r=await fetch(`${SB_URL}/auth/v1/${endpoint}`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','apikey':SB_KEY},
-      body:JSON.stringify(body)
-    });
-    return await r.json();
-  }catch(e){return{error:{message:'Network error. Please try again.'}}}
-}
-
-// ═══════════════════════════════════════
-// AES-256-GCM ENCRYPTION (Web Crypto API)
-// ═══════════════════════════════════════
-async function deriveKey(passphrase){
-  const enc=new TextEncoder();
-  const material=await crypto.subtle.importKey('raw',enc.encode(passphrase),'PBKDF2',false,['deriveKey']);
-  return crypto.subtle.deriveKey(
-    {name:'PBKDF2',salt:enc.encode('AARANIT-AI-SALT-2026-SECURE'),iterations:120000,hash:'SHA-256'},
-    material,
-    {name:'AES-GCM',length:256},
-    false,
-    ['encrypt','decrypt']
-  );
-}
-
-async function encryptData(plainText,passphrase){
-  const enc=new TextEncoder();
-  const key=await deriveKey(passphrase);
-  const iv=crypto.getRandomValues(new Uint8Array(12));
-  const cipherBuffer=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(plainText));
-  return{
-    cipher:arrayToBase64(new Uint8Array(cipherBuffer)),
-    iv:arrayToBase64(iv)
-  };
-}
-
-async function encryptFileData(fileBuffer,passphrase){
-  const key=await deriveKey(passphrase);
-  const iv=crypto.getRandomValues(new Uint8Array(12));
-  const cipherBuffer=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,fileBuffer);
-  return{
-    cipher:arrayToBase64(new Uint8Array(cipherBuffer)),
-    iv:arrayToBase64(iv)
-  };
-}
-
-function arrayToBase64(arr){
-  let bin='';
-  arr.forEach(b=>bin+=String.fromCharCode(b));
-  return btoa(bin);
-}
-
-// Encryption passphrase = user email + server salt (never stored)
-function getPassphrase(){
-  return (currentUser?.email||'anon')+'::AARANIT-PRIVATE-2026';
-}
-
-// ═══════════════════════════════════════
-// JOB DATA (16 positions, 9 countries)
-// ═══════════════════════════════════════
-const allJobs=[
-  {id:1,icon:'🤖',title:'Senior ML Engineer',company:'AARANIT AI',country:'Canada',flag:'🇨🇦',city:'Toronto',salary:'C$140K – C$180K',type:'Full-time',exp:'Senior (6-10 yrs)',role:'ML Engineer',desc:'Design and deploy production ML systems for enterprise clients. Lead model development and mentor junior engineers.',skills:['Python','PyTorch','MLOps','AWS','Docker','SQL'],posted:'2 days ago'},
-  {id:2,icon:'🧪',title:'AI Research Scientist',company:'DeepMind Lab',country:'United States',flag:'🇺🇸',city:'San Francisco',salary:'$160K – $220K',type:'Full-time',exp:'Senior (6-10 yrs)',role:'AI Research',desc:'Advance state-of-the-art NLP and multimodal AI. Publish at top-tier conferences. PhD preferred.',skills:['PhD','Deep Learning','NLP','Research','PyTorch','Math'],posted:'1 week ago'},
-  {id:3,icon:'📊',title:'Data Scientist',company:'FinTech Corp',country:'United Kingdom',flag:'🇬🇧',city:'London',salary:'£80K – £120K',type:'Full-time',exp:'Mid (3-5 yrs)',role:'Data Scientist',desc:'Build predictive models for risk assessment and fraud detection in financial services.',skills:['Python','SQL','Statistics','ML','Visualization','Pandas'],posted:'3 days ago'},
-  {id:4,icon:'💬',title:'NLP Engineer',company:'LangTech GmbH',country:'Germany',flag:'🇩🇪',city:'Berlin',salary:'€90K – €130K',type:'Full-time',exp:'Mid (3-5 yrs)',role:'NLP Engineer',desc:'Develop multilingual NLP pipelines and conversational AI for European markets.',skills:['Transformers','BERT/GPT','Python','Hugging Face','APIs'],posted:'5 days ago'},
-  {id:5,icon:'👁️',title:'Computer Vision Engineer',company:'MedVision AI',country:'India',flag:'🇮🇳',city:'Bangalore',salary:'₹25L – ₹45L',type:'Full-time',exp:'Mid (3-5 yrs)',role:'CV Engineer',desc:'Build medical imaging AI — X-ray analysis, tumor detection, diagnostic assistance.',skills:['CNNs','YOLO','OpenCV','PyTorch','Edge AI','DICOM'],posted:'1 day ago'},
-  {id:6,icon:'🔧',title:'MLOps Engineer',company:'CloudScale',country:'Australia',flag:'🇦🇺',city:'Sydney',salary:'A$130K – A$170K',type:'Full-time',exp:'Mid (3-5 yrs)',role:'MLOps',desc:'Build and maintain ML infrastructure and monitoring at scale for SaaS products.',skills:['Docker','Kubernetes','CI/CD','AWS/GCP','Terraform','Linux'],posted:'4 days ago'},
-  {id:7,icon:'🎯',title:'Prompt Engineer',company:'AARANIT AI',country:'Remote',flag:'🌐',city:'Anywhere',salary:'$90K – $140K USD',type:'Full-time',exp:'Entry (0-2 yrs)',role:'Prompt Engineer',desc:'Design and optimize prompts for production LLM applications. Evaluate outputs and build test suites.',skills:['LLM APIs','Prompt Design','RAG','Evaluation','Testing'],posted:'Today'},
-  {id:8,icon:'📈',title:'AI Product Manager',company:'TechVenture',country:'Singapore',flag:'🇸🇬',city:'Singapore',salary:'S$150K – S$200K',type:'Full-time',exp:'Senior (6-10 yrs)',role:'AI Product Manager',desc:'Lead AI product strategy in fintech. Bridge business goals with technical capabilities.',skills:['Product','AI Literacy','Stakeholders','Roadmapping','Agile'],posted:'1 week ago'},
-  {id:9,icon:'⚡',title:'Junior ML Engineer',company:'StartupAI',country:'Canada',flag:'🇨🇦',city:'Vancouver',salary:'C$80K – C$110K',type:'Full-time',exp:'Entry (0-2 yrs)',role:'ML Engineer',desc:'Join a fast-growing startup building ML features for our developer tools platform.',skills:['Python','scikit-learn','SQL','Git','APIs','FastAPI'],posted:'Today'},
-  {id:10,icon:'🛡️',title:'AI Ethics Consultant',company:'ResponsibleTech',country:'United Kingdom',flag:'🇬🇧',city:'London',salary:'£90K – £130K',type:'Contract',exp:'Senior (6-10 yrs)',role:'AI Consultant',desc:'Audit enterprise AI systems for bias, fairness, and GDPR/EU AI Act compliance.',skills:['AI Ethics','Bias Testing','GDPR','Explainability','Policy'],posted:'3 days ago'},
-  {id:11,icon:'🧠',title:'Deep Learning Intern',company:'AARANIT AI',country:'Canada',flag:'🇨🇦',city:'Toronto',salary:'C$28/hr',type:'Internship',exp:'Entry (0-2 yrs)',role:'AI Research',desc:'3-month paid internship working on client projects under senior mentorship.',skills:['Python','PyTorch','ML Basics','Git','Eager to Learn'],posted:'Today'},
-  {id:12,icon:'🔗',title:'AI Solutions Architect',company:'GovTech',country:'UAE',flag:'🇦🇪',city:'Dubai',salary:'AED 38K – 55K/mo',type:'Full-time',exp:'Lead (10+ yrs)',role:'AI Consultant',desc:'Design enterprise AI architectures for government digital transformation.',skills:['System Design','Cloud','ML','Leadership','Arabic+'],posted:'6 days ago'},
-  {id:13,icon:'📊',title:'Data Analyst — AI',company:'HealthTech',country:'India',flag:'🇮🇳',city:'Mumbai',salary:'₹12L – ₹20L',type:'Full-time',exp:'Entry (0-2 yrs)',role:'Data Scientist',desc:'Support AI team with data analysis, dashboards, and feature engineering.',skills:['Python','SQL','Pandas','Tableau','Excel','Stats'],posted:'2 days ago'},
-  {id:14,icon:'🤖',title:'GenAI Developer',company:'CreativeAI',country:'United States',flag:'🇺🇸',city:'New York',salary:'$130K – $175K',type:'Full-time',exp:'Mid (3-5 yrs)',role:'ML Engineer',desc:'Build generative AI products — text, image, and multimodal applications at scale.',skills:['LLMs','Diffusion','Python','React','APIs','RAG'],posted:'Today'},
-  {id:15,icon:'💼',title:'AI Tutor (Part-time)',company:'AARANIT AI',country:'Remote',flag:'🌐',city:'Anywhere',salary:'$60 – $100/hr',type:'Part-time',exp:'Mid (3-5 yrs)',role:'AI Consultant',desc:'Teach AI courses online. Flexible hours. Perfect for working professionals.',skills:['Teaching','ML/DL','Python','Communication','Patience'],posted:'1 week ago'},
-  {id:16,icon:'🔧',title:'ML Platform Engineer',company:'AutoDrive',country:'Germany',flag:'🇩🇪',city:'Munich',salary:'€100K – €140K',type:'Full-time',exp:'Senior (6-10 yrs)',role:'MLOps',desc:'Build the ML platform powering autonomous driving research and testing.',skills:['Kubernetes','Python','Spark','GPU','Linux','C++'],posted:'5 days ago'}
+const careerJobs=[
+  {icon:'🤖',t:'Senior ML Engineer',co:'AARNAIT AI',country:'Canada',flag:'🇨🇦',city:'Toronto',sal:'C$140K–180K',type:'Full-time',exp:'Senior',role:'ML Engineer',p:'Deploy production ML systems for enterprise clients.',skills:['Python','PyTorch','MLOps','AWS','Docker']},
+  {icon:'🧪',t:'AI Research Scientist',co:'DeepMind Lab',country:'United States',flag:'🇺🇸',city:'San Francisco',sal:'$160K–220K',type:'Full-time',exp:'Senior',role:'AI Research',p:'Advance NLP and multimodal AI. PhD preferred.',skills:['PhD','Deep Learning','NLP','Research','Math']},
+  {icon:'📊',t:'Data Scientist',co:'FinTech Corp',country:'United Kingdom',flag:'🇬🇧',city:'London',sal:'£80K–120K',type:'Full-time',exp:'Mid',role:'Data Scientist',p:'Predictive models for risk and fraud detection.',skills:['Python','SQL','Statistics','ML','Pandas']},
+  {icon:'💬',t:'NLP Engineer',co:'LangTech GmbH',country:'Germany',flag:'🇩🇪',city:'Berlin',sal:'€90K–130K',type:'Full-time',exp:'Mid',role:'NLP Engineer',p:'Multilingual NLP pipelines and conversational AI.',skills:['Transformers','BERT/GPT','Python','Hugging Face']},
+  {icon:'👁️',t:'Computer Vision Engineer',co:'MedVision AI',country:'India',flag:'🇮🇳',city:'Bangalore',sal:'₹25L–45L',type:'Full-time',exp:'Mid',role:'CV Engineer',p:'Medical imaging AI — X-ray and tumor detection.',skills:['CNNs','YOLO','OpenCV','PyTorch','Edge AI']},
+  {icon:'🔧',t:'MLOps Engineer',co:'CloudScale',country:'Australia',flag:'🇦🇺',city:'Sydney',sal:'A$130K–170K',type:'Full-time',exp:'Mid',role:'MLOps',p:'ML infrastructure and monitoring at scale.',skills:['Docker','Kubernetes','CI/CD','AWS/GCP']},
+  {icon:'🎯',t:'Prompt Engineer',co:'AARNAIT AI',country:'Remote',flag:'🌐',city:'Anywhere',sal:'$90K–140K USD',type:'Full-time',exp:'Entry',role:'Prompt Engineer',p:'Design prompts for production LLM applications.',skills:['LLM APIs','Prompt Design','RAG','Testing']},
+  {icon:'📈',t:'AI Product Manager',co:'TechVenture',country:'Singapore',flag:'🇸🇬',city:'Singapore',sal:'S$150K–200K',type:'Full-time',exp:'Senior',role:'AI Product Manager',p:'Lead AI product strategy in fintech.',skills:['Product','AI Literacy','Roadmapping','Agile']},
+  {icon:'⚡',t:'Junior ML Engineer',co:'StartupAI',country:'Canada',flag:'🇨🇦',city:'Vancouver',sal:'C$80K–110K',type:'Full-time',exp:'Entry',role:'ML Engineer',p:'Build ML features for developer tools.',skills:['Python','scikit-learn','SQL','Git','APIs']},
+  {icon:'🛡️',t:'AI Ethics Consultant',co:'ResponsibleTech',country:'United Kingdom',flag:'🇬🇧',city:'London',sal:'£90K–130K',type:'Contract',exp:'Senior',role:'AI Consultant',p:'Audit AI for bias and GDPR compliance.',skills:['AI Ethics','Bias Testing','GDPR','Policy']},
+  {icon:'🧠',t:'Deep Learning Intern',co:'AARNAIT AI',country:'Canada',flag:'🇨🇦',city:'Toronto',sal:'C$28/hr',type:'Internship',exp:'Entry',role:'AI Research',p:'Paid 3-month internship with mentorship.',skills:['Python','PyTorch','ML Basics','Git']},
+  {icon:'🔗',t:'AI Solutions Architect',co:'GovTech',country:'UAE',flag:'🇦🇪',city:'Dubai',sal:'AED 38K–55K/mo',type:'Full-time',exp:'Lead',role:'AI Consultant',p:'Enterprise AI for government digital transformation.',skills:['System Design','Cloud','ML','Leadership']},
+  {icon:'📊',t:'Data Analyst — AI',co:'HealthTech',country:'India',flag:'🇮🇳',city:'Mumbai',sal:'₹12L–20L',type:'Full-time',exp:'Entry',role:'Data Scientist',p:'Data analysis and feature engineering.',skills:['Python','SQL','Pandas','Tableau','Excel']},
+  {icon:'🤖',t:'GenAI Developer',co:'CreativeAI',country:'United States',flag:'🇺🇸',city:'New York',sal:'$130K–175K',type:'Full-time',exp:'Mid',role:'ML Engineer',p:'Generative AI products at scale.',skills:['LLMs','Diffusion','Python','React','RAG']},
+  {icon:'💼',t:'AI Tutor (Part-time)',co:'AARNAIT AI',country:'Remote',flag:'🌐',city:'Anywhere',sal:'$60–100/hr',type:'Part-time',exp:'Mid',role:'AI Consultant',p:'Teach AI courses online. Flexible hours.',skills:['Teaching','ML/DL','Python','Communication']},
+  {icon:'🔧',t:'ML Platform Engineer',co:'AutoDrive',country:'Germany',flag:'🇩🇪',city:'Munich',sal:'€100K–140K',type:'Full-time',exp:'Senior',role:'MLOps',p:'ML platform for autonomous driving research.',skills:['Kubernetes','Python','Spark','GPU','Linux']}
 ];
 
-// ═══════════════════════════════════════
-// COUNTRY TABS
-// ═══════════════════════════════════════
-let activeCountry='';
-const countries=[{label:'🌍 All',val:''},{label:'🇨🇦 Canada',val:'Canada'},{label:'🇺🇸 USA',val:'United States'},{label:'🇬🇧 UK',val:'United Kingdom'},{label:'🇩🇪 Germany',val:'Germany'},{label:'🇮🇳 India',val:'India'},{label:'🇦🇺 Australia',val:'Australia'},{label:'🇦🇪 UAE',val:'UAE'},{label:'🇸🇬 Singapore',val:'Singapore'},{label:'🌐 Remote',val:'Remote'}];
+let activeCo='';
+const coList=[{l:'🌍 All',v:''},{l:'🇨🇦 Canada',v:'Canada'},{l:'🇺🇸 USA',v:'United States'},{l:'🇬🇧 UK',v:'United Kingdom'},{l:'🇩🇪 Germany',v:'Germany'},{l:'🇮🇳 India',v:'India'},{l:'🇦🇺 Australia',v:'Australia'},{l:'🇦🇪 UAE',v:'UAE'},{l:'🇸🇬 Singapore',v:'Singapore'},{l:'🌐 Remote',v:'Remote'}];
 
-document.getElementById('countryTabs').innerHTML=countries.map(c=>{
-  const count=c.val?allJobs.filter(j=>j.country===c.val).length:allJobs.length;
-  return `<div class="country-tab ${c.val===activeCountry?'active':''}" onclick="setCountry('${c.val}')">${c.label} <small>(${count})</small></div>`;
-}).join('');
-
-function setCountry(c){activeCountry=c;renderTabs();renderJobs()}
-function renderTabs(){
-  document.querySelectorAll('.country-tab').forEach((t,i)=>{
-    t.classList.toggle('active',countries[i].val===activeCountry);
-  });
+function renderCoTabs(){
+  document.getElementById('cTabs').innerHTML=coList.map(c=>`<span class="co-tab${c.v===activeCo?' active':''}" onclick="activeCo='${c.v}';filterC()">${c.l} (${c.v?careerJobs.filter(j=>j.country===c.v).length:careerJobs.length})</span>`).join('');
 }
 
-// ═══════════════════════════════════════
-// RENDER JOBS
-// ═══════════════════════════════════════
-function renderJobs(){
+function filterC(){
+  renderCoTabs();
   const role=document.getElementById('fRole').value;
   const exp=document.getElementById('fExp').value;
   const type=document.getElementById('fType').value;
   const search=document.getElementById('fSearch').value.toLowerCase();
-
-  const filtered=allJobs.filter(j=>{
-    if(activeCountry&&j.country!==activeCountry)return false;
+  const f=careerJobs.filter(j=>{
+    if(activeCo&&j.country!==activeCo)return false;
     if(role&&j.role!==role)return false;
     if(exp&&j.exp!==exp)return false;
     if(type&&j.type!==type)return false;
-    if(search&&!(j.title+' '+j.company+' '+j.desc+' '+j.skills.join(' ')).toLowerCase().includes(search))return false;
+    if(search&&!(j.t+j.co+j.p+j.skills.join(' ')).toLowerCase().includes(search))return false;
     return true;
   });
-
-  document.getElementById('resultCount').innerHTML=`<strong>${filtered.length}</strong> positions found${activeCountry?' in '+activeCountry:''}`;
-  document.getElementById('statJobs').textContent=allJobs.length;
-
-  if(!filtered.length){
-    document.getElementById('jobsGrid').innerHTML='<div class="no-results">No positions match your filters.<br>Try broadening your search or selecting a different country.</div>';
-    return;
-  }
-
-  document.getElementById('jobsGrid').innerHTML=filtered.map((j,i)=>`
-    <div class="job-card" style="animation-delay:${i*0.05}s">
-      <div class="jc-top">
-        <span class="jc-icon">${j.icon}</span>
-        <div class="jc-badges">
-          <span class="jc-badge country">${j.flag} ${j.country}</span>
-          <span class="jc-badge type">${j.type}</span>
-          ${j.country==='Remote'?'<span class="jc-badge remote">🏠 Remote</span>':''}
-        </div>
-      </div>
-      <h3>${j.title}</h3>
-      <div class="jc-company">${j.company} · ${j.city}</div>
-      <div class="jc-meta"><span>📅 ${j.posted}</span><span>💼 ${j.exp}</span></div>
-      <div class="jc-sal">${j.salary}</div>
-      <p>${j.desc}</p>
-      <div class="jc-skills">${j.skills.map(s=>`<span>${s}</span>`).join('')}</div>
-      <div class="jc-actions">
-        <button class="apply-btn" onclick="openApply(${j.id})">Apply Now →</button>
-        <button class="save-btn" id="save${j.id}" onclick="toggleSave(${j.id},this)">♡ Save</button>
-      </div>
-    </div>
-  `).join('');
+  document.getElementById('cCount').textContent=`${f.length} of ${careerJobs.length} positions`;
+  document.getElementById('jobsGrid').innerHTML=f.length?f.map(j=>`<div class="job-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem"><span style="font-size:1.5rem">${j.icon}</span><span style="padding:.15rem .5rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.1);border-radius:50px;font-size:.6rem;color:var(--violet);font-weight:600">${j.flag} ${j.country}</span></div>
+    <h3>${j.t}</h3>
+    <div style="font-size:.78rem;color:var(--cyan);margin-bottom:.3rem">${j.co} · ${j.city}</div>
+    <div style="display:flex;gap:.6rem;font-size:.7rem;color:var(--muted);margin-bottom:.3rem"><span>${j.type}</span><span>${j.exp}</span></div>
+    <div class="salary">${j.sal}</div>
+    <p>${j.p}</p>
+    <div class="job-skills">${j.skills.map(s=>`<span>${s}</span>`).join('')}</div>
+    <button class="apply-btn" onclick="window.location.href='index.html#contact'">Apply Now →</button>
+  </div>`).join(''):'<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No positions match your filters. Try different criteria.</div>';
 }
-
-function resetFilters(){
-  document.getElementById('fRole').value='';
-  document.getElementById('fExp').value='';
-  document.getElementById('fType').value='';
-  document.getElementById('fSearch').value='';
-  activeCountry='';
-  renderTabs();renderJobs();
-}
-
-function toggleSave(id,btn){
-  btn.classList.toggle('saved');
-  btn.textContent=btn.classList.contains('saved')?'♥ Saved':'♡ Save';
-}
-
-renderJobs();
-
-// ═══════════════════════════════════════
-// AUTH SYSTEM (OTP via Supabase Auth)
-// ═══════════════════════════════════════
-let currentUser=null;
-let signupData={};
-const authPanels=['authSignup','authOTP','authLogin','authLoginOTP','authProfile'];
-
-function showPanel(id){authPanels.forEach(p=>document.getElementById(p).style.display='none');document.getElementById(id).style.display='block'}
-function openAuth(){document.getElementById('authModal').classList.add('show');currentUser?showPanel('authProfile'):showPanel('authSignup')}
-function closeModal(id){document.getElementById(id).classList.remove('show')}
-
-function updateAuthUI(){
-  const dot=document.getElementById('authDot'),lbl=document.getElementById('authLabel');
-  if(currentUser){dot.className='dot on';lbl.textContent=currentUser.email.split('@')[0]}
-  else{dot.className='dot off';lbl.textContent='Sign In'}
-}
-
-// OTP inputs
-function otpNav(el,i){if(el.value.length===1){const nxt=el.parentElement.children[i+1];if(nxt)nxt.focus()}}
-function otpDel(e,i){if(e.key==='Backspace'&&!e.target.value){const prev=e.target.parentElement.children[i-1];if(prev){prev.focus();prev.value=''}}}
-function readOTP(boxId){return Array.from(document.getElementById(boxId).children).map(i=>i.value).join('')}
-function clearOTP(boxId){Array.from(document.getElementById(boxId).children).forEach(i=>i.value='')}
-
-function msg(id,text,ok){const el=document.getElementById(id);el.textContent=text;el.style.color=ok?'var(--cyan)':'var(--magenta)'}
-
-async function doSignup(){
-  const name=document.getElementById('sName').value.trim();
-  const email=document.getElementById('sEmail').value.trim();
-  const phone=document.getElementById('sPhoneCode').value+document.getElementById('sPhone').value.trim();
-  const country=document.getElementById('sCountry').value;
-  if(!name||!email){msg('sMsg','Please fill name and email.',false);return}
-  if(!email.includes('@')){msg('sMsg','Enter a valid email.',false);return}
-  if(!country){msg('sMsg','Please select your country.',false);return}
-
-  msg('sMsg','Sending verification code...',true);
-  signupData={name,email,phone,country};
-
-  const res=await sbAuth('otp',{email,data:{full_name:name}});
-  if(res.error){msg('sMsg',res.error.message||'Error. Try again.',false);return}
-
-  document.getElementById('otpTarget').textContent=email;
-  showPanel('authOTP');
-  clearOTP('otpBox');
-  document.getElementById('otpBox').children[0].focus();
-}
-
-async function doVerify(){
-  const otp=readOTP('otpBox');
-  if(otp.length<6){msg('otpMsg','Enter all 6 digits.',false);return}
-  msg('otpMsg','Verifying...',true);
-
-  const res=await sbAuth('verify',{email:signupData.email,token:otp,type:'email'});
-  if(res.error){msg('otpMsg',res.error.message||'Invalid code.',false);return}
-
-  currentUser=res.user||{email:signupData.email,id:res.user?.id};
-  // Save profile
-  sbPost('user_profiles',{user_id:currentUser.id,full_name:signupData.name,phone:signupData.phone,country:signupData.country}).catch(()=>{});
-  sbPost('contact_submissions',{name:signupData.name,email:signupData.email,service_interest:'signup',message:`[SIGNUP] ${signupData.country} | ${signupData.phone}`}).catch(()=>{});
-
-  updateAuthUI();
-  document.getElementById('profileEmail').textContent=signupData.email;
-  showPanel('authProfile');
-}
-
-async function doResend(){
-  msg('otpMsg','Resending...',true);
-  await sbAuth('otp',{email:signupData.email});
-  msg('otpMsg','New code sent! Check your email.',true);
-}
-
-async function doLogin(){
-  const email=document.getElementById('lEmail').value.trim();
-  if(!email||!email.includes('@')){msg('lMsg','Enter a valid email.',false);return}
-  msg('lMsg','Sending code...',true);
-  signupData={email};
-  const res=await sbAuth('otp',{email});
-  if(res.error){msg('lMsg',res.error.message,false);return}
-  showPanel('authLoginOTP');
-  clearOTP('loginOtpBox');
-  document.getElementById('loginOtpBox').children[0].focus();
-}
-
-async function doLoginVerify(){
-  const otp=readOTP('loginOtpBox');
-  if(otp.length<6){msg('lOtpMsg','Enter all 6 digits.',false);return}
-  msg('lOtpMsg','Signing in...',true);
-  const res=await sbAuth('verify',{email:signupData.email,token:otp,type:'email'});
-  if(res.error){msg('lOtpMsg',res.error.message||'Invalid code.',false);return}
-  currentUser=res.user||{email:signupData.email,id:res.user?.id};
-  updateAuthUI();
-  document.getElementById('profileEmail').textContent=signupData.email;
-  showPanel('authProfile');
-}
-
-function doSignOut(){currentUser=null;signupData={};updateAuthUI();closeModal('authModal')}
-
-// ═══════════════════════════════════════
-// APPLICATION
-// ═══════════════════════════════════════
-let applyingJob=null;
-let encryptedCV=null;
-
-function openApply(jobId){
-  applyingJob=allJobs.find(j=>j.id===jobId);
-  if(!applyingJob)return;
-
-  document.getElementById('applyTitle').textContent=applyingJob.title+' — '+applyingJob.company;
-  document.getElementById('applyModal').classList.add('show');
-  document.getElementById('appMsg').textContent='';
-  encryptedCV=null;
-  document.getElementById('cvName').textContent='';
-  document.getElementById('encBar').style.display='none';
-
-  if(currentUser){
-    document.getElementById('applyGate').style.display='none';
-    document.getElementById('applyForm').style.display='block';
-    // Pre-fill from user data
-    if(currentUser.email)document.getElementById('aEmail').value=currentUser.email;
-    if(signupData.name)document.getElementById('aName').value=signupData.name;
-    if(signupData.phone)document.getElementById('aPhone').value=signupData.phone;
-    if(signupData.country)document.getElementById('aCountry').value=signupData.country;
-  }else{
-    document.getElementById('applyGate').style.display='block';
-    document.getElementById('applyForm').style.display='none';
-  }
-}
-
-async function handleFile(input){
-  const file=input.files[0];
-  if(!file)return;
-  if(file.size>5*1024*1024){alert('File too large. Maximum 5MB.');input.value='';return}
-  document.getElementById('cvName').textContent='🔐 Encrypting: '+file.name+'...';
-  try{
-    const buffer=await file.arrayBuffer();
-    encryptedCV=await encryptFileData(buffer,getPassphrase());
-    encryptedCV.filename=file.name;
-    encryptedCV.size=file.size;
-    document.getElementById('cvName').textContent='✅ '+file.name+' (encrypted, '+Math.round(file.size/1024)+'KB)';
-    document.getElementById('encBar').style.display='flex';
-  }catch(e){
-    document.getElementById('cvName').textContent='❌ Encryption failed. Try again.';
-    encryptedCV=null;
-  }
-}
-
-async function submitApp(){
-  const btn=document.getElementById('submitBtn');
-  const name=document.getElementById('aName').value.trim();
-  const email=document.getElementById('aEmail').value.trim();
-  const country=document.getElementById('aCountry').value;
-  const skills=document.getElementById('aSkills').value.trim();
-  const cover=document.getElementById('aCover').value.trim();
-
-  if(!name||!email||!country||!skills||!cover){msg('appMsg','Please fill all required fields (*)',false);return}
-  if(!encryptedCV){msg('appMsg','Please upload your CV.',false);return}
-
-  btn.textContent='🔐 Encrypting data...';btn.disabled=true;
-
-  // Encrypt sensitive fields
-  const pass=getPassphrase();
-  let encName,encPhone,encEmail2;
-  try{
-    encName=await encryptData(name,pass);
-    encPhone=await encryptData(document.getElementById('aPhone').value||'',pass);
-    encEmail2=await encryptData(email,pass);
-  }catch(e){
-    msg('appMsg','Encryption error. Try again.',false);
-    btn.textContent='🔐 Encrypt & Submit Application →';btn.disabled=false;
-    return;
-  }
-
-  btn.textContent='📤 Submitting...';
-
-  const appData={
-    user_id:currentUser?.id||null,
-    full_name:name,
-    email:email,
-    phone_encrypted:encPhone.cipher,
-    phone_iv:encPhone.iv,
-    country:country,
-    city:document.getElementById('aCity').value,
-    job_title:applyingJob.title,
-    job_country:applyingJob.country,
-    experience_years:parseInt(document.getElementById('aExp').value)||0,
-    education:document.getElementById('aEdu').value,
-    skills:skills,
-    linkedin_url:document.getElementById('aLinkedin').value,
-    portfolio_url:document.getElementById('aPortfolio').value,
-    cover_letter:cover,
-    salary_expectation:document.getElementById('aSalary').value,
-    availability:document.getElementById('aAvail').value,
-    cv_encrypted:encryptedCV.cipher,
-    cv_iv:encryptedCV.iv,
-    cv_filename:encryptedCV.filename,
-    source:document.getElementById('aSource').value
-  };
-
-  // Try job_applications table first
-  let ok=await sbPost('job_applications',appData);
-  if(!ok){
-    // Fallback to contact_submissions
-    ok=await sbPost('contact_submissions',{
-      name:name,
-      email:email,
-      service_interest:'Job Application: '+applyingJob.title,
-      message:`[APPLICATION] ${applyingJob.title} at ${applyingJob.company} | Country: ${country} | Exp: ${appData.experience_years}yrs | Skills: ${skills} | CV: encrypted (${encryptedCV.filename})`
-    });
-  }
-
-  if(ok){
-    msg('appMsg','✅ Application submitted securely! We\'ll review and contact you within 24-48 hours.',true);
-    btn.textContent='✅ Submitted!';
-    setTimeout(()=>closeModal('applyModal'),3500);
-  }else{
-    msg('appMsg','Submission error. Please email hello@aaranitai.com with your application.',false);
-  }
-  setTimeout(()=>{btn.textContent='🔐 Encrypt & Submit Application →';btn.disabled=false},4000);
-}
+filterC();
 </script>
 </body>
 </html>
