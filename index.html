@@ -883,7 +883,8 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 
 <!-- INSPIRATION VIDEOS -->
 <section id="inspiration" style="background:var(--bg2)">
-  <div class="sec-head"><span class="sec-label">Get Inspired</span><h2>The Future of <span class="gradient-text">AI & Robotics</span></h2><p>Watch how artificial intelligence and robotics are shaping the next generation of innovation.</p><div class="sec-line"></div></div>
+  <div class="sec-head"><span class="sec-label">AARNAIT AI Presents</span><h2>The Future of <span class="gradient-text">AI & Robotics</span></h2><p>Curated by AARNAIT AI — inspiring the next generation of innovators, engineers, and AI leaders.</p><div class="sec-line"></div></div>
+  <div style="text-align:center;margin-bottom:1.5rem"><span style="display:inline-block;padding:.4rem 1.2rem;border-radius:50px;font-size:.62rem;font-weight:700;font-family:Syne,sans-serif;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(139,92,246,.08));border:1px solid rgba(0,229,255,.1);color:var(--cyan)">🎬 AARNAIT AI · Video Library · Robotics · AI · Kids STEM</span></div>
   <div id="vidGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem;max-width:1200px;margin:0 auto;padding:0 1rem"></div>
 </section>
 
@@ -2638,12 +2639,15 @@ renderTutoring();
 // ═══════════════ INSPIRATION VIDEOS ═══════════════
 (function(){
   const vids=[
-    {yt:'fn3KWM1kuAw',title:'Atlas: The Next Generation of Humanoid Robots',desc:'Boston Dynamics showcases the all-electric Atlas performing real-world warehouse and factory tasks with unprecedented agility.'},
-    {yt:'Sq1QZB5baNw',title:'How AI Is Transforming Every Industry',desc:'From healthcare diagnostics to autonomous vehicles — a comprehensive look at AI reshaping how the world works.'},
-    {yt:'jSxVFgXvSCo',title:'The Rise of AI Agents & Autonomous Systems',desc:'How agentic AI is creating systems that can reason, plan, and execute complex multi-step tasks without human supervision.'}
+    {yt:'rVlhMGQgDkY',title:'The Future of Robotics — Machines That Dance',desc:'Watch how humanoid robots have evolved from clumsy prototypes to graceful, intelligent machines capable of complex coordinated movement.',tag:'🤖 Robotics'},
+    {yt:'tF4DML7FIWk',title:'Atlas: Next Generation Humanoid Robot',desc:'The robot that changed everything — see Atlas navigate snow, lift boxes, and recover from being pushed. A landmark moment in robotics history.',tag:'🦾 Humanoid AI'},
+    {yt:'_sBBaNYex3E',title:'Atlas Mastering Parkour & Agility',desc:'From backflips to vaults — humanoid robots pushing the boundaries of balance, perception, and athletic movement through advanced control algorithms.',tag:'⚡ AI Athletics'},
+    {yt:'HUP6Z5voiS8',title:'Kids Building Amazing Robots — FIRST Robotics',desc:'Young innovators designing, building, and competing with real robots. See how STEM programs are creating the next generation of engineers and AI leaders.',tag:'👦 Kids Robotics'},
+    {yt:'EezdinoG4mk',title:'9-Year-Old Builds Her Own Robot From Scratch',desc:'Meet the young minds who are proving that robotics isn\'t just for adults — kids as young as 7 are building intelligent machines and winning competitions.',tag:'🧒 Young Builders'},
+    {yt:'QCqxOzKNFks',title:'AI in 2026: The Technologies Changing Everything',desc:'From autonomous vehicles to AI-powered healthcare — an overview of the breakthrough technologies that are reshaping every industry on Earth.',tag:'🧠 AI Future'}
   ];
   const el=document.getElementById('vidGrid');if(!el)return;
-  el.innerHTML=vids.map(v=>'<div class="vid-card"><iframe src="https://www.youtube.com/embed/'+v.yt+'" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><div class="vid-info"><h4>'+v.title+'</h4><p>'+v.desc+'</p></div></div>').join('');
+  el.innerHTML=vids.map(v=>'<div class="vid-card" style="position:relative"><iframe src="https://www.youtube.com/embed/'+v.yt+'" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><div style="position:absolute;top:8px;left:8px;padding:.2rem .6rem;background:rgba(6,8,13,.85);backdrop-filter:blur(8px);border-radius:6px;font-size:.52rem;font-weight:700;font-family:Syne,sans-serif;letter-spacing:.06em;color:var(--cyan);border:1px solid rgba(0,229,255,.15)">AARNAIT AI</div><div class="vid-info"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem"><h4>'+v.title+'</h4></div><span style="display:inline-block;padding:.12rem .5rem;background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.08);border-radius:50px;font-size:.55rem;color:var(--cyan);margin-bottom:.3rem">'+v.tag+'</span><p>'+v.desc+'</p><p style="font-size:.6rem;color:var(--muted);margin-top:.4rem">Curated by AARNAIT AI · Empowering the next generation</p></div></div>').join('');
 })();
 
 </script>
