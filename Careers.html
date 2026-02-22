@@ -4,130 +4,107 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Careers Worldwide — AARNAIT AI</title>
-<meta name="description" content="Browse 16+ AI job openings across 9 countries. ML Engineer, Data Scientist, Prompt Engineer, and more.">
+<meta name="description" content="Browse 16+ AI job openings across 9 countries. ML Engineer, Data Scientist, Prompt Engineer and more.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#06080d;--bg2:#0a0e16;--card:#0f1320;--cyan:#00e5ff;--violet:#8b5cf6;--magenta:#d946ef;--green:#22c55e;--text:#f0f2f8;--text2:#8892a8;--muted:#4a5568;--border:rgba(255,255,255,.06)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
 ::selection{background:var(--cyan);color:var(--bg)}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:linear-gradient(var(--cyan),var(--violet));border-radius:10px}
 .gradient-text{background:linear-gradient(135deg,var(--cyan),var(--violet) 50%,var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 nav{padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(6,8,13,.95);backdrop-filter:blur(18px);position:sticky;top:0;z-index:1000}
-.logo-wrap{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text)}
-.logo-mark{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:.05em}
+.logo-mark{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:.05em;text-decoration:none;color:var(--text)}
 .tilt-i{display:inline-block;transform:rotate(12deg);color:var(--cyan)}
-.logo-ai{font-size:.75em;margin-left:.5em;letter-spacing:.08em;color:var(--violet)}
-.btn-glow{padding:.55rem 1.4rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:Syne,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;text-decoration:none;letter-spacing:.03em;transition:all .3s;display:inline-block}
-.btn-glow:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,229,255,.25)}
-.btn-out{padding:.55rem 1.4rem;background:transparent;border:1px solid var(--border);border-radius:50px;color:var(--text);font-family:Syne,sans-serif;font-weight:600;font-size:.78rem;cursor:pointer;text-decoration:none;transition:all .3s}
-.btn-out:hover{border-color:var(--cyan);color:var(--cyan)}
+.logo-ai{font-size:.75em;margin-left:.5em;color:var(--violet)}
+.btn{padding:.55rem 1.4rem;border-radius:50px;font-family:Syne,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;text-decoration:none;transition:all .3s;display:inline-block;border:none}
+.btn-fill{background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--bg)}.btn-fill:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,229,255,.25)}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text)}.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
 .hero{padding:4rem 2rem 2rem;text-align:center}
-.hero h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:.6rem}
-.hero p{color:var(--text2);max-width:600px;margin:0 auto;font-size:.95rem}
-.filters{max-width:1200px;margin:2rem auto;padding:0 1rem;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
-.co-tabs{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1rem;max-width:1200px;margin-left:auto;margin-right:auto;padding:0 1rem}
-.co-tab{padding:.35rem .75rem;border-radius:50px;font-size:.7rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all .2s}
-.co-tab.active{background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--bg);border-color:transparent}
-.co-tab:hover{border-color:var(--cyan)}
-.filters select,.filters input{padding:.5rem .8rem;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.78rem;outline:none;transition:border-color .3s}
-.filters select:focus,.filters input:focus{border-color:rgba(0,229,255,.3)}
-.count{text-align:center;margin:1rem 0;font-size:.8rem;color:var(--muted)}
-.jobs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem;max-width:1200px;margin:0 auto 4rem;padding:0 1rem}
-.job-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:all .35s}
-.job-card:hover{transform:translateY(-5px);border-color:rgba(0,229,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.3)}
-.job-card h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
-.job-card .salary{font-size:.82rem;color:var(--green);font-weight:600;margin-bottom:.6rem}
-.job-card p{color:var(--text2);font-size:.82rem;line-height:1.6}
-.job-card .job-skills{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.8rem}
-.job-card .job-skills span{padding:.2rem .6rem;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.1);border-radius:50px;font-size:.65rem;color:var(--cyan)}
-.apply-btn{width:100%;margin-top:.8rem;padding:.6rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:Syne,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;transition:all .3s}
-.apply-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,229,255,.2)}
-footer{padding:2rem;text-align:center;border-top:1px solid var(--border);font-size:.75rem;color:var(--muted)}
+.hero h1{font-family:Syne,sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin-bottom:.5rem}
+.hero p{color:var(--text2);max-width:600px;margin:0 auto;font-size:.92rem}
+.stats{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin:2rem 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 2rem;text-align:center;transition:all .3s}
+.stat:hover{border-color:rgba(0,229,255,.1);transform:translateY(-3px)}
+.stat b{font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;display:block}
+.stat small{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.tabs{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1rem;max-width:1200px;margin-left:auto;margin-right:auto;padding:0 1rem}
+.tab{padding:.35rem .75rem;border-radius:50px;font-size:.7rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all .2s}
+.tab.on{background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--bg);border-color:transparent}
+.tab:hover:not(.on){border-color:rgba(0,229,255,.2)}
+.flt{max-width:1200px;margin:0 auto 1.2rem;padding:0 1rem;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+.flt select,.flt input{padding:.5rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.78rem;outline:none}
+.cnt{text-align:center;margin-bottom:1rem;font-size:.78rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem;max-width:1200px;margin:0 auto 4rem;padding:0 1rem}
+.jc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.8rem;transition:all .35s}
+.jc:hover{transform:translateY(-5px);border-color:rgba(0,229,255,.1);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.jc h3{font-family:Syne,sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.sal{font-size:.82rem;color:var(--green);font-weight:600;margin-bottom:.5rem}
+.jc p{color:var(--text2);font-size:.8rem}
+.sk{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.8rem}
+.sk span{padding:.2rem .55rem;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.08);border-radius:50px;font-size:.62rem;color:var(--cyan)}
+.abtn{width:100%;margin-top:1rem;padding:.65rem;background:linear-gradient(135deg,var(--cyan),var(--violet));border:none;border-radius:50px;color:var(--bg);font-family:Syne,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;transition:all .3s}
+.abtn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,229,255,.2)}
+footer{padding:2rem;text-align:center;border-top:1px solid var(--border);font-size:.72rem;color:var(--muted)}
 footer a{color:var(--cyan);text-decoration:none}
-@media(max-width:768px){nav{padding:.8rem 1rem}.hero{padding:2.5rem 1rem 1.5rem}.hero h1{font-size:1.8rem}}
+@media(max-width:768px){nav{padding:.8rem 1rem;flex-wrap:wrap;gap:.5rem}.hero{padding:2rem 1rem}.hero h1{font-size:1.8rem}.stats{gap:.8rem}.stat{padding:.8rem 1.2rem}.stat b{font-size:1.3rem}}
 </style>
 </head>
 <body>
-
 <nav>
-  <a href="index.html" class="logo-wrap"><span class="logo-mark">AARNA<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></span></a>
-  <div style="display:flex;gap:.6rem;align-items:center"><a href="index.html" class="btn-out">← Back to Home</a><a href="index.html#contact" class="btn-glow">Contact Us</a></div>
+  <a href="index.html" class="logo-mark">AARNA<span class="tilt-i">I</span>T<span class="logo-ai">AI</span></a>
+  <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap"><a href="index.html" class="btn btn-ghost">← Home</a><a href="index.html#contact" class="btn btn-fill">Contact Us</a></div>
 </nav>
-
 <div class="hero">
-  <h1>AI Jobs <span class="gradient-text">Worldwide</span></h1>
-  <p>Browse open positions across 9 countries. ML Engineers, Data Scientists, Prompt Engineers, and more — find your next AI career.</p>
+  <h1>AI Careers <span class="gradient-text">Worldwide</span></h1>
+  <p>High-impact AI roles across 9 countries. From internships to architect-level positions.</p>
+  <div class="stats">
+    <div class="stat"><b class="gradient-text">16+</b><small>Open Roles</small></div>
+    <div class="stat"><b class="gradient-text">9</b><small>Countries</small></div>
+    <div class="stat"><b class="gradient-text">$28/hr–$220K</b><small>Salary Range</small></div>
+    <div class="stat"><b class="gradient-text">🌐</b><small>Remote Options</small></div>
+  </div>
 </div>
-
-<div class="co-tabs" id="cTabs"></div>
-<div class="filters">
-  <select id="fRole" onchange="filterC()"><option value="">All Roles</option><option>ML Engineer</option><option>Data Scientist</option><option>AI Research</option><option>NLP Engineer</option><option>CV Engineer</option><option>MLOps</option><option>Prompt Engineer</option><option>AI Product Manager</option><option>AI Consultant</option></select>
-  <select id="fExp" onchange="filterC()"><option value="">All Levels</option><option>Entry</option><option>Mid</option><option>Senior</option><option>Lead</option></select>
-  <select id="fType" onchange="filterC()"><option value="">All Types</option><option>Full-time</option><option>Contract</option><option>Part-time</option><option>Internship</option></select>
-  <input id="fSearch" placeholder="🔍 Search jobs..." oninput="filterC()" style="min-width:180px">
+<div class="tabs" id="cTabs"></div>
+<div class="flt">
+  <select id="fRole" onchange="f()"><option value="">All Roles</option><option>ML Engineer</option><option>Data Scientist</option><option>AI Research</option><option>NLP Engineer</option><option>CV Engineer</option><option>MLOps</option><option>Prompt Engineer</option><option>AI Product Manager</option><option>AI Consultant</option></select>
+  <select id="fExp" onchange="f()"><option value="">All Levels</option><option>Entry</option><option>Mid</option><option>Senior</option><option>Lead</option></select>
+  <select id="fType" onchange="f()"><option value="">All Types</option><option>Full-time</option><option>Contract</option><option>Part-time</option><option>Internship</option></select>
+  <input id="fS" placeholder="🔍 Search jobs, skills..." oninput="f()" style="min-width:180px">
 </div>
-<div class="count" id="cCount"></div>
-<div class="jobs-grid" id="jobsGrid"></div>
-
-<footer>© 2026 AARNAIT AI — 15439361 Canada Inc. · <a href="index.html">Home</a> · <a href="index.html#contact">Contact</a> · <a href="mailto:hello@aarnaitai.com">hello@aarnaitai.com</a></footer>
-
+<div class="cnt" id="cnt"></div>
+<div class="grid" id="g"></div>
+<footer>© 2026 AARNAIT AI — 15439361 Canada Inc. · <a href="index.html">Home</a> · <a href="index.html#courses">Courses</a> · <a href="index.html#contact">Contact</a> · <a href="mailto:hello@aarnaitai.com">hello@aarnaitai.com</a></footer>
 <script>
-const careerJobs=[
-  {icon:'🤖',t:'Senior ML Engineer',co:'AARNAIT AI',country:'Canada',flag:'🇨🇦',city:'Toronto',sal:'C$140K–180K',type:'Full-time',exp:'Senior',role:'ML Engineer',p:'Deploy production ML systems for enterprise clients.',skills:['Python','PyTorch','MLOps','AWS','Docker']},
-  {icon:'🧪',t:'AI Research Scientist',co:'DeepMind Lab',country:'United States',flag:'🇺🇸',city:'San Francisco',sal:'$160K–220K',type:'Full-time',exp:'Senior',role:'AI Research',p:'Advance NLP and multimodal AI. PhD preferred.',skills:['PhD','Deep Learning','NLP','Research','Math']},
-  {icon:'📊',t:'Data Scientist',co:'FinTech Corp',country:'United Kingdom',flag:'🇬🇧',city:'London',sal:'£80K–120K',type:'Full-time',exp:'Mid',role:'Data Scientist',p:'Predictive models for risk and fraud detection.',skills:['Python','SQL','Statistics','ML','Pandas']},
-  {icon:'💬',t:'NLP Engineer',co:'LangTech GmbH',country:'Germany',flag:'🇩🇪',city:'Berlin',sal:'€90K–130K',type:'Full-time',exp:'Mid',role:'NLP Engineer',p:'Multilingual NLP pipelines and conversational AI.',skills:['Transformers','BERT/GPT','Python','Hugging Face']},
-  {icon:'👁️',t:'Computer Vision Engineer',co:'MedVision AI',country:'India',flag:'🇮🇳',city:'Bangalore',sal:'₹25L–45L',type:'Full-time',exp:'Mid',role:'CV Engineer',p:'Medical imaging AI — X-ray and tumor detection.',skills:['CNNs','YOLO','OpenCV','PyTorch','Edge AI']},
-  {icon:'🔧',t:'MLOps Engineer',co:'CloudScale',country:'Australia',flag:'🇦🇺',city:'Sydney',sal:'A$130K–170K',type:'Full-time',exp:'Mid',role:'MLOps',p:'ML infrastructure and monitoring at scale.',skills:['Docker','Kubernetes','CI/CD','AWS/GCP']},
-  {icon:'🎯',t:'Prompt Engineer',co:'AARNAIT AI',country:'Remote',flag:'🌐',city:'Anywhere',sal:'$90K–140K USD',type:'Full-time',exp:'Entry',role:'Prompt Engineer',p:'Design prompts for production LLM applications.',skills:['LLM APIs','Prompt Design','RAG','Testing']},
-  {icon:'📈',t:'AI Product Manager',co:'TechVenture',country:'Singapore',flag:'🇸🇬',city:'Singapore',sal:'S$150K–200K',type:'Full-time',exp:'Senior',role:'AI Product Manager',p:'Lead AI product strategy in fintech.',skills:['Product','AI Literacy','Roadmapping','Agile']},
-  {icon:'⚡',t:'Junior ML Engineer',co:'StartupAI',country:'Canada',flag:'🇨🇦',city:'Vancouver',sal:'C$80K–110K',type:'Full-time',exp:'Entry',role:'ML Engineer',p:'Build ML features for developer tools.',skills:['Python','scikit-learn','SQL','Git','APIs']},
-  {icon:'🛡️',t:'AI Ethics Consultant',co:'ResponsibleTech',country:'United Kingdom',flag:'🇬🇧',city:'London',sal:'£90K–130K',type:'Contract',exp:'Senior',role:'AI Consultant',p:'Audit AI for bias and GDPR compliance.',skills:['AI Ethics','Bias Testing','GDPR','Policy']},
-  {icon:'🧠',t:'Deep Learning Intern',co:'AARNAIT AI',country:'Canada',flag:'🇨🇦',city:'Toronto',sal:'C$28/hr',type:'Internship',exp:'Entry',role:'AI Research',p:'Paid 3-month internship with mentorship.',skills:['Python','PyTorch','ML Basics','Git']},
-  {icon:'🔗',t:'AI Solutions Architect',co:'GovTech',country:'UAE',flag:'🇦🇪',city:'Dubai',sal:'AED 38K–55K/mo',type:'Full-time',exp:'Lead',role:'AI Consultant',p:'Enterprise AI for government digital transformation.',skills:['System Design','Cloud','ML','Leadership']},
-  {icon:'📊',t:'Data Analyst — AI',co:'HealthTech',country:'India',flag:'🇮🇳',city:'Mumbai',sal:'₹12L–20L',type:'Full-time',exp:'Entry',role:'Data Scientist',p:'Data analysis and feature engineering.',skills:['Python','SQL','Pandas','Tableau','Excel']},
-  {icon:'🤖',t:'GenAI Developer',co:'CreativeAI',country:'United States',flag:'🇺🇸',city:'New York',sal:'$130K–175K',type:'Full-time',exp:'Mid',role:'ML Engineer',p:'Generative AI products at scale.',skills:['LLMs','Diffusion','Python','React','RAG']},
-  {icon:'💼',t:'AI Tutor (Part-time)',co:'AARNAIT AI',country:'Remote',flag:'🌐',city:'Anywhere',sal:'$60–100/hr',type:'Part-time',exp:'Mid',role:'AI Consultant',p:'Teach AI courses online. Flexible hours.',skills:['Teaching','ML/DL','Python','Communication']},
-  {icon:'🔧',t:'ML Platform Engineer',co:'AutoDrive',country:'Germany',flag:'🇩🇪',city:'Munich',sal:'€100K–140K',type:'Full-time',exp:'Senior',role:'MLOps',p:'ML platform for autonomous driving research.',skills:['Kubernetes','Python','Spark','GPU','Linux']}
+const J=[
+  {i:'🤖',t:'Senior ML Engineer',co:'AARNAIT AI',c:'Canada',fl:'🇨🇦',ci:'Toronto',s:'C$140K–180K',ty:'Full-time',ex:'Senior',ro:'ML Engineer',p:'Deploy production ML systems for enterprise clients.',sk:['Python','PyTorch','MLOps','AWS','Docker']},
+  {i:'🧪',t:'AI Research Scientist',co:'DeepMind Lab',c:'United States',fl:'🇺🇸',ci:'San Francisco',s:'$160K–220K',ty:'Full-time',ex:'Senior',ro:'AI Research',p:'Advance NLP and multimodal AI. PhD preferred.',sk:['PhD','Deep Learning','NLP','Research']},
+  {i:'📊',t:'Data Scientist',co:'FinTech Corp',c:'United Kingdom',fl:'🇬🇧',ci:'London',s:'£80K–120K',ty:'Full-time',ex:'Mid',ro:'Data Scientist',p:'Predictive models for risk and fraud detection.',sk:['Python','SQL','Statistics','ML','Pandas']},
+  {i:'💬',t:'NLP Engineer',co:'LangTech GmbH',c:'Germany',fl:'🇩🇪',ci:'Berlin',s:'€90K–130K',ty:'Full-time',ex:'Mid',ro:'NLP Engineer',p:'Multilingual NLP pipelines and conversational AI.',sk:['Transformers','BERT/GPT','Python','Hugging Face']},
+  {i:'👁️',t:'Computer Vision Engineer',co:'MedVision AI',c:'India',fl:'🇮🇳',ci:'Bangalore',s:'₹25L–45L',ty:'Full-time',ex:'Mid',ro:'CV Engineer',p:'Medical imaging AI — X-ray and tumor detection.',sk:['CNNs','YOLO','OpenCV','PyTorch','Edge AI']},
+  {i:'🔧',t:'MLOps Engineer',co:'CloudScale',c:'Australia',fl:'🇦🇺',ci:'Sydney',s:'A$130K–170K',ty:'Full-time',ex:'Mid',ro:'MLOps',p:'ML infrastructure and monitoring at scale.',sk:['Docker','Kubernetes','CI/CD','AWS/GCP']},
+  {i:'🎯',t:'Prompt Engineer',co:'AARNAIT AI',c:'Remote',fl:'🌐',ci:'Anywhere',s:'$90K–140K USD',ty:'Full-time',ex:'Entry',ro:'Prompt Engineer',p:'Design prompts for production LLM applications.',sk:['LLM APIs','Prompt Design','RAG','Testing']},
+  {i:'📈',t:'AI Product Manager',co:'TechVenture',c:'Singapore',fl:'🇸🇬',ci:'Singapore',s:'S$150K–200K',ty:'Full-time',ex:'Senior',ro:'AI Product Manager',p:'Lead AI product strategy in fintech.',sk:['Product','AI Literacy','Roadmapping','Agile']},
+  {i:'⚡',t:'Junior ML Engineer',co:'StartupAI',c:'Canada',fl:'🇨🇦',ci:'Vancouver',s:'C$80K–110K',ty:'Full-time',ex:'Entry',ro:'ML Engineer',p:'Build ML features for developer tools.',sk:['Python','scikit-learn','SQL','Git','APIs']},
+  {i:'🛡️',t:'AI Ethics Consultant',co:'ResponsibleTech',c:'United Kingdom',fl:'🇬🇧',ci:'London',s:'£90K–130K',ty:'Contract',ex:'Senior',ro:'AI Consultant',p:'Audit AI for bias and GDPR compliance.',sk:['AI Ethics','Bias Testing','GDPR','Policy']},
+  {i:'🧠',t:'Deep Learning Intern',co:'AARNAIT AI',c:'Canada',fl:'🇨🇦',ci:'Toronto',s:'C$28/hr',ty:'Internship',ex:'Entry',ro:'AI Research',p:'Paid 3-month internship with mentorship.',sk:['Python','PyTorch','ML Basics','Git']},
+  {i:'🔗',t:'AI Solutions Architect',co:'GovTech',c:'UAE',fl:'🇦🇪',ci:'Dubai',s:'AED 38K–55K/mo',ty:'Full-time',ex:'Lead',ro:'AI Consultant',p:'Enterprise AI for government digital transformation.',sk:['System Design','Cloud','ML','Leadership']},
+  {i:'📊',t:'Data Analyst — AI',co:'HealthTech',c:'India',fl:'🇮🇳',ci:'Mumbai',s:'₹12L–20L',ty:'Full-time',ex:'Entry',ro:'Data Scientist',p:'Data analysis and feature engineering.',sk:['Python','SQL','Pandas','Tableau','Excel']},
+  {i:'🤖',t:'GenAI Developer',co:'CreativeAI',c:'United States',fl:'🇺🇸',ci:'New York',s:'$130K–175K',ty:'Full-time',ex:'Mid',ro:'ML Engineer',p:'Generative AI products at scale.',sk:['LLMs','Diffusion','Python','React','RAG']},
+  {i:'💼',t:'AI Tutor (Part-time)',co:'AARNAIT AI',c:'Remote',fl:'🌐',ci:'Anywhere',s:'$60–100/hr',ty:'Part-time',ex:'Mid',ro:'AI Consultant',p:'Teach AI courses online. Flexible hours.',sk:['Teaching','ML/DL','Python','Communication']},
+  {i:'🔧',t:'ML Platform Engineer',co:'AutoDrive',c:'Germany',fl:'🇩🇪',ci:'Munich',s:'€100K–140K',ty:'Full-time',ex:'Senior',ro:'MLOps',p:'ML platform for autonomous driving.',sk:['Kubernetes','Python','Spark','GPU','Linux']}
 ];
-
-let activeCo='';
-const coList=[{l:'🌍 All',v:''},{l:'🇨🇦 Canada',v:'Canada'},{l:'🇺🇸 USA',v:'United States'},{l:'🇬🇧 UK',v:'United Kingdom'},{l:'🇩🇪 Germany',v:'Germany'},{l:'🇮🇳 India',v:'India'},{l:'🇦🇺 Australia',v:'Australia'},{l:'🇦🇪 UAE',v:'UAE'},{l:'🇸🇬 Singapore',v:'Singapore'},{l:'🌐 Remote',v:'Remote'}];
-
-function renderCoTabs(){
-  document.getElementById('cTabs').innerHTML=coList.map(c=>`<span class="co-tab${c.v===activeCo?' active':''}" onclick="activeCo='${c.v}';filterC()">${c.l} (${c.v?careerJobs.filter(j=>j.country===c.v).length:careerJobs.length})</span>`).join('');
+let ac='';
+const C=[{l:'🌍 All',v:''},{l:'🇨🇦 Canada',v:'Canada'},{l:'🇺🇸 USA',v:'United States'},{l:'🇬🇧 UK',v:'United Kingdom'},{l:'🇩🇪 Germany',v:'Germany'},{l:'🇮🇳 India',v:'India'},{l:'🇦🇺 Australia',v:'Australia'},{l:'🇦🇪 UAE',v:'UAE'},{l:'🇸🇬 Singapore',v:'Singapore'},{l:'🌐 Remote',v:'Remote'}];
+function f(){
+  document.getElementById('cTabs').innerHTML=C.map(c=>`<span class="tab${c.v===ac?' on':''}" onclick="ac='${c.v}';f()">${c.l} (${c.v?J.filter(j=>j.c===c.v).length:J.length})</span>`).join('');
+  const ro=document.getElementById('fRole').value,ex=document.getElementById('fExp').value,ty=document.getElementById('fType').value,se=document.getElementById('fS').value.toLowerCase();
+  const r=J.filter(j=>{if(ac&&j.c!==ac)return!1;if(ro&&j.ro!==ro)return!1;if(ex&&j.ex!==ex)return!1;if(ty&&j.ty!==ty)return!1;if(se&&!(j.t+j.co+j.p+j.sk.join(' ')+j.ci).toLowerCase().includes(se))return!1;return!0});
+  document.getElementById('cnt').textContent=`Showing ${r.length} of ${J.length} positions`;
+  document.getElementById('g').innerHTML=r.length?r.map(j=>`<div class="jc"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem"><span style="font-size:1.5rem">${j.i}</span><span style="padding:.15rem .5rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.1);border-radius:50px;font-size:.58rem;color:var(--violet);font-weight:600">${j.fl} ${j.c}</span></div><h3>${j.t}</h3><div style="font-size:.78rem;color:var(--cyan);margin-bottom:.3rem">${j.co} · ${j.ci}</div><div style="display:flex;gap:.5rem;font-size:.66rem;color:var(--muted);margin-bottom:.3rem"><span style="padding:.12rem .5rem;background:rgba(255,255,255,.03);border-radius:4px">${j.ty}</span><span style="padding:.12rem .5rem;background:rgba(255,255,255,.03);border-radius:4px">${j.ex}</span></div><div class="sal">${j.s}</div><p>${j.p}</p><div class="sk">${j.sk.map(s=>`<span>${s}</span>`).join('')}</div><button class="abtn" onclick="window.location.href='index.html#contact'">Apply Now →</button></div>`).join(''):'<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No matches. <a href="javascript:void(0)" onclick="ac=\'\';document.getElementById(\'fRole\').value=\'\';document.getElementById(\'fExp\').value=\'\';document.getElementById(\'fType\').value=\'\';document.getElementById(\'fS\').value=\'\';f()" style="color:var(--cyan)">Reset filters →</a></div>';
 }
-
-function filterC(){
-  renderCoTabs();
-  const role=document.getElementById('fRole').value;
-  const exp=document.getElementById('fExp').value;
-  const type=document.getElementById('fType').value;
-  const search=document.getElementById('fSearch').value.toLowerCase();
-  const f=careerJobs.filter(j=>{
-    if(activeCo&&j.country!==activeCo)return false;
-    if(role&&j.role!==role)return false;
-    if(exp&&j.exp!==exp)return false;
-    if(type&&j.type!==type)return false;
-    if(search&&!(j.t+j.co+j.p+j.skills.join(' ')).toLowerCase().includes(search))return false;
-    return true;
-  });
-  document.getElementById('cCount').textContent=`${f.length} of ${careerJobs.length} positions`;
-  document.getElementById('jobsGrid').innerHTML=f.length?f.map(j=>`<div class="job-card">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem"><span style="font-size:1.5rem">${j.icon}</span><span style="padding:.15rem .5rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.1);border-radius:50px;font-size:.6rem;color:var(--violet);font-weight:600">${j.flag} ${j.country}</span></div>
-    <h3>${j.t}</h3>
-    <div style="font-size:.78rem;color:var(--cyan);margin-bottom:.3rem">${j.co} · ${j.city}</div>
-    <div style="display:flex;gap:.6rem;font-size:.7rem;color:var(--muted);margin-bottom:.3rem"><span>${j.type}</span><span>${j.exp}</span></div>
-    <div class="salary">${j.sal}</div>
-    <p>${j.p}</p>
-    <div class="job-skills">${j.skills.map(s=>`<span>${s}</span>`).join('')}</div>
-    <button class="apply-btn" onclick="window.location.href='index.html#contact'">Apply Now →</button>
-  </div>`).join(''):'<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No positions match your filters. Try different criteria.</div>';
-}
-filterC();
+f();
 </script>
 </body>
 </html>
