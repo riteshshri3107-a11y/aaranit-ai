@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co; frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://images.unsplash.com https://cdn.pixabay.com; connect-src 'self' https://*.supabase.co; frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -37,13 +37,12 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 
 /* ── FLOATING AI/ROBOT DECORATIONS ── */
 /* ── HERO ROBOT + HANDS ILLUSTRATIONS ── */
-.hero-robot{animation:heroRobotFloat 8s ease-in-out infinite}
-.hero-hands{animation:heroHandsFloat 6s ease-in-out infinite}
-@keyframes heroRobotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-@keyframes heroHandsFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(.5deg)}}
-@media(max-width:1200px){.hero-robot{width:380px;right:-5%!important;opacity:.4!important}.hero-hands{width:260px;opacity:.4!important}}
-@media(max-width:900px){.hero-robot{width:280px;opacity:.25!important}.hero-hands{width:200px;opacity:.3!important}}
-@media(max-width:600px){.hero-robot{display:none!important}.hero-hands{display:none!important}}
+.hero-robot-img{transition:opacity .5s}
+.hero-robot-img img{transition:filter .5s,opacity .5s}
+@keyframes heroRobotFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.01)}}
+@media(max-width:1200px){.hero-robot-img{width:460px!important;opacity:.75!important}}
+@media(max-width:900px){.hero-robot-img{width:360px!important;opacity:.5!important}}
+@media(max-width:600px){.hero-robot-img{display:none!important}}
 .ai-floats{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
 .ai-float{position:absolute;opacity:0;animation:aiDrift linear infinite}
 .ai-float svg{filter:drop-shadow(0 0 8px rgba(0,229,255,.15))}
@@ -54,8 +53,8 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
   90%{opacity:.18}
   100%{opacity:0;transform:translateY(-80px) rotate(-4deg)}
 }
-@keyframes aiPulse{0%,100%{opacity:.08;transform:scale(1)}50%{opacity:.16;transform:scale(1.05)}}
-.ai-glyph{position:absolute;font-size:1.4rem;opacity:.06;animation:aiPulse 8s ease-in-out infinite;pointer-events:none;user-select:none}
+
+
 
 /* ── FLOATING ACTION BUBBLES (bottom-right) ── */
 .fab-container{position:fixed;bottom:28px;right:28px;z-index:9998;display:flex;flex-direction:column-reverse;align-items:flex-end;gap:0}
@@ -874,347 +873,41 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
 <div class="ai-floats" id="aiFloats" aria-hidden="true"></div>
 
 <!-- STATIC AI GLYPHS (subtle background icons) -->
-<div class="ai-glyph" style="top:12%;left:5%;animation-delay:0s;font-size:1.6rem">⚙️</div>
-<div class="ai-glyph" style="top:28%;right:8%;animation-delay:2s;font-size:1.3rem">🤖</div>
-<div class="ai-glyph" style="top:45%;left:3%;animation-delay:4s;font-size:1.1rem">🧠</div>
-<div class="ai-glyph" style="top:62%;right:4%;animation-delay:1s;font-size:1.5rem">⚡</div>
-<div class="ai-glyph" style="top:78%;left:7%;animation-delay:3s;font-size:1.2rem">🔬</div>
-<div class="ai-glyph" style="top:18%;right:3%;animation-delay:5s;font-size:1rem">💡</div>
-<div class="ai-glyph" style="top:55%;right:6%;animation-delay:2.5s;font-size:1.3rem">🛸</div>
-<div class="ai-glyph" style="top:85%;right:9%;animation-delay:1.5s;font-size:1.1rem">🔗</div>
-<div class="ai-glyph" style="top:35%;left:6%;animation-delay:3.5s;font-size:1.4rem">🧬</div>
-<div class="ai-glyph" style="top:92%;left:4%;animation-delay:4.5s;font-size:1rem">📡</div>
 
 <!-- HERO -->
 <section class="hero" style="min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative">
   <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(0,229,255,.04) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(139,92,246,.03) 0%,transparent 50%);pointer-events:none"></div>
   <div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden">
 
-    <!-- ═══ LEFT: HUMAN HAND REACHING TO ROBOT HAND (Creation of Adam style) ═══ -->
-    <svg class="hero-hands" style="position:absolute;left:-2%;bottom:8%;opacity:.55;filter:drop-shadow(0 0 20px rgba(0,229,255,.15))" width="320" height="280" viewBox="0 0 320 280" fill="none">
-      <!-- Human arm + hand (left side, warm skin tone) -->
-      <g class="human-hand">
-        <!-- Forearm -->
-        <path d="M10 200 Q30 185 60 175 L100 165 Q110 160 115 155" stroke="rgba(210,170,140,.6)" stroke-width="2.5" fill="none"/>
-        <path d="M10 215 Q30 200 60 190 L100 180 Q110 175 120 170" stroke="rgba(210,170,140,.4)" stroke-width="2" fill="none"/>
-        <!-- Palm -->
-        <path d="M115 155 Q125 148 140 145 Q155 143 165 148 Q170 155 168 165 L160 172 Q150 178 140 175 L120 170" fill="rgba(210,170,140,.12)" stroke="rgba(210,170,140,.5)" stroke-width="1.5"/>
-        <!-- Fingers reaching out -->
-        <path d="M165 148 Q178 138 188 132 Q192 130 194 133 Q190 140 180 150 L168 158" fill="rgba(210,170,140,.1)" stroke="rgba(210,170,140,.5)" stroke-width="1.3"/>
-        <path d="M163 143 Q175 128 186 120 Q190 118 192 121 Q187 130 176 142 L165 150" fill="rgba(210,170,140,.08)" stroke="rgba(210,170,140,.45)" stroke-width="1.2"/>
-        <path d="M158 140 Q168 124 178 116 Q182 114 184 117 Q180 126 170 138 L160 146" fill="rgba(210,170,140,.06)" stroke="rgba(210,170,140,.4)" stroke-width="1.1"/>
-        <!-- Index finger (most extended, pointing) -->
-        <path d="M168 148 Q185 136 200 128 Q208 124 212 126 Q210 132 198 142 L182 155" fill="rgba(210,170,140,.12)" stroke="rgba(210,170,140,.55)" stroke-width="1.5"/>
-        <!-- Fingertip glow -->
-        <circle cx="210" cy="127" r="3" fill="rgba(210,170,140,.3)">
-          <animate attributeName="r" values="3;5;3" dur="3s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".3;.6;.3" dur="3s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-
-      <!-- Robot arm + hand (right side, metallic cyan) -->
-      <g class="robot-hand">
-        <!-- Forearm (mechanical) -->
-        <path d="M310 210 Q290 195 265 182 L235 172 Q225 167 220 162" stroke="rgba(0,229,255,.5)" stroke-width="2.5" fill="none"/>
-        <path d="M310 222 Q290 208 265 196 L235 186 Q225 181 220 176" stroke="rgba(0,229,255,.3)" stroke-width="2" fill="none"/>
-        <!-- Mechanical joint lines -->
-        <line x1="260" y1="182" x2="260" y2="196" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
-        <line x1="245" y1="177" x2="245" y2="191" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
-        <circle cx="260" cy="189" r="2.5" fill="rgba(0,229,255,.15)" stroke="rgba(0,229,255,.3)" stroke-width=".8"/>
-        <circle cx="245" cy="184" r="2" fill="rgba(0,229,255,.12)" stroke="rgba(0,229,255,.25)" stroke-width=".8"/>
-        <!-- Palm (angular, robotic) -->
-        <path d="M220 162 Q212 154 200 150 Q188 147 180 150 Q175 156 176 164 L182 170 Q190 175 200 173 L218 170" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.45)" stroke-width="1.5"/>
-        <!-- Circuit lines on palm -->
-        <line x1="195" y1="153" x2="195" y2="167" stroke="rgba(0,229,255,.15)" stroke-width=".5"/>
-        <line x1="188" y1="156" x2="205" y2="156" stroke="rgba(0,229,255,.15)" stroke-width=".5"/>
-        <!-- Fingers -->
-        <path d="M180 150 Q168 140 158 134 Q154 132 152 135 Q156 142 166 152 L178 160" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.4)" stroke-width="1.3"/>
-        <path d="M183 146 Q172 132 162 124 Q158 122 156 125 Q160 134 170 145 L180 153" fill="rgba(0,229,255,.05)" stroke="rgba(0,229,255,.35)" stroke-width="1.2"/>
-        <path d="M187 143 Q178 128 168 120 Q164 118 162 121 Q165 130 175 142 L185 150" fill="rgba(0,229,255,.04)" stroke="rgba(0,229,255,.3)" stroke-width="1.1"/>
-        <!-- Index finger (most extended) -->
-        <path d="M177 150 Q162 138 148 130 Q140 126 137 128 Q140 134 152 144 L168 157" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.5)" stroke-width="1.5"/>
-        <!-- Fingertip glow (robot) -->
-        <circle cx="138" cy="128" r="3" fill="rgba(0,229,255,.35)">
-          <animate attributeName="r" values="3;6;3" dur="3s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".35;.7;.35" dur="3s" repeatCount="indefinite"/>
-        </circle>
-        <!-- Joint dots on fingers -->
-        <circle cx="158" cy="134" r="1.5" fill="rgba(0,229,255,.3)"/>
-        <circle cx="162" cy="124" r="1.5" fill="rgba(0,229,255,.25)"/>
-        <circle cx="148" cy="130" r="1.5" fill="rgba(0,229,255,.3)"/>
-      </g>
-
-      <!-- ENERGY SPARK between fingertips -->
-      <g class="spark">
-        <line x1="210" y1="127" x2="138" y2="128" stroke="url(#sparkGrad)" stroke-width="1" opacity=".4">
-          <animate attributeName="opacity" values=".1;.6;.1" dur="2.5s" repeatCount="indefinite"/>
-        </line>
-        <!-- Spark particles -->
-        <circle cx="174" cy="127" r="2" fill="rgba(139,92,246,.5)">
-          <animate attributeName="r" values="1;4;1" dur="2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".2;.8;.2" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="165" cy="128" r="1.5" fill="rgba(0,229,255,.4)">
-          <animate attributeName="r" values="1.5;3;1.5" dur="1.8s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="183" cy="127" r="1" fill="rgba(217,70,239,.4)">
-          <animate attributeName="r" values="1;2.5;1" dur="2.2s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-      <defs>
-        <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="rgba(210,170,140,.6)"/>
-          <stop offset="50%" stop-color="rgba(139,92,246,.8)"/>
-          <stop offset="100%" stop-color="rgba(0,229,255,.6)"/>
-        </linearGradient>
-      </defs>
-    </svg>
-
-    <!-- ═══ RIGHT: CINEMATIC ROBOT + HOLOGRAPHIC GLOBE ═══ -->
-    <svg class="hero-robot" style="position:absolute;right:-2%;top:3%;opacity:.65;filter:drop-shadow(0 0 40px rgba(0,229,255,.08))" width="480" height="580" viewBox="0 0 480 580" fill="none">
-      <defs>
-        <!-- Metallic gradient (body) -->
-        <linearGradient id="metalBody" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="rgba(40,50,80,.7)"/>
-          <stop offset="30%" stop-color="rgba(60,75,110,.5)"/>
-          <stop offset="60%" stop-color="rgba(35,45,70,.6)"/>
-          <stop offset="100%" stop-color="rgba(20,28,50,.7)"/>
-        </linearGradient>
-        <!-- Metallic highlight -->
-        <linearGradient id="metalHi" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(140,160,200,.3)"/>
-          <stop offset="100%" stop-color="rgba(40,50,80,.1)"/>
-        </linearGradient>
-        <!-- Cyan energy -->
-        <radialGradient id="cyanGlow" cx=".5" cy=".5" r=".5">
-          <stop offset="0%" stop-color="rgba(0,229,255,.6)"/>
-          <stop offset="50%" stop-color="rgba(0,229,255,.15)"/>
-          <stop offset="100%" stop-color="transparent"/>
-        </radialGradient>
-        <!-- Globe gradient -->
-        <radialGradient id="globeGrad" cx=".4" cy=".35" r=".65">
-          <stop offset="0%" stop-color="rgba(0,229,255,.1)"/>
-          <stop offset="60%" stop-color="rgba(0,100,180,.06)"/>
-          <stop offset="100%" stop-color="rgba(0,50,100,.02)"/>
-        </radialGradient>
-        <!-- Energy beam -->
-        <linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="rgba(0,229,255,.5)"/>
-          <stop offset="50%" stop-color="rgba(139,92,246,.3)"/>
-          <stop offset="100%" stop-color="rgba(0,229,255,.1)"/>
-        </linearGradient>
-        <!-- Glow filter -->
-        <filter id="glow1"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="glow2"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="glow3"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-      </defs>
-
-      <!-- ════════════ HOLOGRAPHIC GLOBE (left portion) ════════════ -->
-      <g transform="translate(45,120)">
-        <!-- Outer ring / portal -->
-        <circle cx="120" cy="120" r="115" fill="none" stroke="rgba(0,229,255,.08)" stroke-width="2">
-          <animateTransform attributeName="transform" type="rotate" values="0 120 120;360 120 120" dur="60s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="120" cy="120" r="105" fill="none" stroke="rgba(0,229,255,.04)" stroke-width="8"/>
-        <!-- Tick marks on outer ring -->
-        <g opacity=".15" stroke="rgba(0,229,255,1)" stroke-width="1">
-          <line x1="120" y1="2" x2="120" y2="12"/><line x1="120" y1="228" x2="120" y2="238"/>
-          <line x1="2" y1="120" x2="12" y2="120"/><line x1="228" y1="120" x2="238" y2="120"/>
-          <line x1="36" y1="36" x2="43" y2="43"/><line x1="197" y1="36" x2="204" y2="43"/>
-          <line x1="36" y1="204" x2="43" y2="197"/><line x1="197" y1="204" x2="204" y2="197"/>
-        </g>
-
-        <!-- Globe sphere -->
-        <circle cx="120" cy="120" r="88" fill="url(#globeGrad)" stroke="rgba(0,229,255,.15)" stroke-width="1"/>
-
-        <!-- Latitude lines -->
-        <ellipse cx="120" cy="120" rx="88" ry="22" fill="none" stroke="rgba(0,229,255,.08)" stroke-width=".6"/>
-        <ellipse cx="120" cy="120" rx="88" ry="44" fill="none" stroke="rgba(0,229,255,.07)" stroke-width=".6"/>
-        <ellipse cx="120" cy="120" rx="88" ry="66" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".6"/>
-        <!-- Longitude lines -->
-        <ellipse cx="120" cy="120" rx="22" ry="88" fill="none" stroke="rgba(0,229,255,.08)" stroke-width=".6"/>
-        <ellipse cx="120" cy="120" rx="44" ry="88" fill="none" stroke="rgba(0,229,255,.07)" stroke-width=".6"/>
-        <ellipse cx="120" cy="120" rx="66" ry="88" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".6"/>
-
-        <!-- Simplified continent outlines (stylized, not copied) -->
-        <!-- North America shape -->
-        <path d="M65 65 Q72 58 82 55 Q95 52 105 58 Q108 65 102 72 Q95 80 88 82 Q80 78 72 75 Q65 72 65 65Z" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.2)" stroke-width=".8">
-          <animate attributeName="fill" values="rgba(0,229,255,.08);rgba(0,229,255,.15);rgba(0,229,255,.08)" dur="6s" repeatCount="indefinite"/>
-        </path>
-        <!-- South America -->
-        <path d="M92 100 Q98 95 102 98 Q106 108 104 120 Q100 132 95 138 Q90 135 88 125 Q86 112 90 105Z" fill="rgba(0,229,255,.07)" stroke="rgba(0,229,255,.18)" stroke-width=".8"/>
-        <!-- Europe/Africa -->
-        <path d="M128 62 Q135 58 140 62 Q142 68 138 75 Q134 78 130 76 Q126 72 128 66Z" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.2)" stroke-width=".8"/>
-        <path d="M130 85 Q136 82 140 88 Q142 100 138 115 Q132 128 128 130 Q125 122 126 110 Q128 95 130 88Z" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.16)" stroke-width=".8"/>
-        <!-- Asia -->
-        <path d="M148 55 Q158 50 170 54 Q178 60 180 70 Q176 80 168 85 Q160 82 155 75 Q150 68 148 60Z" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.2)" stroke-width=".8">
-          <animate attributeName="fill" values="rgba(0,229,255,.08);rgba(0,229,255,.14);rgba(0,229,255,.08)" dur="7s" repeatCount="indefinite"/>
-        </path>
-        <!-- Australia -->
-        <path d="M168 130 Q176 126 182 130 Q184 136 180 142 Q174 144 168 140 Q166 135 168 130Z" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.16)" stroke-width=".8"/>
-
-        <!-- Network nodes on globe (glowing dots on major cities) -->
-        <circle cx="82" cy="66" r="2.5" fill="rgba(0,229,255,.5)" filter="url(#glow3)"><animate attributeName="r" values="2.5;4;2.5" dur="3s" repeatCount="indefinite"/></circle>
-        <circle cx="95" cy="72" r="2" fill="rgba(0,229,255,.4)" filter="url(#glow3)"><animate attributeName="r" values="2;3.5;2" dur="4s" repeatCount="indefinite"/></circle>
-        <circle cx="136" cy="68" r="2" fill="rgba(0,229,255,.45)" filter="url(#glow3)"><animate attributeName="r" values="2;3;2" dur="3.5s" repeatCount="indefinite"/></circle>
-        <circle cx="165" cy="62" r="2.5" fill="rgba(0,229,255,.5)" filter="url(#glow3)"><animate attributeName="r" values="2.5;4;2.5" dur="4.5s" repeatCount="indefinite"/></circle>
-        <circle cx="175" cy="135" r="2" fill="rgba(0,229,255,.35)" filter="url(#glow3)"/>
-        <circle cx="98" cy="108" r="1.5" fill="rgba(0,229,255,.35)"/>
-        <circle cx="135" cy="100" r="2" fill="rgba(139,92,246,.4)" filter="url(#glow3)"><animate attributeName="r" values="2;3.5;2" dur="5s" repeatCount="indefinite"/></circle>
-        <circle cx="155" cy="78" r="1.5" fill="rgba(139,92,246,.35)"/>
-
-        <!-- Network connection lines between nodes -->
-        <line x1="82" y1="66" x2="95" y2="72" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
-        <line x1="95" y1="72" x2="136" y2="68" stroke="rgba(0,229,255,.1)" stroke-width=".5"/>
-        <line x1="136" y1="68" x2="165" y2="62" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
-        <line x1="136" y1="68" x2="135" y2="100" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
-        <line x1="135" y1="100" x2="98" y2="108" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
-        <line x1="165" y1="62" x2="175" y2="135" stroke="rgba(0,229,255,.06)" stroke-width=".4"/>
-        <line x1="82" y1="66" x2="98" y2="108" stroke="rgba(0,229,255,.06)" stroke-width=".4"/>
-        <line x1="155" y1="78" x2="135" y2="100" stroke="rgba(139,92,246,.1)" stroke-width=".4"/>
-
-        <!-- Rotating orbit ring -->
-        <ellipse cx="120" cy="120" rx="95" ry="30" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".8" transform="rotate(-20 120 120)">
-          <animateTransform attributeName="transform" type="rotate" values="-20 120 120;340 120 120" dur="40s" repeatCount="indefinite"/>
-        </ellipse>
-        <!-- Orbiting data point -->
-        <circle cx="215" cy="120" r="3" fill="rgba(0,229,255,.6)" filter="url(#glow3)">
-          <animateMotion dur="40s" repeatCount="indefinite" path="M95,0 A95,30 -20 1,1 -95,0 A95,30 -20 1,1 95,0" />
-        </circle>
-
-        <!-- Center glow (core of globe) -->
-        <circle cx="120" cy="120" r="30" fill="url(#cyanGlow)" opacity=".4">
-          <animate attributeName="r" values="25;35;25" dur="5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".3;.5;.3" dur="5s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-
-      <!-- ════════════ ROBOT (right side, side profile facing globe) ════════════ -->
-      <g transform="translate(240,40)">
-
-        <!-- === HEAD (side profile, detailed mechanical) === -->
-        <!-- Skull back -->
-        <path d="M130 80 Q155 40 170 50 Q190 60 195 90 Q198 115 190 130 Q180 145 165 148 L140 148 Q125 140 120 125 Q118 105 125 88Z" fill="url(#metalBody)" stroke="rgba(120,140,180,.3)" stroke-width="1.2"/>
-        <!-- Skull highlight -->
-        <path d="M135 82 Q152 50 168 55 Q178 62 182 80 Q180 70 165 60 Q150 55 138 72Z" fill="url(#metalHi)" opacity=".6"/>
-        <!-- Face plate -->
-        <path d="M120 100 Q115 105 112 115 Q110 130 115 142 L140 148 Q130 145 125 135 Q120 120 122 108Z" fill="rgba(50,60,90,.5)" stroke="rgba(100,120,160,.25)" stroke-width=".8"/>
-        <!-- Jaw -->
-        <path d="M115 142 Q118 152 128 158 L155 160 Q162 155 165 148 L140 148Z" fill="url(#metalBody)" stroke="rgba(120,140,180,.2)" stroke-width=".8"/>
-        <!-- Jaw line detail -->
-        <line x1="120" y1="148" x2="155" y2="150" stroke="rgba(0,229,255,.08)" stroke-width=".5"/>
-
-        <!-- Eye (glowing, side view) -->
-        <ellipse cx="125" cy="108" rx="10" ry="7" fill="rgba(0,10,30,.6)" stroke="rgba(0,229,255,.4)" stroke-width="1"/>
-        <ellipse cx="124" cy="108" rx="5" ry="4.5" fill="rgba(0,229,255,.15)" filter="url(#glow1)">
-          <animate attributeName="fill" values="rgba(0,229,255,.15);rgba(0,229,255,.5);rgba(0,229,255,.15)" dur="4s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="123" cy="108" rx="2.5" ry="2" fill="rgba(0,229,255,.7)"/>
-        <!-- Eye beam (subtle) -->
-        <line x1="115" y1="108" x2="85" y2="115" stroke="rgba(0,229,255,.04)" stroke-width="8"/>
-
-        <!-- Ear / sensor panel -->
-        <rect x="185" y="92" width="12" height="25" rx="3" fill="rgba(50,60,90,.4)" stroke="rgba(100,120,160,.2)" stroke-width=".8"/>
-        <circle cx="191" cy="100" r="2" fill="rgba(139,92,246,.3)"><animate attributeName="fill" values="rgba(139,92,246,.3);rgba(139,92,246,.6);rgba(139,92,246,.3)" dur="3s" repeatCount="indefinite"/></circle>
-        <circle cx="191" cy="108" r="1.5" fill="rgba(0,229,255,.2)"/>
-
-        <!-- Head seam lines (mechanical detail) -->
-        <path d="M150 45 Q160 42 168 50" fill="none" stroke="rgba(120,140,180,.12)" stroke-width=".5"/>
-        <path d="M130 85 Q135 80 145 78" fill="none" stroke="rgba(120,140,180,.1)" stroke-width=".5"/>
-
-        <!-- === NECK (exposed mechanical) === -->
-        <rect x="142" y="158" width="30" height="28" rx="4" fill="url(#metalBody)" stroke="rgba(100,120,160,.2)" stroke-width=".8"/>
-        <!-- Neck vertebrae -->
-        <line x1="148" y1="163" x2="168" y2="163" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
-        <line x1="148" y1="170" x2="168" y2="170" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
-        <line x1="148" y1="177" x2="168" y2="177" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
-        <!-- Cable on side -->
-        <path d="M140 162 Q135 170 138 180" fill="none" stroke="rgba(100,120,160,.15)" stroke-width="1.5"/>
-
-        <!-- === SHOULDER === -->
-        <ellipse cx="148" cy="195" rx="28" ry="14" fill="url(#metalBody)" stroke="rgba(120,140,180,.25)" stroke-width="1"/>
-        <ellipse cx="148" cy="195" rx="10" ry="6" fill="rgba(0,229,255,.03)" stroke="rgba(0,229,255,.12)" stroke-width=".5"/>
-
-        <!-- === UPPER ARM === -->
-        <path d="M125 200 Q120 210 118 230 Q116 260 120 275" fill="none" stroke="rgba(120,140,180,.25)" stroke-width="12" stroke-linecap="round"/>
-        <path d="M125 200 Q120 210 118 230 Q116 260 120 275" fill="none" stroke="url(#metalBody)" stroke-width="10" stroke-linecap="round"/>
-        <!-- Arm panel line -->
-        <path d="M120 215 Q118 235 119 255" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
-
-        <!-- === ELBOW JOINT === -->
-        <circle cx="120" cy="278" r="10" fill="url(#metalBody)" stroke="rgba(120,140,180,.2)" stroke-width="1"/>
-        <circle cx="120" cy="278" r="4" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.15)" stroke-width=".5"/>
-
-        <!-- === FOREARM (reaching toward globe) === -->
-        <path d="M120 288 Q110 310 95 330 Q80 348 60 360" fill="none" stroke="rgba(120,140,180,.25)" stroke-width="10" stroke-linecap="round"/>
-        <path d="M120 288 Q110 310 95 330 Q80 348 60 360" fill="none" stroke="url(#metalBody)" stroke-width="8" stroke-linecap="round"/>
-        <!-- Forearm panel details -->
-        <path d="M112 305 Q100 325 88 340" fill="none" stroke="rgba(0,229,255,.06)" stroke-width=".5"/>
-
-        <!-- === HAND (reaching toward globe, fingers extended) === -->
-        <!-- Palm -->
-        <path d="M60 360 Q52 365 45 368 Q38 368 35 362 Q38 355 48 352 L58 356Z" fill="url(#metalBody)" stroke="rgba(120,140,180,.25)" stroke-width=".8"/>
-        <!-- Index finger (extended toward globe) -->
-        <path d="M35 362 Q22 358 10 352 Q5 350 4 354 Q8 360 20 365 L34 366" fill="rgba(45,55,85,.5)" stroke="rgba(120,140,180,.2)" stroke-width=".8"/>
-        <!-- Middle finger -->
-        <path d="M36 358 Q24 350 14 344 Q10 343 9 347 Q14 354 26 360 L36 362" fill="rgba(40,50,80,.4)" stroke="rgba(120,140,180,.18)" stroke-width=".7"/>
-        <!-- Ring finger -->
-        <path d="M38 355 Q28 346 20 340 Q16 340 16 344 Q22 350 32 358" fill="rgba(40,50,80,.35)" stroke="rgba(120,140,180,.15)" stroke-width=".6"/>
-        <!-- Fingertip glow -->
-        <circle cx="5" cy="353" r="4" fill="rgba(0,229,255,.25)" filter="url(#glow1)">
-          <animate attributeName="r" values="4;8;4" dur="2.5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".5;1;.5" dur="2.5s" repeatCount="indefinite"/>
-        </circle>
-        <!-- Finger joint dots -->
-        <circle cx="22" cy="356" r="1.5" fill="rgba(0,229,255,.2)"/>
-        <circle cx="14" cy="345" r="1.2" fill="rgba(0,229,255,.15)"/>
-
-        <!-- === TORSO (partial, visible from side) === -->
-        <path d="M138 205 Q150 208 165 215 Q178 228 180 250 Q178 280 170 300 Q160 320 150 330 L145 330 Q148 310 152 285 Q152 250 145 225 Q140 215 135 210Z" fill="url(#metalBody)" stroke="rgba(120,140,180,.2)" stroke-width="1"/>
-        <!-- Chest core (visible from side) -->
-        <circle cx="160" cy="240" r="12" fill="rgba(0,229,255,.04)" stroke="rgba(0,229,255,.2)" stroke-width="1"/>
-        <circle cx="160" cy="240" r="6" fill="rgba(0,229,255,.08)" stroke="rgba(0,229,255,.3)" stroke-width=".8">
-          <animate attributeName="r" values="6;8;6" dur="3s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="160" cy="240" r="2.5" fill="rgba(0,229,255,.4)">
-          <animate attributeName="fill" values="rgba(0,229,255,.4);rgba(0,229,255,.7);rgba(0,229,255,.4)" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <!-- Torso panel lines -->
-        <line x1="148" y1="220" x2="170" y2="225" stroke="rgba(0,229,255,.05)" stroke-width=".4"/>
-        <line x1="148" y1="260" x2="172" y2="258" stroke="rgba(0,229,255,.05)" stroke-width=".4"/>
-
-        <!-- === SPINE (visible from back) === -->
-        <path d="M170 165 Q175 200 178 250 Q175 300 170 330" fill="none" stroke="rgba(100,120,160,.12)" stroke-width="2"/>
-        <circle cx="174" cy="200" r="2" fill="rgba(0,229,255,.1)"/>
-        <circle cx="176" cy="230" r="2" fill="rgba(0,229,255,.08)"/>
-        <circle cx="176" cy="260" r="2" fill="rgba(0,229,255,.1)"/>
-        <circle cx="175" cy="290" r="2" fill="rgba(0,229,255,.08)"/>
-
-      </g>
-
-      <!-- ════════════ ENERGY BEAM (robot hand → globe) ════════════ -->
-      <g>
-        <!-- Main beam -->
-        <line x1="248" y1="398" x2="165" y2="260" stroke="url(#beamGrad)" stroke-width="2" opacity=".3">
-          <animate attributeName="opacity" values=".15;.4;.15" dur="3s" repeatCount="indefinite"/>
-        </line>
-        <!-- Scattered energy particles along beam path -->
-        <circle cx="230" cy="370" r="2" fill="rgba(0,229,255,.4)"><animate attributeName="r" values="1;3;1" dur="2s" repeatCount="indefinite"/></circle>
-        <circle cx="210" cy="340" r="1.5" fill="rgba(139,92,246,.35)"><animate attributeName="r" values="1;2.5;1" dur="2.5s" repeatCount="indefinite"/></circle>
-        <circle cx="195" cy="315" r="2" fill="rgba(0,229,255,.3)"><animate attributeName="r" values="1.5;3;1.5" dur="1.8s" repeatCount="indefinite"/></circle>
-        <circle cx="180" cy="288" r="1.5" fill="rgba(139,92,246,.3)"><animate attributeName="r" values="1;2;1" dur="2.2s" repeatCount="indefinite"/></circle>
-      </g>
-
-      <!-- ════════════ AMBIENT PARTICLES ════════════ -->
-      <circle cx="80" cy="80" r="1.5" fill="rgba(0,229,255,.2)"><animate attributeName="cy" values="80;70;80" dur="6s" repeatCount="indefinite"/></circle>
-      <circle cx="350" cy="150" r="1" fill="rgba(139,92,246,.25)"><animate attributeName="cy" values="150;140;150" dur="5s" repeatCount="indefinite"/></circle>
-      <circle cx="420" cy="300" r="1.5" fill="rgba(0,229,255,.15)"><animate attributeName="cy" values="300;290;300" dur="7s" repeatCount="indefinite"/></circle>
-      <circle cx="60" cy="400" r="1" fill="rgba(139,92,246,.2)"><animate attributeName="cy" values="400;392;400" dur="4.5s" repeatCount="indefinite"/></circle>
-      <circle cx="300" cy="480" r="1.5" fill="rgba(0,229,255,.15)"><animate attributeName="cy" values="480;472;480" dur="5.5s" repeatCount="indefinite"/></circle>
-
-      <!-- AARNAIT branding on robot torso (subtle) -->
-      <text x="400" y="285" font-family="Syne,sans-serif" font-size="6" font-weight="700" fill="rgba(0,229,255,.12)" letter-spacing="1.5" transform="rotate(5,400,285)">AARNAIT AI</text>
-    </svg>
+    <!-- ═══ RIGHT: PHOTOREALISTIC ROBOT IMAGE ═══ -->
+    <div class="hero-robot-img" style="position:absolute;right:-1%;top:2%;width:550px;height:90%;pointer-events:none;overflow:hidden;z-index:0">
+      <!-- Sci-fi cyan glow behind robot -->
+      <div style="position:absolute;top:15%;left:20%;width:60%;height:50%;background:radial-gradient(ellipse,rgba(0,229,255,.1) 0%,rgba(0,229,255,.03) 40%,transparent 70%);pointer-events:none;z-index:0;animation:heroRobotFloat 10s ease-in-out infinite"></div>
+      <!-- Violet ambient rim -->
+      <div style="position:absolute;top:5%;right:5%;width:50%;height:60%;background:radial-gradient(ellipse at 80% 30%,rgba(139,92,246,.06) 0%,transparent 60%);pointer-events:none;z-index:0"></div>
+      <!-- Real stock image — dark-toned robot bust -->
+      <img 
+        src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=85&auto=format&fit=crop" 
+        alt="Futuristic AI Robot — AARNAIT AI" 
+        loading="eager"
+        style="
+          position:relative;z-index:1;
+          width:100%;
+          height:100%;
+          object-fit:contain;
+          object-position:center 15%;
+          mix-blend-mode:lighten;
+          opacity:.88;
+          filter:brightness(0.9) contrast(1.15) saturate(0.7) drop-shadow(0 0 60px rgba(0,229,255,.15));
+          mask-image:linear-gradient(to bottom, transparent 0%, black 5%, black 80%, transparent 100%);
+          -webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 5%, black 80%, transparent 100%);
+          animation:heroRobotFloat 8s ease-in-out infinite;
+        "
+        onerror="this.src='https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800&q=85&auto=format&fit=crop';this.onerror=null;"
+      >
+      <!-- Holographic scan line overlay -->
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,229,255,.01) 3px,rgba(0,229,255,.01) 4px);mix-blend-mode:screen"></div>
+    </div>
   </div>
   <div style="max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1">
     <div style="display:inline-block;padding:.3rem 1rem;border-radius:50px;font-size:.58rem;font-weight:700;font-family:Syne,sans-serif;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(0,229,255,.12);color:var(--cyan);margin-bottom:2rem;background:rgba(0,229,255,.03)">Building Intelligence for the Real World</div>
