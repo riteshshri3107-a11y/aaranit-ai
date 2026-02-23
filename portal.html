@@ -41,12 +41,12 @@ const ROLES={
 };
 
 const DEFAULT_EMPLOYEES=[
-  {id:"owner-001",name:"RS",email:"rs@aaranit-ai.com",role:"owner",password:"owner2026",active:true,created:"2026-01-01"},
-  {id:"admin-001",name:"Admin User",email:"admin@aaranit-ai.com",role:"admin",password:"admin2026",active:true,created:"2026-01-15"},
-  {id:"sales-001",name:"Priya Sharma",email:"priya@aaranit-ai.com",role:"sales",password:"sales2026",active:true,created:"2026-02-01"},
-  {id:"sales-002",name:"Arjun Patel",email:"arjun@aaranit-ai.com",role:"sales",password:"sales2026",active:true,created:"2026-02-01"},
-  {id:"tutor-001",name:"Maya Chen",email:"maya@aaranit-ai.com",role:"tutor",password:"tutor2026",active:true,created:"2026-02-10"},
-  {id:"tutor-002",name:"Rahul Verma",email:"rahul@aaranit-ai.com",role:"tutor",password:"tutor2026",active:true,created:"2026-02-10"}
+  {id:"owner-001",name:"RS",email:"rs@aarnaitai.com",role:"owner",password:"owner2026",active:true,created:"2026-01-01"},
+  {id:"admin-001",name:"Admin User",email:"admin@aarnaitai.com",role:"admin",password:"admin2026",active:true,created:"2026-01-15"},
+  {id:"sales-001",name:"Priya Sharma",email:"priya@aarnaitai.com",role:"sales",password:"sales2026",active:true,created:"2026-02-01"},
+  {id:"sales-002",name:"Arjun Patel",email:"arjun@aarnaitai.com",role:"sales",password:"sales2026",active:true,created:"2026-02-01"},
+  {id:"tutor-001",name:"Maya Chen",email:"maya@aarnaitai.com",role:"tutor",password:"tutor2026",active:true,created:"2026-02-10"},
+  {id:"tutor-002",name:"Rahul Verma",email:"rahul@aarnaitai.com",role:"tutor",password:"tutor2026",active:true,created:"2026-02-10"}
 ];
 
 const VENDORS=[
@@ -77,7 +77,7 @@ const PITCH_BODY=`Dear Sales / Business Development Team,
 
 I hope this message finds you well. My name is RS, and I am the Founder of AARNAIT AI (15439361 Canada Inc.) \u2014 a fast-growing AI and Robotics education company headquartered in Canada with expanding operations in India.
 
-Website: https://aaranit-ai.vercel.app
+Website: https://aarnaitai.com
 
 WHY WE ARE REACHING OUT
 
@@ -107,8 +107,8 @@ We look forward to building something significant together.
 Warm regards,
 RS
 Founder & CEO, AARNAIT AI
-Email: sales@aaranit-ai.com
-Website: https://aaranit-ai.vercel.app`;
+Email: sales@aarnaitai.com
+Website: https://aarnaitai.com`;
 
 // ── Storage via localStorage ──
 function loadLS(k,fb){try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb}catch(e){return fb}}
@@ -213,7 +213,7 @@ function App(){
       e("div",{style:S.divider}),
       e("div",{style:{marginBottom:16}},
         e("label",{style:S.label},"Email"),
-        e("input",{style:S.input,type:"email",placeholder:"you@aaranit-ai.com",value:lEmail,onChange:ev=>setLE(ev.target.value),onKeyDown:ev=>ev.key==="Enter"&&login()})
+        e("input",{style:S.input,type:"email",placeholder:"you@aarnaitai.com",value:lEmail,onChange:ev=>setLE(ev.target.value),onKeyDown:ev=>ev.key==="Enter"&&login()})
       ),
       e("div",{style:{marginBottom:20}},
         e("label",{style:S.label},"Password"),
@@ -317,7 +317,7 @@ function renderDashboard(user,vendors,comms,employees){
     e("div",{style:S.card},
       e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed",marginBottom:10}},"\u26A1 Priority Actions"),
       [
-        {c:"#ef4444",t:"Set up Google Workspace \u2014 professional emails (sales@, info@, admin@aaranit-ai.com)"},
+        {c:"#ef4444",t:"Set up Cloudflare Email Routing + Gmail \u2014 free professional emails (rs@, sales@, info@, support@, admin@aarnaitai.com)"},
         {c:"#f59e0b",t:"Send pitch email to Keyestudio (fennie@keyestudio.com) & Dreamhouse (Alibaba)"},
         {c:"#f59e0b",t:"Request samples from top 3 vendors for Tier 0A\u20132 kits"},
         {c:"#00e5ff",t:"Finalize OEM branding requirements (logo, box design, manual template)"}
@@ -422,7 +422,7 @@ function renderCompose(vendors,user,comms,setComms){
     setTpl(t);
     setSubj(EMAIL_TEMPLATES[t]);
     if(t==="pitch")setBody(PITCH_BODY);
-    else if(t==="followup")setBody("Dear Team,\n\nI am following up on my earlier inquiry regarding wholesale educational robotics kits for AARNAIT AI. We are keen to move forward and would appreciate your response at the earliest.\n\nBest regards,\nRS\nFounder, AARNAIT AI\nsales@aaranit-ai.com");
+    else if(t==="followup")setBody("Dear Team,\n\nI am following up on my earlier inquiry regarding wholesale educational robotics kits for AARNAIT AI. We are keen to move forward and would appreciate your response at the earliest.\n\nBest regards,\nRS\nFounder, AARNAIT AI\nsales@aarnaitai.com");
     else if(t==="sample")setBody("Dear Team,\n\nWe would like to place a sample order for evaluation. Please share:\n\n1. Available sample kits suitable for ages 3\u201312\n2. Sample pricing\n3. Shipping cost to India (New Delhi)\n4. Estimated delivery timeline\n\nBest regards,\nRS\nFounder, AARNAIT AI");
     else setBody("Dear Team,\n\nCould you please share your wholesale pricing memo with tiered rates for:\n\n\u2022 100 units\n\u2022 500 units\n\u2022 1,000+ units\n\nFor educational robotics kits targeting ages 3\u201312.\n\nBest regards,\nRS\nFounder, AARNAIT AI");
   };
@@ -458,7 +458,7 @@ function renderCompose(vendors,user,comms,setComms){
         e("button",{style:{...S.btn,width:"auto",padding:"10px 24px"},onClick:send},"\u{1F4E4} Log & Send"),
         sent&&e("span",{style:{color:"#22c55e",fontSize:13,fontWeight:600}},"\u2705 Logged!")
       ),
-      e("p",{style:{fontSize:11,color:"#5a6478",marginTop:8}},"This logs the email in your CRM. Copy the body and send via your email client (sales@aaranit-ai.com).")
+      e("p",{style:{fontSize:11,color:"#5a6478",marginTop:8}},"This logs the email in your CRM. Copy the body and send via your email client (sales@aarnaitai.com).")
     )
   );
 }
@@ -485,7 +485,7 @@ function renderTeam(employees,setEmployees,user){
     showAdd&&e("div",{style:S.card},
       e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}},
         e("div",null,e("label",{style:S.label},"Name"),e("input",{style:S.input,value:form.name,onChange:ev=>setForm({...form,name:ev.target.value})})),
-        e("div",null,e("label",{style:S.label},"Email"),e("input",{style:S.input,value:form.email,onChange:ev=>setForm({...form,email:ev.target.value}),placeholder:"name@aaranit-ai.com"})),
+        e("div",null,e("label",{style:S.label},"Email"),e("input",{style:S.input,value:form.email,onChange:ev=>setForm({...form,email:ev.target.value}),placeholder:"name@aarnaitai.com"})),
         e("div",null,e("label",{style:S.label},"Role"),
           e("select",{style:S.select,value:form.role,onChange:ev=>setForm({...form,role:ev.target.value})},
             Object.entries(ROLES).filter(([k])=>ROLES[k].level<ROLES[user.role].level).map(([k,r])=>e("option",{key:k,value:k},r.icon+" "+r.label))
@@ -534,51 +534,131 @@ function renderTeam(employees,setEmployees,user){
 // ════════════════════════════
 function renderEmailSetup(){
   const emailAddresses=[
-    {email:"info@aaranit-ai.com",purpose:"General inquiries, website contact form",role:"Admin"},
-    {email:"sales@aaranit-ai.com",purpose:"Vendor communications, partnerships, wholesale",role:"Sales"},
-    {email:"admin@aaranit-ai.com",purpose:"Internal operations, HR, team management",role:"Admin"},
-    {email:"support@aaranit-ai.com",purpose:"Student/parent support, course inquiries",role:"Support"},
-    {email:"tutors@aaranit-ai.com",purpose:"Tutor coordination, scheduling, curriculum",role:"Tutors"},
-    {email:"careers@aaranit-ai.com",purpose:"Job applications, hiring pipeline",role:"HR"},
-    {email:"rs@aaranit-ai.com",purpose:"Founder/CEO direct \u2014 high-level partnerships",role:"Owner"}
+    {email:"rs@aarnaitai.com",purpose:"Founder/CEO \u2014 high-level vendor comms & partnerships",fwd:"your main Gmail"},
+    {email:"sales@aarnaitai.com",purpose:"Vendor outreach, wholesale orders, B2B pitch emails",fwd:"your main Gmail"},
+    {email:"info@aarnaitai.com",purpose:"Website contact form, general inquiries",fwd:"your main Gmail"},
+    {email:"support@aarnaitai.com",purpose:"Student/parent support, course questions",fwd:"your main Gmail"},
+    {email:"admin@aarnaitai.com",purpose:"Internal ops, HR, team management",fwd:"your main Gmail"},
+    {email:"tutors@aarnaitai.com",purpose:"Tutor coordination, scheduling, curriculum",fwd:"your main Gmail"},
+    {email:"careers@aarnaitai.com",purpose:"Job applications, hiring pipeline",fwd:"your main Gmail"}
+  ];
+
+  const steps=[
+    {n:"1",title:"Move Domain DNS to Cloudflare (Free)",color:"#f59e0b",items:[
+      {icon:"\u{1F310}",text:"Go to cloudflare.com \u2192 Create free account \u2192 Click \u201cAdd a Site\u201d"},
+      {icon:"\u270D\uFE0F",text:"Enter: aarnaitai.com \u2192 Select the FREE plan"},
+      {icon:"\u{1F4CB}",text:"Cloudflare scans your existing DNS records \u2014 confirm & continue"},
+      {icon:"\u{1F504}",text:"Cloudflare gives you 2 nameservers (e.g. anna.ns.cloudflare.com, bob.ns.cloudflare.com)"},
+      {icon:"\u26A0\uFE0F",text:"Go to your domain registrar (where you bought aarnaitai.com) \u2192 Update nameservers to Cloudflare\u2019s"},
+      {icon:"\u23F3",text:"Wait 15 min \u2013 24 hrs for nameserver propagation. Cloudflare emails you when active."}
+    ]},
+    {n:"2",title:"Enable Cloudflare Email Routing (Free)",color:"#00e5ff",items:[
+      {icon:"\u{1F4E7}",text:"In Cloudflare Dashboard \u2192 Select aarnaitai.com \u2192 Email \u2192 Email Routing"},
+      {icon:"\u2699\uFE0F",text:"Click \u201cGet Started\u201d or \u201cEnable Email Routing\u201d"},
+      {icon:"\u{1F4DD}",text:"Cloudflare auto-creates the required MX and TXT DNS records for you"},
+      {icon:"\u26A0\uFE0F",text:"If you have existing MX records, Cloudflare will ask to remove them \u2014 say YES"}
+    ]},
+    {n:"3",title:"Create Custom Email Addresses + Forward to Gmail",color:"#22c55e",items:[
+      {icon:"\u2795",text:"In Email Routing \u2192 Routes \u2192 Custom Addresses \u2192 \u201cCreate Address\u201d"},
+      {icon:"\u{1F4E8}",text:"Enter: rs \u2192 Destination: your personal Gmail address \u2192 Save"},
+      {icon:"\u{1F504}",text:"Repeat for: sales, info, support, admin, tutors, careers (all forward to same Gmail)"},
+      {icon:"\u2709\uFE0F",text:"Cloudflare sends a verification email to your Gmail \u2014 click the link to confirm"},
+      {icon:"\u{1F4A1}",text:"OR enable \u201cCatch-All\u201d to forward ALL @aarnaitai.com emails to your Gmail"}
+    ]},
+    {n:"4",title:"Enable Gmail 2-Step Verification + App Password",color:"#ef4444",items:[
+      {icon:"\u{1F512}",text:"Go to myaccount.google.com \u2192 Security \u2192 Turn ON 2-Step Verification"},
+      {icon:"\u{1F511}",text:"Then go to myaccount.google.com/apppasswords"},
+      {icon:"\u2795",text:"App name: \u201cCloudflare SMTP\u201d \u2192 Click \u201cCreate\u201d"},
+      {icon:"\u{1F4CB}",text:"Google gives you a 16-character app password (e.g. abcd efgh ijkl mnop) \u2014 COPY & SAVE IT"},
+      {icon:"\u26A0\uFE0F",text:"You will NEVER see this password again after closing the window!"}
+    ]},
+    {n:"5",title:"Configure Gmail \u201cSend Mail As\u201d (Send FROM @aarnaitai.com)",color:"#8b5cf6",items:[
+      {icon:"\u2699\uFE0F",text:"Open Gmail \u2192 Settings (gear icon) \u2192 See all settings \u2192 Accounts and Import tab"},
+      {icon:"\u{1F4E4}",text:"Under \u201cSend mail as\u201d \u2192 Click \u201cAdd another email address\u201d"},
+      {icon:"\u270D\uFE0F",text:"Name: RS (or AARNAIT AI) \u2192 Email: rs@aarnaitai.com \u2192 Uncheck \u201cTreat as alias\u201d \u2192 Next"},
+      {icon:"\u{1F4E1}",text:"SMTP Server: smtp.gmail.com \u2192 Port: 587 \u2192 TLS: Yes"},
+      {icon:"\u{1F464}",text:"Username: YOUR full Gmail address (e.g. yourname@gmail.com)"},
+      {icon:"\u{1F511}",text:"Password: Paste the 16-char App Password from Step 4 \u2192 Click \u201cAdd Account\u201d"},
+      {icon:"\u2709\uFE0F",text:"Gmail sends a verification email to rs@aarnaitai.com (which Cloudflare forwards back to your Gmail!)"},
+      {icon:"\u2705",text:"Click the verification link \u2192 Done! Repeat for sales@, info@, etc."},
+      {icon:"\u{1F4A1}",text:"Set rs@aarnaitai.com as DEFAULT \u201cSend mail as\u201d so all outgoing emails use your professional address"}
+    ]},
+    {n:"6",title:"Add SPF Record in Cloudflare (Authorize Gmail to Send)",color:"#f59e0b",items:[
+      {icon:"\u{1F6E1}\uFE0F",text:"In Cloudflare \u2192 DNS \u2192 Add Record \u2192 Type: TXT"},
+      {icon:"\u270D\uFE0F",text:'Name: @ \u2192 Content: "v=spf1 include:_spf.google.com ~all"'},
+      {icon:"\u{1F4DD}",text:"This tells other email servers that Gmail is authorized to send on behalf of aarnaitai.com"},
+      {icon:"\u26A0\uFE0F",text:"If Cloudflare already added an SPF record, MERGE them (only 1 SPF record allowed per domain)"}
+    ]}
   ];
 
   return e("div",null,
-    e("h1",{style:S.pgTitle},"\u{1F4E7} Professional Email Setup Guide"),
-    e("p",{style:S.pgSub},"Set up @aaranit-ai.com business emails for your team"),
-    e("div",{style:S.card},
-      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed"}},"Step 1: Google Workspace"),
-      e("p",{style:{color:"#c8d0dc",fontSize:13,lineHeight:1.8,marginTop:8}},
-        "Go to ",e("strong",{style:{color:"#00e5ff"}},"workspace.google.com")," \u2192 Start free trial \u2192 Use your domain ",e("strong",{style:{color:"#00e5ff"}},"aaranit-ai.com")),
-      e("p",{style:{color:"#8892a4",fontSize:12,marginTop:4}},"Cost: ~$7.20 CAD/user/month (Business Starter)")
+    e("h1",{style:S.pgTitle},"\u{1F4E7} Email Setup \u2014 Cloudflare + Gmail"),
+    e("p",{style:S.pgSub},"100% free professional @aarnaitai.com emails \u00b7 Unlimited addresses \u00b7 $0/month forever"),
+    e("div",{style:{...S.card,background:"linear-gradient(135deg,rgba(34,197,94,.06),rgba(0,229,255,.04))",borderColor:"rgba(34,197,94,.15)"}},
+      e("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:12}},
+        e("div",{style:{fontSize:28}},"\u{1F389}"),
+        e("div",null,
+          e("div",{style:{fontWeight:800,fontSize:16,color:"#22c55e"}},"Why Cloudflare + Gmail?"),
+          e("div",{style:{fontSize:12,color:"#8892a4",marginTop:2}},"The startup founder\u2019s secret weapon \u2014 professional email for $0")
+        )
+      ),
+      e("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(140px,1fr))",gap:8}},
+        [{v:"$0",l:"Monthly Cost"},{v:"\u221E",l:"Email Addresses"},{v:"15 GB",l:"Gmail Storage"},{v:"\u2705",l:"Send + Receive"},{v:"\u2705",l:"Mobile + Desktop"},{v:"\u2705",l:"Free Forever"}].map(s=>
+          e("div",{key:s.l,style:{textAlign:"center",padding:10,background:"rgba(255,255,255,.02)",borderRadius:8}},
+            e("div",{style:{fontSize:20,fontWeight:800,color:"#22c55e"}},s.v),
+            e("div",{style:{fontSize:10,color:"#8892a4",textTransform:"uppercase",letterSpacing:.5}},s.l)
+          )
+        )
+      ),
+      e("div",{style:{marginTop:12,padding:10,background:"rgba(0,229,255,.04)",borderRadius:8,fontSize:12,color:"#00e5ff",lineHeight:1.6}},
+        "\u{1F4A1} How it works: Cloudflare receives emails to @aarnaitai.com and forwards them to your Gmail. Gmail\u2019s \u201cSend mail as\u201d feature lets you reply FROM @aarnaitai.com. You manage everything in one Gmail inbox.")
     ),
-    e("div",{style:S.card},
-      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed",marginBottom:10}},"Step 2: Create These Email Addresses"),
-      emailAddresses.map(ea=>e("div",{key:ea.email,style:S.emailRow},
-        e("div",{style:{fontWeight:700,fontSize:13,color:"#00e5ff",fontFamily:"monospace"}},ea.email),
-        e("div",{style:{fontSize:12,color:"#8892a4",flex:1}},ea.purpose),
-        e("span",{style:{...S.badge,fontSize:10,background:"rgba(0,229,255,.08)",color:"#00e5ff"}},ea.role)
+    steps.map(step=>e("div",{key:step.n,style:{...S.card,borderLeft:"3px solid "+step.color}},
+      e("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:12}},
+        e("div",{style:{width:28,height:28,borderRadius:"50%",background:step.color+"22",color:step.color,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,fontWeight:800}},step.n),
+        e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed",margin:0}},step.title)
+      ),
+      step.items.map((it,i)=>e("div",{key:i,style:{display:"flex",alignItems:"flex-start",gap:8,padding:"5px 0",fontSize:13,color:"#c8d0dc",lineHeight:1.6}},
+        e("span",{style:{flexShrink:0}},it.icon),e("span",null,it.text)
       ))
+    )),
+    e("div",{style:{...S.card,borderColor:"rgba(0,229,255,.1)"}},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed",marginBottom:10}},"\u{1F4E7} Email Addresses to Create (All Free \u2014 No Limit!)"),
+      emailAddresses.map(ea=>e("div",{key:ea.email,style:S.emailRow},
+        e("div",{style:{fontWeight:700,fontSize:13,color:"#00e5ff",fontFamily:"monospace",minWidth:200}},ea.email),
+        e("div",{style:{fontSize:12,color:"#8892a4",flex:1}},ea.purpose),
+        e("span",{style:{...S.badge,fontSize:10,background:"rgba(34,197,94,.08)",color:"#22c55e"}},"\u2192 Gmail")
+      )),
+      e("div",{style:{marginTop:12,padding:10,background:"rgba(245,158,11,.04)",border:"1px solid rgba(245,158,11,.1)",borderRadius:8,fontSize:12,color:"#f59e0b",lineHeight:1.6}},
+        "\u{1F4A1} Pro tip: All 7 addresses forward to the SAME Gmail inbox. Use Gmail filters to auto-label them (e.g. sales@ \u2192 \u201cVendors\u201d label, support@ \u2192 \u201cSupport\u201d label) for easy sorting.")
     ),
     e("div",{style:S.card},
-      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed"}},"Step 3: DNS Configuration"),
-      e("div",{style:{background:"#0d1117",borderRadius:8,padding:12,marginTop:8,fontFamily:"monospace",fontSize:11,color:"#8892a4",lineHeight:1.8}},
-        "MX \u2192 ASPMX.L.GOOGLE.COM (Priority 1)",e("br"),
-        "MX \u2192 ALT1.ASPMX.L.GOOGLE.COM (Priority 5)",e("br"),
-        "MX \u2192 ALT2.ASPMX.L.GOOGLE.COM (Priority 5)",e("br"),
-        'TXT \u2192 "v=spf1 include:_spf.google.com ~all"'
-      )
-    ),
-    e("div",{style:S.card},
-      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed"}},"Step 4: Email Signature Template"),
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed"}},"Email Signature Template"),
       e("div",{style:{background:"#0d1117",borderRadius:8,padding:16,marginTop:8,fontSize:12,color:"#c8d0dc",lineHeight:1.8}},
-        e("strong",{style:{color:"#e0e6ed"}},"[Your Name]"),e("br"),
-        "[Title] \u00b7 AARNAIT AI",e("br"),
-        e("span",{style:{color:"#00e5ff"}},"\u{1F4E7} [name]@aaranit-ai.com"),e("br"),
+        e("strong",{style:{color:"#e0e6ed"}},"RS"),e("br"),
+        "Founder & CEO \u00b7 AARNAIT AI",e("br"),
+        e("span",{style:{color:"#00e5ff"}},"\u{1F4E7} rs@aarnaitai.com"),e("br"),
         "\u{1F4F1} [Phone/WhatsApp]",e("br"),
-        "\u{1F310} aaranit-ai.vercel.app",e("br"),
+        "\u{1F310} aarnaitai.com",e("br"),
         e("span",{style:{color:"#5a6478"}},"AI & Robotics Education \u00b7 Canada | India")
       )
+    ),
+    e("div",{style:{...S.card,background:"rgba(239,68,68,.04)",borderColor:"rgba(239,68,68,.12)"}},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#ef4444",marginBottom:8}},"\u26A0\uFE0F Limitations to Know"),
+      e("div",{style:{fontSize:13,color:"#c8d0dc",lineHeight:1.8}},
+        "\u2022 Gmail headers may show \u201csent via gmail.com\u201d (most recipients don\u2019t notice)",e("br"),
+        "\u2022 Gmail daily send limit: ~500 emails/day (more than enough for vendor comms)",e("br"),
+        "\u2022 All addresses share one Gmail inbox (use labels/filters to organize)",e("br"),
+        "\u2022 No separate mailboxes per team member (upgrade to Google Workspace later when revenue starts)")
+    ),
+    e("div",{style:{...S.card,background:"rgba(139,92,246,.04)",borderColor:"rgba(139,92,246,.12)"}},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#8b5cf6",marginBottom:8}},"\u{1F680} When to Upgrade"),
+      e("div",{style:{fontSize:13,color:"#c8d0dc",lineHeight:1.8}},
+        "Cloudflare + Gmail is perfect while pre-revenue. Consider upgrading when:",e("br"),
+        "\u2022 You hire team members who need their OWN separate inboxes",e("br"),
+        "\u2022 You need to remove \u201cvia gmail.com\u201d from email headers",e("br"),
+        "\u2022 You need shared calendars, team Drive, or video meetings",e("br"),
+        "\u2022 Upgrade path: Google Workspace ($7.20/user/month) or Zoho Mail Lite ($1/user/month)")
     )
   );
 }
