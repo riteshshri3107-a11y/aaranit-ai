@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AARNAIT AI — Internal Portal</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body,#root{height:100%;width:100%}
+body{background:#0a0e16;color:#c8d0dc;font-family:'Inter',-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.14)}
+input:focus,textarea:focus,select:focus{border-color:rgba(0,229,255,.3)!important;outline:none}
+button:hover{opacity:.88}
+::selection{background:rgba(0,229,255,.2)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+// AARNAIT AI — Internal CRM & Vendor Management Portal
+// ═══════════════════════════════════════════════════════
+const e=React.createElement,{useState:us,useEffect:ue,useCallback:uc}=React;
+
+const ROLES={
+  owner:{label:"Business Owner",level:5,color:"#f59e0b",icon:"\u{1F451}"},
+  admin:{label:"Admin",level:4,color:"#ef4444",icon:"\u{1F527}"},
+  sales:{label:"Sales Team",level:3,color:"#00e5ff",icon:"\u{1F4BC}"},
+  tutor:{label:"Tutor",level:2,color:"#8b5cf6",icon:"\u{1F4DA}"},
+  viewer:{label:"Viewer",level:1,color:"#6b7280",icon:"\u{1F441}"}
+};
+
+const DEFAULT_EMPLOYEES=[
+  {id:"owner-001",name:"RS",email:"rs@aaranit-ai.com",role:"owner",password:"owner2026",active:true,created:"2026-01-01"},
+  {id:"admin-001",name:"Admin User",email:"admin@aaranit-ai.com",role:"admin",password:"admin2026",active:true,created:"2026-01-15"},
+  {id:"sales-001",name:"Priya Sharma",email:"priya@aaranit-ai.com",role:"sales",password:"sales2026",active:true,created:"2026-02-01"},
+  {id:"sales-002",name:"Arjun Patel",email:"arjun@aaranit-ai.com",role:"sales",password:"sales2026",active:true,created:"2026-02-01"},
+  {id:"tutor-001",name:"Maya Chen",email:"maya@aaranit-ai.com",role:"tutor",password:"tutor2026",active:true,created:"2026-02-10"},
+  {id:"tutor-002",name:"Rahul Verma",email:"rahul@aaranit-ai.com",role:"tutor",password:"tutor2026",active:true,created:"2026-02-10"}
+];
+
+const VENDORS=[
+  {id:"v1",name:"Keyestudio (Shenzhen Keyes DIY Robot Co.)",location:"Shenzhen, Guangdong, China",contact:"Fennie",email:"fennie@keyestudio.com",email2:"service@keyestudio.com",whatsapp:"+8613923454886",alibaba:"szkeyes.en.alibaba.com",website:"keyestudio.com",tiers:["0B","1","2"],ageRange:"5\u201312",rating:4.8,years:12,specialty:"Arduino starter kits, turtle robot cars, sensor kits, smart home kits",moq:"1\u20132 samples, 50+ bulk",oem:true,indiaShip:true,priceRange:"$8\u2013$45/kit",certifications:"CE",status:"priority",notes:"Distributor program available. Ask Fennie about India exclusive agent."},
+  {id:"v2",name:"Acebott STEM Education Tech Co.",location:"Futian, Shenzhen, China",contact:"Business Team",email:"info@acebott.com",email2:"support@acebott.com",whatsapp:"",alibaba:"acebott on Alibaba",website:"acebott.com",tiers:["1","2"],ageRange:"8\u201312",rating:4.7,years:11,specialty:"ESP32 smart home kits, robot car kits, biped robots, spider robots",moq:"1 sample, 50+ bulk (10% discount)",oem:true,indiaShip:true,priceRange:"$42\u2013$110/kit",certifications:"CE, FCC",status:"active",notes:"Already has India reseller (Robocraze). Position as education institution partner. 5%+ educator discount."},
+  {id:"v3",name:"Shantou Dreamhouse Toys Industrial Co.",location:"Chenghai, Shantou, Guangdong, China",contact:"Sarah Liu",email:"via Alibaba chat",email2:"",whatsapp:"",alibaba:"dreamhousetoys.en.alibaba.com",website:"",tiers:["0A","0B"],ageRange:"3\u20136",rating:4.5,years:9,specialty:"Block-based building robot kits, WeDo 2.0 compatible, RC toys, STEM brick sets",moq:"2 samples, 50+ bulk",oem:true,indiaShip:true,priceRange:"$3\u2013$32/kit (sub-$15 at 1000+)",certifications:"CE, EN71",status:"priority",notes:"CHEAPEST bulk pricing. Best for Tier 0A & 0B tactile/building kits. Message via Alibaba."},
+  {id:"v4",name:"Shenzhen Robotlinking Technology Co.",location:"Futian, Shenzhen, China",contact:"Tracy Zhang",email:"via Alibaba chat",email2:"",whatsapp:"",alibaba:"robotlinking.en.alibaba.com",website:"",tiers:["1","2"],ageRange:"7\u201312",rating:4.9,years:10,specialty:"Arduino kits, robot car kits, starter kits, RFID modules",moq:"200 OEM branding, 300 modified",oem:true,indiaShip:true,priceRange:"$5\u2013$40/kit",certifications:"CE",status:"active",notes:"99.8% on-time delivery. 37% reorder rate. Best reliability score."},
+  {id:"v5",name:"Shantou Tengxin Edu-Toys Industrial Co.",location:"Shantou, Guangdong, China",contact:"Sales Team",email:"via Alibaba chat",email2:"",whatsapp:"",alibaba:"tengxin on Alibaba",website:"",tiers:["0A","0B","1"],ageRange:"3\u201310",rating:4.6,years:7,specialty:"Educational toy kits, programmable cars, basic STEM kits",moq:"56+ pieces",oem:true,indiaShip:true,priceRange:"$2.35\u2013$15/kit",certifications:"CE, EN71",status:"active",notes:"$420K+ annual revenue. Perfect delivery timelines. Ultra-cheap for volume."},
+  {id:"v6",name:"Makerzoid (Shenzhen Tongyi Technology Co.)",location:"Shenzhen, China",contact:"Sales Team",email:"via Alibaba / website",email2:"",whatsapp:"",alibaba:"makerzoid on Alibaba",website:"makerzoid.com",tiers:["0B","1","2"],ageRange:"6\u201312",rating:4.7,years:5,specialty:"200+ in 1 programmable block kits, STEM learning kits, Super Bot sets",moq:"2 samples, 50+ bulk",oem:true,indiaShip:true,priceRange:"$25\u2013$65/kit",certifications:"CE",status:"evaluate",notes:"Great for Tier 0B-1 block-based programmable kits."},
+  {id:"v7",name:"Weeemake STEAM Tech Co.",location:"Shanghai, China",contact:"Sales Team",email:"via Alibaba / website",email2:"",whatsapp:"",alibaba:"weeemake on Alibaba",website:"weeemake.com",tiers:["1","2"],ageRange:"8\u201312",rating:5.0,years:5,specialty:"WeeeBot programming robots, AIOT education kits, school curriculum sets",moq:"2 samples",oem:true,indiaShip:true,priceRange:"$30\u2013$90/kit",certifications:"CE, FCC",status:"evaluate",notes:"5.0/5 review score. Strong school curriculum integration."}
+];
+
+const TIER_MAP={
+  "0A":{label:"Tier 0A \u00b7 Tiny Explorers",age:"3\u20134",color:"#f472b6",icon:"\u{1F9F8}"},
+  "0B":{label:"Tier 0B \u00b7 Junior Inventors",age:"5\u20136",color:"#fb923c",icon:"\u{1F9E9}"},
+  "1":{label:"Tier 1 \u00b7 Explorer",age:"7\u201310",color:"#22c55e",icon:"\u{1F916}"},
+  "2":{label:"Tier 2 \u00b7 Builder",age:"11\u201312",color:"#00e5ff",icon:"\u26A1"}
+};
+
+const EMAIL_TEMPLATES={
+  pitch:"Partnership Inquiry \u2014 Wholesale Educational Robotics Kits | AARNAIT AI",
+  followup:"Following Up \u2014 AARNAIT AI Wholesale Kit Inquiry",
+  sample:"Sample Kit Request \u2014 AARNAIT AI Evaluation Order",
+  pricing:"Price Memo Request \u2014 Tiered Wholesale Pricing | AARNAIT AI"
+};
+
+const PITCH_BODY=`Dear Sales / Business Development Team,
+
+I hope this message finds you well. My name is RS, and I am the Founder of AARNAIT AI (15439361 Canada Inc.) \u2014 a fast-growing AI and Robotics education company headquartered in Canada with expanding operations in India.
+
+Website: https://aaranit-ai.vercel.app
+
+WHY WE ARE REACHING OUT
+
+We are building one of the largest structured robotics education programs in the South Asian market. Our 7-tier progressive curriculum covers ages 3 to adult professionals, with our primary focus currently on ages 3\u201312. We are seeking a reliable manufacturing partner to supply educational robotics kits with full OEM branding under the AARNAIT brand.
+
+OUR IMMEDIATE REQUIREMENT (Ages 3\u201312)
+
+\u2022 Tier 0A (Ages 3\u20134) \u2014 Screen-free tactile robot toys: push-button bots, light/sound sensory kits
+\u2022 Tier 0B (Ages 5\u20136) \u2014 Tangible coding toys: physical command cards, snap-fit robot assembly kits
+\u2022 Tier 1 (Ages 7\u201310) \u2014 Visual block coding kits (Scratch/Blockly), motors, sensors, LED circuits
+\u2022 Tier 2 (Ages 11\u201312) \u2014 Arduino/Python-based kits, sensor fusion, IoT-enabled robot car kits
+
+WHAT WE NEED
+
+1. Product Catalog & Price Memo \u2014 Wholesale pricing for kit categories above. Include tiered pricing for 100 / 500 / 1,000+ units.
+2. Sample Kits \u2014 1\u20132 sample units for evaluation. Share sample pricing + shipping cost to India (New Delhi / Mumbai).
+3. OEM / Custom Branding \u2014 Custom box packaging, logo printing, branded manuals. Minimum order quantities for branded production.
+4. Shipping to India \u2014 FOB/CIF terms, transit time, experience with Indian ports.
+5. Certifications \u2014 CE, EN71, ASTM F963, or BIS certifications.
+
+GROWTH PROJECTION
+
+Initial order: 100\u2013300 units across selected tiers. Within 12 months: scaling to 2,000\u20135,000+ units/quarter. The right partner receives priority as our exclusive kit supplier across the Indian subcontinent.
+
+We look forward to building something significant together.
+
+Warm regards,
+RS
+Founder & CEO, AARNAIT AI
+Email: sales@aaranit-ai.com
+Website: https://aaranit-ai.vercel.app`;
+
+// ── Storage via localStorage ──
+function loadLS(k,fb){try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb}catch(e){return fb}}
+function saveLS(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+// ── Styles object ──
+const S={
+  loadBg:{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100vh"},
+  spinner:{width:32,height:32,border:"3px solid #1a2035",borderTop:"3px solid #00e5ff",borderRadius:"50%",animation:"spin 1s linear infinite"},
+  loginBg:{minHeight:"100vh",background:"linear-gradient(135deg,#0a0e16 0%,#111827 50%,#0a0e16 100%)",display:"flex",alignItems:"center",justifyContent:"center",padding:20},
+  loginCard:{background:"rgba(15,20,35,.95)",border:"1px solid rgba(0,229,255,.08)",borderRadius:16,padding:32,width:"100%",maxWidth:420,backdropFilter:"blur(20px)",animation:"fadeIn .4s"},
+  loginLogo:{display:"flex",alignItems:"center",gap:12,marginBottom:24},
+  logoIcon:{width:44,height:44,borderRadius:10,background:"linear-gradient(135deg,#00e5ff,#8b5cf6)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,fontWeight:900,color:"#0a0e16",fontFamily:"Syne,sans-serif"},
+  logoTitle:{fontSize:20,fontWeight:800,color:"#e0e6ed",fontFamily:"Syne,sans-serif"},
+  logoSub:{fontSize:11,color:"#5a6478"},
+  divider:{height:1,background:"rgba(255,255,255,.06)",margin:"0 0 24px"},
+  label:{display:"block",fontSize:11,fontWeight:600,color:"#8892a4",marginBottom:4,textTransform:"uppercase",letterSpacing:.5},
+  input:{width:"100%",padding:"10px 12px",background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:8,color:"#e0e6ed",fontSize:13,outline:"none",boxSizing:"border-box"},
+  select:{width:"100%",padding:"10px 12px",background:"#111827",border:"1px solid rgba(255,255,255,.08)",borderRadius:8,color:"#e0e6ed",fontSize:13,outline:"none",boxSizing:"border-box"},
+  textarea:{width:"100%",padding:"10px 12px",background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:8,color:"#e0e6ed",fontSize:12,outline:"none",boxSizing:"border-box",fontFamily:"monospace",lineHeight:1.7,resize:"vertical",minHeight:280},
+  error:{color:"#ef4444",fontSize:12,marginBottom:12,padding:"8px 12px",background:"rgba(239,68,68,.08)",borderRadius:6},
+  btn:{padding:"10px 20px",background:"linear-gradient(135deg,#00e5ff,#8b5cf6)",color:"#0a0e16",fontSize:13,fontWeight:700,border:"none",borderRadius:8,cursor:"pointer",width:"100%"},
+  btnSm:{padding:"5px 12px",fontSize:11,fontWeight:600,border:"1px solid rgba(255,255,255,.06)",borderRadius:6,cursor:"pointer",background:"transparent"},
+  credBox:{marginTop:20,padding:14,background:"rgba(0,229,255,.03)",border:"1px solid rgba(0,229,255,.06)",borderRadius:10},
+  credRow:{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"6px 8px",borderRadius:6,cursor:"pointer",background:"rgba(255,255,255,.02)",marginBottom:4},
+  badge:{padding:"3px 8px",borderRadius:6,fontSize:11,fontWeight:600},
+  shell:{display:"flex",minHeight:"100vh"},
+  side:{width:220,minWidth:220,background:"rgba(15,20,35,.97)",borderRight:"1px solid rgba(255,255,255,.04)",display:"flex",flexDirection:"column",padding:"16px 12px",position:"sticky",top:0,height:"100vh",overflowY:"auto",boxSizing:"border-box"},
+  sideLogo:{display:"flex",alignItems:"center",gap:10,padding:"0 4px",marginBottom:20},
+  sIcon:{width:32,height:32,borderRadius:8,background:"linear-gradient(135deg,#00e5ff,#8b5cf6)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:900,color:"#0a0e16"},
+  navBtn:{display:"flex",alignItems:"center",gap:8,padding:"9px 10px",background:"transparent",border:"none",borderRadius:8,color:"#8892a4",fontSize:12,fontWeight:500,cursor:"pointer",textAlign:"left",width:"100%",marginBottom:2},
+  navAct:{background:"rgba(0,229,255,.06)",color:"#00e5ff",fontWeight:600},
+  sUser:{borderTop:"1px solid rgba(255,255,255,.04)",paddingTop:12,textAlign:"center",marginTop:"auto"},
+  logoutBtn:{marginTop:8,padding:"5px 14px",background:"rgba(239,68,68,.08)",border:"1px solid rgba(239,68,68,.12)",borderRadius:6,color:"#ef4444",fontSize:11,cursor:"pointer",fontWeight:600},
+  main:{flex:1,padding:24,overflowY:"auto",maxHeight:"100vh",boxSizing:"border-box"},
+  pgTitle:{fontSize:22,fontWeight:800,color:"#e0e6ed",fontFamily:"Syne,sans-serif",margin:"0 0 4px"},
+  pgSub:{fontSize:13,color:"#8892a4",margin:"0 0 20px"},
+  card:{background:"rgba(15,20,35,.7)",border:"1px solid rgba(255,255,255,.04)",borderRadius:12,padding:18,marginBottom:12},
+  statsGrid:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))",gap:12,marginBottom:16},
+  stat:{background:"rgba(15,20,35,.7)",border:"1px solid rgba(255,255,255,.04)",borderRadius:12,padding:16,textAlign:"center"},
+  filterBtn:{padding:"6px 14px",fontSize:11,fontWeight:600,background:"rgba(255,255,255,.03)",border:"1px solid rgba(255,255,255,.06)",borderRadius:8,color:"#8892a4",cursor:"pointer",marginRight:6,marginBottom:6},
+  filterAct:{background:"rgba(0,229,255,.08)",color:"#00e5ff",borderColor:"rgba(0,229,255,.2)"},
+  vCard:{background:"rgba(15,20,35,.7)",border:"1px solid rgba(255,255,255,.04)",borderRadius:12,padding:16,cursor:"pointer",marginBottom:10},
+  tierTag:{padding:"2px 8px",borderRadius:6,fontSize:10,fontWeight:700,marginRight:4},
+  stBadge:{padding:"3px 8px",borderRadius:20,fontSize:10,fontWeight:700,textTransform:"uppercase",letterSpacing:.5},
+  dRow:{display:"flex",gap:8,fontSize:12,padding:"4px 0"},
+  dLabel:{color:"#5a6478",minWidth:100,flexShrink:0,fontWeight:600},
+  dVal:{color:"#c8d0dc",wordBreak:"break-all"},
+  vNotes:{marginTop:10,padding:10,background:"rgba(245,158,11,.04)",border:"1px solid rgba(245,158,11,.1)",borderRadius:8,fontSize:12,color:"#f59e0b",lineHeight:1.6},
+  backLink:{display:"inline-flex",alignItems:"center",gap:6,color:"#00e5ff",fontSize:12,textDecoration:"none",marginBottom:16,padding:"6px 12px",border:"1px solid rgba(0,229,255,.12)",borderRadius:8,background:"rgba(0,229,255,.03)"},
+  commCard:{background:"rgba(15,20,35,.7)",border:"1px solid rgba(255,255,255,.04)",borderRadius:10,padding:14,marginBottom:10},
+  tCard:{background:"rgba(15,20,35,.7)",border:"1px solid rgba(255,255,255,.04)",borderRadius:10,padding:14,marginBottom:8},
+  table:{width:"100%",borderCollapse:"collapse",fontSize:12},
+  th:{padding:"8px 10px",textAlign:"left",borderBottom:"1px solid rgba(255,255,255,.06)",color:"#8892a4",fontSize:11,fontWeight:600},
+  td:{padding:"8px 10px",borderBottom:"1px solid rgba(255,255,255,.03)",color:"#c8d0dc",fontSize:12},
+  emailRow:{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,padding:"10px 12px",background:"rgba(255,255,255,.02)",borderRadius:8,marginBottom:6,flexWrap:"wrap"}
+};
+
+// ════════════════════════════
+// APP
+// ════════════════════════════
+function App(){
+  const[user,setUser]=us(null);
+  const[employees,setEmployees]=us(DEFAULT_EMPLOYEES);
+  const[vendors,setVendors]=us(VENDORS);
+  const[comms,setComms]=us([]);
+  const[page,setPage]=us("dashboard");
+  const[lEmail,setLE]=us("");
+  const[lPass,setLP]=us("");
+  const[lErr,setLErr]=us("");
+  const[loaded,setLoaded]=us(false);
+
+  ue(()=>{
+    setEmployees(loadLS("aa-emp",DEFAULT_EMPLOYEES));
+    setComms(loadLS("aa-comms",[]));
+    setVendors(loadLS("aa-vendors",VENDORS));
+    setLoaded(true);
+  },[]);
+
+  const save=(emp,com,ven)=>{
+    saveLS("aa-emp",emp||employees);
+    saveLS("aa-comms",com||comms);
+    saveLS("aa-vendors",ven||vendors);
+  };
+
+  const login=()=>{
+    const f=employees.find(x=>x.email===lEmail&&x.password===lPass&&x.active);
+    if(f){setUser(f);setLErr("");setPage("dashboard")}else setLErr("Invalid credentials or inactive account.")
+  };
+
+  const canAccess=lvl=>user&&ROLES[user.role]?.level>=lvl;
+
+  if(!loaded)return e("div",{style:S.loadBg},e("div",{style:S.spinner}),e("p",{style:{color:"#8892a4",marginTop:16}},"Loading..."));
+
+  // ═══ LOGIN ═══
+  if(!user)return e("div",{style:S.loginBg},
+    e("div",{style:S.loginCard},
+      e("div",{style:S.loginLogo},
+        e("div",{style:S.logoIcon},"A"),
+        e("div",null,e("div",{style:S.logoTitle},"AARNAIT AI"),e("div",{style:S.logoSub},"Internal Portal \u00b7 CRM"))
+      ),
+      e("div",{style:S.divider}),
+      e("div",{style:{marginBottom:16}},
+        e("label",{style:S.label},"Email"),
+        e("input",{style:S.input,type:"email",placeholder:"you@aaranit-ai.com",value:lEmail,onChange:ev=>setLE(ev.target.value),onKeyDown:ev=>ev.key==="Enter"&&login()})
+      ),
+      e("div",{style:{marginBottom:20}},
+        e("label",{style:S.label},"Password"),
+        e("input",{style:S.input,type:"password",placeholder:"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",value:lPass,onChange:ev=>setLP(ev.target.value),onKeyDown:ev=>ev.key==="Enter"&&login()})
+      ),
+      lErr&&e("div",{style:S.error},lErr),
+      e("button",{style:S.btn,onClick:login},"Sign In"),
+      e("div",{style:S.credBox},
+        e("div",{style:{fontWeight:700,marginBottom:8,color:"#e0e6ed",fontSize:13}},"Demo Credentials"),
+        DEFAULT_EMPLOYEES.slice(0,5).map(emp=>
+          e("div",{key:emp.id,style:S.credRow,onClick:()=>{setLE(emp.email);setLP(emp.password)}},
+            e("span",{style:{...S.badge,background:ROLES[emp.role].color+"22",color:ROLES[emp.role].color}},ROLES[emp.role].icon+" "+ROLES[emp.role].label),
+            e("span",{style:{color:"#8892a4",fontSize:11}},emp.email)
+          )
+        )
+      ),
+      e("a",{href:"index.html",style:{...S.backLink,marginTop:16,display:"inline-flex",textDecoration:"none"}},"\u2190 Back to Website")
+    )
+  );
+
+  // ═══ PORTAL ═══
+  const navItems=[
+    {id:"dashboard",icon:"\u{1F4CA}",label:"Dashboard",level:1},
+    {id:"vendors",icon:"\u{1F3ED}",label:"Vendors (3\u201312)",level:2},
+    {id:"comms",icon:"\u{1F4E8}",label:"Communications",level:2},
+    {id:"compose",icon:"\u2709\uFE0F",label:"Compose Email",level:3},
+    {id:"team",icon:"\u{1F465}",label:"Team Management",level:4},
+    {id:"emails",icon:"\u{1F4E7}",label:"Email Setup",level:4}
+  ];
+
+  return e("div",{style:S.shell},
+    // Sidebar
+    e("aside",{style:S.side},
+      e("div",{style:S.sideLogo},
+        e("div",{style:S.sIcon},"A"),
+        e("div",null,e("div",{style:{fontWeight:800,fontSize:14,color:"#e0e6ed",fontFamily:"Syne,sans-serif"}},"AARNAIT AI"),e("div",{style:{fontSize:10,color:"#5a6478"}},"Portal v1.0"))
+      ),
+      e("nav",{style:{flex:1}},
+        navItems.filter(n=>canAccess(n.level)).map(n=>
+          e("button",{key:n.id,style:{...S.navBtn,...(page===n.id?S.navAct:{})},onClick:()=>setPage(n.id)},n.icon+" "+n.label)
+        ),
+        e("a",{href:"index.html",style:{...S.navBtn,textDecoration:"none",marginTop:8,color:"#5a6478"}},"\u2190 Main Website")
+      ),
+      e("div",{style:S.sUser},
+        e("span",{style:{...S.badge,background:ROLES[user.role].color+"22",color:ROLES[user.role].color,display:"inline-block",marginBottom:6}},ROLES[user.role].icon+" "+ROLES[user.role].label),
+        e("div",{style:{color:"#e0e6ed",fontSize:13,fontWeight:600}},user.name),
+        e("div",{style:{color:"#5a6478",fontSize:11}},user.email),
+        e("button",{style:S.logoutBtn,onClick:()=>{setUser(null);setLE("");setLP("");}},"Sign Out")
+      )
+    ),
+
+    // Main content
+    e("main",{style:S.main},
+      page==="dashboard"&&renderDashboard(user,vendors,comms,employees),
+      page==="vendors"&&renderVendors(vendors,v=>{setVendors(v);save(null,null,v)},canAccess(3)),
+      page==="comms"&&renderComms(comms,vendors),
+      page==="compose"&&renderCompose(vendors,user,comms,c=>{setComms(c);save(null,c,null)}),
+      page==="team"&&renderTeam(employees,emp=>{setEmployees(emp);save(emp,null,null)},user),
+      page==="emails"&&renderEmailSetup()
+    )
+  );
+}
+
+// ════════════════════════════
+// DASHBOARD
+// ════════════════════════════
+function renderDashboard(user,vendors,comms,employees){
+  const stats=[
+    {label:"Total Vendors",value:vendors.length,icon:"\u{1F3ED}",color:"#00e5ff"},
+    {label:"Priority",value:vendors.filter(v=>v.status==="priority").length,icon:"\u2B50",color:"#f59e0b"},
+    {label:"Communications",value:comms.length,icon:"\u{1F4E8}",color:"#8b5cf6"},
+    {label:"Team",value:employees.filter(x=>x.active).length,icon:"\u{1F465}",color:"#22c55e"}
+  ];
+  return e("div",null,
+    e("h1",{style:S.pgTitle},"Dashboard"),
+    e("p",{style:S.pgSub},"Welcome back, "+user.name+". Focus: Ages 3\u201312 Kids Robotics Kits."),
+    e("div",{style:S.statsGrid},stats.map(s=>
+      e("div",{key:s.label,style:S.stat},
+        e("div",{style:{fontSize:28}},s.icon),
+        e("div",{style:{fontSize:28,fontWeight:800,color:s.color,fontFamily:"Syne,sans-serif"}},s.value),
+        e("div",{style:{fontSize:11,color:"#8892a4",textTransform:"uppercase",letterSpacing:1}},s.label)
+      )
+    )),
+    e("div",{style:S.card},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed",marginBottom:12}},"\u{1F3AF} Tier Coverage (Ages 3\u201312)"),
+      e("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:12}},
+        Object.entries(TIER_MAP).map(([tid,t])=>{
+          const m=vendors.filter(v=>v.tiers.includes(tid));
+          return e("div",{key:tid,style:{display:"flex",alignItems:"flex-start",gap:10,padding:12,background:"rgba(255,255,255,.02)",borderRadius:8,borderLeft:"3px solid "+t.color}},
+            e("div",{style:{fontSize:20}},t.icon),
+            e("div",null,
+              e("div",{style:{fontWeight:700,fontSize:13,color:"#e0e6ed"}},t.label),
+              e("div",{style:{fontSize:11,color:"#8892a4"}},"Ages "+t.age),
+              e("div",{style:{fontSize:11,color:t.color,marginTop:4}},m.length+" vendor"+(m.length!==1?"s":"")),
+              e("div",{style:{fontSize:10,color:"#5a6478",marginTop:2}},m.map(v=>v.name.split("(")[0].trim()).join(", "))
+            )
+          )
+        })
+      )
+    ),
+    e("div",{style:S.card},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed",marginBottom:10}},"\u26A1 Priority Actions"),
+      [
+        {c:"#ef4444",t:"Set up Google Workspace \u2014 professional emails (sales@, info@, admin@aaranit-ai.com)"},
+        {c:"#f59e0b",t:"Send pitch email to Keyestudio (fennie@keyestudio.com) & Dreamhouse (Alibaba)"},
+        {c:"#f59e0b",t:"Request samples from top 3 vendors for Tier 0A\u20132 kits"},
+        {c:"#00e5ff",t:"Finalize OEM branding requirements (logo, box design, manual template)"}
+      ].map((a,i)=>e("div",{key:i,style:{display:"flex",alignItems:"center",gap:8,fontSize:13,color:"#c8d0dc",padding:"8px 10px",background:"rgba(255,255,255,.02)",borderRadius:6,marginBottom:4}},
+        e("span",{style:{width:8,height:8,borderRadius:"50%",background:a.c,flexShrink:0}}),a.t
+      ))
+    )
+  );
+}
+
+// ════════════════════════════
+// VENDORS
+// ════════════════════════════
+function renderVendors(vendors,setVendors,canEdit){
+  const[filter,setF]=us("all");
+  const[sel,setSel]=us(null);
+  const filtered=filter==="all"?vendors:vendors.filter(v=>v.tiers.includes(filter));
+
+  return e("div",null,
+    e("h1",{style:S.pgTitle},"\u{1F3ED} Vendor Directory"),
+    e("p",{style:S.pgSub},"Ages 3\u201312 focus \u00b7 "+vendors.length+" verified suppliers \u00b7 OEM + India shipping"),
+    e("div",{style:{marginBottom:16,display:"flex",flexWrap:"wrap"}},
+      e("button",{style:{...S.filterBtn,...(filter==="all"?S.filterAct:{})},onClick:()=>setF("all")},"All ("+vendors.length+")"),
+      Object.entries(TIER_MAP).map(([tid,t])=>
+        e("button",{key:tid,style:{...S.filterBtn,...(filter===tid?{...S.filterAct,background:t.color+"22",color:t.color,borderColor:t.color+"44"}:{})},onClick:()=>setF(tid)},
+          t.icon+" "+t.label.split("\u00b7")[0].trim()+" ("+vendors.filter(v=>v.tiers.includes(tid)).length+")"
+        )
+      )
+    ),
+    filtered.map(v=>e("div",{key:v.id,style:{...S.vCard,...(sel===v.id?{borderColor:"rgba(0,229,255,.15)"}:{})},onClick:()=>setSel(sel===v.id?null:v.id)},
+      e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",flexWrap:"wrap",gap:8}},
+        e("div",null,
+          e("div",{style:{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}},
+            e("span",{style:{fontWeight:700,fontSize:15,color:"#e0e6ed"}},v.name),
+            e("span",{style:{...S.stBadge,background:v.status==="priority"?"#f59e0b22":v.status==="active"?"#22c55e22":"#6b728022",color:v.status==="priority"?"#f59e0b":v.status==="active"?"#22c55e":"#6b7280"}},v.status)
+          ),
+          e("div",{style:{fontSize:12,color:"#8892a4",marginTop:2}},"\u{1F4CD} "+v.location+" \u00b7 \u2B50 "+v.rating+"/5 \u00b7 "+v.years+"+ years")
+        ),
+        e("div",{style:{display:"flex",gap:4,flexWrap:"wrap"}},
+          v.tiers.map(tid=>e("span",{key:tid,style:{...S.tierTag,background:(TIER_MAP[tid]?.color||"#666")+"22",color:TIER_MAP[tid]?.color||"#666"}},
+            (TIER_MAP[tid]?.icon||"")+" "+tid
+          ))
+        )
+      ),
+      sel===v.id&&e("div",{style:{marginTop:14,paddingTop:14,borderTop:"1px solid rgba(255,255,255,.04)"}},
+        e("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:6}},
+          [["Contact",v.contact],["Email",v.email,true],v.email2&&["Email 2",v.email2],v.whatsapp&&["WhatsApp",v.whatsapp],["Alibaba",v.alibaba],v.website&&["Website",v.website],["Specialty",v.specialty],["Price Range",v.priceRange,true],["Age Range",v.ageRange],["MOQ",v.moq],["OEM Branding",v.oem?"\u2705 Available":"\u274C No"],["India Shipping",v.indiaShip?"\u2705 Yes":"\u274C No"],["Certifications",v.certifications]].filter(Boolean).map((r,i)=>
+            e("div",{key:i,style:S.dRow},e("span",{style:S.dLabel},r[0]),e("span",{style:{...S.dVal,...(r[2]?{color:"#00e5ff"}:{})}},r[1]))
+          )
+        ),
+        v.notes&&e("div",{style:S.vNotes},"\u{1F4DD} "+v.notes),
+        canEdit&&e("div",{style:{marginTop:12}},
+          e("button",{style:{...S.btnSm,background:v.status==="priority"?"#6b728022":"#f59e0b22",color:v.status==="priority"?"#6b7280":"#f59e0b"},onClick:ev=>{
+            ev.stopPropagation();
+            const ns=v.status==="priority"?"active":"priority";
+            setVendors(vendors.map(vv=>vv.id===v.id?{...vv,status:ns}:vv));
+          }},v.status==="priority"?"Remove Priority":"\u2B50 Set Priority")
+        )
+      )
+    ))
+  );
+}
+
+// ════════════════════════════
+// COMMUNICATIONS
+// ════════════════════════════
+function renderComms(comms){
+  if(!comms.length)return e("div",null,
+    e("h1",{style:S.pgTitle},"\u{1F4E8} Communications Log"),
+    e("p",{style:S.pgSub},"All vendor communications tracked here."),
+    e("div",{style:{textAlign:"center",padding:48}},e("div",{style:{fontSize:48}},"\u{1F4ED}"),e("div",{style:{color:"#8892a4",marginTop:8}},"No communications yet. Use Compose Email to get started."))
+  );
+  return e("div",null,
+    e("h1",{style:S.pgTitle},"\u{1F4E8} Communications Log"),
+    e("p",{style:S.pgSub},comms.length+" message"+(comms.length!==1?"s":"")+" tracked"),
+    [...comms].reverse().map((c,i)=>e("div",{key:i,style:S.commCard},
+      e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}},
+        e("div",{style:{display:"flex",alignItems:"center",gap:8}},
+          e("span",{style:{...S.stBadge,background:c.type==="outbound"?"#00e5ff22":"#22c55e22",color:c.type==="outbound"?"#00e5ff":"#22c55e"}},c.type==="outbound"?"\u{1F4E4} Sent":"\u{1F4E5} Received"),
+          e("span",{style:{fontWeight:700,fontSize:13,color:"#e0e6ed"}},c.vendor)
+        ),
+        e("span",{style:{fontSize:11,color:"#5a6478"}},c.date)
+      ),
+      e("div",{style:{fontSize:13,fontWeight:600,color:"#c8d0dc",marginBottom:4}},c.subject),
+      e("div",{style:{fontSize:12,color:"#8892a4",lineHeight:1.6,maxHeight:100,overflow:"hidden",whiteSpace:"pre-wrap"}},c.body?.substring(0,250)+(c.body?.length>250?"...":"")),
+      e("div",{style:{fontSize:11,color:"#5a6478",marginTop:6}},"By: "+c.sentBy)
+    ))
+  );
+}
+
+// ════════════════════════════
+// COMPOSE
+// ════════════════════════════
+function renderCompose(vendors,user,comms,setComms){
+  const[to,setTo]=us("");
+  const[tpl,setTpl]=us("pitch");
+  const[subj,setSubj]=us(EMAIL_TEMPLATES.pitch);
+  const[body,setBody]=us(PITCH_BODY);
+  const[sent,setSent]=us(false);
+
+  const changeTpl=t=>{
+    setTpl(t);
+    setSubj(EMAIL_TEMPLATES[t]);
+    if(t==="pitch")setBody(PITCH_BODY);
+    else if(t==="followup")setBody("Dear Team,\n\nI am following up on my earlier inquiry regarding wholesale educational robotics kits for AARNAIT AI. We are keen to move forward and would appreciate your response at the earliest.\n\nBest regards,\nRS\nFounder, AARNAIT AI\nsales@aaranit-ai.com");
+    else if(t==="sample")setBody("Dear Team,\n\nWe would like to place a sample order for evaluation. Please share:\n\n1. Available sample kits suitable for ages 3\u201312\n2. Sample pricing\n3. Shipping cost to India (New Delhi)\n4. Estimated delivery timeline\n\nBest regards,\nRS\nFounder, AARNAIT AI");
+    else setBody("Dear Team,\n\nCould you please share your wholesale pricing memo with tiered rates for:\n\n\u2022 100 units\n\u2022 500 units\n\u2022 1,000+ units\n\nFor educational robotics kits targeting ages 3\u201312.\n\nBest regards,\nRS\nFounder, AARNAIT AI");
+  };
+
+  const send=()=>{
+    if(!to||!subj)return;
+    const vn=vendors.find(v=>v.email===to||v.name.includes(to));
+    const c=[...comms,{type:"outbound",vendor:vn?.name||to,to,subject:subj,body,sentBy:user.name,date:new Date().toISOString().split("T")[0]}];
+    setComms(c);setSent(true);setTimeout(()=>setSent(false),3000);
+  };
+
+  return e("div",null,
+    e("h1",{style:S.pgTitle},"\u2709\uFE0F Compose Email"),
+    e("p",{style:S.pgSub},"Draft and log vendor communications"),
+    e("div",{style:S.card},
+      e("div",{style:{marginBottom:12}},e("label",{style:S.label},"To (Vendor)"),
+        e("select",{style:S.select,value:to,onChange:ev=>setTo(ev.target.value)},
+          e("option",{value:""},"Select vendor..."),
+          vendors.map(v=>e("option",{key:v.id,value:v.email},v.name+" \u2014 "+v.email))
+        )
+      ),
+      e("div",{style:{marginBottom:12}},e("label",{style:S.label},"Template"),
+        e("select",{style:S.select,value:tpl,onChange:ev=>changeTpl(ev.target.value)},
+          e("option",{value:"pitch"},"\u{1F3AF} First Pitch"),
+          e("option",{value:"followup"},"\u{1F504} Follow Up"),
+          e("option",{value:"sample"},"\u{1F4E6} Sample Request"),
+          e("option",{value:"pricing"},"\u{1F4B0} Price Memo Request")
+        )
+      ),
+      e("div",{style:{marginBottom:12}},e("label",{style:S.label},"Subject"),e("input",{style:S.input,value:subj,onChange:ev=>setSubj(ev.target.value)})),
+      e("div",{style:{marginBottom:16}},e("label",{style:S.label},"Body"),e("textarea",{style:S.textarea,value:body,onChange:ev=>setBody(ev.target.value)})),
+      e("div",{style:{display:"flex",gap:12,alignItems:"center"}},
+        e("button",{style:{...S.btn,width:"auto",padding:"10px 24px"},onClick:send},"\u{1F4E4} Log & Send"),
+        sent&&e("span",{style:{color:"#22c55e",fontSize:13,fontWeight:600}},"\u2705 Logged!")
+      ),
+      e("p",{style:{fontSize:11,color:"#5a6478",marginTop:8}},"This logs the email in your CRM. Copy the body and send via your email client (sales@aaranit-ai.com).")
+    )
+  );
+}
+
+// ════════════════════════════
+// TEAM
+// ════════════════════════════
+function renderTeam(employees,setEmployees,user){
+  const[showAdd,setShow]=us(false);
+  const[form,setForm]=us({name:"",email:"",role:"sales",password:""});
+
+  const addEmp=()=>{
+    if(!form.name||!form.email||!form.password)return;
+    const ne={...form,id:form.role+"-"+Date.now(),active:true,created:new Date().toISOString().split("T")[0]};
+    setEmployees([...employees,ne]);
+    setForm({name:"",email:"",role:"sales",password:""});setShow(false);
+  };
+
+  return e("div",null,
+    e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",flexWrap:"wrap",gap:12,marginBottom:20}},
+      e("div",null,e("h1",{style:S.pgTitle},"\u{1F465} Team Management"),e("p",{style:{...S.pgSub,margin:0}},"Manage employee accounts and access levels")),
+      ROLES[user.role].level>=4&&e("button",{style:{...S.btn,width:"auto",padding:"8px 16px"},onClick:()=>setShow(!showAdd)},showAdd?"Cancel":"+ Add Employee")
+    ),
+    showAdd&&e("div",{style:S.card},
+      e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}},
+        e("div",null,e("label",{style:S.label},"Name"),e("input",{style:S.input,value:form.name,onChange:ev=>setForm({...form,name:ev.target.value})})),
+        e("div",null,e("label",{style:S.label},"Email"),e("input",{style:S.input,value:form.email,onChange:ev=>setForm({...form,email:ev.target.value}),placeholder:"name@aaranit-ai.com"})),
+        e("div",null,e("label",{style:S.label},"Role"),
+          e("select",{style:S.select,value:form.role,onChange:ev=>setForm({...form,role:ev.target.value})},
+            Object.entries(ROLES).filter(([k])=>ROLES[k].level<ROLES[user.role].level).map(([k,r])=>e("option",{key:k,value:k},r.icon+" "+r.label))
+          )
+        ),
+        e("div",null,e("label",{style:S.label},"Password"),e("input",{style:S.input,value:form.password,onChange:ev=>setForm({...form,password:ev.target.value})}))
+      ),
+      e("button",{style:{...S.btn,width:"auto",padding:"8px 16px",marginTop:12},onClick:addEmp},"Create Account")
+    ),
+    employees.map(emp=>e("div",{key:emp.id,style:{...S.tCard,...(!emp.active?{opacity:.5}:{})}},
+      e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8}},
+        e("div",{style:{display:"flex",alignItems:"center",gap:10}},
+          e("div",{style:{width:36,height:36,borderRadius:"50%",background:ROLES[emp.role].color+"22",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}},ROLES[emp.role].icon),
+          e("div",null,
+            e("div",{style:{fontWeight:700,fontSize:14,color:"#e0e6ed"}},emp.name+(emp.id===user.id?" (You)":"")),
+            e("div",{style:{fontSize:12,color:"#8892a4"}},emp.email)
+          )
+        ),
+        e("div",{style:{display:"flex",alignItems:"center",gap:8}},
+          e("span",{style:{...S.badge,background:ROLES[emp.role].color+"22",color:ROLES[emp.role].color}},ROLES[emp.role].label+" (L"+ROLES[emp.role].level+")"),
+          emp.id!==user.id&&ROLES[user.role].level>=4&&e("button",{style:{...S.btnSm,background:emp.active?"#ef444422":"#22c55e22",color:emp.active?"#ef4444":"#22c55e"},onClick:()=>setEmployees(employees.map(x=>x.id===emp.id?{...x,active:!x.active}:x))},emp.active?"Deactivate":"Activate")
+        )
+      )
+    )),
+    e("div",{style:{...S.card,marginTop:16}},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed",marginBottom:10}},"\u{1F510} Access Level Matrix"),
+      e("div",{style:{overflowX:"auto"}},
+        e("table",{style:S.table},
+          e("thead",null,e("tr",null,
+            e("th",{style:S.th},"Feature"),
+            Object.values(ROLES).map(r=>e("th",{key:r.label,style:{...S.th,color:r.color}},r.icon+" "+r.label))
+          )),
+          e("tbody",null,
+            [["View Dashboard","\u2705","\u2705","\u2705","\u2705","\u2705"],["View Vendors","\u2014","\u2705","\u2705","\u2705","\u2705"],["Compose Emails","\u2014","\u2014","\u2705","\u2705","\u2705"],["Team Management","\u2014","\u2014","\u2014","\u2705","\u2705"],["Full Access","\u2014","\u2014","\u2014","\u2014","\u2705"]].map((row,i)=>
+              e("tr",{key:i},e("td",{style:S.td},row[0]),row.slice(1).map((c,j)=>e("td",{key:j,style:{...S.td,textAlign:"center"}},c)))
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+// ════════════════════════════
+// EMAIL SETUP
+// ════════════════════════════
+function renderEmailSetup(){
+  const emailAddresses=[
+    {email:"info@aaranit-ai.com",purpose:"General inquiries, website contact form",role:"Admin"},
+    {email:"sales@aaranit-ai.com",purpose:"Vendor communications, partnerships, wholesale",role:"Sales"},
+    {email:"admin@aaranit-ai.com",purpose:"Internal operations, HR, team management",role:"Admin"},
+    {email:"support@aaranit-ai.com",purpose:"Student/parent support, course inquiries",role:"Support"},
+    {email:"tutors@aaranit-ai.com",purpose:"Tutor coordination, scheduling, curriculum",role:"Tutors"},
+    {email:"careers@aaranit-ai.com",purpose:"Job applications, hiring pipeline",role:"HR"},
+    {email:"rs@aaranit-ai.com",purpose:"Founder/CEO direct \u2014 high-level partnerships",role:"Owner"}
+  ];
+
+  return e("div",null,
+    e("h1",{style:S.pgTitle},"\u{1F4E7} Professional Email Setup Guide"),
+    e("p",{style:S.pgSub},"Set up @aaranit-ai.com business emails for your team"),
+    e("div",{style:S.card},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed"}},"Step 1: Google Workspace"),
+      e("p",{style:{color:"#c8d0dc",fontSize:13,lineHeight:1.8,marginTop:8}},
+        "Go to ",e("strong",{style:{color:"#00e5ff"}},"workspace.google.com")," \u2192 Start free trial \u2192 Use your domain ",e("strong",{style:{color:"#00e5ff"}},"aaranit-ai.com")),
+      e("p",{style:{color:"#8892a4",fontSize:12,marginTop:4}},"Cost: ~$7.20 CAD/user/month (Business Starter)")
+    ),
+    e("div",{style:S.card},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed",marginBottom:10}},"Step 2: Create These Email Addresses"),
+      emailAddresses.map(ea=>e("div",{key:ea.email,style:S.emailRow},
+        e("div",{style:{fontWeight:700,fontSize:13,color:"#00e5ff",fontFamily:"monospace"}},ea.email),
+        e("div",{style:{fontSize:12,color:"#8892a4",flex:1}},ea.purpose),
+        e("span",{style:{...S.badge,fontSize:10,background:"rgba(0,229,255,.08)",color:"#00e5ff"}},ea.role)
+      ))
+    ),
+    e("div",{style:S.card},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed"}},"Step 3: DNS Configuration"),
+      e("div",{style:{background:"#0d1117",borderRadius:8,padding:12,marginTop:8,fontFamily:"monospace",fontSize:11,color:"#8892a4",lineHeight:1.8}},
+        "MX \u2192 ASPMX.L.GOOGLE.COM (Priority 1)",e("br"),
+        "MX \u2192 ALT1.ASPMX.L.GOOGLE.COM (Priority 5)",e("br"),
+        "MX \u2192 ALT2.ASPMX.L.GOOGLE.COM (Priority 5)",e("br"),
+        'TXT \u2192 "v=spf1 include:_spf.google.com ~all"'
+      )
+    ),
+    e("div",{style:S.card},
+      e("h3",{style:{fontSize:14,fontWeight:700,color:"#e0e6ed"}},"Step 4: Email Signature Template"),
+      e("div",{style:{background:"#0d1117",borderRadius:8,padding:16,marginTop:8,fontSize:12,color:"#c8d0dc",lineHeight:1.8}},
+        e("strong",{style:{color:"#e0e6ed"}},"[Your Name]"),e("br"),
+        "[Title] \u00b7 AARNAIT AI",e("br"),
+        e("span",{style:{color:"#00e5ff"}},"\u{1F4E7} [name]@aaranit-ai.com"),e("br"),
+        "\u{1F4F1} [Phone/WhatsApp]",e("br"),
+        "\u{1F310} aaranit-ai.vercel.app",e("br"),
+        e("span",{style:{color:"#5a6478"}},"AI & Robotics Education \u00b7 Canada | India")
+      )
+    )
+  );
+}
+
+// ════════════════════════════
+// MOUNT
+// ════════════════════════════
+ReactDOM.render(React.createElement(App),document.getElementById("root"));
+</script>
+</body>
+</html>
