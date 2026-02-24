@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://images.unsplash.com https://cdn.pixabay.com; connect-src 'self' https://*.supabase.co; frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://*.cloudflare.com https://*.google.com https://*.gstatic.com https://*.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.google.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https: ; connect-src 'self' https://*.supabase.co https://*.google.com https://*.googleapis.com; frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com https://*.google.com; object-src 'none'; base-uri 'self'">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -75,7 +75,7 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 .fab-item:hover .fab-label{opacity:1;transform:translateX(0)}
 
 /* ── OFFICE/LOCATION SECTION ── */
-.offices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
+.offices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1320px;margin:0 auto}
 .office-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .4s cubic-bezier(.25,.46,.45,.94)}
 .office-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(0,0,0,.35);border-color:rgba(0,229,255,.1)}
 .office-map{width:100%;height:200px;border:none;filter:grayscale(.7) contrast(1.1) brightness(.8);transition:filter .4s}
@@ -84,6 +84,7 @@ main,section,.hero,.cta,footer,.vision-block{position:relative;z-index:1}
 .office-badge{display:inline-block;padding:.2rem .6rem;border-radius:50px;font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem}
 .office-badge.hq{background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);color:var(--cyan)}
 .office-badge.branch{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);color:var(--violet)}
+.office-badge.india{background:rgba(255,153,51,.1);border:1px solid rgba(255,153,51,.2);color:#ff9933}
 .office-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.6rem}
 .office-detail{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.5rem;font-size:.78rem;color:var(--text2);line-height:1.55}
 .office-detail svg{flex-shrink:0;margin-top:2px}
@@ -792,10 +793,10 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
         <div class="dd-head">About AARNAIT AI</div>
         <a href="#approach"><span class="dd-icon">🎯</span><div><div>Our Philosophy</div><div class="dd-desc">Why leaders choose AARNAIT</div></div></a>
         <a href="#testimonials"><span class="dd-icon">💬</span><div><div>Success Stories</div><div class="dd-desc">Real impact from real learners</div></div></a>
-        <a href="#offices"><span class="dd-icon">📍</span><div><div>Our Offices</div><div class="dd-desc">Toronto HQ & Brampton Hub</div></div></a>
+        <a href="#offices"><span class="dd-icon">📍</span><div><div>Our Offices</div><div class="dd-desc">Toronto · Brampton · Raipur</div></div></a>
         <a href="#faq"><span class="dd-icon">❓</span><div><div>FAQ</div><div class="dd-desc">Payments, certificates & more</div></div></a>
         <div class="dd-sep"></div>
-        <a href="#contact"><span class="dd-icon">✉️</span><div><div>Contact Us</div><div class="dd-desc">hello@aarnaitai.com</div></div></a>
+        <a href="#contact"><span class="dd-icon">✉️</span><div><div>Contact Us</div><div class="dd-desc"><span class="__cf_email__" data-cfemail="78101d1414173819190a1619110c1911561b1715">[email&#160;protected]</span></div></div></a>
         <a href="portal.html"><span class="dd-icon">🔐</span><div><div>Team Portal</div><div class="dd-desc">Internal CRM · Vendor Management</div></div></a>
       </div>
     </li>
@@ -1106,7 +1107,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div class="sec-head">
     <span class="sec-label">Where We Are</span>
     <h2>Our <span class="gradient-text">Global Offices</span></h2>
-    <p>Headquartered in Ontario, Canada — with presence across North America. Visit us, or reach out anytime.</p>
+    <p>Headquartered in Ontario, Canada — with global presence across North America and India. Visit us, or reach out anytime.</p>
     <div class="sec-line"></div>
   </div>
 
@@ -1128,7 +1129,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
         </div>
         <div class="office-detail">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span><a href="mailto:hello@aarnaitai.com">hello@aarnaitai.com</a></span>
+          <span><a href="/cdn-cgi/l/email-protection#cea6aba2a2a18eafafbca0afa7baafa7e0ada1a3"><span class="__cf_email__" data-cfemail="5d35383131321d3c3c2f333c34293c34733e3230">[email&#160;protected]</span></a></span>
         </div>
         <div class="office-detail">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -1153,11 +1154,36 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
         </div>
         <div class="office-detail">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span><a href="mailto:brampton@aarnaitai.com">brampton@aarnaitai.com</a></span>
+          <span><a href="/cdn-cgi/l/email-protection#95f7e7f4f8e5e1fafbd5f4f4e7fbf4fce1f4fcbbf6faf8"><span class="__cf_email__" data-cfemail="482a3a2925383c27260829293a2629213c2921662b2725">[email&#160;protected]</span></a></span>
         </div>
         <div class="office-detail">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <span>Mon – Fri: 9:00 AM – 6:00 PM EST</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Branch: Raipur, India -->
+    <div class="office-card">
+      <iframe class="office-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.576!2d81.6222998!3d21.2126811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28dab63112f70d%3A0xc61c744228ea5c41!2sAbhinandan%20tower!5e0!3m2!1sen!2sin!4v1708900000000!5m2!1sen!2sin" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="AARNAIT AI Raipur India Office"></iframe>
+      <div class="office-body">
+        <span class="office-badge india">🇮🇳 India Office</span>
+        <div class="office-title">AARNAIT AI — Raipur, India</div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Abhinandan Tower, Main Road,<br>Bhatagaon, Raipur, Chhattisgarh 492013</span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span><a href="tel:+917712345678" style="color:#ff9933">+91 771-234-5678</a></span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span><a href="mailto:india@aarnaitai.com" style="color:#ff9933">india@aarnaitai.com</a></span>
+        </div>
+        <div class="office-detail">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Mon – Fri: 10:00 AM – 7:00 PM IST<br>Sat: 10:00 AM – 2:00 PM IST</span>
         </div>
       </div>
     </div>
@@ -1169,17 +1195,17 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
         <div class="office-title" style="font-size:1.2rem">Work With Us From<br><span class="gradient-text">Anywhere</span></div>
         <p style="font-size:.8rem;color:var(--text2);margin:1rem 0 1.5rem;line-height:1.7">Remote-first culture. Our team and learners span 9 countries. All programs available online.</p>
         <div style="display:flex;flex-direction:column;gap:.6rem;align-items:center">
-          <a href="mailto:hello@aarnaitai.com" style="display:flex;align-items:center;gap:.5rem;color:var(--cyan);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
+          <a href="/cdn-cgi/l/email-protection#e78f828b8b88a786869589868e93868ec984888a" style="display:flex;align-items:center;gap:.5rem;color:var(--cyan);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            hello@aarnaitai.com
+            <span class="__cf_email__" data-cfemail="f29a979e9e9db29393809c939b86939bdc919d9f">[email&#160;protected]</span>
           </a>
-          <a href="mailto:careers@aarnaitai.com" style="display:flex;align-items:center;gap:.5rem;color:var(--violet);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
+          <a href="/cdn-cgi/l/email-protection#6b080a190e0e19182b0a0a19050a021f0a0245080406" style="display:flex;align-items:center;gap:.5rem;color:var(--violet);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-            careers@aarnaitai.com
+            <span class="__cf_email__" data-cfemail="6300021106061110230202110d020a17020a4d000c0e">[email&#160;protected]</span>
           </a>
-          <a href="mailto:support@aarnaitai.com" style="display:flex;align-items:center;gap:.5rem;color:var(--magenta);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
+          <a href="/cdn-cgi/l/email-protection#deadabaeaeb1acaa9ebfbfacb0bfb7aabfb7f0bdb1b3" style="display:flex;align-items:center;gap:.5rem;color:var(--magenta);text-decoration:none;font-size:.82rem;font-weight:600;transition:color .2s">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            support@aarnaitai.com
+            <span class="__cf_email__" data-cfemail="8af9fffafae5f8fecaebebf8e4ebe3feebe3a4e9e5e7">[email&#160;protected]</span>
           </a>
         </div>
         <a href="#contact" class="btn-glow" style="margin-top:1.5rem;display:inline-block;padding:.6rem 1.5rem;font-size:.78rem">Send a Message →</a>
@@ -1213,16 +1239,17 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
     </div>
     <div class="ft-col"><h4>Services</h4><ul><li><a href="#services">AI Development</a></li><li><a href="#services">Consulting</a></li><li><a href="#services">MLOps</a></li><li><a href="#services">AI Audits</a></li></ul></div>
     <div class="ft-col"><h4>Programs</h4><ul><li><a href="#certifications" data-i18n="navCerts">Certifications</a></li><li><a href="#tutoring" data-i18n="navTutoring">Tutoring</a></li><li><a href="careers.html">AI Careers</a></li><li><a href="#tutors">Our Tutors</a></li></ul></div>
-    <div class="ft-col"><h4>Company</h4><ul><li><a href="#approach">About Us</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#offices">Our Offices</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:hello@aarnaitai.com">Email Us</a></li></ul></div>
+    <div class="ft-col"><h4>Company</h4><ul><li><a href="#approach">About Us</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#offices">Our Offices</a></li><li><a href="#contact">Contact</a></li><li><a href="/cdn-cgi/l/email-protection#1078757c7c7f507171627e71796471793e737f7d">Email Us</a></li></ul></div>
   </div>
   <div class="ft-bottom" style="flex-direction:column;gap:.4rem">
     <p>© 2026 AARNAIT AI — 15439361 Canada Inc. All rights reserved.</p>
-    <p style="font-size:.7rem;color:var(--muted)">Toronto, Ontario, Canada · <a href="tel:+16478001234" style="color:var(--text2);text-decoration:none">+1 (647) 800-1234</a> · <a href="mailto:hello@aarnaitai.com" style="color:var(--cyan);text-decoration:none">hello@aarnaitai.com</a></p>
+    <p style="font-size:.7rem;color:var(--muted)">Toronto, Ontario, Canada · <a href="tel:+16478001234" style="color:var(--text2);text-decoration:none">+1 (647) 800-1234</a> · <a href="/cdn-cgi/l/email-protection#0169646d6d6e416060736f60687560682f626e6c" style="color:var(--cyan);text-decoration:none"><span class="__cf_email__" data-cfemail="a6cec3cacac9e6c7c7d4c8c7cfd2c7cf88c5c9cb">[email&#160;protected]</span></a></p>
     <p style="font-size:.62rem;color:var(--muted);margin-top:.3rem">
       <a href="#offices" style="color:var(--muted);text-decoration:none">Toronto HQ</a> · 
       <a href="#offices" style="color:var(--muted);text-decoration:none">Brampton Hub</a> · 
-      <a href="mailto:careers@aarnaitai.com" style="color:var(--muted);text-decoration:none">Careers</a> · 
-      <a href="mailto:support@aarnaitai.com" style="color:var(--muted);text-decoration:none">Support</a>
+      <a href="#offices" style="color:var(--muted);text-decoration:none">Raipur, India</a> · 
+      <a href="/cdn-cgi/l/email-protection#bddedccfd8d8cfcefddcdccfd3dcd4c9dcd493ded2d0" style="color:var(--muted);text-decoration:none">Careers</a> · 
+      <a href="/cdn-cgi/l/email-protection#57242227273825231736362539363e23363e7934383a" style="color:var(--muted);text-decoration:none">Support</a>
     </p>
   </div>
 </footer>
@@ -1542,7 +1569,7 @@ footer{padding:3.5rem 3rem 1.5rem;background:var(--bg2);border-top:1px solid var
   <div class="chat-inp"><input type="text" id="chatInp" placeholder="Ask anything..." autocomplete="off"><button onclick="sendChat()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#06080d" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button></div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ═══════════════ SECURITY UTILITIES ═══════════════
 
 // XSS Sanitizer — escapes ALL HTML entities from user input
@@ -3191,31 +3218,4 @@ window.addEventListener('scroll',function(){
 <div class="fab-container" id="fabContainer">
   <button class="fab-main" id="fabMain" onclick="toggleFAB()" aria-label="Quick actions">
     <div class="fab-pulse"></div>
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-  </button>
-  <div class="fab-menu" id="fabMenu">
-    <div class="fab-item">
-      <button class="fab-item-btn" onclick="location.href='#contact'" title="Contact Us">📧</button>
-      <span class="fab-label">Contact Us</span>
-    </div>
-    <div class="fab-item">
-      <button class="fab-item-btn" onclick="location.href='#offices'" title="Our Offices">📍</button>
-      <span class="fab-label">Our Offices</span>
-    </div>
-    <div class="fab-item">
-      <button class="fab-item-btn" onclick="location.href='tel:+16478001234'" title="Call Us">📞</button>
-      <span class="fab-label">+1 (647) 800-1234</span>
-    </div>
-    <div class="fab-item">
-      <button class="fab-item-btn" onclick="location.href='#courses'" title="Programs">🎓</button>
-      <span class="fab-label">View Programs</span>
-    </div>
-    <div class="fab-item">
-      <button class="fab-item-btn" onclick="document.getElementById('chatWidget').classList.toggle('open')" title="AI Chat">🤖</button>
-      <span class="fab-label">AI Assistant</span>
-    </div>
-  </div>
-</div>
-
-</body>
-</html>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1
