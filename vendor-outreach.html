@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AARNAIT AI — Vendor Outreach Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{
+  --bg:#0a0e1a;--bg2:#10142a;--card:#161b33;--border:rgba(255,255,255,.06);
+  --cyan:#00e5ff;--violet:#8b5cf6;--green:#22c55e;--red:#ef4444;--orange:#ff9933;
+  --text:#e2e8f0;--text2:#94a3b8;--muted:#64748b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+.top-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 30px;display:flex;align-items:center;justify-content:space-between}
+.top-bar .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#fff;letter-spacing:2px}
+.top-bar .logo span{color:var(--cyan)}
+.top-bar a{color:var(--cyan);text-decoration:none;font-size:.8rem;font-weight:600}
+.container{max-width:1300px;margin:0 auto;padding:24px}
+h1{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:4px}
+h1 span{color:var(--cyan)}
+.subtitle{color:var(--text2);font-size:.85rem;margin-bottom:24px}
+
+/* Setup Banner */
+.setup-banner{background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(139,92,246,.08));border:1px solid rgba(0,229,255,.15);border-radius:16px;padding:24px;margin-bottom:24px}
+.setup-banner h3{font-family:'Syne',sans-serif;color:var(--cyan);margin-bottom:12px;font-size:1rem}
+.setup-banner ol{padding-left:20px;color:var(--text2);font-size:.82rem;line-height:2}
+.setup-banner a{color:var(--cyan)}
+.setup-banner code{background:rgba(255,255,255,.08);padding:2px 8px;border-radius:4px;font-size:.78rem;color:var(--orange)}
+
+/* Config inputs */
+.config-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px}
+.config-row label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px}
+.config-row input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:.85rem;font-family:'DM Sans',sans-serif}
+.config-row input:focus{outline:none;border-color:var(--cyan)}
+.config-row input::placeholder{color:var(--muted)}
+
+/* Stats */
+.stats{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 20px;min-width:120px;text-align:center}
+.stat .num{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--cyan)}
+.stat .label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.stat.sent .num{color:var(--green)}
+.stat.fail .num{color:var(--red)}
+.stat.pending .num{color:var(--orange)}
+
+/* Controls */
+.controls{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+.btn{padding:10px 22px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.82rem;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),#0088cc);color:#0a0e27}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,255,.25)}
+.btn-secondary{background:var(--card);border:1px solid var(--border);color:var(--text)}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-danger{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:var(--red)}
+.btn-danger:hover{background:rgba(239,68,68,.2)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+.btn .spinner{width:14px;height:14px;border:2px solid transparent;border-top:2px solid currentColor;border-radius:50%;animation:spin .8s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Search */
+.search-box{flex:1;min-width:200px}
+.search-box input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px 10px 36px;color:var(--text);font-size:.82rem}
+.search-box{position:relative}
+.search-box::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.8rem}
+
+/* Table */
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg2);padding:12px 14px;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:left;position:sticky;top:0;z-index:2}
+td{padding:10px 14px;border-top:1px solid var(--border);font-size:.82rem;vertical-align:middle}
+tr:hover td{background:rgba(0,229,255,.02)}
+.vendor-name{font-weight:600;color:#fff}
+.tier-badge{display:inline-block;padding:2px 10px;border-radius:50px;font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.tier-badge.t1{background:rgba(0,229,255,.1);color:var(--cyan);border:1px solid rgba(0,229,255,.2)}
+.tier-badge.t2{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.tier-badge.t3{background:rgba(255,153,51,.1);color:var(--orange);border:1px solid rgba(255,153,51,.2)}
+.email-link{color:var(--cyan);text-decoration:none;font-size:.78rem}
+.email-link:hover{text-decoration:underline}
+.products-col{max-width:250px;font-size:.75rem;color:var(--text2);line-height:1.5}
+.cb{width:16px;height:16px;accent-color:var(--cyan);cursor:pointer}
+
+/* Status badges */
+.status{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:600}
+.status.pending{background:rgba(100,116,139,.1);color:var(--muted)}
+.status.sending{background:rgba(0,229,255,.1);color:var(--cyan)}
+.status.sent{background:rgba(34,197,94,.1);color:var(--green)}
+.status.failed{background:rgba(239,68,68,.1);color:var(--red)}
+
+/* Email Preview Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:20px;max-width:700px;width:95%;max-height:85vh;overflow:auto;padding:28px}
+.modal h3{font-family:'Syne',sans-serif;color:var(--cyan);margin-bottom:16px}
+.modal .email-preview{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px;font-size:.82rem;line-height:1.8;color:var(--text2);max-height:400px;overflow:auto}
+.modal .btn-row{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+
+/* Progress bar */
+.progress-bar{height:6px;background:var(--bg2);border-radius:10px;overflow:hidden;margin-bottom:20px;display:none}
+.progress-bar.active{display:block}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:10px;transition:width .4s;width:0%}
+
+/* Log */
+.log{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;max-height:200px;overflow-y:auto;font-size:.72rem;font-family:monospace;color:var(--text2);margin-top:16px;display:none}
+.log.active{display:block}
+.log div{padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.log .ok{color:var(--green)}
+.log .err{color:var(--red)}
+.log .info{color:var(--cyan)}
+
+/* Responsive */
+@media(max-width:900px){
+  .config-row{grid-template-columns:1fr}
+  .stats{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo">AARNAIT <span>AI</span> · Vendor Outreach</div>
+  <a href="portal.html">← Back to Portal</a>
+</div>
+
+<div class="container">
+
+  <h1>📧 Vendor <span>Email Outreach</span></h1>
+  <p class="subtitle">Send partnership inquiry emails to Chinese STEM/Robotics kit manufacturers — one click, all vendors.</p>
+
+  <!-- Setup Instructions -->
+  <div class="setup-banner" id="setupBanner">
+    <h3>⚡ One-Time Setup (5 minutes)</h3>
+    <ol>
+      <li>Go to <a href="https://www.emailjs.com/signup" target="_blank">emailjs.com/signup</a> → Create free account</li>
+      <li>Click <strong>"Email Services"</strong> → <strong>"Add New Service"</strong> → Choose <strong>Gmail</strong> → Connect your <code>sales@aarnaitai.com</code> Gmail</li>
+      <li>Click <strong>"Email Templates"</strong> → <strong>"Create New Template"</strong> → In <strong>Code Editor</strong>, set:
+        <br>Subject: <code>{{subject}}</code>
+        <br>Content: <code>{{{message_html}}}</code>
+        <br>To Email: <code>{{to_email}}</code>
+        <br>Reply To: <code>{{reply_to}}</code>
+      </li>
+      <li>Copy your <strong>Service ID</strong>, <strong>Template ID</strong>, and <strong>Public Key</strong> (from Account → API Keys) into the fields below</li>
+      <li>Click <strong>"Save Config"</strong> — you're done! Works forever.</li>
+    </ol>
+  </div>
+
+  <!-- Config -->
+  <div class="config-row">
+    <div>
+      <label>EmailJS Public Key</label>
+      <input type="text" id="publicKey" placeholder="e.g. 1PVVpqMraXzVXJuXv">
+    </div>
+    <div>
+      <label>EmailJS Service ID</label>
+      <input type="text" id="serviceId" placeholder="e.g. service_abc123">
+    </div>
+    <div>
+      <label>EmailJS Template ID</label>
+      <input type="text" id="templateId" placeholder="e.g. template_xyz789">
+    </div>
+  </div>
+  <div class="controls" style="margin-bottom:20px">
+    <button class="btn btn-secondary" onclick="saveConfig()">💾 Save Config</button>
+    <button class="btn btn-secondary" onclick="toggleSetup()">📖 Toggle Setup Guide</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="num" id="totalCount">0</div><div class="label">Total Vendors</div></div>
+    <div class="stat"><div class="num" id="selectedCount">0</div><div class="label">Selected</div></div>
+    <div class="stat sent"><div class="num" id="sentCount">0</div><div class="label">Sent ✓</div></div>
+    <div class="stat fail"><div class="num" id="failCount">0</div><div class="label">Failed ✗</div></div>
+    <div class="stat pending"><div class="num" id="pendingCount">0</div><div class="label">Pending</div></div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn btn-primary" id="sendBtn" onclick="sendSelected()">
+      <span class="spinner" id="sendSpinner"></span>
+      🚀 Send to Selected
+    </button>
+    <button class="btn btn-secondary" onclick="previewEmail()">👁️ Preview Email</button>
+    <button class="btn btn-secondary" onclick="selectAll()">☑️ Select All</button>
+    <button class="btn btn-secondary" onclick="deselectAll()">☐ Deselect All</button>
+    <button class="btn btn-secondary" onclick="selectTier('Tier 1')">⭐ Tier 1 Only</button>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search vendors..." oninput="filterTable()">
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <table id="vendorTable">
+      <thead>
+        <tr>
+          <th style="width:30px"><input type="checkbox" class="cb" id="checkAll" onchange="toggleAll(this)"></th>
+          <th>#</th>
+          <th>Company</th>
+          <th>Tier</th>
+          <th>Email</th>
+          <th>Products</th>
+          <th>Age</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="vendorBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Log -->
+  <div class="log" id="logPanel"></div>
+</div>
+
+<!-- Email Preview Modal -->
+<div class="modal-overlay" id="previewModal">
+  <div class="modal">
+    <h3>📧 Email Preview</h3>
+    <div class="email-preview" id="emailPreviewContent"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="closePreview()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// VENDOR DATA (Direct email vendors only)
+// ═══════════════════════════════════════════
+const vendors = [
+  {name:"Acebott",tier:"Tier 1",email:"info@acebott.com",products:"Arduino/ESP32 robot kits, STEM coding kits",age:"6-16"},
+  {name:"Keyestudio",tier:"Tier 1",email:"service@keyestudio.com",products:"Arduino starter kits, robot cars, traffic light kits",age:"8-16"},
+  {name:"DFRobot",tier:"Tier 1",email:"distributor@dfrobot.com",products:"Micro:bit kits, Boson starter, sensor kits",age:"6-16"},
+  {name:"DFRobot (Sales)",tier:"Tier 1",email:"sale@dfrobot.com",products:"Same — alternate sales contact",age:"6-16"},
+  {name:"Makeblock",tier:"Tier 1",email:"service@makeblock.com",products:"mBot robot cars, Codey Rocky, building blocks robots",age:"6-14"},
+  {name:"ELEGOO",tier:"Tier 1",email:"marketing@elegoo.com",products:"Arduino UNO kits, robot cars, sensor kits",age:"8-16"},
+  {name:"ELEGOO (Web)",tier:"Tier 1",email:"web@elegoo.com",products:"Same — alternate web contact",age:"8-16"},
+  {name:"Yahboom",tier:"Tier 1",email:"market@yahboom.com",products:"Micro:bit robot cars, AI camera kits, tank bots",age:"6-16"},
+  {name:"Hiwonder",tier:"Tier 1",email:"support@hiwonder.com",products:"Robot arms (4/6DOF), humanoid robots, spider bots",age:"8-18"},
+  {name:"SunFounder",tier:"Tier 1",email:"service@sunfounder.com",products:"RPi robot cars, Arduino kits, smart video car",age:"8-16"},
+  {name:"Freenove",tier:"Tier 1",email:"sale@freenove.com",products:"Arduino/RPi starter kits, robot dog, hexapod",age:"10-18"},
+  {name:"ELECFREAKS",tier:"Tier 1",email:"services@elecfreaks.com",products:"Micro:bit kits, Wukong board, Cutebot",age:"6-14"},
+  {name:"Weeemake",tier:"Tier 1",email:"info@weeemake.com",products:"WeeeBot, STEM robot kits, home inventor kits",age:"6-16"},
+  {name:"Robobloq",tier:"Tier 1",email:"info@robobloq.com",products:"Qoopers, Q-Scout, metal building robots",age:"6-14"},
+  {name:"Makerzoid",tier:"Tier 1",email:"support@makerzoid.com",products:"Superbot coding kits, 26-in-1 block robots",age:"6-12"},
+  {name:"Elephant Robotics",tier:"Tier 1",email:"sales@elephantrobotics.com",products:"myCobot robot arms, education training kits",age:"12-18"},
+  {name:"OSOYOO",tier:"Tier 1",email:"support@osoyoo.com",products:"Arduino robot cars, IoT kits, sensor kits",age:"8-16"},
+  {name:"XiaoR Geek",tier:"Tier 2",email:"xiaorgeek@gmail.com",products:"Robot cars, tank chassis, RPi camera cars",age:"8-16"},
+  {name:"Suptronics",tier:"Tier 2",email:"info@suptronics.com",products:"Raspberry Pi HATs, motor drivers",age:"12-16"},
+  {name:"Waveshare",tier:"Tier 2",email:"service@waveshare.com",products:"RPi robot arms, JetBot AI kits, displays",age:"12-18"},
+  {name:"Seeed Studio",tier:"Tier 2",email:"order@seeedstudio.com",products:"Grove sensor kits, micro:bit kits, IoT",age:"8-16"},
+  {name:"M5Stack",tier:"Tier 2",email:"support@m5stack.com",products:"Stackable IoT modules, robot kits, STEM",age:"10-16"},
+  {name:"Robolink",tier:"Tier 2",email:"info@robolink.com",products:"CoDrone drones, Zumi AI car, coding robots",age:"8-14"},
+  {name:"Emakefun",tier:"Tier 2",email:"emakefun@163.com",products:"Micro:bit robot kits, Arduino shields",age:"8-14"},
+  {name:"Ke Zhi You Tech",tier:"Tier 3",email:"kzyeducabot@163.com",products:"Wooden STEM: traffic light, windmill, snail robot",age:"3-12"},
+  {name:"Adeept",tier:"Tier 3",email:"info@adeept.com",products:"RPi robot kits, spider robot, Mars rover",age:"10-16"},
+  {name:"Robotime / ROKR",tier:"Tier 3",email:"sales@robotime.com",products:"Wooden 3D puzzles, mechanical models, solar kits",age:"3-12"},
+  {name:"Cutesunlight",tier:"Tier 3",email:"cutesunlight@yeah.net",products:"14-in-1 solar robots, educational solar kits",age:"6-14"},
+  {name:"Syma Technology",tier:"Tier 3",email:"info@symatoys.com",products:"Beginner drones, mini drones, RC helicopters",age:"8-14"},
+  {name:"Matatalab",tier:"Tier 3",email:"info@matatalab.com",products:"Screen-free coding robots, Tale-Bot Pro (ages 3-9)",age:"3-9"},
+  {name:"DJI Education",tier:"Tier 3",email:"education@dji.com",products:"RoboMaster S1, Tello EDU drone",age:"10-18"},
+  {name:"DSD Tech",tier:"Tier 3",email:"info@dsdtech.com",products:"Bluetooth modules, USB converters, HC-05",age:"12-16"},
+  {name:"Feasycom",tier:"Tier 3",email:"info@feasycom.com",products:"BLE modules, WiFi modules, IoT connectivity",age:"14-18"},
+];
+
+// ═══════════════════════════════════════════
+// EMAIL TEMPLATE
+// ═══════════════════════════════════════════
+function getEmailHTML(vendorName) {
+  return `
+<div style="font-family:Arial,sans-serif;font-size:14px;color:#333;line-height:1.75;">
+  <p>Dear ${vendorName} Team,</p>
+  <p>Greetings from India.</p>
+  <p>I am writing on behalf of <strong>AARNAIT AI</strong> (<a href="https://www.aarnaitai.com">www.aarnaitai.com</a>), an India-based startup specializing in <strong>AI and Robotics Education</strong>. We offer <strong>35+ educational programs</strong> across robotics, AI, machine learning, and IoT — serving students from <strong>age 3 to 14</strong> as well as professionals and enterprises.</p>
+  <p>We are expanding our hands-on learning labs and looking to source <strong>basic, beginner-friendly robotics and STEM kits</strong> for school students. Specifically, we need kits that are:</p>
+  <div style="background:#f0f7ff;border-left:4px solid #00d4ff;padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;">
+    <strong>🔧 Products We Are Looking For:</strong><br><br>
+    ▸ Traffic light system kits<br>
+    ▸ Windmill / fan model kits<br>
+    ▸ Solar-powered robot kits (6-in-1, 14-in-1)<br>
+    ▸ Basic robot car kits (line follower, obstacle avoidance)<br>
+    ▸ Simple sensor projects (temperature, light, sound)<br>
+    ▸ LED circuit / breadboard starter kits<br>
+    ▸ Mechanical assembly kits (gear-based, wooden)<br>
+    ▸ Arduino/Micro:bit beginner kits<br><br>
+    <em style="color:#555;">Target: Grade 3 to Grade 12 students (age 3–14). Kits must be easy to assemble, visually engaging, and include step-by-step guides.</em>
+  </div>
+  <p>We would like to begin with <strong>sample orders</strong> to evaluate quality, documentation, and student experience. Based on evaluation, we plan to place <strong>regular quarterly orders of 200–500+ units</strong>.</p>
+  <div style="background:#f0fdf4;border-left:4px solid #22c55e;padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;">
+    <strong>📋 Could You Please Share:</strong><br><br>
+    1. Product catalog for beginner/school-level STEM & robotics kits<br>
+    2. Sample pricing and MOQ for initial evaluation<br>
+    3. OEM/ODM branding options (AARNAIT AI logo on kits & packaging)<br>
+    4. Shipping terms to India (FOB/CIF to Raipur or Mumbai)<br>
+    5. Payment terms for new partners
+  </div>
+  <p>We value long-term partnerships and are looking for a reliable supplier who can grow with us as we scale across India.</p>
+  <p>Looking forward to your response.</p>
+  <p>Warm regards,</p>
+  <table style="border-top:2px solid #e5e7eb;padding-top:14px;margin-top:16px;">
+    <tr>
+      <td style="vertical-align:top;padding-right:14px;">
+        <div style="width:50px;height:50px;background:linear-gradient(135deg,#0a0e27,#1a1a3e);border-radius:10px;text-align:center;line-height:50px;">
+          <span style="color:#00d4ff;font-size:18px;font-weight:800;font-family:monospace;">RS</span>
+        </div>
+      </td>
+      <td style="vertical-align:top;font-family:Arial,sans-serif;">
+        <div style="font-size:15px;font-weight:700;color:#0a0e27;">Shri Ritesh</div>
+        <div style="font-size:12px;color:#6b7280;font-style:italic;">Founder & CEO</div>
+        <div style="margin-top:6px;font-size:12px;"><span style="color:#0088cc;font-weight:700;">AARNAIT AI</span> | AI & Robotics Education</div>
+        <div style="margin-top:3px;font-size:12px;color:#6b7280;">✉ sales@aarnaitai.com | rs@aarnaitai.com</div>
+        <div style="margin-top:2px;font-size:12px;color:#6b7280;">🌐 www.aarnaitai.com</div>
+        <div style="margin-top:2px;font-size:12px;color:#6b7280;">📍 Abhinandan Tower, Main Road, Bhatagaon, Raipur, CG 492013, India</div>
+      </td>
+    </tr>
+  </table>
+</div>`;
+}
+
+// ═══════════════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════════════
+let vendorStatus = {};
+
+function init() {
+  // Load saved config
+  const saved = JSON.parse(localStorage.getItem('emailjs_config') || '{}');
+  if (saved.publicKey) document.getElementById('publicKey').value = saved.publicKey;
+  if (saved.serviceId) document.getElementById('serviceId').value = saved.serviceId;
+  if (saved.templateId) document.getElementById('templateId').value = saved.templateId;
+  if (saved.publicKey) {
+    emailjs.init(saved.publicKey);
+    document.getElementById('setupBanner').style.display = 'none';
+  }
+  // Load vendor statuses
+  vendorStatus = JSON.parse(localStorage.getItem('vendor_status') || '{}');
+  renderTable();
+  updateStats();
+}
+
+function saveConfig() {
+  const cfg = {
+    publicKey: document.getElementById('publicKey').value.trim(),
+    serviceId: document.getElementById('serviceId').value.trim(),
+    templateId: document.getElementById('templateId').value.trim()
+  };
+  if (!cfg.publicKey || !cfg.serviceId || !cfg.templateId) {
+    alert('⚠️ Please fill in all 3 fields: Public Key, Service ID, Template ID');
+    return;
+  }
+  localStorage.setItem('emailjs_config', JSON.stringify(cfg));
+  emailjs.init(cfg.publicKey);
+  document.getElementById('setupBanner').style.display = 'none';
+  alert('✅ Config saved! EmailJS initialized. You can now send emails.');
+}
+
+function toggleSetup() {
+  const b = document.getElementById('setupBanner');
+  b.style.display = b.style.display === 'none' ? 'block' : 'none';
+}
+
+// ═══════════════════════════════════════════
+// TABLE RENDERING
+// ═══════════════════════════════════════════
+function renderTable(filter = '') {
+  const tbody = document.getElementById('vendorBody');
+  tbody.innerHTML = '';
+  const f = filter.toLowerCase();
+  vendors.forEach((v, i) => {
+    if (f && !v.name.toLowerCase().includes(f) && !v.products.toLowerCase().includes(f) && !v.tier.toLowerCase().includes(f)) return;
+    const status = vendorStatus[v.email] || 'pending';
+    const tierClass = v.tier === 'Tier 1' ? 't1' : v.tier === 'Tier 2' ? 't2' : 't3';
+    const checked = status !== 'sent' ? 'checked' : '';
+    tbody.innerHTML += `
+      <tr data-idx="${i}" data-status="${status}">
+        <td><input type="checkbox" class="cb vendor-cb" data-idx="${i}" ${checked}></td>
+        <td style="color:var(--muted);font-size:.75rem">${i + 1}</td>
+        <td class="vendor-name">${v.name}</td>
+        <td><span class="tier-badge ${tierClass}">${v.tier}</span></td>
+        <td><a href="mailto:${v.email}" class="email-link">${v.email}</a></td>
+        <td class="products-col">${v.products}</td>
+        <td style="text-align:center;font-size:.78rem">${v.age}</td>
+        <td><span class="status ${status}" id="status-${i}">${status === 'sent' ? '✓ Sent' : status === 'failed' ? '✗ Failed' : status === 'sending' ? '⏳ Sending...' : '○ Pending'}</span></td>
+      </tr>`;
+  });
+  document.getElementById('totalCount').textContent = vendors.length;
+  updateStats();
+}
+
+function filterTable() {
+  renderTable(document.getElementById('searchInput').value);
+}
+
+function updateStats() {
+  let selected = document.querySelectorAll('.vendor-cb:checked').length;
+  let sent = 0, failed = 0, pending = 0;
+  vendors.forEach(v => {
+    const s = vendorStatus[v.email] || 'pending';
+    if (s === 'sent') sent++;
+    else if (s === 'failed') failed++;
+    else pending++;
+  });
+  document.getElementById('selectedCount').textContent = selected;
+  document.getElementById('sentCount').textContent = sent;
+  document.getElementById('failCount').textContent = failed;
+  document.getElementById('pendingCount').textContent = pending;
+}
+
+// ═══════════════════════════════════════════
+// SELECT CONTROLS
+// ═══════════════════════════════════════════
+function toggleAll(el) {
+  document.querySelectorAll('.vendor-cb').forEach(cb => cb.checked = el.checked);
+  updateStats();
+}
+function selectAll() {
+  document.querySelectorAll('.vendor-cb').forEach(cb => cb.checked = true);
+  document.getElementById('checkAll').checked = true;
+  updateStats();
+}
+function deselectAll() {
+  document.querySelectorAll('.vendor-cb').forEach(cb => cb.checked = false);
+  document.getElementById('checkAll').checked = false;
+  updateStats();
+}
+function selectTier(tier) {
+  document.querySelectorAll('.vendor-cb').forEach(cb => {
+    const idx = parseInt(cb.dataset.idx);
+    cb.checked = vendors[idx].tier === tier;
+  });
+  updateStats();
+}
+
+// ═══════════════════════════════════════════
+// SEND EMAILS
+// ═══════════════════════════════════════════
+async function sendSelected() {
+  const cfg = JSON.parse(localStorage.getItem('emailjs_config') || '{}');
+  if (!cfg.publicKey || !cfg.serviceId || !cfg.templateId) {
+    alert('⚠️ Please configure EmailJS first (fill in the 3 fields above and click Save Config)');
+    return;
+  }
+
+  const selected = [];
+  document.querySelectorAll('.vendor-cb:checked').forEach(cb => {
+    selected.push(parseInt(cb.dataset.idx));
+  });
+
+  if (selected.length === 0) {
+    alert('⚠️ No vendors selected. Check the boxes next to the vendors you want to email.');
+    return;
+  }
+
+  if (!confirm(`📧 Send emails to ${selected.length} vendor(s)?\n\nThis will send from your connected Gmail via EmailJS.`)) return;
+
+  const btn = document.getElementById('sendBtn');
+  const spinner = document.getElementById('sendSpinner');
+  const progressBar = document.getElementById('progressBar');
+  const progressFill = document.getElementById('progressFill');
+  const log = document.getElementById('logPanel');
+
+  btn.disabled = true;
+  spinner.style.display = 'inline-block';
+  progressBar.classList.add('active');
+  log.classList.add('active');
+  log.innerHTML = '';
+
+  let sent = 0, failed = 0;
+
+  for (let i = 0; i < selected.length; i++) {
+    const idx = selected[i];
+    const v = vendors[idx];
+    const progress = ((i + 1) / selected.length * 100).toFixed(0);
+    progressFill.style.width = progress + '%';
+
+    // Update status to sending
+    updateRowStatus(idx, 'sending');
+    addLog(`⏳ [${i+1}/${selected.length}] Sending to ${v.name} (${v.email})...`, 'info');
+
+    try {
+      await emailjs.send(cfg.serviceId, cfg.templateId, {
+        to_email: v.email,
+        subject: `Partnership Inquiry — AARNAIT AI | Robotics & STEM Education Kits for India`,
+        message_html: getEmailHTML(v.name),
+        reply_to: 'sales@aarnaitai.com',
+        from_name: 'Shri Ritesh — AARNAIT AI'
+      });
+
+      vendorStatus[v.email] = 'sent';
+      updateRowStatus(idx, 'sent');
+      addLog(`✅ Sent to ${v.name}`, 'ok');
+      sent++;
+    } catch (err) {
+      vendorStatus[v.email] = 'failed';
+      updateRowStatus(idx, 'failed');
+      addLog(`❌ Failed: ${v.name} — ${err.text || err.message || err}`, 'err');
+      failed++;
+    }
+
+    // Save progress after each email
+    localStorage.setItem('vendor_status', JSON.stringify(vendorStatus));
+    updateStats();
+
+    // 5-second delay between emails
+    if (i < selected.length - 1) {
+      await new Promise(r => setTimeout(r, 5000));
+    }
+  }
+
+  btn.disabled = false;
+  spinner.style.display = 'none';
+  addLog(`\n📊 Done! Sent: ${sent} | Failed: ${failed} | Total: ${selected.length}`, 'info');
+  alert(`📊 Campaign Complete!\n\n✅ Sent: ${sent}\n❌ Failed: ${failed}\n📧 Total: ${selected.length}`);
+}
+
+function updateRowStatus(idx, status) {
+  const el = document.getElementById('status-' + idx);
+  if (!el) return;
+  el.className = 'status ' + status;
+  el.textContent = status === 'sent' ? '✓ Sent' : status === 'failed' ? '✗ Failed' : status === 'sending' ? '⏳ Sending...' : '○ Pending';
+}
+
+function addLog(msg, cls) {
+  const log = document.getElementById('logPanel');
+  log.innerHTML += `<div class="${cls}">${new Date().toLocaleTimeString()} — ${msg}</div>`;
+  log.scrollTop = log.scrollHeight;
+}
+
+// ═══════════════════════════════════════════
+// PREVIEW
+// ═══════════════════════════════════════════
+function previewEmail() {
+  document.getElementById('emailPreviewContent').innerHTML = getEmailHTML('[Vendor Name]');
+  document.getElementById('previewModal').classList.add('active');
+}
+function closePreview() {
+  document.getElementById('previewModal').classList.remove('active');
+}
+
+// Init
+window.addEventListener('DOMContentLoaded', init);
+document.addEventListener('change', e => { if (e.target.classList.contains('vendor-cb')) updateStats(); });
+</script>
+</body>
+</html>
