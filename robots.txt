@@ -1,0 +1,13 @@
+# AARNAIT AI — robots.txt
+# https://aarnaitai.com
+
+User-agent: *
+Allow: /
+
+# Block internal/admin pages
+Disallow: /portal.html
+Disallow: /vendor-email-blaster.html
+Disallow: /vendor-outreach.html
+
+# Sitemaps
+Sitemap: https://aarnaitai.com/sitemap.xml
