@@ -1,0 +1,13 @@
+/portal
+  package.json
+  next.config.js
+  .env.example
+  /app
+    /login/page.jsx
+    /admin/page.jsx
+    /teacher/page.jsx
+    /student/page.jsx
+    layout.js
+    page.js
+  /lib/supabaseClient.js
+  middleware.js
