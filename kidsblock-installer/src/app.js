@@ -5,11 +5,102 @@
 let workspace = null;
 let currentFilePath = null;
 let tutorialStep = 0;
+let audioCtx = null;
+let ttsReady = false;
+let ttsVoices = [];
+
+// ===== Audio Engine (global, initialized once) =====
+function initAudio() {
+  // Init Web Audio API
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  } catch (e) {
+    console.warn('AudioContext not available:', e);
+  }
+
+  // Init Text-to-Speech
+  if ('speechSynthesis' in window) {
+    var loadVoices = function () {
+      ttsVoices = window.speechSynthesis.getVoices();
+      if (ttsVoices.length > 0) ttsReady = true;
+    };
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices();
+    // Force TTS engine to wake up
+    var warmup = new SpeechSynthesisUtterance('');
+    warmup.volume = 0;
+    window.speechSynthesis.speak(warmup);
+  }
+}
+
+let speechQueue = [];
+let isSpeaking = false;
+
+function speakText(msg) {
+  if (!('speechSynthesis' in window)) return;
+  try {
+    var utterance = new SpeechSynthesisUtterance(String(msg));
+    utterance.rate = 1.0;
+    utterance.pitch = 1.2;
+    utterance.volume = 1.0;
+    if (ttsVoices.length > 0) {
+      utterance.voice = ttsVoices.find(function (v) { return v.lang.startsWith('en'); }) || ttsVoices[0];
+    }
+    utterance.onend = function () {
+      isSpeaking = false;
+      processNextSpeech();
+    };
+    utterance.onerror = function () {
+      isSpeaking = false;
+      processNextSpeech();
+    };
+    speechQueue.push(utterance);
+    processNextSpeech();
+  } catch (e) {
+    console.warn('TTS error:', e);
+  }
+}
+
+function processNextSpeech() {
+  if (isSpeaking || speechQueue.length === 0) return;
+  isSpeaking = true;
+  window.speechSynthesis.speak(speechQueue.shift());
+}
+
+function stopSpeech() {
+  speechQueue = [];
+  isSpeaking = false;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+function playTone(freq, durationMs) {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    var oscillator = audioCtx.createOscillator();
+    var gainNode = audioCtx.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.type = 'square';
+    oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (durationMs / 1000));
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + (durationMs / 1000));
+  } catch (e) {
+    console.warn('Tone error:', e);
+  }
+}
+
+function playBeep() {
+  playTone(800, 150);
+}
 
 // ===== Splash Screen =====
 function closeSplash(action) {
   document.getElementById('splash-overlay').style.display = 'none';
   document.getElementById('app-container').classList.remove('hidden');
+  initAudio();
   initWorkspace();
 
   if (action === 'tutorial') {
@@ -90,6 +181,9 @@ function initWorkspace() {
     '</xml>';
   Blockly.Xml.domToWorkspace(Blockly.utils.xml.textToDom(xml), workspace);
 
+  // Ensure proper sizing after injection
+  Blockly.svgResize(workspace);
+
   // Listen for workspace changes to update code
   workspace.addChangeListener(updateCodePreview);
 
@@ -136,12 +230,92 @@ function clearConsole() {
 
 // ===== Run Program =====
 function runProgram() {
+  stopSpeech();
   clearConsole();
   consoleLog('[AARNAITAI ROBO] Running program...', 'info');
 
   var code = javascript.javascriptGenerator.workspaceToCode(workspace);
 
   // Create a sandboxed execution environment
+
+  // --- Sensor Simulators ---
+  var sensorSim = {
+    readSoundLevel: function () { var v = Math.floor(Math.random() * 1024); consoleLog('Sound level: ' + v, 'info'); return v; },
+    motionDetected: function (pin) { var v = Math.random() > 0.5; consoleLog('Motion (pin ' + pin + '): ' + (v ? 'detected' : 'none'), 'info'); return v; },
+    ultrasonicDistance: function (trig, echo) { var v = Math.floor(Math.random() * 200); consoleLog('Ultrasonic (trig:' + trig + ' echo:' + echo + '): ' + v + 'cm', 'info'); return v; },
+    readTemperature: function (pin, unit) { var v = unit === 'F' ? (68 + Math.random() * 27).toFixed(1) : (20 + Math.random() * 15).toFixed(1); consoleLog('Temperature (' + pin + '): ' + v + (unit || 'C'), 'info'); return parseFloat(v); },
+    readHumidity: function (pin) { var v = (30 + Math.random() * 50).toFixed(1); consoleLog('Humidity (' + pin + '): ' + v + '%', 'info'); return parseFloat(v); },
+    compassHeading: function () { var v = Math.floor(Math.random() * 360); consoleLog('Compass heading: ' + v + ' degrees', 'info'); return v; },
+    compassDirection: function () { var dirs = ['N','NE','E','SE','S','SW','W','NW']; var d = dirs[Math.floor(Math.random() * dirs.length)]; consoleLog('Compass direction: ' + d, 'info'); return d; },
+    // Legacy compatibility
+    readDistance: function () { return sensorSim.ultrasonicDistance(9, 8); },
+    readLight: function () { var v = Math.floor(Math.random() * 1024); consoleLog('Light: ' + v, 'info'); return v; },
+    isButtonPressed: function (b) { var v = Math.random() > 0.5; consoleLog('Button ' + b + ': ' + (v ? 'pressed' : 'not pressed'), 'info'); return v; },
+    lineDetected: function (p) { var v = Math.random() > 0.5; consoleLog('Line (' + p + '): ' + (v ? 'detected' : 'not detected'), 'info'); return v; }
+  };
+
+  // --- Actuator Simulators ---
+  var ledSim = {
+    on: function (pin, color) { consoleLog('LED pin ' + pin + ' ON' + (color ? ' (color: ' + color + ')' : '')); },
+    off: function (pin) { consoleLog('LED pin ' + pin + ' OFF'); },
+    blink: function (pin, delay) { consoleLog('LED pin ' + pin + ' blinking (' + delay + 'ms)'); }
+  };
+
+  var servoSim = {
+    setAngle: function (pin, angle) { consoleLog('Servo pin ' + pin + ' -> ' + angle + ' degrees'); },
+    sweep: function (pin, from, to, speed) { consoleLog('Servo pin ' + pin + ' sweep ' + from + '-' + to + ' (speed: ' + speed + ')'); }
+  };
+
+  var motorSim = {
+    run: function (motor, dir, speed) { consoleLog('Motor ' + motor + ' ' + dir + ' (speed: ' + speed + ')'); },
+    stop: function (motor) { consoleLog('Motor ' + motor + ' stopped'); }
+  };
+
+  var rgbLedSim = {
+    setColor: function (pin, r, g, b) { consoleLog('RGB LED pin ' + pin + ' -> R:' + r + ' G:' + g + ' B:' + b); },
+    setHex: function (color) { consoleLog('RGB LED color: ' + color); },
+    off: function () { consoleLog('RGB LED off'); }
+  };
+
+  var oledSim = {
+    print: function (text, row) { consoleLog('OLED [row ' + row + ']: ' + text); },
+    clear: function () { consoleLog('OLED display cleared'); },
+    draw: function (shape, x, y, size) { consoleLog('OLED draw ' + shape + ' at (' + x + ',' + y + ') size ' + size); }
+  };
+
+  var buzzerSim = {
+    tone: function (pin, freq, dur) {
+      consoleLog('Buzzer pin ' + pin + ': ' + freq + 'Hz for ' + dur + 'ms');
+      playTone(freq, dur);
+    },
+    off: function (pin) { consoleLog('Buzzer pin ' + pin + ' off'); }
+  };
+
+  // --- Event Simulators ---
+  var eventsSim = {
+    onButtonPress: function (btn, cb) { consoleLog('[Event] Registered: button ' + btn + ' press', 'info'); cb(); },
+    onSensorTrigger: function (trigger, cb) { consoleLog('[Event] Registered: sensor ' + trigger, 'info'); cb(); },
+    every: function (secs, cb) { consoleLog('[Event] Registered: every ' + secs + 's', 'info'); cb(); },
+    broadcast: function (msg) { consoleLog('[Event] Broadcast: ' + msg, 'info'); },
+    onReceive: function (msg, cb) { consoleLog('[Event] Registered: on receive "' + msg + '"', 'info'); cb(); },
+    onDoorOpen: function (cb) { consoleLog('[Event] Registered: door open', 'info'); cb(); },
+    onDoorClose: function (cb) { consoleLog('[Event] Registered: door close', 'info'); cb(); }
+  };
+
+  // --- Hardware Simulators ---
+  var hardwareSim = {
+    pinMode: function (pin, mode) { consoleLog('Pin ' + pin + ' set to ' + mode); },
+    digitalWrite: function (pin, val) { consoleLog('Digital write pin ' + pin + ' = ' + val); },
+    digitalRead: function (pin) { var v = Math.round(Math.random()); consoleLog('Digital read pin ' + pin + ' = ' + v, 'info'); return v; },
+    analogWrite: function (pin, val) { consoleLog('Analog write pin ' + pin + ' = ' + val); },
+    analogRead: function (pin) { var v = Math.floor(Math.random() * 1024); consoleLog('Analog read pin ' + pin + ' = ' + v, 'info'); return v; }
+  };
+
+  var serialSim = {
+    println: function (msg) { consoleLog('[Serial] ' + msg); }
+  };
+
+  // --- Legacy Simulators ---
   var robotSim = {
     moveForward: function (s) { consoleLog('Robot moves forward ' + s + ' steps'); },
     moveBackward: function (s) { consoleLog('Robot moves backward ' + s + ' steps'); },
@@ -152,27 +326,14 @@ function runProgram() {
     wait: function (s) { return new Promise(function (r) { setTimeout(r, s * 1000); }); }
   };
 
-  var sensorSim = {
-    readDistance: function () { var v = Math.floor(Math.random() * 200); consoleLog('Distance: ' + v + 'cm', 'info'); return v; },
-    readLight: function () { var v = Math.floor(Math.random() * 1024); consoleLog('Light: ' + v, 'info'); return v; },
-    readTemperature: function () { var v = (20 + Math.random() * 15).toFixed(1); consoleLog('Temperature: ' + v + 'C', 'info'); return parseFloat(v); },
-    isButtonPressed: function (b) { var v = Math.random() > 0.5; consoleLog('Button ' + b + ': ' + (v ? 'pressed' : 'not pressed'), 'info'); return v; },
-    lineDetected: function (p) { var v = Math.random() > 0.5; consoleLog('Line (' + p + '): ' + (v ? 'detected' : 'not detected'), 'info'); return v; }
-  };
-
   var displaySim = {
     showText: function (t) { consoleLog('Display: ' + t); },
     clear: function () { consoleLog('Display cleared'); },
     setColor: function (c) { consoleLog('Display color: ' + c); }
   };
 
-  var ledSim = {
-    on: function (p, c) { consoleLog('LED ' + p + ' ON (color: ' + c + ')'); },
-    off: function (p) { consoleLog('LED ' + p + ' OFF'); }
-  };
-
   var audioSim = {
-    playSound: function (s) { consoleLog('Playing sound: ' + s); }
+    playSound: function (s) { consoleLog('Playing sound: ' + s); playBeep(); }
   };
 
   var animSim = {
@@ -187,20 +348,35 @@ function runProgram() {
     wait: function (s) { return new Promise(function (r) { setTimeout(r, s * 1000); }); }
   };
 
-  // Override window.alert for text_prompt blocks
-  var originalAlert = window.alert;
+  // --- Utility functions ---
+  function mapValue(val, fl, fh, tl, th) {
+    return Math.round((val - fl) * (th - tl) / (fh - fl) + tl);
+  }
+
+  function delayFn(ms) {
+    return new Promise(function (r) { setTimeout(r, ms); });
+  }
+
+  // Resume audio context (needs user gesture - Run button click counts)
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
 
   try {
     // Replace print statements
     var execCode = code.replace(/window\.alert\(/g, '_print(');
 
     var fn = new Function(
-      'robot', 'sensor', 'display', 'led', 'audio', 'animation', '_print',
+      'robot', 'sensor', 'led', 'servo', 'motor', 'rgbLed', 'oled', 'buzzer',
+      'events', 'hardware', 'Serial', 'display', 'audio', 'animation',
+      'map', 'delay', '_print', '_speak', '_playTone',
       '"use strict";\n' + execCode
     );
-    fn(robotSim, sensorSim, displaySim, ledSim, audioSim, animSim, function (msg) {
-      consoleLog(String(msg));
-    });
+    fn(
+      robotSim, sensorSim, ledSim, servoSim, motorSim, rgbLedSim, oledSim, buzzerSim,
+      eventsSim, hardwareSim, serialSim, displaySim, audioSim, animSim,
+      mapValue, delayFn,
+      function (msg) { consoleLog(String(msg)); speakText(msg); },
+      speakText, playTone
+    );
 
     consoleLog('[AARNAITAI ROBO] Program finished.', 'info');
   } catch (e) {
@@ -285,6 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Toolbar buttons
   document.getElementById('runBtn').addEventListener('click', runProgram);
   document.getElementById('stopBtn').addEventListener('click', function () {
+    stopSpeech();
     consoleLog('[AARNAITAI ROBO] Program stopped.', 'warn');
   });
   document.getElementById('undoBtn').addEventListener('click', function () {

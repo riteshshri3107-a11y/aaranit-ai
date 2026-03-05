@@ -4,6 +4,9 @@ const fs = require('fs');
 
 let mainWindow;
 
+// Allow audio/speech to play without user gesture restrictions
+app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
@@ -80,7 +83,9 @@ function createWindow() {
         { role: 'zoomOut' },
         { role: 'resetZoom' },
         { type: 'separator' },
-        { role: 'togglefullscreen' }
+        { role: 'togglefullscreen' },
+        { type: 'separator' },
+        { role: 'toggleDevTools', accelerator: 'F12' }
       ]
     },
     {
@@ -158,7 +163,12 @@ ipcMain.handle('export-file', async (event, { content, extension, typeName }) =>
   return null;
 });
 
-app.whenReady().then(createWindow);
+app.whenReady().then(async () => {
+  // Clear cache to ensure latest source files are loaded
+  const { session } = require('electron');
+  await session.defaultSession.clearCache();
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   app.quit();

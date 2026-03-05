@@ -140,32 +140,182 @@
 
   <!-- Blockly Toolbox Definition -->
   <xml id="toolbox" style="display: none">
-    <!-- Logic -->
-    <category name="Logic" colour="#5C81A6">
-      <block type="controls_if"></block>
-      <block type="controls_ifelse"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
+
+    <!-- ==================== Getting Started ==================== -->
+    <category name="Getting Started" colour="#4A90D9">
+      <block type="getting_started_hello"></block>
+      <block type="getting_started_print">
+        <value name="TEXT"><shadow type="text"><field name="TEXT">Hello!</field></shadow></value>
+      </block>
+      <block type="getting_started_wait">
+        <value name="SECONDS"><shadow type="math_number"><field name="NUM">1</field></shadow></value>
+      </block>
+      <block type="getting_started_comment"></block>
     </category>
 
-    <!-- Loops -->
-    <category name="Loops" colour="#5CA65C">
-      <block type="controls_repeat_ext">
-        <value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value>
-      </block>
-      <block type="controls_whileUntil"></block>
-      <block type="controls_for">
-        <value name="FROM"><shadow type="math_number"><field name="NUM">1</field></shadow></value>
-        <value name="TO"><shadow type="math_number"><field name="NUM">10</field></shadow></value>
-        <value name="BY"><shadow type="math_number"><field name="NUM">1</field></shadow></value>
-      </block>
-      <block type="controls_forEach"></block>
-      <block type="controls_flow_statements"></block>
+    <sep></sep>
+
+    <!-- ==================== Sensors ==================== -->
+    <category name="Sensors" colour="#D4A017">
+      <category name="Sound" colour="#D4A017">
+        <block type="sensor_sound_level"></block>
+        <block type="sensor_sound_detected">
+          <value name="THRESHOLD"><shadow type="math_number"><field name="NUM">500</field></shadow></value>
+        </block>
+      </category>
+      <category name="Motion" colour="#D4A017">
+        <block type="sensor_motion_detected"></block>
+      </category>
+      <category name="Ultrasonic" colour="#D4A017">
+        <block type="sensor_ultrasonic_distance"></block>
+        <block type="sensor_ultrasonic_object_near">
+          <value name="DISTANCE"><shadow type="math_number"><field name="NUM">20</field></shadow></value>
+        </block>
+      </category>
+      <category name="Temperature" colour="#D4A017">
+        <block type="sensor_temperature_read"></block>
+        <block type="sensor_humidity_read"></block>
+      </category>
+      <category name="Compass" colour="#D4A017">
+        <block type="sensor_compass_heading"></block>
+        <block type="sensor_compass_direction"></block>
+      </category>
     </category>
 
-    <!-- Math -->
+    <!-- ==================== Actuators ==================== -->
+    <category name="Actuators" colour="#40BCD8">
+      <category name="LED" colour="#40BCD8">
+        <block type="actuator_led_on"></block>
+        <block type="actuator_led_off"></block>
+        <block type="actuator_led_blink">
+          <value name="DELAY"><shadow type="math_number"><field name="NUM">500</field></shadow></value>
+        </block>
+      </category>
+      <category name="Servo" colour="#40BCD8">
+        <block type="actuator_servo_angle">
+          <value name="ANGLE"><shadow type="math_number"><field name="NUM">90</field></shadow></value>
+        </block>
+        <block type="actuator_servo_sweep">
+          <value name="FROM"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+          <value name="TO"><shadow type="math_number"><field name="NUM">180</field></shadow></value>
+          <value name="SPEED"><shadow type="math_number"><field name="NUM">5</field></shadow></value>
+        </block>
+      </category>
+      <category name="Motor" colour="#40BCD8">
+        <block type="actuator_motor_run">
+          <value name="SPEED"><shadow type="math_number"><field name="NUM">150</field></shadow></value>
+        </block>
+        <block type="actuator_motor_stop"></block>
+      </category>
+      <category name="RGB LED" colour="#40BCD8">
+        <block type="actuator_rgb_set">
+          <value name="RED"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
+          <value name="GREEN"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+          <value name="BLUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+        </block>
+        <block type="actuator_rgb_color"></block>
+        <block type="actuator_rgb_off"></block>
+      </category>
+      <category name="OLED Display" colour="#40BCD8">
+        <block type="actuator_oled_print">
+          <value name="TEXT"><shadow type="text"><field name="TEXT">Hello!</field></shadow></value>
+          <value name="ROW"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+        </block>
+        <block type="actuator_oled_clear"></block>
+        <block type="actuator_oled_draw">
+          <value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+          <value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+          <value name="SIZE"><shadow type="math_number"><field name="NUM">10</field></shadow></value>
+        </block>
+        <block type="actuator_buzzer_tone">
+          <value name="FREQ"><shadow type="math_number"><field name="NUM">440</field></shadow></value>
+          <value name="DURATION"><shadow type="math_number"><field name="NUM">500</field></shadow></value>
+        </block>
+        <block type="actuator_buzzer_off"></block>
+      </category>
+    </category>
+
+    <sep></sep>
+
+    <!-- ==================== Code Blocks ==================== -->
+    <category name="Code Blocks" colour="#FFAB19">
+      <category name="Events" colour="#FFAB19">
+        <block type="event_when_started"></block>
+        <block type="event_when_button_pressed"></block>
+        <block type="event_when_sensor_triggered"></block>
+        <block type="event_every_seconds">
+          <value name="INTERVAL"><shadow type="math_number"><field name="NUM">5</field></shadow></value>
+        </block>
+        <block type="event_broadcast">
+          <value name="MESSAGE"><shadow type="text"><field name="TEXT">go</field></shadow></value>
+        </block>
+        <block type="event_when_receive">
+          <value name="MESSAGE"><shadow type="text"><field name="TEXT">go</field></shadow></value>
+        </block>
+      </category>
+      <category name="Loops" colour="#5CA65C">
+        <block type="loop_forever"></block>
+        <block type="loop_repeat_times">
+          <value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value>
+        </block>
+        <block type="loop_while_condition"></block>
+        <block type="loop_wait_seconds">
+          <value name="SECONDS"><shadow type="math_number"><field name="NUM">1</field></shadow></value>
+        </block>
+        <block type="loop_wait_ms">
+          <value name="MS"><shadow type="math_number"><field name="NUM">100</field></shadow></value>
+        </block>
+      </category>
+      <category name="Conditions" colour="#5C81A6">
+        <block type="condition_if"></block>
+        <block type="condition_if_else"></block>
+        <block type="condition_compare"></block>
+        <block type="condition_and_or"></block>
+        <block type="condition_not"></block>
+        <block type="logic_boolean"></block>
+      </category>
+      <category name="Hardware" colour="#A6745C">
+        <block type="hardware_pin_mode"></block>
+        <block type="hardware_digital_write"></block>
+        <block type="hardware_digital_read"></block>
+        <block type="hardware_analog_write">
+          <value name="VALUE"><shadow type="math_number"><field name="NUM">128</field></shadow></value>
+        </block>
+        <block type="hardware_analog_read"></block>
+        <block type="hardware_serial_print">
+          <value name="TEXT"><shadow type="text"><field name="TEXT">debug</field></shadow></value>
+        </block>
+        <block type="hardware_map_value">
+          <value name="VALUE"><shadow type="math_number"><field name="NUM">512</field></shadow></value>
+          <value name="FROM_LOW"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+          <value name="FROM_HIGH"><shadow type="math_number"><field name="NUM">1023</field></shadow></value>
+          <value name="TO_LOW"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+          <value name="TO_HIGH"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
+        </block>
+      </category>
+    </category>
+
+    <sep></sep>
+
+    <!-- ==================== Projects ==================== -->
+    <category name="Projects" colour="#FF4444">
+      <category name="Alarm System" colour="#FF4444">
+        <block type="project_alarm_system"></block>
+      </category>
+      <category name="Smart Door" colour="#FF4444">
+        <block type="project_smart_door"></block>
+      </category>
+      <category name="Environment Monitor" colour="#FF4444">
+        <block type="project_environment_monitor"></block>
+      </category>
+      <category name="Radar System" colour="#FF4444">
+        <block type="project_radar_system"></block>
+      </category>
+    </category>
+
+    <sep></sep>
+
+    <!-- ==================== Standard Blocks ==================== -->
     <category name="Math" colour="#5C68A6">
       <block type="math_number"><field name="NUM">0</field></block>
       <block type="math_arithmetic"></block>
@@ -178,24 +328,16 @@
       <block type="math_modulo"></block>
     </category>
 
-    <!-- Text -->
     <category name="Text" colour="#5CA68D">
       <block type="text"><field name="TEXT">Hello!</field></block>
       <block type="text_join"></block>
       <block type="text_length"></block>
       <block type="text_print"></block>
-      <block type="text_prompt_ext">
-        <value name="TEXT"><shadow type="text"><field name="TEXT">Enter something:</field></shadow></value>
-      </block>
     </category>
 
-    <!-- Variables -->
     <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
-
-    <!-- Functions -->
     <category name="Functions" colour="#995BA5" custom="PROCEDURE"></category>
 
-    <!-- Lists -->
     <category name="Lists" colour="#745CA6">
       <block type="lists_create_empty"></block>
       <block type="lists_create_with"></block>
@@ -204,47 +346,6 @@
       <block type="lists_indexOf"></block>
       <block type="lists_getIndex"></block>
       <block type="lists_setIndex"></block>
-    </category>
-
-    <sep></sep>
-
-    <!-- Robot Controls (Custom) -->
-    <category name="Robot" colour="#E6491E">
-      <block type="robot_move_forward"></block>
-      <block type="robot_move_backward"></block>
-      <block type="robot_turn_left"></block>
-      <block type="robot_turn_right"></block>
-      <block type="robot_stop"></block>
-      <block type="robot_set_speed"></block>
-      <block type="robot_wait"></block>
-    </category>
-
-    <!-- Sensors (Custom) -->
-    <category name="Sensors" colour="#D4A017">
-      <block type="sensor_read_distance"></block>
-      <block type="sensor_read_light"></block>
-      <block type="sensor_read_temperature"></block>
-      <block type="sensor_button_pressed"></block>
-      <block type="sensor_line_detected"></block>
-    </category>
-
-    <!-- Display (Custom) -->
-    <category name="Display" colour="#40BCD8">
-      <block type="display_show_text"></block>
-      <block type="display_clear"></block>
-      <block type="display_set_color"></block>
-      <block type="led_on"></block>
-      <block type="led_off"></block>
-      <block type="play_sound"></block>
-    </category>
-
-    <!-- Animation (Custom) -->
-    <category name="Animation" colour="#CC4499">
-      <block type="animation_create_sprite"></block>
-      <block type="animation_move_sprite"></block>
-      <block type="animation_change_costume"></block>
-      <block type="animation_say"></block>
-      <block type="animation_wait"></block>
     </category>
   </xml>
 
