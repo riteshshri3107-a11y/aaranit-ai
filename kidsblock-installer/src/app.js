@@ -200,6 +200,12 @@ function runProgram() {
     irSend: function (code) { consoleLog('IR sent: ' + code); },
     // 3.19 Joystick
     joystickRead: function (axis) { var v = axis === 'BTN' ? (Math.random() > 0.5 ? 1 : 0) : Math.floor(Math.random() * 4096); consoleLog('Joystick ' + axis + ': ' + v, 'info'); return v; },
+    // Digital/Analog I/O simulation
+    digitalRead: function (pin) { var v = Math.random() > 0.5 ? 1 : 0; consoleLog('digitalRead(' + pin + ') = ' + v, 'info'); return v; },
+    digitalWrite: function (pin, val) { consoleLog('digitalWrite(' + pin + ', ' + val + ')'); },
+    analogRead: function (pin) { var v = Math.floor(Math.random() * 4096); consoleLog('analogRead(' + pin + ') = ' + v, 'info'); return v; },
+    analogWrite: function (pin, val) { consoleLog('analogWrite(' + pin + ', ' + val + ')'); },
+    wait: function (s) { consoleLog('wait ' + s + 's'); return new Promise(function (r) { setTimeout(r, s * 1000); }); },
     // 3.20 Acceleration
     accelRead: function (axis) { var v = (-2 + Math.random() * 4).toFixed(2); consoleLog('Accel ' + axis + ': ' + v + 'g', 'info'); return parseFloat(v); },
     // 3.21 Potentiometer

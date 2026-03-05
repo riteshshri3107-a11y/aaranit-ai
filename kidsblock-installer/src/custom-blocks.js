@@ -3,6 +3,1207 @@
 // Based on KidsBlock Tutorial Sections 3.1–3.38
 // =============================================
 
+// ===== KidsBlock-Style Core Blocks =====
+// These match the visual blocks shown in KidsBlock tutorials
+
+// "when Arduino begin" — Hat block (program start)
+Blockly.Blocks['kb_when_arduino_begin'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('when Arduino begin');
+    this.setNextStatement(true, null);
+    this.setColour('#FFBF00');
+    this.setTooltip('The start of the execution. Codes will not run without this block. Module blocks that need to be initialized should be added below.');
+    this.setHelpUrl('');
+  }
+};
+
+// "forever" — C-shaped loop block
+Blockly.Blocks['kb_forever'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('forever');
+    this.appendStatementInput('DO');
+    this.setPreviousStatement(true, null);
+    this.setColour('#FFBF00');
+    this.setTooltip('Code runs in here and executes all the time (in a loop).');
+  }
+};
+
+// "wait [seconds] seconds" block
+Blockly.Blocks['kb_wait_seconds'] = {
+  init: function () {
+    this.appendValueInput('SECONDS')
+      .setCheck('Number')
+      .appendField('wait');
+    this.appendDummyInput()
+      .appendField('seconds');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#FFBF00');
+    this.setTooltip('The delay seconds can be modified as needed. Unit: s.');
+  }
+};
+
+// "wait [ms] milliseconds" block
+Blockly.Blocks['kb_wait_ms'] = {
+  init: function () {
+    this.appendValueInput('MS')
+      .setCheck('Number')
+      .appendField('wait');
+    this.appendDummyInput()
+      .appendField('milliseconds');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#FFBF00');
+    this.setTooltip('Delay in milliseconds. Unit: ms.');
+  }
+};
+
+// "LED pin [dropdown] out [HIGH/LOW]" block
+Blockly.Blocks['kb_led_pin'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2600 LED pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO2', '2'], ['IO4', '4'], ['IO5', '5'], ['IO12', '12'], ['IO13', '13'],
+        ['IO14', '14'], ['IO15', '15'], ['IO16', '16'], ['IO17', '17'],
+        ['IO18', '18'], ['IO19', '19'], ['IO21', '21'], ['IO22', '22'],
+        ['IO23', '23'], ['IO25', '25'], ['IO26', '26'], ['IO27', '27'],
+        ['IO32', '32'], ['IO33', '33']
+      ]), 'PIN')
+      .appendField('out')
+      .appendField(new Blockly.FieldDropdown([
+        ['HIGH', 'HIGH'], ['LOW', 'LOW']
+      ]), 'STATE');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Controls the ON/OFF of an LED. Set the pin and power level (HIGH/LOW).');
+  }
+};
+
+// "set pin [dropdown] mode [INPUT/OUTPUT]" block
+Blockly.Blocks['kb_pin_mode'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('set pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO2', '2'], ['IO4', '4'], ['IO5', '5'], ['IO12', '12'], ['IO13', '13'],
+        ['IO14', '14'], ['IO15', '15'], ['IO16', '16'], ['IO17', '17'],
+        ['IO18', '18'], ['IO19', '19'], ['IO21', '21'], ['IO22', '22'],
+        ['IO23', '23'], ['IO25', '25'], ['IO26', '26'], ['IO27', '27'],
+        ['IO32', '32'], ['IO33', '33']
+      ]), 'PIN')
+      .appendField('mode')
+      .appendField(new Blockly.FieldDropdown([
+        ['INPUT', 'INPUT'], ['OUTPUT', 'OUTPUT'], ['INPUT_PULLUP', 'INPUT_PULLUP']
+      ]), 'MODE');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Set pin mode to INPUT or OUTPUT.');
+  }
+};
+
+// "digital read pin [dropdown]" block
+Blockly.Blocks['kb_digital_read'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('digital read pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO2', '2'], ['IO4', '4'], ['IO5', '5'], ['IO12', '12'], ['IO13', '13'],
+        ['IO14', '14'], ['IO15', '15'], ['IO16', '16'], ['IO17', '17'],
+        ['IO18', '18'], ['IO19', '19'], ['IO21', '21'], ['IO22', '22'],
+        ['IO23', '23'], ['IO25', '25'], ['IO26', '26'], ['IO27', '27'],
+        ['IO32', '32'], ['IO33', '33']
+      ]), 'PIN');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Read digital value (0 or 1) from a pin.');
+  }
+};
+
+// "digital write pin [dropdown] value [HIGH/LOW]"
+Blockly.Blocks['kb_digital_write'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('digital write pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO2', '2'], ['IO4', '4'], ['IO5', '5'], ['IO12', '12'], ['IO13', '13'],
+        ['IO14', '14'], ['IO15', '15'], ['IO16', '16'], ['IO17', '17'],
+        ['IO18', '18'], ['IO19', '19'], ['IO21', '21'], ['IO22', '22'],
+        ['IO23', '23'], ['IO25', '25'], ['IO26', '26'], ['IO27', '27'],
+        ['IO32', '32'], ['IO33', '33']
+      ]), 'PIN')
+      .appendField('value')
+      .appendField(new Blockly.FieldDropdown([
+        ['HIGH', 'HIGH'], ['LOW', 'LOW']
+      ]), 'VALUE');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Write digital HIGH or LOW to a pin.');
+  }
+};
+
+// "analog read pin [dropdown]"
+Blockly.Blocks['kb_analog_read'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('analog read pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO32', '32'], ['IO33', '33'], ['IO34', '34'], ['IO35', '35'],
+        ['IO36', '36'], ['IO39', '39']
+      ]), 'PIN');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Read analog value (0-4095) from a pin.');
+  }
+};
+
+// "analog write pin [dropdown] value [number]"
+Blockly.Blocks['kb_analog_write'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('analog write pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO2', '2'], ['IO4', '4'], ['IO5', '5'], ['IO12', '12'], ['IO13', '13'],
+        ['IO14', '14'], ['IO15', '15'], ['IO25', '25'], ['IO26', '26'], ['IO27', '27']
+      ]), 'PIN');
+    this.appendValueInput('VALUE')
+      .setCheck('Number')
+      .appendField('value');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Write analog value (0-255) to a pin using PWM.');
+  }
+};
+
+// "serial print [text]" block
+Blockly.Blocks['kb_serial_print'] = {
+  init: function () {
+    this.appendValueInput('TEXT')
+      .appendField('serial print');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#40BCD8');
+    this.setTooltip('Print text to the serial monitor.');
+  }
+};
+
+// "serial println [text]" block
+Blockly.Blocks['kb_serial_println'] = {
+  init: function () {
+    this.appendValueInput('TEXT')
+      .appendField('serial println');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#40BCD8');
+    this.setTooltip('Print text to the serial monitor with a new line.');
+  }
+};
+
+// "serial begin [baud]" block
+Blockly.Blocks['kb_serial_begin'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('serial begin baud rate')
+      .appendField(new Blockly.FieldDropdown([
+        ['9600', '9600'], ['115200', '115200'], ['57600', '57600'],
+        ['38400', '38400'], ['19200', '19200']
+      ]), 'BAUD');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#40BCD8');
+    this.setTooltip('Initialize serial communication at the given baud rate.');
+  }
+};
+
+// "set servo pin [dropdown] angle [number]" block
+Blockly.Blocks['kb_servo_angle'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2699 servo pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO4', '4'], ['IO5', '5'], ['IO12', '12'], ['IO13', '13'],
+        ['IO14', '14'], ['IO15', '15'], ['IO16', '16'], ['IO17', '17'],
+        ['IO18', '18'], ['IO19', '19'], ['IO21', '21'], ['IO22', '22'],
+        ['IO23', '23'], ['IO25', '25'], ['IO26', '26'], ['IO27', '27']
+      ]), 'PIN');
+    this.appendValueInput('ANGLE')
+      .setCheck('Number')
+      .appendField('angle');
+    this.appendDummyInput()
+      .appendField('\u00B0');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Set servo to angle (0-180 degrees).');
+  }
+};
+
+// "buzzer pin [dropdown] tone [frequency] beat [duration]" block
+Blockly.Blocks['kb_buzzer_tone'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u266B buzzer pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO16', '16'], ['IO17', '17'], ['IO25', '25'], ['IO26', '26']
+      ]), 'PIN');
+    this.appendDummyInput()
+      .appendField('tone')
+      .appendField(new Blockly.FieldDropdown([
+        ['C4 (262Hz)', '262'], ['D4 (294Hz)', '294'], ['E4 (330Hz)', '330'],
+        ['F4 (349Hz)', '349'], ['G4 (392Hz)', '392'], ['A4 (440Hz)', '440'],
+        ['B4 (494Hz)', '494'], ['C5 (523Hz)', '523'], ['D5 (587Hz)', '587'],
+        ['E5 (659Hz)', '659']
+      ]), 'FREQ');
+    this.appendDummyInput()
+      .appendField('beat')
+      .appendField(new Blockly.FieldDropdown([
+        ['Half', '0.5'], ['Quarter', '0.25'], ['Whole', '1'], ['Double', '2'],
+        ['Zero', '0']
+      ]), 'BEAT');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Play a tone on the buzzer. Different frequencies produce different musical notes.');
+  }
+};
+
+// "buzzer pin [dropdown] off" block
+Blockly.Blocks['kb_buzzer_off'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u266B buzzer pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO16', '16'], ['IO17', '17'], ['IO25', '25'], ['IO26', '26']
+      ]), 'PIN')
+      .appendField('off');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Turn off the buzzer.');
+  }
+};
+
+// "ultrasonic trig [pin] echo [pin] distance (cm)" block
+Blockly.Blocks['kb_ultrasonic_distance'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u21C4 ultrasonic Trig')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO13', '13'], ['IO12', '12'], ['IO14', '14'], ['IO27', '27']
+      ]), 'TRIG')
+      .appendField('Echo')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO14', '14'], ['IO12', '12'], ['IO13', '13'], ['IO27', '27']
+      ]), 'ECHO')
+      .appendField('distance (cm)');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Measure distance in cm using ultrasonic sensor.');
+  }
+};
+
+// "read temp/humidity AHT20 [temperature/humidity]" block
+Blockly.Blocks['kb_aht20_read'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2103 AHT20 read')
+      .appendField(new Blockly.FieldDropdown([
+        ['temperature (\u00B0C)', 'TEMP'], ['humidity (%RH)', 'HUMIDITY']
+      ]), 'TYPE');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Read temperature or humidity from AHT20 sensor.');
+  }
+};
+
+// "BMP388 read [pressure/altitude/temperature]" block
+Blockly.Blocks['kb_bmp388_read'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2191 BMP388 read')
+      .appendField(new Blockly.FieldDropdown([
+        ['pressure (hPa)', 'PRESSURE'], ['altitude (m)', 'ALTITUDE'], ['temperature (\u00B0C)', 'TEMP']
+      ]), 'TYPE');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Read barometric pressure, altitude, or temperature from BMP388.');
+  }
+};
+
+// "OLED init width [128] height [64]" block
+Blockly.Blocks['kb_oled_init'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u25A1 OLED init 128x64');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#40BCD8');
+    this.setTooltip('Initialize OLED display (128x64 I2C).');
+  }
+};
+
+// "OLED show text [text] at row [number]" block
+Blockly.Blocks['kb_oled_show'] = {
+  init: function () {
+    this.appendValueInput('TEXT')
+      .appendField('\u25A1 OLED show');
+    this.appendValueInput('ROW')
+      .setCheck('Number')
+      .appendField('at row');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#40BCD8');
+    this.setTooltip('Display text on OLED screen at given row.');
+  }
+};
+
+// "OLED clear" block
+Blockly.Blocks['kb_oled_clear'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u25A1 OLED clear');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#40BCD8');
+    this.setTooltip('Clear the OLED display.');
+  }
+};
+
+// "PIR pin [dropdown] detected?" block
+Blockly.Blocks['kb_pir_detected'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u26A0 PIR pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO15', '15'], ['IO5', '5'], ['IO19', '19'], ['IO21', '21']
+      ]), 'PIN')
+      .appendField('motion detected?');
+    this.setOutput(true, 'Boolean');
+    this.setColour('#8B6914');
+    this.setTooltip('Returns true if PIR motion sensor detects movement.');
+  }
+};
+
+// "photoresistor pin [dropdown] read" block
+Blockly.Blocks['kb_photoresistor_read'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2600 photoresistor pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO34', '34'], ['IO35', '35'], ['IO36', '36'], ['IO39', '39']
+      ]), 'PIN')
+      .appendField('read light');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Read analog light level from photoresistor (0-4095).');
+  }
+};
+
+// "sound sensor pin [dropdown] read" block
+Blockly.Blocks['kb_sound_sensor_read'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u266A sound sensor pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO34', '34'], ['IO35', '35'], ['IO36', '36'], ['IO39', '39']
+      ]), 'PIN')
+      .appendField('read');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Read analog sound level from microphone sensor (0-4095).');
+  }
+};
+
+// "RFID init" block
+Blockly.Blocks['kb_rfid_init'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u229A RFID init (SPI)');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Initialize RFID MFRC522 reader on SPI bus.');
+  }
+};
+
+// "RFID card detected?" block
+Blockly.Blocks['kb_rfid_card_detected'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u229A RFID card detected?');
+    this.setOutput(true, 'Boolean');
+    this.setColour('#8B6914');
+    this.setTooltip('Returns true if an RFID card is present.');
+  }
+};
+
+// "RFID read UID" block
+Blockly.Blocks['kb_rfid_read_uid'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u229A RFID read UID');
+    this.setOutput(true, 'String');
+    this.setColour('#8B6914');
+    this.setTooltip('Read the UID of the RFID card.');
+  }
+};
+
+// "WS2812 RGB pin [dropdown] num LEDs [number] set [index] color [color]"
+Blockly.Blocks['kb_rgb_set'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u25CF RGB pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO16', '16'], ['IO17', '17'], ['IO25', '25'], ['IO26', '26']
+      ]), 'PIN')
+      .appendField('LED #')
+      .appendField(new Blockly.FieldDropdown([
+        ['0', '0'], ['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5']
+      ]), 'INDEX');
+    this.appendDummyInput()
+      .appendField('color')
+      .appendField(new Blockly.FieldColour('#ff0000'), 'COLOR');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Set WS2812 RGB LED color.');
+  }
+};
+
+// "WS2812 RGB pin [dropdown] all off" block
+Blockly.Blocks['kb_rgb_off'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u25CF RGB pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO16', '16'], ['IO17', '17'], ['IO25', '25'], ['IO26', '26']
+      ]), 'PIN')
+      .appendField('all off');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Turn off all WS2812 RGB LEDs.');
+  }
+};
+
+// "fan motor pin1 [dropdown] pin2 [dropdown] direction [CW/CCW] speed [number]"
+Blockly.Blocks['kb_fan_motor'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2672 fan INA')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO19', '19'], ['IO18', '18'], ['IO5', '5']
+      ]), 'INA')
+      .appendField('INB')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO18', '18'], ['IO19', '19'], ['IO5', '5']
+      ]), 'INB');
+    this.appendDummyInput()
+      .appendField('direction')
+      .appendField(new Blockly.FieldDropdown([
+        ['CW', 'CW'], ['CCW', 'CCW'], ['STOP', 'STOP']
+      ]), 'DIR');
+    this.appendValueInput('SPEED')
+      .setCheck('Number')
+      .appendField('speed');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Control fan motor direction and speed.');
+  }
+};
+
+// "joystick pin X [dropdown] Y [dropdown] Button [dropdown]" block
+Blockly.Blocks['kb_joystick_read'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2316 joystick read')
+      .appendField(new Blockly.FieldDropdown([
+        ['X axis', 'X'], ['Y axis', 'Y'], ['Button', 'BTN']
+      ]), 'AXIS');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Read joystick X, Y, or button value.');
+  }
+};
+
+// "compass read heading (degrees)" block
+Blockly.Blocks['kb_compass_read'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2316 compass heading (\u00B0)');
+    this.setOutput(true, 'Number');
+    this.setColour('#8B6914');
+    this.setTooltip('Read compass heading in degrees (0-360).');
+  }
+};
+
+// "IR receive pin [dropdown]" block
+Blockly.Blocks['kb_ir_receive'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2B50 IR receive pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO19', '19'], ['IO18', '18'], ['IO5', '5']
+      ]), 'PIN');
+    this.setOutput(true, 'String');
+    this.setColour('#8B6914');
+    this.setTooltip('Receive IR remote control code.');
+  }
+};
+
+// "IR send pin [dropdown] code [text]" block
+Blockly.Blocks['kb_ir_send'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u2B50 IR send pin')
+      .appendField(new Blockly.FieldDropdown([
+        ['IO19', '19'], ['IO18', '18'], ['IO5', '5']
+      ]), 'PIN');
+    this.appendValueInput('CODE')
+      .appendField('code');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#8B6914');
+    this.setTooltip('Send IR code.');
+  }
+};
+
+// "WiFi connect SSID [text] password [text]" block
+Blockly.Blocks['kb_wifi_connect'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u21CC WiFi connect');
+    this.appendValueInput('SSID')
+      .appendField('SSID');
+    this.appendValueInput('PASS')
+      .appendField('password');
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#40BCD8');
+    this.setTooltip('Connect to WiFi network.');
+  }
+};
+
+// "WiFi connected?" block
+Blockly.Blocks['kb_wifi_connected'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u21CC WiFi connected?');
+    this.setOutput(true, 'Boolean');
+    this.setColour('#40BCD8');
+    this.setTooltip('Returns true if WiFi is connected.');
+  }
+};
+
+// "WiFi get IP" block
+Blockly.Blocks['kb_wifi_ip'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('\u21CC WiFi IP address');
+    this.setOutput(true, 'String');
+    this.setColour('#40BCD8');
+    this.setTooltip('Get the WiFi IP address.');
+  }
+};
+
+// "if [condition] then" block (styled like KidsBlock)
+Blockly.Blocks['kb_if_then'] = {
+  init: function () {
+    this.appendValueInput('CONDITION')
+      .setCheck('Boolean')
+      .appendField('if');
+    this.appendStatementInput('DO')
+      .appendField('then');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#FFBF00');
+    this.setTooltip('If condition is true, run the blocks inside.');
+  }
+};
+
+// "if [condition] then / else" block
+Blockly.Blocks['kb_if_then_else'] = {
+  init: function () {
+    this.appendValueInput('CONDITION')
+      .setCheck('Boolean')
+      .appendField('if');
+    this.appendStatementInput('DO')
+      .appendField('then');
+    this.appendStatementInput('ELSE')
+      .appendField('else');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#FFBF00');
+    this.setTooltip('If condition is true, run then-blocks. Otherwise run else-blocks.');
+  }
+};
+
+// "repeat [number] times" block
+Blockly.Blocks['kb_repeat'] = {
+  init: function () {
+    this.appendValueInput('TIMES')
+      .setCheck('Number')
+      .appendField('repeat');
+    this.appendDummyInput()
+      .appendField('times');
+    this.appendStatementInput('DO');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#FFBF00');
+    this.setTooltip('Repeat the blocks inside a specified number of times.');
+  }
+};
+
+// "set variable [name] to [value]" block
+Blockly.Blocks['kb_set_variable'] = {
+  init: function () {
+    this.appendValueInput('VALUE')
+      .appendField('set')
+      .appendField(new Blockly.FieldTextInput('myVar'), 'VAR')
+      .appendField('to');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#FF6680');
+    this.setTooltip('Set a variable value.');
+  }
+};
+
+// "variable [name]" block (reader)
+Blockly.Blocks['kb_get_variable'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldTextInput('myVar'), 'VAR');
+    this.setOutput(true, null);
+    this.setColour('#FF6680');
+    this.setTooltip('Get a variable value.');
+  }
+};
+
+// "map value [number] from [low1]-[high1] to [low2]-[high2]" block
+Blockly.Blocks['kb_map'] = {
+  init: function () {
+    this.appendValueInput('VALUE')
+      .setCheck('Number')
+      .appendField('map');
+    this.appendValueInput('FROMLOW')
+      .setCheck('Number')
+      .appendField('from');
+    this.appendValueInput('FROMHIGH')
+      .setCheck('Number')
+      .appendField('-');
+    this.appendValueInput('TOLOW')
+      .setCheck('Number')
+      .appendField('to');
+    this.appendValueInput('TOHIGH')
+      .setCheck('Number')
+      .appendField('-');
+    this.setInputsInline(true);
+    this.setOutput(true, 'Number');
+    this.setColour('#5C68A6');
+    this.setTooltip('Map a value from one range to another.');
+  }
+};
+
+// ===== KidsBlock-Style Code Generators (JavaScript) =====
+
+javascript.javascriptGenerator.forBlock['kb_when_arduino_begin'] = function (block) {
+  var code = javascript.javascriptGenerator.statementToCode(block, 'NEXT') || '';
+  return '// when Arduino begin\n' + code;
+};
+
+javascript.javascriptGenerator.forBlock['kb_forever'] = function (block) {
+  var branch = javascript.javascriptGenerator.statementToCode(block, 'DO') || '';
+  return 'while (true) {\n' + branch + '}\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_wait_seconds'] = function (block) {
+  var seconds = javascript.javascriptGenerator.valueToCode(block, 'SECONDS', javascript.Order.ATOMIC) || '1';
+  return 'sensor.wait(' + seconds + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_wait_ms'] = function (block) {
+  var ms = javascript.javascriptGenerator.valueToCode(block, 'MS', javascript.Order.ATOMIC) || '1000';
+  return 'sensor.wait(' + ms + ' / 1000);\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_led_pin'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var state = block.getFieldValue('STATE');
+  return 'sensor.ledBlink(' + pin + ', "' + state + '");\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_pin_mode'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var mode = block.getFieldValue('MODE');
+  return '// pinMode(' + pin + ', ' + mode + ')\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_digital_read'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  return ['sensor.digitalRead(' + pin + ')', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_digital_write'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var value = block.getFieldValue('VALUE');
+  return 'sensor.digitalWrite(' + pin + ', "' + value + '");\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_analog_read'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  return ['sensor.analogRead(' + pin + ')', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_analog_write'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var value = javascript.javascriptGenerator.valueToCode(block, 'VALUE', javascript.Order.ATOMIC) || '0';
+  return 'sensor.analogWrite(' + pin + ', ' + value + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_serial_print'] = function (block) {
+  var text = javascript.javascriptGenerator.valueToCode(block, 'TEXT', javascript.Order.ATOMIC) || '""';
+  return '_print(' + text + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_serial_println'] = function (block) {
+  var text = javascript.javascriptGenerator.valueToCode(block, 'TEXT', javascript.Order.ATOMIC) || '""';
+  return '_print(' + text + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_serial_begin'] = function (block) {
+  var baud = block.getFieldValue('BAUD');
+  return '// Serial.begin(' + baud + ')\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_servo_angle'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var angle = javascript.javascriptGenerator.valueToCode(block, 'ANGLE', javascript.Order.ATOMIC) || '90';
+  return 'sensor.servoSet(' + pin + ', ' + angle + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_buzzer_tone'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var freq = block.getFieldValue('FREQ');
+  var beat = block.getFieldValue('BEAT');
+  return 'sensor.buzzerTone(' + freq + ', ' + beat + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_buzzer_off'] = function (block) {
+  return 'sensor.buzzerOff();\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_ultrasonic_distance'] = function (block) {
+  return ['sensor.readDistance()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_aht20_read'] = function (block) {
+  var type = block.getFieldValue('TYPE');
+  if (type === 'TEMP') return ['sensor.readTemperature()', javascript.Order.FUNCTION_CALL];
+  return ['sensor.readHumidity()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_bmp388_read'] = function (block) {
+  var type = block.getFieldValue('TYPE');
+  if (type === 'PRESSURE') return ['sensor.readPressure()', javascript.Order.FUNCTION_CALL];
+  if (type === 'ALTITUDE') return ['sensor.readAltitude()', javascript.Order.FUNCTION_CALL];
+  return ['sensor.readTemperature()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_oled_init'] = function () {
+  return '// OLED init 128x64\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_oled_show'] = function (block) {
+  var text = javascript.javascriptGenerator.valueToCode(block, 'TEXT', javascript.Order.ATOMIC) || '""';
+  var row = javascript.javascriptGenerator.valueToCode(block, 'ROW', javascript.Order.ATOMIC) || '0';
+  return 'sensor.oledPrint(' + text + ', ' + row + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_oled_clear'] = function () {
+  return 'sensor.oledClear();\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_pir_detected'] = function (block) {
+  return ['sensor.pirMotionDetected()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_photoresistor_read'] = function (block) {
+  return ['sensor.readLight()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_sound_sensor_read'] = function (block) {
+  return ['sensor.readSound()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_rfid_init'] = function () {
+  return '// RFID MFRC522 init\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_rfid_card_detected'] = function () {
+  return ['sensor.rfidDetected()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_rfid_read_uid'] = function () {
+  return ['sensor.rfidRead()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_rgb_set'] = function (block) {
+  var idx = block.getFieldValue('INDEX');
+  var color = block.getFieldValue('COLOR');
+  return 'sensor.rgbSet(' + idx + ', "' + color + '");\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_rgb_off'] = function () {
+  return 'sensor.rgbOff();\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_fan_motor'] = function (block) {
+  var dir = block.getFieldValue('DIR');
+  var speed = javascript.javascriptGenerator.valueToCode(block, 'SPEED', javascript.Order.ATOMIC) || '200';
+  return 'sensor.fanControl("' + dir + '", ' + speed + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_joystick_read'] = function (block) {
+  var axis = block.getFieldValue('AXIS');
+  return ['sensor.joystickRead("' + axis + '")', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_compass_read'] = function () {
+  return ['sensor.readCompass()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_ir_receive'] = function () {
+  return ['sensor.irReceive()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_ir_send'] = function (block) {
+  var code = javascript.javascriptGenerator.valueToCode(block, 'CODE', javascript.Order.ATOMIC) || '""';
+  return 'sensor.irSend(' + code + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_wifi_connect'] = function (block) {
+  var ssid = javascript.javascriptGenerator.valueToCode(block, 'SSID', javascript.Order.ATOMIC) || '""';
+  var pass = javascript.javascriptGenerator.valueToCode(block, 'PASS', javascript.Order.ATOMIC) || '""';
+  return 'sensor.wifiConnect(' + ssid + ', ' + pass + ');\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_wifi_connected'] = function () {
+  return ['sensor.wifiConnected()', javascript.Order.FUNCTION_CALL];
+};
+
+javascript.javascriptGenerator.forBlock['kb_wifi_ip'] = function () {
+  return ['"192.168.1.1"', javascript.Order.ATOMIC];
+};
+
+javascript.javascriptGenerator.forBlock['kb_if_then'] = function (block) {
+  var condition = javascript.javascriptGenerator.valueToCode(block, 'CONDITION', javascript.Order.NONE) || 'false';
+  var branch = javascript.javascriptGenerator.statementToCode(block, 'DO') || '';
+  return 'if (' + condition + ') {\n' + branch + '}\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_if_then_else'] = function (block) {
+  var condition = javascript.javascriptGenerator.valueToCode(block, 'CONDITION', javascript.Order.NONE) || 'false';
+  var branch = javascript.javascriptGenerator.statementToCode(block, 'DO') || '';
+  var elseBranch = javascript.javascriptGenerator.statementToCode(block, 'ELSE') || '';
+  return 'if (' + condition + ') {\n' + branch + '} else {\n' + elseBranch + '}\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_repeat'] = function (block) {
+  var times = javascript.javascriptGenerator.valueToCode(block, 'TIMES', javascript.Order.ATOMIC) || '10';
+  var branch = javascript.javascriptGenerator.statementToCode(block, 'DO') || '';
+  return 'for (var _i = 0; _i < ' + times + '; _i++) {\n' + branch + '}\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_set_variable'] = function (block) {
+  var varName = block.getFieldValue('VAR');
+  var value = javascript.javascriptGenerator.valueToCode(block, 'VALUE', javascript.Order.ASSIGNMENT) || '0';
+  return 'var ' + varName + ' = ' + value + ';\n';
+};
+
+javascript.javascriptGenerator.forBlock['kb_get_variable'] = function (block) {
+  var varName = block.getFieldValue('VAR');
+  return [varName, javascript.Order.ATOMIC];
+};
+
+javascript.javascriptGenerator.forBlock['kb_map'] = function (block) {
+  var value = javascript.javascriptGenerator.valueToCode(block, 'VALUE', javascript.Order.ATOMIC) || '0';
+  var fromLow = javascript.javascriptGenerator.valueToCode(block, 'FROMLOW', javascript.Order.ATOMIC) || '0';
+  var fromHigh = javascript.javascriptGenerator.valueToCode(block, 'FROMHIGH', javascript.Order.ATOMIC) || '1023';
+  var toLow = javascript.javascriptGenerator.valueToCode(block, 'TOLOW', javascript.Order.ATOMIC) || '0';
+  var toHigh = javascript.javascriptGenerator.valueToCode(block, 'TOHIGH', javascript.Order.ATOMIC) || '255';
+  return ['Math.round((' + value + ' - ' + fromLow + ') * (' + toHigh + ' - ' + toLow + ') / (' + fromHigh + ' - ' + fromLow + ') + ' + toLow + ')', javascript.Order.FUNCTION_CALL];
+};
+
+// ===== KidsBlock-Style Code Generators (Python / MicroPython) =====
+
+python.pythonGenerator.forBlock['kb_when_arduino_begin'] = function (block) {
+  return '# when Arduino begin\n';
+};
+
+python.pythonGenerator.forBlock['kb_forever'] = function (block) {
+  var branch = python.pythonGenerator.statementToCode(block, 'DO') || '  pass\n';
+  return 'while True:\n' + branch;
+};
+
+python.pythonGenerator.forBlock['kb_wait_seconds'] = function (block) {
+  var seconds = python.pythonGenerator.valueToCode(block, 'SECONDS', python.Order.ATOMIC) || '1';
+  return 'time.sleep(' + seconds + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_wait_ms'] = function (block) {
+  var ms = python.pythonGenerator.valueToCode(block, 'MS', python.Order.ATOMIC) || '1000';
+  return 'time.sleep_ms(' + ms + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_led_pin'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var state = block.getFieldValue('STATE');
+  var val = state === 'HIGH' ? '1' : '0';
+  return 'pin' + pin + ' = Pin(' + pin + ', Pin.OUT)\npin' + pin + '.value(' + val + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_pin_mode'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var mode = block.getFieldValue('MODE');
+  var pyMode = mode === 'OUTPUT' ? 'Pin.OUT' : 'Pin.IN';
+  return 'pin' + pin + ' = Pin(' + pin + ', ' + pyMode + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_digital_read'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  return ['Pin(' + pin + ', Pin.IN).value()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_digital_write'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var value = block.getFieldValue('VALUE');
+  var val = value === 'HIGH' ? '1' : '0';
+  return 'Pin(' + pin + ', Pin.OUT).value(' + val + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_analog_read'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  return ['ADC(Pin(' + pin + ')).read()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_analog_write'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var value = python.pythonGenerator.valueToCode(block, 'VALUE', python.Order.ATOMIC) || '0';
+  return 'PWM(Pin(' + pin + ')).duty(' + value + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_serial_print'] = function (block) {
+  var text = python.pythonGenerator.valueToCode(block, 'TEXT', python.Order.ATOMIC) || '""';
+  return 'print(' + text + ', end="")\n';
+};
+
+python.pythonGenerator.forBlock['kb_serial_println'] = function (block) {
+  var text = python.pythonGenerator.valueToCode(block, 'TEXT', python.Order.ATOMIC) || '""';
+  return 'print(' + text + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_serial_begin'] = function () {
+  return '# Serial auto-initialized in MicroPython\n';
+};
+
+python.pythonGenerator.forBlock['kb_servo_angle'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var angle = python.pythonGenerator.valueToCode(block, 'ANGLE', python.Order.ATOMIC) || '90';
+  return 'servo = Servo(Pin(' + pin + '))\nservo.write_angle(' + angle + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_buzzer_tone'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var freq = block.getFieldValue('FREQ');
+  var beat = block.getFieldValue('BEAT');
+  return 'buzzer = PWM(Pin(' + pin + '))\nbuzzer.freq(' + freq + ')\ntime.sleep(' + beat + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_buzzer_off'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  return 'PWM(Pin(' + pin + ')).deinit()\n';
+};
+
+python.pythonGenerator.forBlock['kb_ultrasonic_distance'] = function (block) {
+  var trig = block.getFieldValue('TRIG');
+  var echo = block.getFieldValue('ECHO');
+  return ['ultrasonic_distance(' + trig + ', ' + echo + ')', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_aht20_read'] = function (block) {
+  var type = block.getFieldValue('TYPE');
+  if (type === 'TEMP') return ['aht20.temperature()', python.Order.FUNCTION_CALL];
+  return ['aht20.humidity()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_bmp388_read'] = function (block) {
+  var type = block.getFieldValue('TYPE');
+  if (type === 'PRESSURE') return ['bmp388.pressure()', python.Order.FUNCTION_CALL];
+  if (type === 'ALTITUDE') return ['bmp388.altitude()', python.Order.FUNCTION_CALL];
+  return ['bmp388.temperature()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_oled_init'] = function () {
+  return 'oled = SSD1306_I2C(128, 64, I2C(scl=Pin(22), sda=Pin(21)))\n';
+};
+
+python.pythonGenerator.forBlock['kb_oled_show'] = function (block) {
+  var text = python.pythonGenerator.valueToCode(block, 'TEXT', python.Order.ATOMIC) || '""';
+  var row = python.pythonGenerator.valueToCode(block, 'ROW', python.Order.ATOMIC) || '0';
+  return 'oled.text(str(' + text + '), 0, ' + row + ' * 10)\noled.show()\n';
+};
+
+python.pythonGenerator.forBlock['kb_oled_clear'] = function () {
+  return 'oled.fill(0)\noled.show()\n';
+};
+
+python.pythonGenerator.forBlock['kb_pir_detected'] = function () {
+  return ['pir.value()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_photoresistor_read'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  return ['ADC(Pin(' + pin + ')).read()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_sound_sensor_read'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  return ['ADC(Pin(' + pin + ')).read()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_rfid_init'] = function () {
+  return 'rfid = MFRC522(spi_id=2, sck=18, miso=19, mosi=23, cs=5, rst=27)\n';
+};
+
+python.pythonGenerator.forBlock['kb_rfid_card_detected'] = function () {
+  return ['rfid.request(rfid.REQIDL)[0] == rfid.OK', python.Order.COMPARISON];
+};
+
+python.pythonGenerator.forBlock['kb_rfid_read_uid'] = function () {
+  return ['rfid.anticoll()[1]', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_rgb_set'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  var idx = block.getFieldValue('INDEX');
+  var color = block.getFieldValue('COLOR');
+  var r = parseInt(color.slice(1, 3), 16);
+  var g = parseInt(color.slice(3, 5), 16);
+  var b = parseInt(color.slice(5, 7), 16);
+  return 'np = NeoPixel(Pin(' + pin + '), 6)\nnp[' + idx + '] = (' + r + ', ' + g + ', ' + b + ')\nnp.write()\n';
+};
+
+python.pythonGenerator.forBlock['kb_rgb_off'] = function (block) {
+  var pin = block.getFieldValue('PIN');
+  return 'np = NeoPixel(Pin(' + pin + '), 6)\nnp.fill((0, 0, 0))\nnp.write()\n';
+};
+
+python.pythonGenerator.forBlock['kb_fan_motor'] = function (block) {
+  var ina = block.getFieldValue('INA');
+  var inb = block.getFieldValue('INB');
+  var dir = block.getFieldValue('DIR');
+  var speed = python.pythonGenerator.valueToCode(block, 'SPEED', python.Order.ATOMIC) || '200';
+  if (dir === 'STOP') return 'Pin(' + ina + ', Pin.OUT).value(0)\nPin(' + inb + ', Pin.OUT).value(0)\n';
+  if (dir === 'CW') return 'Pin(' + ina + ', Pin.OUT).value(1)\nPWM(Pin(' + inb + ')).duty(' + speed + ')\n';
+  return 'Pin(' + ina + ', Pin.OUT).value(0)\nPWM(Pin(' + inb + ')).duty(' + speed + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_joystick_read'] = function (block) {
+  var axis = block.getFieldValue('AXIS');
+  if (axis === 'BTN') return ['Pin(joystick_btn, Pin.IN).value()', python.Order.FUNCTION_CALL];
+  return ['ADC(Pin(joystick_' + axis.toLowerCase() + ')).read()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_compass_read'] = function () {
+  return ['compass.heading()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_ir_receive'] = function () {
+  return ['ir_receiver.read()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_ir_send'] = function (block) {
+  var code = python.pythonGenerator.valueToCode(block, 'CODE', python.Order.ATOMIC) || '""';
+  return 'ir_sender.send(' + code + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_wifi_connect'] = function (block) {
+  var ssid = python.pythonGenerator.valueToCode(block, 'SSID', python.Order.ATOMIC) || '""';
+  var pass = python.pythonGenerator.valueToCode(block, 'PASS', python.Order.ATOMIC) || '""';
+  return 'import network\nwlan = network.WLAN(network.STA_IF)\nwlan.active(True)\nwlan.connect(' + ssid + ', ' + pass + ')\n';
+};
+
+python.pythonGenerator.forBlock['kb_wifi_connected'] = function () {
+  return ['wlan.isconnected()', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_wifi_ip'] = function () {
+  return ['wlan.ifconfig()[0]', python.Order.FUNCTION_CALL];
+};
+
+python.pythonGenerator.forBlock['kb_if_then'] = function (block) {
+  var condition = python.pythonGenerator.valueToCode(block, 'CONDITION', python.Order.NONE) || 'False';
+  var branch = python.pythonGenerator.statementToCode(block, 'DO') || '  pass\n';
+  return 'if ' + condition + ':\n' + branch;
+};
+
+python.pythonGenerator.forBlock['kb_if_then_else'] = function (block) {
+  var condition = python.pythonGenerator.valueToCode(block, 'CONDITION', python.Order.NONE) || 'False';
+  var branch = python.pythonGenerator.statementToCode(block, 'DO') || '  pass\n';
+  var elseBranch = python.pythonGenerator.statementToCode(block, 'ELSE') || '  pass\n';
+  return 'if ' + condition + ':\n' + branch + 'else:\n' + elseBranch;
+};
+
+python.pythonGenerator.forBlock['kb_repeat'] = function (block) {
+  var times = python.pythonGenerator.valueToCode(block, 'TIMES', python.Order.ATOMIC) || '10';
+  var branch = python.pythonGenerator.statementToCode(block, 'DO') || '  pass\n';
+  return 'for _i in range(' + times + '):\n' + branch;
+};
+
+python.pythonGenerator.forBlock['kb_set_variable'] = function (block) {
+  var varName = block.getFieldValue('VAR');
+  var value = python.pythonGenerator.valueToCode(block, 'VALUE', python.Order.NONE) || '0';
+  return varName + ' = ' + value + '\n';
+};
+
+python.pythonGenerator.forBlock['kb_get_variable'] = function (block) {
+  var varName = block.getFieldValue('VAR');
+  return [varName, python.Order.ATOMIC];
+};
+
+python.pythonGenerator.forBlock['kb_map'] = function (block) {
+  var value = python.pythonGenerator.valueToCode(block, 'VALUE', python.Order.ATOMIC) || '0';
+  var fromLow = python.pythonGenerator.valueToCode(block, 'FROMLOW', python.Order.ATOMIC) || '0';
+  var fromHigh = python.pythonGenerator.valueToCode(block, 'FROMHIGH', python.Order.ATOMIC) || '1023';
+  var toLow = python.pythonGenerator.valueToCode(block, 'TOLOW', python.Order.ATOMIC) || '0';
+  var toHigh = python.pythonGenerator.valueToCode(block, 'TOHIGH', python.Order.ATOMIC) || '255';
+  return ['int((' + value + ' - ' + fromLow + ') * (' + toHigh + ' - ' + toLow + ') / (' + fromHigh + ' - ' + fromLow + ') + ' + toLow + ')', python.Order.FUNCTION_CALL];
+};
+
+
 // ===== Robot Movement Blocks =====
 
 Blockly.Blocks['robot_move_forward'] = {
