@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win",
+    "build": "electron-builder --win --config.win.target=portable",
     "build:dir": "electron-builder --win --dir"
   },
   "author": "AARNAIT AI",
