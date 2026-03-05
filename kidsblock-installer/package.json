@@ -31,11 +31,16 @@
     "win": {
       "target": [
         {
+          "target": "portable",
+          "arch": ["x64"]
+        },
+        {
           "target": "nsis",
           "arch": ["x64"]
         }
       ],
-      "icon": "assets/icon.ico"
+      "icon": "assets/icon.ico",
+      "signAndEditExecutable": false
     },
     "nsis": {
       "oneClick": false,
@@ -44,6 +49,9 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "AARNAITAI ROBO"
+    },
+    "portable": {
+      "artifactName": "AARNAITAI_ROBO_Portable.exe"
     }
   }
 }
