@@ -90,6 +90,9 @@ function initWorkspace() {
     '</xml>';
   Blockly.Xml.domToWorkspace(Blockly.utils.xml.textToDom(xml), workspace);
 
+  // Ensure proper sizing after injection
+  Blockly.svgResize(workspace);
+
   // Listen for workspace changes to update code
   workspace.addChangeListener(updateCodePreview);
 
