@@ -33,10 +33,12 @@ function initAudio() {
   }
 }
 
+let speechQueue = [];
+let isSpeaking = false;
+
 function speakText(msg) {
   if (!('speechSynthesis' in window)) return;
   try {
-    window.speechSynthesis.cancel();
     var utterance = new SpeechSynthesisUtterance(String(msg));
     utterance.rate = 1.0;
     utterance.pitch = 1.2;
@@ -44,10 +46,31 @@ function speakText(msg) {
     if (ttsVoices.length > 0) {
       utterance.voice = ttsVoices.find(function (v) { return v.lang.startsWith('en'); }) || ttsVoices[0];
     }
-    window.speechSynthesis.speak(utterance);
+    utterance.onend = function () {
+      isSpeaking = false;
+      processNextSpeech();
+    };
+    utterance.onerror = function () {
+      isSpeaking = false;
+      processNextSpeech();
+    };
+    speechQueue.push(utterance);
+    processNextSpeech();
   } catch (e) {
     console.warn('TTS error:', e);
   }
+}
+
+function processNextSpeech() {
+  if (isSpeaking || speechQueue.length === 0) return;
+  isSpeaking = true;
+  window.speechSynthesis.speak(speechQueue.shift());
+}
+
+function stopSpeech() {
+  speechQueue = [];
+  isSpeaking = false;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 }
 
 function playTone(freq, durationMs) {
@@ -207,6 +230,7 @@ function clearConsole() {
 
 // ===== Run Program =====
 function runProgram() {
+  stopSpeech();
   clearConsole();
   consoleLog('[AARNAITAI ROBO] Running program...', 'info');
 
@@ -437,6 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Toolbar buttons
   document.getElementById('runBtn').addEventListener('click', runProgram);
   document.getElementById('stopBtn').addEventListener('click', function () {
+    stopSpeech();
     consoleLog('[AARNAITAI ROBO] Program stopped.', 'warn');
   });
   document.getElementById('undoBtn').addEventListener('click', function () {
