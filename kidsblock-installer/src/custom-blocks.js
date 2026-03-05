@@ -396,7 +396,7 @@ Blockly.Blocks['actuator_buzzer_off'] = {
 Blockly.Blocks['event_when_started'] = {
   init: function () {
     this.appendDummyInput().appendField('when program starts');
-    this.setNextStatement(true, null);
+    this.appendStatementInput('NEXT').setCheck(null);
     this.setColour('#FFAB19');
     this.setTooltip('Run code when the program starts');
     this.setDeletable(false);
@@ -411,7 +411,7 @@ Blockly.Blocks['event_when_button_pressed'] = {
         ['A', 'A'], ['B', 'B'], ['C', 'C']
       ]), 'BUTTON')
       .appendField('pressed');
-    this.setNextStatement(true, null);
+    this.appendStatementInput('NEXT').setCheck(null);
     this.setColour('#FFAB19');
     this.setTooltip('Run code when a button is pressed');
   }
@@ -428,7 +428,7 @@ Blockly.Blocks['event_when_sensor_triggered'] = {
         ['temperature high', 'TEMP_HIGH'],
         ['temperature low', 'TEMP_LOW']
       ]), 'TRIGGER');
-    this.setNextStatement(true, null);
+    this.appendStatementInput('NEXT').setCheck(null);
     this.setColour('#FFAB19');
     this.setTooltip('Run code when a sensor event is triggered');
   }
@@ -441,7 +441,7 @@ Blockly.Blocks['event_every_seconds'] = {
       .appendField('every');
     this.appendDummyInput().appendField('seconds');
     this.setInputsInline(true);
-    this.setNextStatement(true, null);
+    this.appendStatementInput('NEXT').setCheck(null);
     this.setColour('#FFAB19');
     this.setTooltip('Run code at regular intervals');
   }
@@ -466,7 +466,7 @@ Blockly.Blocks['event_when_receive'] = {
       .setCheck('String')
       .appendField('when I receive');
     this.setInputsInline(true);
-    this.setNextStatement(true, null);
+    this.appendStatementInput('NEXT').setCheck(null);
     this.setColour('#FFAB19');
     this.setTooltip('Run code when a broadcast message is received');
   }
