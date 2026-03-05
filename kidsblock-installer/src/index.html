@@ -107,6 +107,7 @@
           <option value="python">Python</option>
         </select>
         <button class="tool-btn" id="toggleCode" title="Toggle code view">{ } Code</button>
+        <button class="tool-btn" id="studyBtn" title="Study Material">&#x1F4D6; Study</button>
         <button class="tool-btn" id="helpBtn" title="Tutorial">? Help</button>
       </div>
     </header>
@@ -219,13 +220,147 @@
       <block type="robot_wait"></block>
     </category>
 
-    <!-- Sensors (Custom) -->
+    <!-- Sensors (Custom) — KidsBlock Tutorial 3.1–3.38 -->
     <category name="Sensors" colour="#D4A017">
-      <block type="sensor_read_distance"></block>
-      <block type="sensor_read_light"></block>
-      <block type="sensor_read_temperature"></block>
-      <block type="sensor_button_pressed"></block>
-      <block type="sensor_line_detected"></block>
+      <category name="3.1 LED Blink" colour="#D4A017">
+        <block type="sensor_led_blink">
+          <value name="DELAY"><shadow type="math_number"><field name="NUM">500</field></shadow></value>
+        </block>
+      </category>
+      <category name="3.2 Sound Sensor" colour="#D4A017">
+        <block type="sensor_read_sound"></block>
+      </category>
+      <category name="3.3 PIR Motion" colour="#D4A017">
+        <block type="sensor_pir_motion"></block>
+      </category>
+      <category name="3.4 Buzzer" colour="#D4A017">
+        <block type="sensor_buzzer_tone">
+          <value name="DURATION"><shadow type="math_number"><field name="NUM">0.5</field></shadow></value>
+        </block>
+        <block type="sensor_buzzer_off"></block>
+      </category>
+      <category name="3.5 Photoresistor" colour="#D4A017">
+        <block type="sensor_read_light"></block>
+      </category>
+      <category name="3.6 AD Button" colour="#D4A017">
+        <block type="sensor_ad_button"></block>
+        <block type="sensor_button_pressed"></block>
+      </category>
+      <category name="3.7 Ultrasonic" colour="#D4A017">
+        <block type="sensor_read_distance"></block>
+      </category>
+      <category name="3.8 RFID" colour="#D4A017">
+        <block type="sensor_rfid_read"></block>
+        <block type="sensor_rfid_detected"></block>
+      </category>
+      <category name="3.9 Servo" colour="#D4A017">
+        <block type="sensor_servo_set">
+          <value name="ANGLE"><shadow type="math_number"><field name="NUM">90</field></shadow></value>
+        </block>
+      </category>
+      <category name="3.10 Temp &amp; Humidity" colour="#D4A017">
+        <block type="sensor_read_temperature"></block>
+        <block type="sensor_read_humidity"></block>
+      </category>
+      <category name="3.11 Pressure" colour="#D4A017">
+        <block type="sensor_read_pressure"></block>
+        <block type="sensor_read_altitude"></block>
+      </category>
+      <category name="3.12 Compass" colour="#D4A017">
+        <block type="sensor_read_compass"></block>
+        <block type="sensor_read_magnetic"></block>
+      </category>
+      <category name="3.13 Fan Motor" colour="#D4A017">
+        <block type="sensor_fan_control">
+          <value name="SPEED"><shadow type="math_number"><field name="NUM">200</field></shadow></value>
+        </block>
+      </category>
+      <category name="3.14 Servo 270°" colour="#D4A017">
+        <block type="sensor_servo270_set">
+          <value name="ANGLE"><shadow type="math_number"><field name="NUM">135</field></shadow></value>
+        </block>
+      </category>
+      <category name="3.15 RGB LED" colour="#D4A017">
+        <block type="sensor_rgb_set"></block>
+        <block type="sensor_rgb_all"></block>
+        <block type="sensor_rgb_off"></block>
+      </category>
+      <category name="3.16 OLED Display" colour="#D4A017">
+        <block type="sensor_oled_print">
+          <value name="ROW"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+        </block>
+        <block type="sensor_oled_clear"></block>
+      </category>
+      <category name="3.17 IR Receiver" colour="#D4A017">
+        <block type="sensor_ir_receive"></block>
+      </category>
+      <category name="3.18 IR Emitter" colour="#D4A017">
+        <block type="sensor_ir_send"></block>
+      </category>
+      <category name="3.19 Joystick" colour="#D4A017">
+        <block type="sensor_joystick_read"></block>
+      </category>
+      <category name="3.20 Acceleration" colour="#D4A017">
+        <block type="sensor_accel_read"></block>
+      </category>
+      <category name="3.21 Potentiometer" colour="#D4A017">
+        <block type="sensor_potentiometer"></block>
+      </category>
+      <category name="3.22 Reed Switch" colour="#D4A017">
+        <block type="sensor_reed_switch"></block>
+      </category>
+      <category name="3.23 Hall Sensor" colour="#D4A017">
+        <block type="sensor_hall"></block>
+      </category>
+      <category name="3.24 Flame Sensor" colour="#D4A017">
+        <block type="sensor_flame"></block>
+        <block type="sensor_flame_detected"></block>
+      </category>
+      <category name="3.25 Steam/Water" colour="#D4A017">
+        <block type="sensor_steam"></block>
+      </category>
+      <category name="3.26 UV Sensor" colour="#D4A017">
+        <block type="sensor_uv"></block>
+      </category>
+      <category name="3.27 Traffic Light" colour="#D4A017">
+        <block type="sensor_traffic_light"></block>
+      </category>
+      <category name="3.28 Relay" colour="#D4A017">
+        <block type="sensor_relay"></block>
+      </category>
+      <category name="3.29 Button Module" colour="#D4A017">
+        <block type="sensor_button_module"></block>
+      </category>
+      <category name="3.30 Tilt Sensor" colour="#D4A017">
+        <block type="sensor_tilt"></block>
+      </category>
+      <category name="3.31 Obstacle Avoid" colour="#D4A017">
+        <block type="sensor_obstacle"></block>
+      </category>
+      <category name="3.32 Line Tracking" colour="#D4A017">
+        <block type="sensor_line_detected"></block>
+      </category>
+      <category name="3.33 WiFi Connect" colour="#D4A017">
+        <block type="sensor_wifi_connect"></block>
+        <block type="sensor_wifi_connected"></block>
+      </category>
+      <category name="3.34 WiFi Display" colour="#D4A017">
+        <block type="sensor_wifi_send_data"></block>
+      </category>
+      <category name="3.35 WiFi Control" colour="#D4A017">
+        <block type="sensor_wifi_receive"></block>
+      </category>
+      <category name="3.36 Smart Home" colour="#D4A017">
+        <block type="sensor_smart_home_mode"></block>
+      </category>
+      <category name="3.37 Weather Station" colour="#D4A017">
+        <block type="sensor_weather_read_all"></block>
+      </category>
+      <category name="3.38 Robot Car" colour="#D4A017">
+        <block type="sensor_robot_car">
+          <value name="SPEED"><shadow type="math_number"><field name="NUM">200</field></shadow></value>
+        </block>
+      </category>
     </category>
 
     <!-- Display (Custom) -->
@@ -247,6 +382,391 @@
       <block type="animation_wait"></block>
     </category>
   </xml>
+
+  <!-- Study Material Overlay -->
+  <div id="study-overlay" style="display:none">
+    <div class="study-content">
+      <button class="tutorial-close" onclick="closeStudy()">&times;</button>
+      <h2>Study Material — KidsBlock Sensor Guide</h2>
+      <div class="study-nav">
+        <input type="text" id="studySearch" placeholder="Search sensors..." oninput="filterStudy()">
+      </div>
+      <div class="study-sections" id="studySections">
+
+        <div class="study-card" data-tags="led blink light 3.1">
+          <h3>3.1 LED Blink</h3>
+          <p><strong>Component:</strong> White LED Module</p>
+          <p>LED (Light Emitting Diode) converts electrical energy into light. It has a long pin (+/anode) and a short pin (-/cathode).</p>
+          <p><strong>How it works:</strong> Set a digital pin HIGH to turn LED on, LOW to turn off. Add delays between to create blinking effect.</p>
+          <p><strong>Key concepts:</strong> Digital output, HIGH/LOW states, delay timing, GPIO pins</p>
+          <p><strong>Pin:</strong> Digital pin (e.g., GPIO 2, 4, 5, 13, 15)</p>
+          <p><strong>Try:</strong> Change delay time to make LED blink faster or slower. Use loops for patterns like SOS!</p>
+        </div>
+
+        <div class="study-card" data-tags="sound microphone sensor analog 3.2">
+          <h3>3.2 Sound Sensor</h3>
+          <p><strong>Component:</strong> Microphone + LM358 amplifier</p>
+          <p>Captures sound waves and converts to electrical signal. The LM358 amplifies weak signals for clear reading.</p>
+          <p><strong>How it works:</strong> Microphone picks up sound → LM358 amplifies → ADC reads analog value (0-4095)</p>
+          <p><strong>Key concepts:</strong> Analog input, ADC (Analog-to-Digital Conversion), signal amplification</p>
+          <p><strong>Range:</strong> 0 (silent) to 4095 (very loud)</p>
+          <p><strong>Try:</strong> Make a voice-activated fan — when sound > threshold, turn on motor!</p>
+        </div>
+
+        <div class="study-card" data-tags="pir motion infrared sensor 3.3">
+          <h3>3.3 PIR Motion Sensor</h3>
+          <p><strong>Component:</strong> RE200B-P pyroelectric sensor</p>
+          <p>Detects infrared radiation from warm moving objects (humans, animals). Based on pyroelectric effect.</p>
+          <p><strong>How it works:</strong> All warm bodies emit infrared. When a person moves, the sensor detects changes in IR and outputs HIGH.</p>
+          <p><strong>Key concepts:</strong> Digital input, infrared, pyroelectric effect, motion detection</p>
+          <p><strong>Output:</strong> HIGH (1) = motion detected, LOW (0) = no motion</p>
+          <p><strong>Try:</strong> Build a smart hallway light that turns on when someone walks by!</p>
+        </div>
+
+        <div class="study-card" data-tags="buzzer tone music passive power amplifier 3.4">
+          <h3>3.4 Passive Buzzer / Power Amplifier</h3>
+          <p><strong>Component:</strong> 8002b power amplifier + passive buzzer</p>
+          <p>Unlike active buzzers, passive buzzers need external pulse frequencies to produce sound. Different frequencies = different notes!</p>
+          <p><strong>How it works:</strong> PWM signals at specific frequencies create musical notes: C=262Hz, D=294Hz, E=330Hz, F=349Hz, G=392Hz, A=440Hz, B=494Hz</p>
+          <p><strong>Key concepts:</strong> PWM (Pulse Width Modulation), frequency, musical notes, tone generation</p>
+          <p><strong>Try:</strong> Play a melody! Chain multiple tones with different beats to make music.</p>
+        </div>
+
+        <div class="study-card" data-tags="photoresistor light ldr sensor analog 3.5">
+          <h3>3.5 Photoresistor</h3>
+          <p><strong>Component:</strong> Light Dependent Resistor (LDR)</p>
+          <p>Resistance changes with light intensity — more light = lower resistance = higher analog reading.</p>
+          <p><strong>How it works:</strong> Photons hit the semiconductor material, freeing electrons and reducing resistance.</p>
+          <p><strong>Key concepts:</strong> Analog input, resistance, voltage divider, light measurement</p>
+          <p><strong>Range:</strong> 0 (dark) to 4095 (bright light)</p>
+          <p><strong>Try:</strong> Build a smart desk lamp that automatically adjusts brightness based on ambient light!</p>
+        </div>
+
+        <div class="study-card" data-tags="ad button analog digital 3.6">
+          <h3>3.6 AD Button</h3>
+          <p><strong>Component:</strong> Analog-Digital Button Module</p>
+          <p>Multiple buttons on one analog pin! Each button connects a different resistor, producing a unique analog value.</p>
+          <p><strong>How it works:</strong> Voltage divider with different resistors. Each button press produces a distinct analog reading.</p>
+          <p><strong>Key concepts:</strong> Analog input, voltage divider, resistor networks, multiplexing</p>
+          <p><strong>Try:</strong> Use different buttons to control different LEDs or play different tones!</p>
+        </div>
+
+        <div class="study-card" data-tags="ultrasonic distance hcsr04 sensor 3.7">
+          <h3>3.7 Ultrasonic Sensor</h3>
+          <p><strong>Component:</strong> HC-SR04 Ultrasonic Distance Sensor</p>
+          <p>Measures distance using sound waves. Sends ultrasonic pulse, times the echo, calculates distance.</p>
+          <p><strong>How it works:</strong> Trigger pin sends 40kHz pulse → sound bounces off object → Echo pin receives it. Distance = time × speed of sound / 2</p>
+          <p><strong>Key concepts:</strong> Speed of sound (343 m/s), echo timing, pulse measurement</p>
+          <p><strong>Range:</strong> 2cm to 400cm (accuracy ±3mm)</p>
+          <p><strong>Try:</strong> Build a parking sensor with buzzer — beep faster as objects get closer!</p>
+        </div>
+
+        <div class="study-card" data-tags="rfid nfc card reader sensor 3.8">
+          <h3>3.8 RFID Sensor</h3>
+          <p><strong>Component:</strong> MFRC522 RFID Reader/Writer</p>
+          <p>Reads unique ID from RFID cards and tags using radio frequency. Each card has a unique UID.</p>
+          <p><strong>How it works:</strong> Reader emits radio waves → RFID tag draws power from field → tag transmits its UID back</p>
+          <p><strong>Key concepts:</strong> Radio frequency, UID (Unique Identifier), SPI communication, contactless reading</p>
+          <p><strong>Frequency:</strong> 13.56 MHz</p>
+          <p><strong>Try:</strong> Build a door lock that only opens when the correct RFID card is scanned!</p>
+        </div>
+
+        <div class="study-card" data-tags="servo motor angle rotation 3.9">
+          <h3>3.9 Servo Motor</h3>
+          <p><strong>Component:</strong> SG90 Micro Servo (180°)</p>
+          <p>Rotates to a precise angle (0-180°). Used in robot arms, locks, gates, and steering mechanisms.</p>
+          <p><strong>How it works:</strong> PWM signal controls angle. Pulse width: 0.5ms=0°, 1.5ms=90°, 2.5ms=180°</p>
+          <p><strong>Key concepts:</strong> PWM control, angle positioning, duty cycle, mechanical actuation</p>
+          <p><strong>Range:</strong> 0° to 180°</p>
+          <p><strong>Try:</strong> Build a robot arm or a smart door lock controlled by RFID!</p>
+        </div>
+
+        <div class="study-card" data-tags="temperature humidity aht20 i2c sensor 3.10">
+          <h3>3.10 Temperature &amp; Humidity Sensor</h3>
+          <p><strong>Component:</strong> AHT20 Digital Sensor (I2C)</p>
+          <p>Measures both temperature and humidity with high precision using a 20-bit ADC.</p>
+          <p><strong>How it works:</strong> Capacitive humidity sensor + bandgap temperature sensor. Communicates via I2C protocol.</p>
+          <p><strong>Key concepts:</strong> I2C communication, digital sensor, calibration, environmental monitoring</p>
+          <p><strong>Accuracy:</strong> Temperature ±0.3°C, Humidity ±2%RH</p>
+          <p><strong>Try:</strong> Build a mini weather station displaying real-time temp and humidity on OLED!</p>
+        </div>
+
+        <div class="study-card" data-tags="pressure barometer bmp388 altitude sensor 3.11">
+          <h3>3.11 Pressure Sensor</h3>
+          <p><strong>Component:</strong> BMP388 Barometric Pressure Sensor</p>
+          <p>Measures atmospheric pressure and can estimate altitude. Small, low power, high performance.</p>
+          <p><strong>How it works:</strong> MEMS piezoresistive sensor detects air pressure changes. Altitude calculated from pressure difference.</p>
+          <p><strong>Key concepts:</strong> Atmospheric pressure, altitude estimation, MEMS technology, I2C</p>
+          <p><strong>Range:</strong> 300-1250 hPa (accuracy ±0.5 hPa)</p>
+          <p><strong>Try:</strong> Calculate your floor level! Pressure drops ~1.2 hPa per 10m elevation.</p>
+        </div>
+
+        <div class="study-card" data-tags="compass geomagnetic ak8975 direction sensor 3.12">
+          <h3>3.12 Geomagnetic / Compass Sensor</h3>
+          <p><strong>Component:</strong> AK8975C 3-axis Electronic Compass</p>
+          <p>Detects Earth's magnetic field on X, Y, Z axes. Can determine compass heading (N/S/E/W).</p>
+          <p><strong>How it works:</strong> Hall effect elements detect magnetic flux. 13-bit output for each axis.</p>
+          <p><strong>Key concepts:</strong> Earth's magnetic field, Hall effect, compass heading, 3-axis measurement</p>
+          <p><strong>Output:</strong> Heading 0-360° (0°=North, 90°=East, 180°=South, 270°=West)</p>
+          <p><strong>Try:</strong> Build a digital compass that shows direction on the OLED display!</p>
+        </div>
+
+        <div class="study-card" data-tags="fan motor dc control pwm 3.13">
+          <h3>3.13 Fan / DC Motor</h3>
+          <p><strong>Component:</strong> DC Motor with Fan Blade</p>
+          <p>Controls a DC motor that can spin forward, reverse, or stop. Speed controlled by PWM.</p>
+          <p><strong>How it works:</strong> Two control pins (MA, MB) determine direction. PWM duty cycle controls speed (0-255).</p>
+          <p><strong>Key concepts:</strong> DC motor, H-bridge, PWM speed control, direction control</p>
+          <p><strong>Modes:</strong> Forward, Reverse, Stop (gradual), Brake (immediate)</p>
+          <p><strong>Try:</strong> Build a smart fan that turns on when temperature exceeds a threshold!</p>
+        </div>
+
+        <div class="study-card" data-tags="servo 270 motor angle 3.14">
+          <h3>3.14 Servo Motor (270°)</h3>
+          <p><strong>Component:</strong> 270° Range Servo Motor</p>
+          <p>Extended range servo with 270° rotation. More range than standard 180° servo.</p>
+          <p><strong>How it works:</strong> Same PWM principle as 180° servo but with extended mechanical range.</p>
+          <p><strong>Key concepts:</strong> Extended rotation, precision positioning, PWM control</p>
+          <p><strong>Range:</strong> 0° to 270°</p>
+          <p><strong>Try:</strong> Use with a potentiometer to create a manual position controller!</p>
+        </div>
+
+        <div class="study-card" data-tags="rgb led ws2812 neopixel sk6812 color 3.15">
+          <h3>3.15 WS2812 RGB LED Strip</h3>
+          <p><strong>Component:</strong> SK6812/WS2812 Addressable RGB LEDs (12 beads)</p>
+          <p>Each LED can show any color independently! Only needs one data pin for all LEDs.</p>
+          <p><strong>How it works:</strong> Each LED has built-in controller. Data cascades through chain — each LED reads its color and passes the rest along.</p>
+          <p><strong>Key concepts:</strong> Addressable LEDs, RGB color mixing, serial data protocol, daisy-chaining</p>
+          <p><strong>Colors:</strong> 16.7 million colors (256 × 256 × 256 RGB)</p>
+          <p><strong>Try:</strong> Create a rainbow effect by cycling colors through all 12 LEDs!</p>
+        </div>
+
+        <div class="study-card" data-tags="oled display screen ssd1306 i2c 3.16">
+          <h3>3.16 OLED Display</h3>
+          <p><strong>Component:</strong> 0.96" SSD1306 OLED Display (128×64 pixels)</p>
+          <p>Small but crisp display showing text, numbers, and simple graphics. No backlight needed — each pixel emits light!</p>
+          <p><strong>How it works:</strong> Organic LEDs emit light when current passes through. I2C communication. Each pixel individually controlled.</p>
+          <p><strong>Key concepts:</strong> I2C display, pixel graphics, text rendering, OLED technology</p>
+          <p><strong>Resolution:</strong> 128×64 pixels, monochrome</p>
+          <p><strong>Try:</strong> Display sensor readings in real-time — temperature, humidity, distance!</p>
+        </div>
+
+        <div class="study-card" data-tags="ir infrared receiver remote control 3.17">
+          <h3>3.17 IR Receiver</h3>
+          <p><strong>Component:</strong> VS1838B IR Receiver Module</p>
+          <p>Receives infrared signals from remote controls. Each button sends a unique hex code.</p>
+          <p><strong>How it works:</strong> IR receiver demodulates 38kHz carrier signal, decodes NEC protocol data.</p>
+          <p><strong>Key concepts:</strong> Infrared communication, NEC protocol, carrier frequency, remote control</p>
+          <p><strong>Frequency:</strong> 38 kHz carrier</p>
+          <p><strong>Try:</strong> Use a TV remote to control your robot — each button triggers a different action!</p>
+        </div>
+
+        <div class="study-card" data-tags="ir infrared emitter transmitter send 3.18">
+          <h3>3.18 IR Emitter</h3>
+          <p><strong>Component:</strong> IR LED Transmitter</p>
+          <p>Sends infrared signals to control TVs, air conditioners, or other IR devices.</p>
+          <p><strong>How it works:</strong> IR LED pulses at 38kHz carrier frequency, encoding data in the pulse pattern.</p>
+          <p><strong>Key concepts:</strong> IR transmission, signal encoding, carrier wave modulation</p>
+          <p><strong>Try:</strong> Build a universal remote! Record IR codes with receiver, replay with emitter.</p>
+        </div>
+
+        <div class="study-card" data-tags="joystick analog xy button gamepad 3.19">
+          <h3>3.19 Joystick Module</h3>
+          <p><strong>Component:</strong> 2-axis Analog Joystick with Button</p>
+          <p>Two potentiometers (X, Y) and a pushbutton. Perfect for controlling movement or games.</p>
+          <p><strong>How it works:</strong> Moving stick changes resistance on X and Y potentiometers. Center = ~2048, edges = 0 or 4095.</p>
+          <p><strong>Key concepts:</strong> 2-axis analog input, potentiometer, coordinate mapping, game control</p>
+          <p><strong>Range:</strong> X: 0-4095, Y: 0-4095, Button: 0/1</p>
+          <p><strong>Try:</strong> Control a robot car's direction and speed using the joystick!</p>
+        </div>
+
+        <div class="study-card" data-tags="acceleration accelerometer sc7a20 tilt shake 3.20">
+          <h3>3.20 Acceleration Sensor</h3>
+          <p><strong>Component:</strong> SC7A20TR 3-axis Accelerometer</p>
+          <p>Measures acceleration force on 3 axes. Can detect tilt, shake, freefall, and orientation.</p>
+          <p><strong>How it works:</strong> Tiny MEMS structure with proof mass. Acceleration causes capacitance change, measured by internal ADC.</p>
+          <p><strong>Key concepts:</strong> G-force, 3-axis measurement, tilt detection, MEMS accelerometer</p>
+          <p><strong>Range:</strong> ±2g to ±16g</p>
+          <p><strong>Try:</strong> Build a step counter or a tilt-controlled game!</p>
+        </div>
+
+        <div class="study-card" data-tags="potentiometer analog knob variable resistor 3.21">
+          <h3>3.21 Potentiometer</h3>
+          <p><strong>Component:</strong> Rotary Potentiometer (10KΩ)</p>
+          <p>Variable resistor controlled by turning a knob. Output voltage proportional to knob position.</p>
+          <p><strong>How it works:</strong> Wiper slides along resistive strip, changing the ratio of resistance and thus output voltage.</p>
+          <p><strong>Key concepts:</strong> Variable resistance, analog input, voltage divider, user control</p>
+          <p><strong>Range:</strong> 0-4095 (maps to 0V-3.3V)</p>
+          <p><strong>Try:</strong> Control LED brightness or servo angle by turning the knob!</p>
+        </div>
+
+        <div class="study-card" data-tags="reed switch magnetic magnet sensor 3.22">
+          <h3>3.22 Reed Switch</h3>
+          <p><strong>Component:</strong> Reed Switch Module</p>
+          <p>Two metal strips in a glass tube that close when a magnet is nearby. Simple magnetic sensor.</p>
+          <p><strong>How it works:</strong> Magnetic field magnetizes the reed contacts, pulling them together to close the circuit.</p>
+          <p><strong>Key concepts:</strong> Magnetic field detection, digital input, proximity sensing</p>
+          <p><strong>Output:</strong> LOW (0) = magnet near, HIGH (1) = no magnet</p>
+          <p><strong>Try:</strong> Build a door/window alarm — triggers when magnet moves away!</p>
+        </div>
+
+        <div class="study-card" data-tags="hall sensor magnetic field strength 3.23">
+          <h3>3.23 Hall Sensor</h3>
+          <p><strong>Component:</strong> Hall Effect Sensor Module</p>
+          <p>Detects magnetic field strength. More sensitive and analog compared to reed switch.</p>
+          <p><strong>How it works:</strong> Current-carrying conductor in magnetic field → Hall voltage proportional to field strength.</p>
+          <p><strong>Key concepts:</strong> Hall effect, magnetic flux density, analog measurement</p>
+          <p><strong>Range:</strong> 0-4095 analog value</p>
+          <p><strong>Try:</strong> Build a magnetic field meter or detect hidden magnets!</p>
+        </div>
+
+        <div class="study-card" data-tags="flame fire sensor infrared safety 3.24">
+          <h3>3.24 Flame Sensor</h3>
+          <p><strong>Component:</strong> IR Flame Sensor Module</p>
+          <p>Detects fire/flame by sensing infrared light (760-1100nm wavelength) emitted by flames.</p>
+          <p><strong>How it works:</strong> IR photodiode sensitive to flame spectrum. Analog output proportional to flame intensity.</p>
+          <p><strong>Key concepts:</strong> Infrared detection, fire safety, threshold comparison, alarm systems</p>
+          <p><strong>Detection angle:</strong> ~60°, range up to 80cm</p>
+          <p><strong>Try:</strong> Build a fire alarm — buzzer sounds and LED flashes when flame detected!</p>
+        </div>
+
+        <div class="study-card" data-tags="steam water rain sensor moisture 3.25">
+          <h3>3.25 Steam / Water Sensor</h3>
+          <p><strong>Component:</strong> Water/Steam Detection Module</p>
+          <p>Detects water, rain, or steam on its surface. The more water, the higher the reading.</p>
+          <p><strong>How it works:</strong> Exposed traces on PCB. Water bridges traces, reducing resistance, increasing current.</p>
+          <p><strong>Key concepts:</strong> Conductivity, moisture detection, analog measurement, weather sensing</p>
+          <p><strong>Range:</strong> 0 (dry) to 4095 (fully wet)</p>
+          <p><strong>Try:</strong> Build a rain detector — buzzer alarm when rain is detected!</p>
+        </div>
+
+        <div class="study-card" data-tags="uv ultraviolet sunlight sensor 3.26">
+          <h3>3.26 UV Sensor</h3>
+          <p><strong>Component:</strong> GUVA-S12SD UV Sensor Module</p>
+          <p>Measures ultraviolet light intensity. Important for sun safety awareness.</p>
+          <p><strong>How it works:</strong> Photodiode sensitive to UV-A/UV-B spectrum. Output voltage maps to UV index.</p>
+          <p><strong>Key concepts:</strong> UV radiation, UV index scale, sun safety, environmental monitoring</p>
+          <p><strong>UV Index:</strong> 0-2 (low), 3-5 (moderate), 6-7 (high), 8-10 (very high), 11+ (extreme)</p>
+          <p><strong>Try:</strong> Build a sun safety alert — display warning when UV index is high!</p>
+        </div>
+
+        <div class="study-card" data-tags="traffic light red yellow green led 3.27">
+          <h3>3.27 Traffic Light Module</h3>
+          <p><strong>Component:</strong> 3-LED Traffic Light (Red/Yellow/Green)</p>
+          <p>Three colored LEDs mimicking a traffic signal. Each LED controlled independently.</p>
+          <p><strong>How it works:</strong> Three digital output pins, each controlling one LED. Timing creates traffic patterns.</p>
+          <p><strong>Key concepts:</strong> Sequential logic, timing, state machines, traffic control</p>
+          <p><strong>Try:</strong> Program a realistic traffic light sequence with proper timing!</p>
+        </div>
+
+        <div class="study-card" data-tags="relay switch high voltage control 3.28">
+          <h3>3.28 Relay Module</h3>
+          <p><strong>Component:</strong> 3V/5V Relay Module</p>
+          <p>An electronically controlled switch that can control high-power devices (lights, fans, motors).</p>
+          <p><strong>How it works:</strong> Small current through coil creates magnetic field, pulling the switch contact to close/open the circuit.</p>
+          <p><strong>Key concepts:</strong> Electromagnetic switching, isolation, high-power control, safety</p>
+          <p><strong>Try:</strong> Control a lamp with a sensor — PIR triggers relay to turn on light!</p>
+        </div>
+
+        <div class="study-card" data-tags="button push switch digital input 3.29">
+          <h3>3.29 Button Module</h3>
+          <p><strong>Component:</strong> Tactile Push Button Module</p>
+          <p>Simple push button with built-in pull-up resistor. Press to activate, release to deactivate.</p>
+          <p><strong>How it works:</strong> Pressing the button connects the circuit. Pull-up resistor ensures clean HIGH/LOW signal.</p>
+          <p><strong>Key concepts:</strong> Digital input, debouncing, pull-up resistor, event detection</p>
+          <p><strong>Output:</strong> LOW (0) = pressed, HIGH (1) = released</p>
+          <p><strong>Try:</strong> Make a button counter or use it to toggle LEDs on/off!</p>
+        </div>
+
+        <div class="study-card" data-tags="tilt sensor angle inclination shake 3.30">
+          <h3>3.30 Tilt Sensor</h3>
+          <p><strong>Component:</strong> Ball Tilt Switch Module</p>
+          <p>Contains a small metal ball. When tilted, the ball rolls and closes/opens the circuit.</p>
+          <p><strong>How it works:</strong> Metal ball rests on contacts when upright (circuit closed). Tilting moves ball away (circuit opens).</p>
+          <p><strong>Key concepts:</strong> Tilt detection, mechanical switch, gravity, orientation sensing</p>
+          <p><strong>Output:</strong> Digital HIGH/LOW based on tilt angle</p>
+          <p><strong>Try:</strong> Build a tilt alarm — buzzer sounds when object is tilted!</p>
+        </div>
+
+        <div class="study-card" data-tags="obstacle avoidance ir proximity sensor 3.31">
+          <h3>3.31 Obstacle Avoidance Sensor</h3>
+          <p><strong>Component:</strong> IR Obstacle Avoidance Module</p>
+          <p>Detects nearby objects using infrared. The IR LED emits light, photodiode detects reflection.</p>
+          <p><strong>How it works:</strong> IR LED transmits → if object is close, IR reflects back → photodiode detects it → output LOW.</p>
+          <p><strong>Key concepts:</strong> IR reflection, proximity detection, obstacle avoidance, robotics</p>
+          <p><strong>Range:</strong> 2-30cm (adjustable with onboard potentiometer)</p>
+          <p><strong>Try:</strong> Build a robot that automatically avoids walls and obstacles!</p>
+        </div>
+
+        <div class="study-card" data-tags="line tracking follower ir sensor robot 3.32">
+          <h3>3.32 Line Tracking Sensor</h3>
+          <p><strong>Component:</strong> IR Line Tracking Module</p>
+          <p>Detects black lines on white surface (or vice versa) using IR reflection difference.</p>
+          <p><strong>How it works:</strong> Black surface absorbs IR (low reflection = HIGH output). White surface reflects IR (high reflection = LOW output).</p>
+          <p><strong>Key concepts:</strong> IR reflection, line following, differential sensing, robot navigation</p>
+          <p><strong>Positions:</strong> Left, Center, Right sensors</p>
+          <p><strong>Try:</strong> Build a line-following robot that traces a path drawn on paper!</p>
+        </div>
+
+        <div class="study-card" data-tags="wifi esp32 wireless internet connect 3.33">
+          <h3>3.33 WiFi Connection</h3>
+          <p><strong>Component:</strong> ESP32 Built-in WiFi Module</p>
+          <p>ESP32 has built-in WiFi and Bluetooth. Connect to any WiFi network to send/receive data.</p>
+          <p><strong>How it works:</strong> ESP32 WiFi radio connects to router using SSID and password. Gets IP address via DHCP.</p>
+          <p><strong>Key concepts:</strong> WiFi protocol, SSID, IP address, DHCP, wireless networking</p>
+          <p><strong>Standard:</strong> 802.11 b/g/n, 2.4GHz</p>
+          <p><strong>Try:</strong> Connect to WiFi and print your device's IP address!</p>
+        </div>
+
+        <div class="study-card" data-tags="wifi display iot dashboard data 3.34">
+          <h3>3.34 WiFi Real-time Display</h3>
+          <p><strong>Component:</strong> ESP32 WiFi + Web Dashboard</p>
+          <p>Send sensor data over WiFi to a web dashboard for real-time monitoring from any device.</p>
+          <p><strong>How it works:</strong> ESP32 reads sensors → sends data via HTTP/WebSocket → web page displays graphs/values.</p>
+          <p><strong>Key concepts:</strong> IoT (Internet of Things), HTTP requests, JSON data, web dashboard</p>
+          <p><strong>Try:</strong> Build a remote temperature monitor viewable on your phone!</p>
+        </div>
+
+        <div class="study-card" data-tags="wifi control iot remote command 3.35">
+          <h3>3.35 WiFi Remote Control</h3>
+          <p><strong>Component:</strong> ESP32 WiFi + Web Interface</p>
+          <p>Control your project remotely through a web interface! Send commands from phone or computer.</p>
+          <p><strong>How it works:</strong> ESP32 runs a web server → browser sends commands → ESP32 executes (LED on/off, motor control, etc.)</p>
+          <p><strong>Key concepts:</strong> Web server, HTTP GET/POST, remote control, client-server communication</p>
+          <p><strong>Try:</strong> Control LEDs and buzzer from your phone's web browser!</p>
+        </div>
+
+        <div class="study-card" data-tags="smart home automation iot combined project 3.36">
+          <h3>3.36 Smart Home Project</h3>
+          <p><strong>Combined Project:</strong> Multiple sensors working together</p>
+          <p>Combines PIR, photoresistor, temperature sensor, buzzer, LEDs, servo, and WiFi into a smart home system.</p>
+          <p><strong>Features:</strong> Auto lights (PIR + photoresistor), climate control (temp sensor + fan), security (RFID + servo lock), remote monitoring (WiFi)</p>
+          <p><strong>Key concepts:</strong> System integration, automation logic, IoT, sensor fusion</p>
+          <p><strong>Modes:</strong> Auto (sensor-driven), Manual (button/WiFi control), Away (security mode)</p>
+          <p><strong>Try:</strong> Build a complete smart home! Lights, fan, door lock, and alarm — all automated.</p>
+        </div>
+
+        <div class="study-card" data-tags="weather station meteorological combined project 3.37">
+          <h3>3.37 Weather Station Project</h3>
+          <p><strong>Combined Project:</strong> Environmental monitoring system</p>
+          <p>Combines AHT20 (temp/humidity), BMP388 (pressure/altitude), UV sensor, and OLED display.</p>
+          <p><strong>Features:</strong> Temperature, humidity, atmospheric pressure, altitude estimation, UV index — all displayed on OLED and sent via WiFi</p>
+          <p><strong>Key concepts:</strong> Environmental sensing, data logging, multi-sensor fusion, weather forecasting</p>
+          <p><strong>Try:</strong> Build a complete weather station and compare your readings with real weather reports!</p>
+        </div>
+
+        <div class="study-card" data-tags="robot car motor ultrasonic line follow obstacle 3.38">
+          <h3>3.38 Robot Car Project</h3>
+          <p><strong>Combined Project:</strong> Autonomous robot vehicle</p>
+          <p>Combines motors, ultrasonic sensor, line tracking, IR remote, and WiFi control into a programmable robot car.</p>
+          <p><strong>Features:</strong> Manual driving, line following, obstacle avoidance, IR remote control, WiFi control from phone</p>
+          <p><strong>Key concepts:</strong> Robotics, autonomous navigation, sensor fusion, motor control, PID control</p>
+          <p><strong>Try:</strong> Program your robot car to navigate a maze using ultrasonic and line sensors!</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <script src="../node_modules/blockly/blockly_compressed.js"></script>
   <script src="../node_modules/blockly/blocks_compressed.js"></script>

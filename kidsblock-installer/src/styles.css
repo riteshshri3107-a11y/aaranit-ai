@@ -470,8 +470,95 @@ body {
   fill: #2a4a6c !important;
 }
 
+/* ===== Study Material Overlay ===== */
+#study-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.study-content {
+  background: #1e2040;
+  border-radius: 16px;
+  padding: 30px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  color: #c8d6e5;
+}
+
+.study-content h2 {
+  color: #FFD700;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+.study-nav {
+  margin-bottom: 15px;
+}
+
+#studySearch {
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #3a3f6a;
+  border-radius: 8px;
+  background: #12142a;
+  color: #c8d6e5;
+  font-size: 14px;
+  outline: none;
+}
+
+#studySearch:focus {
+  border-color: #4A90D9;
+}
+
+#studySearch::placeholder {
+  color: #5a6080;
+}
+
+.study-card {
+  background: #12142a;
+  border: 1px solid #2a3050;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+
+.study-card:hover {
+  border-color: #D4A017;
+}
+
+.study-card h3 {
+  color: #D4A017;
+  margin: 0 0 8px 0;
+  font-size: 1.1em;
+}
+
+.study-card p {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.study-card strong {
+  color: #4A90D9;
+}
+
+.study-card.hidden {
+  display: none;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
   #code-panel { width: 260px; }
   #console-area { height: 120px; }
+  .study-content { width: 95%; padding: 15px; }
 }
