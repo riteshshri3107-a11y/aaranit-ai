@@ -192,7 +192,10 @@ function runProgram() {
   };
 
   var buzzerSim = {
-    tone: function (pin, freq, dur) { consoleLog('Buzzer pin ' + pin + ': ' + freq + 'Hz for ' + dur + 'ms'); },
+    tone: function (pin, freq, dur) {
+      consoleLog('Buzzer pin ' + pin + ': ' + freq + 'Hz for ' + dur + 'ms');
+      playTone(freq, dur);
+    },
     off: function (pin) { consoleLog('Buzzer pin ' + pin + ' off'); }
   };
 
@@ -262,6 +265,37 @@ function runProgram() {
     return new Promise(function (r) { setTimeout(r, ms); });
   }
 
+  // --- Audio: Text-to-Speech ---
+  function speakText(msg) {
+    try {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        var utterance = new SpeechSynthesisUtterance(String(msg));
+        utterance.rate = 1.0;
+        utterance.pitch = 1.2;
+        utterance.volume = 1.0;
+        window.speechSynthesis.speak(utterance);
+      }
+    } catch (e) { /* speech not available */ }
+  }
+
+  // --- Audio: Tone generator (for buzzer blocks) ---
+  function playTone(freq, durationMs) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var oscillator = ctx.createOscillator();
+      var gainNode = ctx.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      oscillator.type = 'square';
+      oscillator.frequency.setValueAtTime(freq, ctx.currentTime);
+      gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+      oscillator.start();
+      oscillator.stop(ctx.currentTime + (durationMs / 1000));
+      oscillator.onended = function () { ctx.close(); };
+    } catch (e) { /* audio not available */ }
+  }
+
   try {
     // Replace print statements
     var execCode = code.replace(/window\.alert\(/g, '_print(');
@@ -269,13 +303,15 @@ function runProgram() {
     var fn = new Function(
       'robot', 'sensor', 'led', 'servo', 'motor', 'rgbLed', 'oled', 'buzzer',
       'events', 'hardware', 'Serial', 'display', 'audio', 'animation',
-      'map', 'delay', '_print',
+      'map', 'delay', '_print', '_speak', '_playTone',
       '"use strict";\n' + execCode
     );
     fn(
       robotSim, sensorSim, ledSim, servoSim, motorSim, rgbLedSim, oledSim, buzzerSim,
       eventsSim, hardwareSim, serialSim, displaySim, audioSim, animSim,
-      mapValue, delayFn, function (msg) { consoleLog(String(msg)); }
+      mapValue, delayFn,
+      function (msg) { consoleLog(String(msg)); speakText(msg); },
+      speakText, playTone
     );
 
     consoleLog('[AARNAITAI ROBO] Program finished.', 'info');
