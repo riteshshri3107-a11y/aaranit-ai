@@ -1,0 +1,49 @@
+{
+  "name": "aarnaitai-robo",
+  "version": "1.0.0",
+  "description": "AARNAITAI ROBO - Block-based programming for kids and teens",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "build:dir": "electron-builder --win --dir"
+  },
+  "author": "AARNAIT AI",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "blockly": "^11.1.0"
+  },
+  "build": {
+    "appId": "com.aarnaitai.robo",
+    "productName": "AARNAITAI_ROBO",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerHeaderIcon": "assets/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AARNAITAI ROBO"
+    }
+  }
+}

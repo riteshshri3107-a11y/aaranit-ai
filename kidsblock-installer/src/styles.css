@@ -1,0 +1,477 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+/* ===== Splash Screen ===== */
+#splash-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.splash-content {
+  text-align: center;
+  animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.splash-logo svg {
+  filter: drop-shadow(0 4px 12px rgba(74, 144, 217, 0.4));
+  margin-bottom: 16px;
+}
+
+.splash-content h1 {
+  font-size: 36px;
+  color: #4A90D9;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 8px rgba(74, 144, 217, 0.3);
+}
+
+.splash-content > p {
+  font-size: 16px;
+  color: #a0b4c8;
+  margin-bottom: 40px;
+}
+
+.splash-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.splash-btn {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.splash-btn.primary {
+  background: #4A90D9;
+  color: #fff;
+}
+.splash-btn.primary:hover {
+  background: #5CA0E9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 217, 0.4);
+}
+
+.splash-btn.secondary {
+  background: #2a3a5c;
+  color: #a0c4e8;
+  border: 1px solid #3a4a6c;
+}
+.splash-btn.secondary:hover {
+  background: #3a4a6c;
+  transform: translateY(-2px);
+}
+
+.splash-btn.tutorial {
+  background: #e6491e;
+  color: #fff;
+}
+.splash-btn.tutorial:hover {
+  background: #ff5a2e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 73, 30, 0.4);
+}
+
+.splash-version {
+  color: #556;
+  font-size: 12px;
+}
+
+/* ===== Tutorial Overlay ===== */
+#tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+}
+
+.tutorial-content {
+  background: #1e2a3a;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  border: 1px solid #2a3a5c;
+}
+
+.tutorial-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 24px;
+  cursor: pointer;
+}
+.tutorial-close:hover { color: #fff; }
+
+.tutorial-content h2 {
+  color: #4A90D9;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.tutorial-step {
+  display: none;
+  text-align: center;
+  padding: 20px 0;
+}
+.tutorial-step.active { display: block; }
+
+.tutorial-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #4A90D9;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.tutorial-step h3 {
+  color: #e0e0e0;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.tutorial-step p {
+  color: #a0b4c8;
+  line-height: 1.6;
+}
+
+.tutorial-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.tutorial-btn {
+  padding: 8px 20px;
+  border: 1px solid #3a4a6c;
+  border-radius: 6px;
+  background: #2a3a5c;
+  color: #a0c4e8;
+  cursor: pointer;
+  font-size: 14px;
+}
+.tutorial-btn:hover { background: #3a5a8c; }
+.tutorial-btn:disabled { opacity: 0.4; cursor: default; }
+
+.tutorial-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2a3a5c;
+  transition: background 0.3s;
+}
+.dot.active { background: #4A90D9; }
+
+/* ===== App Container ===== */
+#app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#app-container.hidden { display: none; }
+
+/* ===== Toolbar ===== */
+#toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #16213e;
+  padding: 6px 16px;
+  border-bottom: 2px solid #0f3460;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.toolbar-left, .toolbar-center, .toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #4A90D9;
+  letter-spacing: 1px;
+}
+
+.tool-btn {
+  padding: 5px 14px;
+  border: 1px solid #2a3a5c;
+  border-radius: 6px;
+  background: #1e2a3a;
+  color: #c0d0e0;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tool-btn:hover {
+  background: #2a4a6c;
+  border-color: #4A90D9;
+}
+
+.run-btn {
+  background: #1a7a3a;
+  border-color: #2a9a4a;
+  color: #fff;
+  font-weight: 600;
+}
+.run-btn:hover {
+  background: #2a9a4a;
+  border-color: #4aCA6a;
+}
+
+.stop-btn {
+  background: #8a2020;
+  border-color: #aa3030;
+  color: #fff;
+}
+.stop-btn:hover {
+  background: #aa3030;
+}
+
+.btn-icon {
+  font-size: 12px;
+}
+
+#codeLanguage {
+  padding: 5px 8px;
+  border: 1px solid #2a3a5c;
+  border-radius: 6px;
+  background: #1e2a3a;
+  color: #c0d0e0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ===== Main Content ===== */
+#main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+#blockly-area {
+  flex: 1;
+  position: relative;
+}
+
+#blocklyDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* ===== Code Panel ===== */
+#code-panel {
+  width: 360px;
+  background: #0d1b2a;
+  border-left: 2px solid #0f3460;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s;
+  flex-shrink: 0;
+}
+
+#code-panel.collapsed {
+  width: 0;
+  overflow: hidden;
+  border: none;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #16213e;
+  font-size: 13px;
+  font-weight: 600;
+  color: #8ab4e0;
+  border-bottom: 1px solid #0f3460;
+}
+
+.panel-toggle {
+  background: none;
+  border: none;
+  color: #8ab4e0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#codeOutput {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #a8d8a8;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ===== Console Area ===== */
+#console-area {
+  height: 150px;
+  background: #0a0e1a;
+  border-top: 2px solid #0f3460;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px;
+  background: #16213e;
+  font-size: 13px;
+  font-weight: 600;
+  color: #8ab4e0;
+  border-bottom: 1px solid #0f3460;
+}
+
+.console-clear {
+  padding: 2px 10px;
+  border: 1px solid #2a3a5c;
+  border-radius: 4px;
+  background: #1e2a3a;
+  color: #c0d0e0;
+  cursor: pointer;
+  font-size: 11px;
+}
+.console-clear:hover { background: #2a4a6c; }
+
+#consoleOutput {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.console-line {
+  color: #c8e6c8;
+}
+.console-line.error {
+  color: #ff6b6b;
+}
+.console-line.warn {
+  color: #ffd93d;
+}
+.console-line.info {
+  color: #6bcbff;
+}
+
+/* ===== Blockly Theme Overrides ===== */
+.blocklyMainBackground {
+  fill: #1a1a2e !important;
+}
+
+.blocklyToolboxDiv {
+  background: #16213e !important;
+  border-right: 2px solid #0f3460 !important;
+}
+
+.blocklyTreeRow:hover {
+  background: #1e3050 !important;
+}
+
+.blocklyTreeSelected {
+  background: #2a4a6c !important;
+}
+
+.blocklyTreeLabel {
+  color: #c0d8f0 !important;
+  font-size: 14px !important;
+}
+
+.blocklyFlyoutBackground {
+  fill: #16213e !important;
+  fill-opacity: 0.95 !important;
+}
+
+.blocklyScrollbarBackground {
+  fill: #1a1a2e !important;
+}
+
+.blocklyScrollbarHandle {
+  fill: #2a4a6c !important;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  #code-panel { width: 260px; }
+  #console-area { height: 120px; }
+}

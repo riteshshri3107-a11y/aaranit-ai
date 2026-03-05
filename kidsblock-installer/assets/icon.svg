@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Background -->
+  <rect width="256" height="256" rx="40" fill="#1a1a2e"/>
+
+  <!-- Robot Body -->
+  <rect x="58" y="75" width="140" height="100" rx="20" fill="#4A90D9" stroke="#2C5F8A" stroke-width="4"/>
+
+  <!-- Eyes -->
+  <circle cx="100" cy="115" r="16" fill="#fff"/>
+  <circle cx="156" cy="115" r="16" fill="#fff"/>
+  <circle cx="100" cy="115" r="8" fill="#1a1a2e"/>
+  <circle cx="156" cy="115" r="8" fill="#1a1a2e"/>
+
+  <!-- Eye shine -->
+  <circle cx="104" cy="111" r="3" fill="#fff"/>
+  <circle cx="160" cy="111" r="3" fill="#fff"/>
+
+  <!-- Mouth -->
+  <rect x="88" y="145" width="80" height="10" rx="5" fill="#FFD700"/>
+
+  <!-- Antenna -->
+  <rect x="82" y="45" width="10" height="35" rx="5" fill="#4A90D9"/>
+  <circle cx="87" cy="42" r="8" fill="#E6491E"/>
+  <rect x="164" y="45" width="10" height="35" rx="5" fill="#4A90D9"/>
+  <circle cx="169" cy="42" r="8" fill="#40BCD8"/>
+
+  <!-- Arms -->
+  <rect x="28" y="100" width="35" height="14" rx="7" fill="#4A90D9"/>
+  <rect x="193" y="100" width="35" height="14" rx="7" fill="#4A90D9"/>
+
+  <!-- Legs -->
+  <rect x="85" y="175" width="18" height="40" rx="6" fill="#4A90D9"/>
+  <rect x="153" y="175" width="18" height="40" rx="6" fill="#4A90D9"/>
+
+  <!-- Feet -->
+  <rect x="78" y="208" width="32" height="12" rx="6" fill="#2C5F8A"/>
+  <rect x="146" y="208" width="32" height="12" rx="6" fill="#2C5F8A"/>
+
+  <!-- Code blocks decoration -->
+  <rect x="78" y="230" width="20" height="8" rx="2" fill="#E6491E" opacity="0.8"/>
+  <rect x="103" y="230" width="50" height="8" rx="2" fill="#5CA65C" opacity="0.8"/>
+  <rect x="158" y="230" width="20" height="8" rx="2" fill="#CC4499" opacity="0.8"/>
+</svg>
