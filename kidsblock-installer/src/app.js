@@ -142,6 +142,82 @@ function runProgram() {
   var code = javascript.javascriptGenerator.workspaceToCode(workspace);
 
   // Create a sandboxed execution environment
+
+  // --- Sensor Simulators ---
+  var sensorSim = {
+    readSoundLevel: function () { var v = Math.floor(Math.random() * 1024); consoleLog('Sound level: ' + v, 'info'); return v; },
+    motionDetected: function (pin) { var v = Math.random() > 0.5; consoleLog('Motion (pin ' + pin + '): ' + (v ? 'detected' : 'none'), 'info'); return v; },
+    ultrasonicDistance: function (trig, echo) { var v = Math.floor(Math.random() * 200); consoleLog('Ultrasonic (trig:' + trig + ' echo:' + echo + '): ' + v + 'cm', 'info'); return v; },
+    readTemperature: function (pin, unit) { var v = unit === 'F' ? (68 + Math.random() * 27).toFixed(1) : (20 + Math.random() * 15).toFixed(1); consoleLog('Temperature (' + pin + '): ' + v + (unit || 'C'), 'info'); return parseFloat(v); },
+    readHumidity: function (pin) { var v = (30 + Math.random() * 50).toFixed(1); consoleLog('Humidity (' + pin + '): ' + v + '%', 'info'); return parseFloat(v); },
+    compassHeading: function () { var v = Math.floor(Math.random() * 360); consoleLog('Compass heading: ' + v + ' degrees', 'info'); return v; },
+    compassDirection: function () { var dirs = ['N','NE','E','SE','S','SW','W','NW']; var d = dirs[Math.floor(Math.random() * dirs.length)]; consoleLog('Compass direction: ' + d, 'info'); return d; },
+    // Legacy compatibility
+    readDistance: function () { return sensorSim.ultrasonicDistance(9, 8); },
+    readLight: function () { var v = Math.floor(Math.random() * 1024); consoleLog('Light: ' + v, 'info'); return v; },
+    isButtonPressed: function (b) { var v = Math.random() > 0.5; consoleLog('Button ' + b + ': ' + (v ? 'pressed' : 'not pressed'), 'info'); return v; },
+    lineDetected: function (p) { var v = Math.random() > 0.5; consoleLog('Line (' + p + '): ' + (v ? 'detected' : 'not detected'), 'info'); return v; }
+  };
+
+  // --- Actuator Simulators ---
+  var ledSim = {
+    on: function (pin, color) { consoleLog('LED pin ' + pin + ' ON' + (color ? ' (color: ' + color + ')' : '')); },
+    off: function (pin) { consoleLog('LED pin ' + pin + ' OFF'); },
+    blink: function (pin, delay) { consoleLog('LED pin ' + pin + ' blinking (' + delay + 'ms)'); }
+  };
+
+  var servoSim = {
+    setAngle: function (pin, angle) { consoleLog('Servo pin ' + pin + ' -> ' + angle + ' degrees'); },
+    sweep: function (pin, from, to, speed) { consoleLog('Servo pin ' + pin + ' sweep ' + from + '-' + to + ' (speed: ' + speed + ')'); }
+  };
+
+  var motorSim = {
+    run: function (motor, dir, speed) { consoleLog('Motor ' + motor + ' ' + dir + ' (speed: ' + speed + ')'); },
+    stop: function (motor) { consoleLog('Motor ' + motor + ' stopped'); }
+  };
+
+  var rgbLedSim = {
+    setColor: function (pin, r, g, b) { consoleLog('RGB LED pin ' + pin + ' -> R:' + r + ' G:' + g + ' B:' + b); },
+    setHex: function (color) { consoleLog('RGB LED color: ' + color); },
+    off: function () { consoleLog('RGB LED off'); }
+  };
+
+  var oledSim = {
+    print: function (text, row) { consoleLog('OLED [row ' + row + ']: ' + text); },
+    clear: function () { consoleLog('OLED display cleared'); },
+    draw: function (shape, x, y, size) { consoleLog('OLED draw ' + shape + ' at (' + x + ',' + y + ') size ' + size); }
+  };
+
+  var buzzerSim = {
+    tone: function (pin, freq, dur) { consoleLog('Buzzer pin ' + pin + ': ' + freq + 'Hz for ' + dur + 'ms'); },
+    off: function (pin) { consoleLog('Buzzer pin ' + pin + ' off'); }
+  };
+
+  // --- Event Simulators ---
+  var eventsSim = {
+    onButtonPress: function (btn, cb) { consoleLog('[Event] Registered: button ' + btn + ' press', 'info'); cb(); },
+    onSensorTrigger: function (trigger, cb) { consoleLog('[Event] Registered: sensor ' + trigger, 'info'); cb(); },
+    every: function (secs, cb) { consoleLog('[Event] Registered: every ' + secs + 's', 'info'); cb(); },
+    broadcast: function (msg) { consoleLog('[Event] Broadcast: ' + msg, 'info'); },
+    onReceive: function (msg, cb) { consoleLog('[Event] Registered: on receive "' + msg + '"', 'info'); cb(); },
+    onDoorOpen: function (cb) { consoleLog('[Event] Registered: door open', 'info'); cb(); },
+    onDoorClose: function (cb) { consoleLog('[Event] Registered: door close', 'info'); cb(); }
+  };
+
+  // --- Hardware Simulators ---
+  var hardwareSim = {
+    pinMode: function (pin, mode) { consoleLog('Pin ' + pin + ' set to ' + mode); },
+    digitalWrite: function (pin, val) { consoleLog('Digital write pin ' + pin + ' = ' + val); },
+    digitalRead: function (pin) { var v = Math.round(Math.random()); consoleLog('Digital read pin ' + pin + ' = ' + v, 'info'); return v; },
+    analogWrite: function (pin, val) { consoleLog('Analog write pin ' + pin + ' = ' + val); },
+    analogRead: function (pin) { var v = Math.floor(Math.random() * 1024); consoleLog('Analog read pin ' + pin + ' = ' + v, 'info'); return v; }
+  };
+
+  var serialSim = {
+    println: function (msg) { consoleLog('[Serial] ' + msg); }
+  };
+
+  // --- Legacy Simulators ---
   var robotSim = {
     moveForward: function (s) { consoleLog('Robot moves forward ' + s + ' steps'); },
     moveBackward: function (s) { consoleLog('Robot moves backward ' + s + ' steps'); },
@@ -152,23 +228,10 @@ function runProgram() {
     wait: function (s) { return new Promise(function (r) { setTimeout(r, s * 1000); }); }
   };
 
-  var sensorSim = {
-    readDistance: function () { var v = Math.floor(Math.random() * 200); consoleLog('Distance: ' + v + 'cm', 'info'); return v; },
-    readLight: function () { var v = Math.floor(Math.random() * 1024); consoleLog('Light: ' + v, 'info'); return v; },
-    readTemperature: function () { var v = (20 + Math.random() * 15).toFixed(1); consoleLog('Temperature: ' + v + 'C', 'info'); return parseFloat(v); },
-    isButtonPressed: function (b) { var v = Math.random() > 0.5; consoleLog('Button ' + b + ': ' + (v ? 'pressed' : 'not pressed'), 'info'); return v; },
-    lineDetected: function (p) { var v = Math.random() > 0.5; consoleLog('Line (' + p + '): ' + (v ? 'detected' : 'not detected'), 'info'); return v; }
-  };
-
   var displaySim = {
     showText: function (t) { consoleLog('Display: ' + t); },
     clear: function () { consoleLog('Display cleared'); },
     setColor: function (c) { consoleLog('Display color: ' + c); }
-  };
-
-  var ledSim = {
-    on: function (p, c) { consoleLog('LED ' + p + ' ON (color: ' + c + ')'); },
-    off: function (p) { consoleLog('LED ' + p + ' OFF'); }
   };
 
   var audioSim = {
@@ -187,20 +250,30 @@ function runProgram() {
     wait: function (s) { return new Promise(function (r) { setTimeout(r, s * 1000); }); }
   };
 
-  // Override window.alert for text_prompt blocks
-  var originalAlert = window.alert;
+  // --- Utility functions ---
+  function mapValue(val, fl, fh, tl, th) {
+    return Math.round((val - fl) * (th - tl) / (fh - fl) + tl);
+  }
+
+  function delayFn(ms) {
+    return new Promise(function (r) { setTimeout(r, ms); });
+  }
 
   try {
     // Replace print statements
     var execCode = code.replace(/window\.alert\(/g, '_print(');
 
     var fn = new Function(
-      'robot', 'sensor', 'display', 'led', 'audio', 'animation', '_print',
+      'robot', 'sensor', 'led', 'servo', 'motor', 'rgbLed', 'oled', 'buzzer',
+      'events', 'hardware', 'Serial', 'display', 'audio', 'animation',
+      'map', 'delay', '_print',
       '"use strict";\n' + execCode
     );
-    fn(robotSim, sensorSim, displaySim, ledSim, audioSim, animSim, function (msg) {
-      consoleLog(String(msg));
-    });
+    fn(
+      robotSim, sensorSim, ledSim, servoSim, motorSim, rgbLedSim, oledSim, buzzerSim,
+      eventsSim, hardwareSim, serialSim, displaySim, audioSim, animSim,
+      mapValue, delayFn, function (msg) { consoleLog(String(msg)); }
+    );
 
     consoleLog('[AARNAITAI ROBO] Program finished.', 'info');
   } catch (e) {
