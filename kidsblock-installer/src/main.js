@@ -4,6 +4,9 @@ const fs = require('fs');
 
 let mainWindow;
 
+// Allow audio/speech to play without user gesture restrictions
+app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,

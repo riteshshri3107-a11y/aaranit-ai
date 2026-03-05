@@ -5,11 +5,79 @@
 let workspace = null;
 let currentFilePath = null;
 let tutorialStep = 0;
+let audioCtx = null;
+let ttsReady = false;
+let ttsVoices = [];
+
+// ===== Audio Engine (global, initialized once) =====
+function initAudio() {
+  // Init Web Audio API
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  } catch (e) {
+    console.warn('AudioContext not available:', e);
+  }
+
+  // Init Text-to-Speech
+  if ('speechSynthesis' in window) {
+    var loadVoices = function () {
+      ttsVoices = window.speechSynthesis.getVoices();
+      if (ttsVoices.length > 0) ttsReady = true;
+    };
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices();
+    // Force TTS engine to wake up
+    var warmup = new SpeechSynthesisUtterance('');
+    warmup.volume = 0;
+    window.speechSynthesis.speak(warmup);
+  }
+}
+
+function speakText(msg) {
+  if (!('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    var utterance = new SpeechSynthesisUtterance(String(msg));
+    utterance.rate = 1.0;
+    utterance.pitch = 1.2;
+    utterance.volume = 1.0;
+    if (ttsVoices.length > 0) {
+      utterance.voice = ttsVoices.find(function (v) { return v.lang.startsWith('en'); }) || ttsVoices[0];
+    }
+    window.speechSynthesis.speak(utterance);
+  } catch (e) {
+    console.warn('TTS error:', e);
+  }
+}
+
+function playTone(freq, durationMs) {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    var oscillator = audioCtx.createOscillator();
+    var gainNode = audioCtx.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.type = 'square';
+    oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (durationMs / 1000));
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + (durationMs / 1000));
+  } catch (e) {
+    console.warn('Tone error:', e);
+  }
+}
+
+function playBeep() {
+  playTone(800, 150);
+}
 
 // ===== Splash Screen =====
 function closeSplash(action) {
   document.getElementById('splash-overlay').style.display = 'none';
   document.getElementById('app-container').classList.remove('hidden');
+  initAudio();
   initWorkspace();
 
   if (action === 'tutorial') {
@@ -241,7 +309,7 @@ function runProgram() {
   };
 
   var audioSim = {
-    playSound: function (s) { consoleLog('Playing sound: ' + s); }
+    playSound: function (s) { consoleLog('Playing sound: ' + s); playBeep(); }
   };
 
   var animSim = {
@@ -265,36 +333,8 @@ function runProgram() {
     return new Promise(function (r) { setTimeout(r, ms); });
   }
 
-  // --- Audio: Text-to-Speech ---
-  function speakText(msg) {
-    try {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        var utterance = new SpeechSynthesisUtterance(String(msg));
-        utterance.rate = 1.0;
-        utterance.pitch = 1.2;
-        utterance.volume = 1.0;
-        window.speechSynthesis.speak(utterance);
-      }
-    } catch (e) { /* speech not available */ }
-  }
-
-  // --- Audio: Tone generator (for buzzer blocks) ---
-  function playTone(freq, durationMs) {
-    try {
-      var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      var oscillator = ctx.createOscillator();
-      var gainNode = ctx.createGain();
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
-      oscillator.type = 'square';
-      oscillator.frequency.setValueAtTime(freq, ctx.currentTime);
-      gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
-      oscillator.start();
-      oscillator.stop(ctx.currentTime + (durationMs / 1000));
-      oscillator.onended = function () { ctx.close(); };
-    } catch (e) { /* audio not available */ }
-  }
+  // Resume audio context (needs user gesture - Run button click counts)
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
 
   try {
     // Replace print statements
